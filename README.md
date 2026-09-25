@@ -16,3 +16,11 @@ git config core.hooksPath .githooks
 ```
 
 Хук `commit-msg` проверяет Conventional Commits и запрещает строки `Co-Authored-By`.
+
+## Тесты
+
+```bash
+"$GODOT" --headless -s addons/gdUnit4/bin/GdUnitCmdTool.gd -a tests --ignoreHeadlessMode
+```
+
+Флаг `--ignoreHeadlessMode` обязателен: без него gdUnit4 отказывается работать без окна. Отчёты пишутся в `reports/` (в git не попадают).

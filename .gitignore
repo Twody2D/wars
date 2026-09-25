@@ -3,6 +3,9 @@
 *.translation
 mono_crash.*.json
 
+# Отчёты gdUnit4
+reports/
+
 # Сборка и экспорт
 build/
 *.zip
