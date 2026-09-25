@@ -1,0 +1,38 @@
+{
+	"id": "slime",
+	"size": 256,
+	"feet": [
+		128.0,
+		240.0
+	],
+	"import_scale": 0.5,
+	"display_scale": 0.25,
+	"order": [
+		"body",
+		"eyes",
+		"team_accent"
+	],
+	"parts": {
+		"body": {
+			"pivot": [
+				127.25,
+				148.0
+			],
+			"rest_deg": 0.0
+		},
+		"eyes": {
+			"pivot": [
+				157.0,
+				150.0
+			],
+			"rest_deg": 0.0
+		},
+		"team_accent": {
+			"pivot": [
+				93.0,
+				68.0
+			],
+			"rest_deg": 0.0
+		}
+	}
+}

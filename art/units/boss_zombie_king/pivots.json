@@ -1,0 +1,78 @@
+{
+	"id": "boss_zombie_king",
+	"size": 512,
+	"feet": [
+		256.0,
+		480.0
+	],
+	"import_scale": 0.5,
+	"display_scale": 0.25,
+	"order": [
+		"arm_back",
+		"leg_back",
+		"leg_front",
+		"body",
+		"head",
+		"arm_front",
+		"weapon",
+		"team_accent"
+	],
+	"parts": {
+		"arm_back": {
+			"pivot": [
+				208.0,
+				292.0
+			],
+			"rest_deg": -20.0
+		},
+		"leg_back": {
+			"pivot": [
+				219.25,
+				388.0
+			],
+			"rest_deg": 0.0
+		},
+		"leg_front": {
+			"pivot": [
+				285.25,
+				388.0
+			],
+			"rest_deg": 0.0
+		},
+		"body": {
+			"pivot": [
+				241.25,
+				344.0
+			],
+			"rest_deg": 0.0
+		},
+		"head": {
+			"pivot": [
+				247.25,
+				280.0
+			],
+			"rest_deg": 0.0
+		},
+		"arm_front": {
+			"pivot": [
+				304.0,
+				292.0
+			],
+			"rest_deg": -20.0
+		},
+		"weapon": {
+			"pivot": [
+				340.0,
+				376.0
+			],
+			"rest_deg": 25.0
+		},
+		"team_accent": {
+			"pivot": [
+				143.5,
+				146.0
+			],
+			"rest_deg": 0.0
+		}
+	}
+}

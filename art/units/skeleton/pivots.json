@@ -1,0 +1,78 @@
+{
+	"id": "skeleton",
+	"size": 256,
+	"feet": [
+		128.0,
+		240.0
+	],
+	"import_scale": 0.5,
+	"display_scale": 0.25,
+	"order": [
+		"arm_back",
+		"leg_back",
+		"leg_front",
+		"body",
+		"head",
+		"arm_front",
+		"weapon",
+		"team_accent"
+	],
+	"parts": {
+		"arm_back": {
+			"pivot": [
+				120.25,
+				144.0
+			],
+			"rest_deg": 0.0
+		},
+		"leg_back": {
+			"pivot": [
+				123.25,
+				188.0
+			],
+			"rest_deg": 0.0
+		},
+		"leg_front": {
+			"pivot": [
+				141.25,
+				188.0
+			],
+			"rest_deg": 0.0
+		},
+		"body": {
+			"pivot": [
+				129.25,
+				166.0
+			],
+			"rest_deg": 0.0
+		},
+		"head": {
+			"pivot": [
+				125.25,
+				138.0
+			],
+			"rest_deg": 0.0
+		},
+		"arm_front": {
+			"pivot": [
+				140.25,
+				144.0
+			],
+			"rest_deg": 0.0
+		},
+		"weapon": {
+			"pivot": [
+				144.5,
+				190.0
+			],
+			"rest_deg": 0.0
+		},
+		"team_accent": {
+			"pivot": [
+				101.5,
+				150.0
+			],
+			"rest_deg": 0.0
+		}
+	}
+}

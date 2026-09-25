@@ -1,0 +1,70 @@
+{
+	"id": "zombie",
+	"size": 256,
+	"feet": [
+		128.0,
+		240.0
+	],
+	"import_scale": 0.5,
+	"display_scale": 0.25,
+	"order": [
+		"arm_back",
+		"leg_back",
+		"leg_front",
+		"body",
+		"head",
+		"arm_front",
+		"team_accent"
+	],
+	"parts": {
+		"arm_back": {
+			"pivot": [
+				116.0,
+				148.0
+			],
+			"rest_deg": -28.0
+		},
+		"leg_back": {
+			"pivot": [
+				115.25,
+				192.0
+			],
+			"rest_deg": 0.0
+		},
+		"leg_front": {
+			"pivot": [
+				138.25,
+				192.0
+			],
+			"rest_deg": 0.0
+		},
+		"body": {
+			"pivot": [
+				127.25,
+				172.0
+			],
+			"rest_deg": 0.0
+		},
+		"head": {
+			"pivot": [
+				127.25,
+				142.0
+			],
+			"rest_deg": 0.0
+		},
+		"arm_front": {
+			"pivot": [
+				142.0,
+				148.0
+			],
+			"rest_deg": -28.0
+		},
+		"team_accent": {
+			"pivot": [
+				80.5,
+				80.0
+			],
+			"rest_deg": 0.0
+		}
+	}
+}

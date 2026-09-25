@@ -1,0 +1,54 @@
+{
+	"id": "barrel_bomber",
+	"size": 256,
+	"feet": [
+		128.0,
+		240.0
+	],
+	"import_scale": 0.5,
+	"display_scale": 0.25,
+	"order": [
+		"leg_back",
+		"leg_front",
+		"body",
+		"team_accent",
+		"fuse"
+	],
+	"parts": {
+		"leg_back": {
+			"pivot": [
+				115.25,
+				208.0
+			],
+			"rest_deg": 0.0
+		},
+		"leg_front": {
+			"pivot": [
+				142.25,
+				208.0
+			],
+			"rest_deg": 0.0
+		},
+		"body": {
+			"pivot": [
+				124.5,
+				152.0
+			],
+			"rest_deg": 0.0
+		},
+		"team_accent": {
+			"pivot": [
+				77.5,
+				181.0
+			],
+			"rest_deg": 0.0
+		},
+		"fuse": {
+			"pivot": [
+				138.5,
+				66.0
+			],
+			"rest_deg": 0.0
+		}
+	}
+}

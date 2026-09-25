@@ -1,0 +1,94 @@
+{
+	"id": "spider",
+	"size": 256,
+	"feet": [
+		128.0,
+		240.0
+	],
+	"import_scale": 0.5,
+	"display_scale": 0.25,
+	"order": [
+		"leg_5",
+		"leg_6",
+		"leg_7",
+		"leg_8",
+		"leg_1",
+		"leg_2",
+		"leg_3",
+		"leg_4",
+		"body",
+		"team_accent"
+	],
+	"parts": {
+		"leg_5": {
+			"pivot": [
+				61.25,
+				132.0
+			],
+			"rest_deg": 0.0
+		},
+		"leg_6": {
+			"pivot": [
+				78.25,
+				132.0
+			],
+			"rest_deg": 0.0
+		},
+		"leg_7": {
+			"pivot": [
+				178.25,
+				132.0
+			],
+			"rest_deg": 0.0
+		},
+		"leg_8": {
+			"pivot": [
+				196.25,
+				132.0
+			],
+			"rest_deg": 0.0
+		},
+		"leg_1": {
+			"pivot": [
+				66.25,
+				146.0
+			],
+			"rest_deg": 0.0
+		},
+		"leg_2": {
+			"pivot": [
+				84.25,
+				146.0
+			],
+			"rest_deg": 0.0
+		},
+		"leg_3": {
+			"pivot": [
+				172.25,
+				146.0
+			],
+			"rest_deg": 0.0
+		},
+		"leg_4": {
+			"pivot": [
+				190.25,
+				146.0
+			],
+			"rest_deg": 0.0
+		},
+		"body": {
+			"pivot": [
+				129.25,
+				152.0
+			],
+			"rest_deg": 0.0
+		},
+		"team_accent": {
+			"pivot": [
+				121.5,
+				121.0
+			],
+			"rest_deg": 0.0
+		}
+	}
+}

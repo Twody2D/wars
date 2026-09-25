@@ -1,0 +1,78 @@
+{
+	"id": "goblin_miner",
+	"size": 256,
+	"feet": [
+		128.0,
+		240.0
+	],
+	"import_scale": 0.5,
+	"display_scale": 0.25,
+	"order": [
+		"arm_back",
+		"leg_back",
+		"leg_front",
+		"body",
+		"head",
+		"arm_front",
+		"weapon",
+		"team_accent"
+	],
+	"parts": {
+		"arm_back": {
+			"pivot": [
+				118.25,
+				166.0
+			],
+			"rest_deg": 0.0
+		},
+		"leg_back": {
+			"pivot": [
+				120.25,
+				202.0
+			],
+			"rest_deg": 0.0
+		},
+		"leg_front": {
+			"pivot": [
+				141.25,
+				202.0
+			],
+			"rest_deg": 0.0
+		},
+		"body": {
+			"pivot": [
+				129.25,
+				183.0
+			],
+			"rest_deg": 0.0
+		},
+		"head": {
+			"pivot": [
+				122.25,
+				164.0
+			],
+			"rest_deg": 0.0
+		},
+		"arm_front": {
+			"pivot": [
+				144.25,
+				166.0
+			],
+			"rest_deg": 0.0
+		},
+		"weapon": {
+			"pivot": [
+				145.0,
+				198.0
+			],
+			"rest_deg": 40.0
+		},
+		"team_accent": {
+			"pivot": [
+				138.5,
+				171.5
+			],
+			"rest_deg": 0.0
+		}
+	}
+}
