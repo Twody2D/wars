@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/battle/unit_visual.gd" id="1_4sron"]
+[ext_resource type="AnimationLibrary" path="res://anim/humanoid.tres" id="2_yeoc8"]
+
+[node name="BossZombieKingVisual" type="Node2D" unique_id=1702557827]
+script = ExtResource("1_4sron")
+unit_id = &"boss_zombie_king"
+anim_speed = 0.6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1671524480]
+libraries/ = ExtResource("2_yeoc8")
+
+[node name="HitPlayer" type="AnimationPlayer" parent="." unique_id=1474165725]
+libraries/ = ExtResource("2_yeoc8")

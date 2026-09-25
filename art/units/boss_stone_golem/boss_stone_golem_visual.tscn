@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/battle/unit_visual.gd" id="1_bhxku"]
+[ext_resource type="AnimationLibrary" path="res://anim/humanoid.tres" id="2_0wd25"]
+
+[node name="BossStoneGolemVisual" type="Node2D" unique_id=1389609189]
+script = ExtResource("1_bhxku")
+unit_id = &"boss_stone_golem"
+anim_speed = 0.6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2139259457]
+libraries/ = ExtResource("2_0wd25")
+
+[node name="HitPlayer" type="AnimationPlayer" parent="." unique_id=566265368]
+libraries/ = ExtResource("2_0wd25")

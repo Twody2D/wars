@@ -1,0 +1,14 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/battle/unit_visual.gd" id="1_28m13"]
+[ext_resource type="AnimationLibrary" path="res://anim/slime.tres" id="2_dkbim"]
+
+[node name="SlimeVisual" type="Node2D" unique_id=770044714]
+script = ExtResource("1_28m13")
+unit_id = &"slime"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=112699929]
+libraries/ = ExtResource("2_dkbim")
+
+[node name="HitPlayer" type="AnimationPlayer" parent="." unique_id=468446613]
+libraries/ = ExtResource("2_dkbim")

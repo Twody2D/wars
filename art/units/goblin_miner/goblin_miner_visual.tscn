@@ -1,0 +1,14 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/battle/unit_visual.gd" id="1_q74uu"]
+[ext_resource type="AnimationLibrary" path="res://anim/humanoid.tres" id="2_lbfml"]
+
+[node name="GoblinMinerVisual" type="Node2D" unique_id=819175981]
+script = ExtResource("1_q74uu")
+unit_id = &"goblin_miner"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=158619890]
+libraries/ = ExtResource("2_lbfml")
+
+[node name="HitPlayer" type="AnimationPlayer" parent="." unique_id=500111964]
+libraries/ = ExtResource("2_lbfml")
