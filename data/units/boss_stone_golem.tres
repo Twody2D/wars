@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="UnitData" format=3]
+
+[ext_resource type="Texture2D" path="res://art/units/boss_stone_golem/portrait.svg" id="1_jp8t1"]
+[ext_resource type="Script" path="res://scripts/data/unit_data.gd" id="2_rnkmg"]
+[ext_resource type="PackedScene" path="res://art/units/boss_stone_golem/boss_stone_golem_visual.tscn" id="3_0w7yb"]
+
+[resource]
+script = ExtResource("2_rnkmg")
+id = &"boss_stone_golem"
+name_key = "UNIT_BOSS_STONE_GOLEM"
+hp = 2000.0
+damage = 45.0
+cooldown = 2.0
+attack_range = 35.0
+speed = 18.0
+splash_radius = 50.0
+hit_delay = 0.5
+cost = 0
+unlock_biome = 2
+is_boss = true
+visual = ExtResource("3_0w7yb")
+portrait = ExtResource("1_jp8t1")

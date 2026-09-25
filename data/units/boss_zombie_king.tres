@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="UnitData" format=3]
+
+[ext_resource type="Texture2D" path="res://art/units/boss_zombie_king/portrait.svg" id="1_i7mqh"]
+[ext_resource type="Script" path="res://scripts/data/unit_data.gd" id="2_ggifg"]
+[ext_resource type="PackedScene" path="res://art/units/boss_zombie_king/boss_zombie_king_visual.tscn" id="3_jws64"]
+
+[resource]
+script = ExtResource("2_ggifg")
+id = &"boss_zombie_king"
+name_key = "UNIT_BOSS_ZOMBIE_KING"
+hp = 1200.0
+damage = 30.0
+cooldown = 1.5
+attack_range = 30.0
+speed = 20.0
+hit_delay = 0.5
+cost = 0
+is_boss = true
+visual = ExtResource("3_jws64")
+portrait = ExtResource("1_i7mqh")

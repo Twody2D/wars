@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/upgrade_data.gd" id="1_ev4rh"]
+
+[resource]
+script = ExtResource("1_ev4rh")
+id = &"food_rate"
+name_key = "UPGRADE_FOOD_RATE"
+per_level = 0.05

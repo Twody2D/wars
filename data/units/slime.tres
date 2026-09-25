@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="UnitData" format=3]
+
+[ext_resource type="Texture2D" path="res://art/units/slime/portrait.svg" id="1_lqcv3"]
+[ext_resource type="Script" path="res://scripts/data/unit_data.gd" id="2_xen4c"]
+[ext_resource type="PackedScene" path="res://art/units/slime/slime_visual.tscn" id="3_mdm02"]
+
+[resource]
+script = ExtResource("2_xen4c")
+id = &"slime"
+name_key = "UNIT_SLIME"
+hp = 150.0
+cooldown = 1.2
+speed = 30.0
+cost = 7
+unlock_cost = 150
+visual = ExtResource("3_mdm02")
+portrait = ExtResource("1_lqcv3")

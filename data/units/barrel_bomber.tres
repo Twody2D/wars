@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="UnitData" format=3]
+
+[ext_resource type="Texture2D" path="res://art/units/barrel_bomber/portrait.svg" id="1_0scts"]
+[ext_resource type="Script" path="res://scripts/data/unit_data.gd" id="2_e765u"]
+[ext_resource type="PackedScene" path="res://art/units/barrel_bomber/barrel_bomber_visual.tscn" id="3_5aq35"]
+
+[resource]
+script = ExtResource("2_e765u")
+id = &"barrel_bomber"
+name_key = "UNIT_BARREL_BOMBER"
+hp = 30.0
+damage = 60.0
+speed = 45.0
+splash_radius = 60.0
+hit_delay = 0.4
+explodes = true
+cost = 8
+unlock_cost = 800
+unlock_biome = 2
+visual = ExtResource("3_5aq35")
+portrait = ExtResource("1_0scts")

@@ -25,6 +25,7 @@ OUT = ROOT / "art" / "units"
 IMPORT_SCALE = 0.5
 DISPLAY_SCALE = 0.25
 FEET_Y = {256: 240.0, 512: 480.0}
+PORTRAIT_PX = 128
 
 GROUP_RE = re.compile(r'<g id="([^"]+)"([^>]*)>(.*?)</g>', re.S)
 ROTATE_RE = re.compile(r'rotate\(\s*([-\d.]+)\s+([-\d.]+)\s+([-\d.]+)\s*\)')
@@ -145,6 +146,7 @@ def split(svg_path: Path) -> str:
 	}
 	(out_dir / "pivots.json").write_text(json.dumps(data, indent="\t") + "\n", encoding="utf-8", newline="\n")
 	write_import_files(out_dir, order)
+	write_portrait(out_dir, text, size)
 	return f"{unit_id}: {len(order)} parts ({', '.join(order)})"
 
 
@@ -157,6 +159,19 @@ def write_import_files(out_dir: Path, parts: list[str]) -> None:
 		imp.write_text(
 			'[remap]\n\nimporter="texture"\ntype="CompressedTexture2D"\n\n'
 			f"[params]\n\ncompress/mode=0\nmipmaps/generate=false\nsvg/scale={IMPORT_SCALE}\n",
+			encoding="utf-8",
+			newline="\n",
+		)
+
+
+def write_portrait(out_dir: Path, clean_text: str, size: int) -> None:
+	"""Whole character for unit cards, imported at PORTRAIT_PX."""
+	(out_dir / "portrait.svg").write_text(clean_text, encoding="utf-8", newline="\n")
+	imp = out_dir / "portrait.svg.import"
+	if not imp.exists():
+		imp.write_text(
+			'[remap]\n\nimporter="texture"\ntype="CompressedTexture2D"\n\n'
+			f"[params]\n\ncompress/mode=0\nmipmaps/generate=false\nsvg/scale={PORTRAIT_PX / size}\n",
 			encoding="utf-8",
 			newline="\n",
 		)

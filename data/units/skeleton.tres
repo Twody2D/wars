@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="UnitData" format=3]
+
+[ext_resource type="Texture2D" path="res://art/units/skeleton/portrait.svg" id="1_hk6eh"]
+[ext_resource type="Script" path="res://scripts/data/unit_data.gd" id="2_ixclv"]
+[ext_resource type="PackedScene" path="res://art/units/skeleton/skeleton_visual.tscn" id="3_aqewh"]
+
+[resource]
+script = ExtResource("2_ixclv")
+id = &"skeleton"
+name_key = "UNIT_SKELETON"
+hp = 35.0
+damage = 7.0
+cooldown = 1.4
+attack_range = 180.0
+speed = 38.0
+projectile = &"arrow"
+cost = 5
+visual = ExtResource("3_aqewh")
+portrait = ExtResource("1_hk6eh")

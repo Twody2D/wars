@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="UnitData" format=3]
+
+[ext_resource type="Texture2D" path="res://art/units/goblin_miner/portrait.svg" id="1_8mw1c"]
+[ext_resource type="Script" path="res://scripts/data/unit_data.gd" id="2_oslsw"]
+[ext_resource type="PackedScene" path="res://art/units/goblin_miner/goblin_miner_visual.tscn" id="3_i4ugc"]
+
+[resource]
+script = ExtResource("2_oslsw")
+id = &"goblin_miner"
+name_key = "UNIT_GOBLIN_MINER"
+hp = 55.0
+damage = 12.0
+cooldown = 1.6
+attack_range = 120.0
+speed = 38.0
+projectile = &"pickaxe"
+cost = 6
+unlock_cost = 500
+unlock_biome = 2
+visual = ExtResource("3_i4ugc")
+portrait = ExtResource("1_8mw1c")

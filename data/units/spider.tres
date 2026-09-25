@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="UnitData" format=3]
+
+[ext_resource type="Texture2D" path="res://art/units/spider/portrait.svg" id="1_ebqtr"]
+[ext_resource type="Script" path="res://scripts/data/unit_data.gd" id="2_mqiol"]
+[ext_resource type="PackedScene" path="res://art/units/spider/spider_visual.tscn" id="3_eq3nt"]
+
+[resource]
+script = ExtResource("2_mqiol")
+id = &"spider"
+name_key = "UNIT_SPIDER"
+hp = 40.0
+damage = 6.0
+cooldown = 0.6
+attack_range = 18.0
+speed = 70.0
+cost = 4
+unlock_cost = 300
+visual = ExtResource("3_eq3nt")
+portrait = ExtResource("1_ebqtr")

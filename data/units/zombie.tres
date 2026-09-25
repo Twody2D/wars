@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UnitData" format=3]
+
+[ext_resource type="Texture2D" path="res://art/units/zombie/portrait.svg" id="1_kus3a"]
+[ext_resource type="Script" path="res://scripts/data/unit_data.gd" id="2_mwnfy"]
+[ext_resource type="PackedScene" path="res://art/units/zombie/zombie_visual.tscn" id="3_4ice4"]
+
+[resource]
+script = ExtResource("2_mwnfy")
+id = &"zombie"
+name_key = "UNIT_ZOMBIE"
+hp = 60.0
+damage = 8.0
+visual = ExtResource("3_4ice4")
+portrait = ExtResource("1_kus3a")
