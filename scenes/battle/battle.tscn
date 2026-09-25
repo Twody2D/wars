@@ -73,9 +73,16 @@ biome_bases = {
 &"meadow": [ExtResource("4_bm_i"), ExtResource("5_bm_d"), ExtResource("6_bm_x")]
 }
 
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+
 [node name="Background" type="Sprite2D" parent="."]
+texture_repeat = 3
+position = Vector2(-400, -300)
 texture = ExtResource("2_bg_meadow")
 centered = false
+region_enabled = true
+region_rect = Rect2(-400, -300, 2080, 1320)
 
 [node name="Decor" type="Node2D" parent="."]
 

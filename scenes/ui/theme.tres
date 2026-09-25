@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=14 format=3]
+[gd_resource type="Theme" load_steps=15 format=3]
 
 [ext_resource type="Texture2D" path="res://art/ui/ui_btn_primary_normal.svg" id="1_pn"]
 [ext_resource type="Texture2D" path="res://art/ui/ui_btn_primary_pressed.svg" id="2_pp"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" path="res://art/ui/ui_btn_danger_normal.svg" id="6_dn"]
 [ext_resource type="Texture2D" path="res://art/ui/ui_btn_danger_pressed.svg" id="7_dp"]
 [ext_resource type="Texture2D" path="res://art/ui/ui_panel.svg" id="8_panel"]
+[ext_resource type="FontFile" path="res://art/fonts/russo_one.ttf" id="9_font"]
 
 [sub_resource type="StyleBoxTexture" id="primary_normal"]
 content_margin_left = 22.0
@@ -107,6 +108,7 @@ content_margin_bottom = 2.0
 bg_color = Color(0.105882, 0.105882, 0.184314, 0.8)
 
 [resource]
+default_font = ExtResource("9_font")
 default_font_size = 22
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_disabled_color = Color(0.85, 0.85, 0.85, 1)

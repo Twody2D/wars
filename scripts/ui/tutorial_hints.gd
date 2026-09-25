@@ -47,7 +47,9 @@ func _process(delta: float) -> void:
 		&"ore":
 			var ores: Array[OreBlock] = _battle._ore_list()
 			if not ores.is_empty():
-				target = ores[0].get_global_rect()
+				# World → screen: the battle camera centres the field.
+				var xf: Transform2D = ores[0].get_global_transform_with_canvas()
+				target = Rect2(xf.origin, ores[0].size * xf.get_scale())
 		&"meteor":
 			if _battle.sim.meteor_charges <= 0 or _battle.sim.alive_count(BattleSim.BOT) == 0:
 				_hand.visible = false
@@ -63,5 +65,5 @@ func _process(delta: float) -> void:
 	_hand.global_position = tip - fingertip * _hand.size + Vector2(0.0, bob)
 	_label.text = tr(TEXTS[_step])
 	_label.global_position = Vector2(
-		clampf(target.get_center().x - _label.size.x / 2.0, 16.0, 1264.0 - _label.size.x),
+		clampf(target.get_center().x - _label.size.x / 2.0, 16.0, get_viewport_rect().size.x - 16.0 - _label.size.x),
 		_hand.global_position.y - _label.size.y - 4.0)

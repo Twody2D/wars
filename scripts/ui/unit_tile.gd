@@ -31,7 +31,7 @@ func refresh() -> void:
 		var lvl: int = GameState.unit_level(unit.id)
 		_level.text = tr("UPGRADE_LEVEL_FMT") % [lvl, GameState.balance().unit_max_level]
 		var cost: int = GameState.unit_level_cost(unit.id)
-		_button.text = tr("MAX") if cost < 0 else "↑ %d" % cost
+		_button.text = tr("MAX") if cost < 0 else "%s %d" % [tr("BTN_LEVEL_UP"), cost]
 		_button.disabled = cost < 0 or GameState.coins < cost
 	else:
 		var cost: int = GameState.unit_unlock_cost(unit.id)
