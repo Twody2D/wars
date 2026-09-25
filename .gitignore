@@ -1,3 +1,30 @@
-# Godot 4+ specific ignores
+# Godot 4
 .godot/
-/android/
+*.translation
+mono_crash.*.json
+
+# Сборка и экспорт
+build/
+*.zip
+*.pck
+*.wasm
+
+# Временные файлы
+*.tmp
+*.bak
+*.orig
+*~
+
+# Python (tools/)
+__pycache__/
+*.pyc
+
+# Редакторы
+.vscode/
+.idea/
+*.swp
+
+# ОС
+Thumbs.db
+Desktop.ini
+.DS_Store
