@@ -44,7 +44,7 @@ func _init() -> void:
 			coins += result.coins
 			log_line += "%s(%.0fs,+%d,bot%d%%) " % ["W" if won else "L", sim.time, result.coins,
 				roundi(sim.base_hp[1] / sim.base_max_hp[1] * 100.0)]
-			coins = _spend(config, b, coins, ups, unit_lvls)
+			coins = _spend(config, b, coins, ups, unit_lvls, 1 + (n - 1) / config.levels_per_biome)
 		print("L%02d attempts=%d %s| coins=%d ups=%s units=%s" % [n, attempts, log_line, coins, ups, unit_lvls])
 		if not won:
 			break
@@ -52,7 +52,8 @@ func _init() -> void:
 
 
 ## Greedy: buy the cheapest thing available until nothing is affordable.
-func _spend(config: GameConfig, b: BalanceData, coins: int, ups: Dictionary[StringName, int], unit_lvls: Dictionary[StringName, int]) -> int:
+func _spend(config: GameConfig, b: BalanceData, coins: int, ups: Dictionary[StringName, int], unit_lvls: Dictionary[StringName, int], biome: int) -> int:
+	var unit_up: UpgradeData = config.upgrade(&"unit_level")
 	while true:
 		var best_cost := 1 << 30
 		var best := ""
@@ -64,15 +65,22 @@ func _spend(config: GameConfig, b: BalanceData, coins: int, ups: Dictionary[Stri
 					best_cost = c
 					best = "up:" + String(id)
 		for u: UnitData in config.player_units:
-			if not unit_lvls.has(u.id) and u.unlock_biome == 1 and u.unlock_cost < best_cost:
+			if not unit_lvls.has(u.id) and u.unlock_biome <= biome and u.unlock_cost < best_cost:
 				best_cost = u.unlock_cost
 				best = "unlock:" + String(u.id)
+			elif unit_lvls.has(u.id) and unit_lvls[u.id] < b.unit_max_level:
+				var lc: int = unit_up.cost_for_level(unit_lvls[u.id] - 1, b.upgrade_cost_growth, b.upgrade_cost_round)
+				if lc < best_cost:
+					best_cost = lc
+					best = "level:" + String(u.id)
 		if best == "" or best_cost > coins:
 			return coins
 		coins -= best_cost
 		var parts: PackedStringArray = best.split(":")
 		if parts[0] == "up":
 			ups[StringName(parts[1])] += 1
+		elif parts[0] == "level":
+			unit_lvls[StringName(parts[1])] += 1
 		else:
 			unit_lvls[StringName(parts[1])] = 1
 	return coins

@@ -19,11 +19,13 @@ const BOT_FOOD: Array[float] = [
 	0.3, 0.3, 0.31, 0.32, 0.33, 0.34, 0.34, 0.35, 0.36, 0.37,
 	0.33, 0.34, 0.35, 0.35, 0.36, 0.37, 0.38, 0.39, 0.4, 0.4,
 ]
-## HP/damage multiplier of bot units, index 0 = level 1. Without "army power"
-## upgrades even level 1 is lost; one level of it tips level 1.
+## HP/damage multiplier of bot units, index 0 = level 1. Set from
+## tools/probe_breakeven.gd (power at which a typical player wins half the time):
+## ordinary levels ~0.93 of break-even, every third level and bosses ~1.1 —
+## "lose a couple of times, upgrade, win". Level 1: lost without upgrades.
 const BOT_POWER: Array[float] = [
-	1.05, 1.15, 1.25, 1.35, 1.45, 1.55, 1.65, 1.75, 1.85, 1.8,
-	1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.4,
+	1.05, 1.1, 1.05, 1.55, 1.55, 1.7, 1.8, 1.85, 1.95, 2.1,
+	2.15, 2.5, 2.85, 2.65, 2.7, 3.25, 2.7, 3.0, 3.2, 3.65,
 ]
 ## Boss levels get a smaller army: the boss is the threat.
 const BOSS_LEVEL_BUDGET := 0.75
