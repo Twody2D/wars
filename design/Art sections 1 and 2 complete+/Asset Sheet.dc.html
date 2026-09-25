@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap">
+<style>body{margin:0;background:#EDEAE0;} a{color:#1B1B2F;text-decoration:none;} a:hover{color:#3A7BFF;text-decoration:underline;}</style>
+</helmet>
+<div style="min-height:100vh;font-family:'Space Grotesk',sans-serif;color:#1B1B2F;padding:40px 32px 80px;box-sizing:border-box;">
+  <header style="max-width:1400px;margin:0 auto 32px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;border-bottom:3px solid #1B1B2F;padding-bottom:16px;">
+    <div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;">[GAME TITLE] · Art bible</div>
+      <h1 style="margin:4px 0 0;font-size:40px;line-height:1;">Asset sheet</h1>
+    </div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:12px;">{{ countLabel }}</div>
+  </header>
+  <sc-for list="{{ sections }}" as="sec" hint-placeholder-count="2">
+    <section style="max-width:1400px;margin:0 auto 56px;">
+      <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-bottom:16px;">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:13px;background:#1B1B2F;color:#FFFFFF;padding:2px 8px;">{{ sec.num }}</span>
+        <h2 style="margin:0;font-size:24px;">{{ sec.title }}</h2>
+        <span style="font-size:14px;">{{ sec.note }}</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;">
+        <sc-for list="{{ sec.items }}" as="it">
+          <figure style="margin:0;display:flex;flex-direction:column;gap:8px;max-width:100%;">
+            <div style="position:relative;width:{{ it.boxW }};max-width:100%;border:2px solid #1B1B2F;background-color:{{ bgColor }};background-image:{{ bgImage }};background-size:16px 16px;">
+              <img src="{{ it.file }}" alt="{{ it.name }}" style="display:block;width:100%;height:auto;">
+              <sc-if value="{{ it.showLane }}">
+                <div style="position:absolute;left:12.5%;width:75%;top:45.83%;height:16.67%;border:1px dashed #FF4A4A;box-sizing:border-box;pointer-events:none;"></div>
+                <div style="position:absolute;left:0;right:0;top:8.33%;border-top:1px dashed #FFFFFF;pointer-events:none;"></div>
+                <div style="position:absolute;left:0;right:0;top:77.78%;border-top:1px dashed #FFFFFF;pointer-events:none;"></div>
+              </sc-if>
+              <sc-if value="{{ it.showGuide }}">
+                <div style="position:absolute;left:0;right:0;top:{{ it.guideTop }};border-top:1px dashed #FF4A4A;pointer-events:none;"></div>
+              </sc-if>
+            </div>
+            <figcaption style="display:flex;justify-content:space-between;gap:12px;font-family:'JetBrains Mono',monospace;font-size:12px;">
+              <a href="{{ it.file }}" download="{{ it.dl }}" style="font-weight:600;">{{ it.name }}</a>
+              <span>{{ it.size }}</span>
+            </figcaption>
+          </figure>
+        </sc-for>
+      </div>
+    </section>
+  </sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;zoom&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.5,&quot;max&quot;:2,&quot;step&quot;:0.25,&quot;tsType&quot;:&quot;number&quot;},&quot;showGuides&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;background&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;checker&quot;,&quot;options&quot;:[&quot;checker&quot;,&quot;light&quot;,&quot;dark&quot;],&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { m: null };
+  componentDidMount() {
+    fetch('assets/manifest.json?' + Date.now()).then(r => r.json()).then(m => this.setState({ m })).catch(e => console.error(e));
+  }
+  renderVals() {
+    const zoom = this.props.zoom ?? 1, guides = this.props.showGuides ?? true, bg = this.props.background ?? 'checker';
+    const secs = (this.state.m ? this.state.m.sections : []).map(s => ({
+      num: String(s.num).padStart(2, '0'), title: s.title, note: s.note || '',
+      items: s.items.map(it => ({
+        name: it.name, file: it.file, dl: it.name + '.svg', size: it.w + '×' + it.h,
+        boxW: Math.round(it.w * zoom * (it.scale || 1)) + 'px',
+        showGuide: guides && it.guideY != null, guideTop: (it.guideY / it.h * 100) + '%',
+        showLane: guides && !!it.laneGuide
+      }))
+    }));
+    const bgs = { checker: ['#FFFFFF', 'conic-gradient(#E4E1D6 25%, transparent 0 50%, #E4E1D6 0 75%, transparent 0)'], light: ['#F7F5EF', 'none'], dark: ['#2B2740', 'none'] };
+    const [bgColor, bgImage] = bgs[bg] || bgs.checker;
+    const n = secs.reduce((a, s) => a + s.items.length, 0);
+    return { sections: secs, bgColor, bgImage, countLabel: n + ' artboards · SVG · Godot 4' };
+  }
+}
+</script>
+</body>
+</html>

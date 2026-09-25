@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+msg_file="$1"
+first_line=$(head -n1 "$msg_file")
+pattern='^(feat|fix|refactor|perf|test|build|docs|chore)(\([a-z0-9-]+\))?!?: .{1,72}$'
+
+if ! [[ "$first_line" =~ $pattern ]]; then
+  echo "Коммит не по Conventional Commits: $first_line" >&2
+  exit 1
+fi
+if grep -qi '^co-authored-by:' "$msg_file"; then
+  echo "Строки Co-Authored-By не добавляем" >&2
+  exit 1
+fi
