@@ -1,0 +1,81 @@
+[gd_resource type="Resource" script_class="LevelData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/unit_data.gd" id="1_6wkqx"]
+[ext_resource type="Resource" path="res://data/units/zombie.tres" id="2_xg06x"]
+[ext_resource type="Resource" path="res://data/units/skeleton.tres" id="3_bsgu1"]
+[ext_resource type="Script" path="res://scripts/data/level_data.gd" id="4_ri5om"]
+[ext_resource type="Script" path="res://scripts/data/wave_data.gd" id="5_pd480"]
+[ext_resource type="Script" path="res://scripts/data/wave_entry.gd" id="6_cls38"]
+
+[sub_resource type="Resource" id="Resource_c3pel"]
+script = ExtResource("6_cls38")
+unit = ExtResource("2_xg06x")
+count = 3
+interval_sec = 2.0
+
+[sub_resource type="Resource" id="Resource_mpxrr"]
+script = ExtResource("5_pd480")
+start_sec = 10.0
+entries = Array[ExtResource("6_cls38")]([SubResource("Resource_c3pel")])
+
+[sub_resource type="Resource" id="Resource_wl3ub"]
+script = ExtResource("6_cls38")
+unit = ExtResource("2_xg06x")
+count = 6
+interval_sec = 2.0
+
+[sub_resource type="Resource" id="Resource_cbk50"]
+script = ExtResource("6_cls38")
+unit = ExtResource("3_bsgu1")
+count = 2
+interval_sec = 3.0
+
+[sub_resource type="Resource" id="Resource_tmxp7"]
+script = ExtResource("5_pd480")
+start_sec = 30.0
+entries = Array[ExtResource("6_cls38")]([SubResource("Resource_wl3ub"), SubResource("Resource_cbk50")])
+
+[sub_resource type="Resource" id="Resource_6lfad"]
+script = ExtResource("6_cls38")
+unit = ExtResource("2_xg06x")
+count = 8
+interval_sec = 2.0
+
+[sub_resource type="Resource" id="Resource_sor5y"]
+script = ExtResource("6_cls38")
+unit = ExtResource("3_bsgu1")
+count = 3
+interval_sec = 3.0
+
+[sub_resource type="Resource" id="Resource_c7m3g"]
+script = ExtResource("5_pd480")
+start_sec = 50.0
+entries = Array[ExtResource("6_cls38")]([SubResource("Resource_6lfad"), SubResource("Resource_sor5y")])
+
+[sub_resource type="Resource" id="Resource_0ofsp"]
+script = ExtResource("6_cls38")
+unit = ExtResource("2_xg06x")
+count = 10
+interval_sec = 2.0
+
+[sub_resource type="Resource" id="Resource_agkup"]
+script = ExtResource("6_cls38")
+unit = ExtResource("3_bsgu1")
+count = 3
+interval_sec = 3.0
+
+[sub_resource type="Resource" id="Resource_qgl00"]
+script = ExtResource("5_pd480")
+start_sec = 70.0
+entries = Array[ExtResource("6_cls38")]([SubResource("Resource_0ofsp"), SubResource("Resource_agkup")])
+
+[resource]
+script = ExtResource("4_ri5om")
+number = 2
+bot_base_hp = 460.0
+bot_power = 1.8
+waves = Array[ExtResource("5_pd480")]([SubResource("Resource_mpxrr"), SubResource("Resource_tmxp7"), SubResource("Resource_c7m3g"), SubResource("Resource_qgl00")])
+bot_food_per_sec = 1.1
+counter_pick = true
+bot_units = Array[ExtResource("1_6wkqx")]([ExtResource("2_xg06x"), ExtResource("3_bsgu1")])
+reward_coins = 25
