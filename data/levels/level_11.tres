@@ -17,7 +17,7 @@ interval_sec = 2.0
 
 [sub_resource type="Resource" id="Resource_3kkl6"]
 script = ExtResource("8_nida2")
-start_sec = 10.0
+start_sec = 8.0
 entries = Array[ExtResource("9_ehboj")]([SubResource("Resource_d0ick")])
 
 [sub_resource type="Resource" id="Resource_doc45"]
@@ -27,7 +27,7 @@ interval_sec = 2.0
 
 [sub_resource type="Resource" id="Resource_ciqco"]
 script = ExtResource("8_nida2")
-start_sec = 30.0
+start_sec = 24.0
 entries = Array[ExtResource("9_ehboj")]([SubResource("Resource_doc45")])
 
 [sub_resource type="Resource" id="Resource_cvify"]
@@ -37,102 +37,88 @@ interval_sec = 2.0
 
 [sub_resource type="Resource" id="Resource_fdht5"]
 script = ExtResource("8_nida2")
-start_sec = 50.0
+start_sec = 40.0
 entries = Array[ExtResource("9_ehboj")]([SubResource("Resource_cvify")])
 
 [sub_resource type="Resource" id="Resource_vik2k"]
 script = ExtResource("9_ehboj")
 unit = ExtResource("2_krkt7")
-count = 2
 interval_sec = 2.0
 
 [sub_resource type="Resource" id="Resource_s6u52"]
-script = ExtResource("9_ehboj")
-unit = ExtResource("3_ga4yp")
-interval_sec = 3.0
+script = ExtResource("8_nida2")
+start_sec = 56.0
+entries = Array[ExtResource("9_ehboj")]([SubResource("Resource_vik2k")])
 
 [sub_resource type="Resource" id="Resource_10kqf"]
-script = ExtResource("8_nida2")
-start_sec = 70.0
-entries = Array[ExtResource("9_ehboj")]([SubResource("Resource_vik2k"), SubResource("Resource_s6u52")])
+script = ExtResource("9_ehboj")
+unit = ExtResource("2_krkt7")
+interval_sec = 2.0
 
 [sub_resource type="Resource" id="Resource_63g5p"]
 script = ExtResource("9_ehboj")
-unit = ExtResource("2_krkt7")
-count = 2
-interval_sec = 2.0
-
-[sub_resource type="Resource" id="Resource_5rdao"]
-script = ExtResource("9_ehboj")
 unit = ExtResource("3_ga4yp")
 interval_sec = 3.0
 
-[sub_resource type="Resource" id="Resource_oo7pp"]
+[sub_resource type="Resource" id="Resource_5rdao"]
 script = ExtResource("8_nida2")
-start_sec = 90.0
-entries = Array[ExtResource("9_ehboj")]([SubResource("Resource_63g5p"), SubResource("Resource_5rdao")])
+start_sec = 72.0
+entries = Array[ExtResource("9_ehboj")]([SubResource("Resource_10kqf"), SubResource("Resource_63g5p")])
 
-[sub_resource type="Resource" id="Resource_jngl1"]
+[sub_resource type="Resource" id="Resource_oo7pp"]
 script = ExtResource("9_ehboj")
 unit = ExtResource("2_krkt7")
-count = 2
 interval_sec = 2.0
+
+[sub_resource type="Resource" id="Resource_jngl1"]
+script = ExtResource("8_nida2")
+start_sec = 88.0
+entries = Array[ExtResource("9_ehboj")]([SubResource("Resource_oo7pp")])
 
 [sub_resource type="Resource" id="Resource_cal2l"]
 script = ExtResource("9_ehboj")
-unit = ExtResource("3_ga4yp")
-interval_sec = 3.0
+unit = ExtResource("2_krkt7")
+interval_sec = 2.0
 
 [sub_resource type="Resource" id="Resource_npwc1"]
-script = ExtResource("8_nida2")
-start_sec = 110.0
-entries = Array[ExtResource("9_ehboj")]([SubResource("Resource_jngl1"), SubResource("Resource_cal2l")])
-
-[sub_resource type="Resource" id="Resource_uvunx"]
-script = ExtResource("9_ehboj")
-unit = ExtResource("2_krkt7")
-count = 2
-interval_sec = 2.0
-
-[sub_resource type="Resource" id="Resource_b4u6o"]
-script = ExtResource("9_ehboj")
-unit = ExtResource("3_ga4yp")
-interval_sec = 3.0
-
-[sub_resource type="Resource" id="Resource_n7g1k"]
-script = ExtResource("8_nida2")
-start_sec = 130.0
-entries = Array[ExtResource("9_ehboj")]([SubResource("Resource_uvunx"), SubResource("Resource_b4u6o")])
-
-[sub_resource type="Resource" id="Resource_ypxa4"]
-script = ExtResource("9_ehboj")
-unit = ExtResource("2_krkt7")
-count = 3
-interval_sec = 2.0
-
-[sub_resource type="Resource" id="Resource_tqsjf"]
-script = ExtResource("9_ehboj")
-unit = ExtResource("3_ga4yp")
-interval_sec = 3.0
-
-[sub_resource type="Resource" id="Resource_751ua"]
 script = ExtResource("9_ehboj")
 unit = ExtResource("4_j7276")
 interval_sec = 2.0
 
-[sub_resource type="Resource" id="Resource_8jdtq"]
+[sub_resource type="Resource" id="Resource_uvunx"]
+script = ExtResource("9_ehboj")
+unit = ExtResource("6_ulq8l")
+interval_sec = 3.5
+
+[sub_resource type="Resource" id="Resource_b4u6o"]
 script = ExtResource("8_nida2")
-start_sec = 150.0
-entries = Array[ExtResource("9_ehboj")]([SubResource("Resource_ypxa4"), SubResource("Resource_tqsjf"), SubResource("Resource_751ua")])
+start_sec = 104.0
+entries = Array[ExtResource("9_ehboj")]([SubResource("Resource_cal2l"), SubResource("Resource_npwc1"), SubResource("Resource_uvunx")])
+
+[sub_resource type="Resource" id="Resource_n7g1k"]
+script = ExtResource("9_ehboj")
+unit = ExtResource("2_krkt7")
+count = 2
+interval_sec = 2.0
+
+[sub_resource type="Resource" id="Resource_ypxa4"]
+script = ExtResource("9_ehboj")
+unit = ExtResource("3_ga4yp")
+interval_sec = 3.0
+
+[sub_resource type="Resource" id="Resource_tqsjf"]
+script = ExtResource("8_nida2")
+start_sec = 120.0
+entries = Array[ExtResource("9_ehboj")]([SubResource("Resource_n7g1k"), SubResource("Resource_ypxa4")])
 
 [resource]
 script = ExtResource("7_4gs8i")
 number = 11
 biome = &"cave"
-bot_base_hp = 980.0
-bot_power = 1.4
-waves = Array[ExtResource("8_nida2")]([SubResource("Resource_3kkl6"), SubResource("Resource_ciqco"), SubResource("Resource_fdht5"), SubResource("Resource_10kqf"), SubResource("Resource_oo7pp"), SubResource("Resource_npwc1"), SubResource("Resource_n7g1k"), SubResource("Resource_8jdtq")])
-bot_food_per_sec = 0.6
+bot_base_hp = 590.0
+bot_power = 1.6
+waves = Array[ExtResource("8_nida2")]([SubResource("Resource_3kkl6"), SubResource("Resource_ciqco"), SubResource("Resource_fdht5"), SubResource("Resource_s6u52"), SubResource("Resource_5rdao"), SubResource("Resource_jngl1"), SubResource("Resource_b4u6o"), SubResource("Resource_tqsjf")])
+bot_food_per_sec = 0.33
 counter_pick = true
 bot_units = Array[ExtResource("1_utf61")]([ExtResource("2_krkt7"), ExtResource("3_ga4yp"), ExtResource("4_j7276"), ExtResource("5_w6604"), ExtResource("6_ulq8l")])
-reward_coins = 70
+reward_coins = 80

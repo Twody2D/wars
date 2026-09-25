@@ -155,7 +155,7 @@ func buy(data: UnitData) -> SimUnit:
 		return null
 	food -= data.cost
 	card_cooldowns[data.id] = balance.card_cooldown
-	return spawn(PLAYER, data, setup.level_of(data))
+	return spawn(PLAYER, data, setup.level_of(data), setup.player_power)
 
 
 func tap_ore(index: int) -> bool:

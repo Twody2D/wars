@@ -18,6 +18,7 @@ const UNITS: Dictionary[String, Array] = {
 
 # id: [base_cost, max_level, per_level, one_time]
 const UPGRADES: Dictionary[String, Array] = {
+	"army_power": [20, 10, 0.1, false],
 	"food_rate": [30, 10, 0.05, false],
 	"base_hp": [20, 10, 75.0, false],
 	"start_food": [40, 5, 3.0, false],

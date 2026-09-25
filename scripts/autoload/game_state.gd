@@ -191,6 +191,7 @@ func make_setup(level_data: LevelData) -> BattleSetup:
 	s.food_max = b.food_max + floorf(food_lvl / 2.0) * b.food_max_per_2_levels
 	s.player_base_hp = b.player_base_hp + upgrade_level(&"base_hp") * _per_level(&"base_hp")
 	s.start_food = b.start_food + upgrade_level(&"start_food") * _per_level(&"start_food")
+	s.player_power = 1.0 + upgrade_level(&"army_power") * _per_level(&"army_power")
 	for id: StringName in unit_levels:
 		s.unit_levels[id] = unit_levels[id]
 	return s

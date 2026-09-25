@@ -58,7 +58,8 @@ func refresh(sim: BattleSim, bot: BattleBot) -> void:
 	_food_progress.value = 100.0 if full else (sim.food - floorf(sim.food)) * 100.0
 	for card: UnitCard in _cards:
 		var cd: float = sim.card_cooldowns.get(card.unit.id, 0.0)
-		card.refresh(sim.buy_block_reason(card.unit), cd / sim.balance.card_cooldown)
+		var affordable: bool = sim.food >= card.unit.cost and sim.alive_count(BattleSim.PLAYER) < sim.balance.unit_limit
+		card.refresh(sim.buy_block_reason(card.unit), affordable, cd / sim.balance.card_cooldown)
 	_meteor_label.text = "%d/%d" % [sim.meteor_charges, sim.balance.meteor_max_charges]
 	_meteor_button.disabled = sim.meteor_charges <= 0 or sim.is_over()
 	_meteor_button.modulate = Color(0.55, 0.55, 0.55) if _meteor_button.disabled else Color.WHITE

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/ui/unit_tile.gd" id="1_script"]
 
 [node name="UnitTile" type="PanelContainer"]
-custom_minimum_size = Vector2(180, 214)
+custom_minimum_size = Vector2(180, 176)
 script = ExtResource("1_script")
 
 [node name="Box" type="VBoxContainer" parent="."]
@@ -12,7 +12,7 @@ theme_override_constants/separation = 2
 
 [node name="Portrait" type="TextureRect" parent="Box"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 88)
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
@@ -32,7 +32,7 @@ horizontal_alignment = 1
 
 [node name="BuyButton" type="Button" parent="Box"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 58)
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 17
 text = "BTN_UNLOCK"

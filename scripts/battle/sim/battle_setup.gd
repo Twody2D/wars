@@ -12,6 +12,8 @@ var start_food: float = 5.0
 var food_rate: float = 0.5
 var food_max: float = 30.0
 var rng_seed: int = 1
+## HP/damage multiplier for all player units ("army power" upgrade).
+var player_power: float = 1.0
 
 
 func level_of(unit: UnitData) -> int:

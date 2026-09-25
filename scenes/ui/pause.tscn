@@ -27,9 +27,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -220.0
-offset_top = -170.0
+offset_top = -215.0
 offset_right = 220.0
-offset_bottom = 170.0
+offset_bottom = 215.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -48,6 +48,13 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
 text = "BTN_RESUME"
+
+[node name="RestartButton" type="Button" parent="Panel/Box"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme_type_variation = &"SecondaryButton"
+text = "BTN_RESTART"
 
 [node name="SoundButton" type="Button" parent="Panel/Box"]
 unique_name_in_owner = true

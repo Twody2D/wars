@@ -33,8 +33,9 @@ func test_food_income_and_cap() -> void:
 
 func test_buy_spends_food_and_starts_card_cooldown() -> void:
 	var sim := _sim()
+	sim.food = zombie.cost + 1.0
 	assert_object(sim.buy(zombie)).is_not_null()
-	assert_float(sim.food).is_equal(balance.start_food - zombie.cost)
+	assert_float(sim.food).is_equal(1.0)
 	assert_str(String(sim.buy_block_reason(zombie))).is_equal("cooldown")
 	assert_object(sim.buy(zombie)).is_null()
 	_run(sim, balance.card_cooldown + 0.05)

@@ -4,5 +4,11 @@
 
 [resource]
 script = ExtResource("1_2gprt")
-food_rate = 0.25
+start_food = 0.0
+food_rate = 0.2
+ore_food = 1.0
 ore_cooldown = 8.0
+bot_pressure_interval = 14.0
+meteor_damage = 50.0
+meteor_radius = 70.0
+meteor_fall_time = 1.2

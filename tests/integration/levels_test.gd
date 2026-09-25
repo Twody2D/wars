@@ -1,7 +1,7 @@
 extends GdUnitTestSuite
-## Levels and bot (SPEC 5, T09). Difficulty design (Twody): the tutorial is won
-## without upgrades; from level 2 the bot beats an un-upgraded player, so
-## upgrades bought in the menu are needed.
+## Levels and bot (SPEC 5, T09). Difficulty design (Twody): without upgrades
+## even level 1 is (almost) never won; one level of "army power", bought after
+## a couple of losses, makes it winnable.
 
 var config: GameConfig
 
@@ -10,11 +10,20 @@ func before() -> void:
 	config = load("res://data/game_config.tres")
 
 
-func _play(n: int, seed_: int) -> bool:
+func _play(n: int, seed_: int, army_power: int = 0) -> bool:
 	var units: Array[UnitData] = [config.player_units[0], config.player_units[1]]
 	var s := BattleSetup.basic(config.balance, config.levels[n - 1], units, seed_)
+	s.player_power = 1.0 + config.upgrade(&"army_power").per_level * army_power
 	var sim := BattleSim.new(s)
 	return AutoPlayer.new(sim, BattleBot.new(sim)).play()
+
+
+func _wins(n: int, army_power: int) -> int:
+	var wins := 0
+	for seed_: int in range(500, 506):
+		if _play(n, seed_, army_power):
+			wins += 1
+	return wins
 
 
 func test_all_levels_load() -> void:
@@ -23,7 +32,7 @@ func test_all_levels_load() -> void:
 		var level: LevelData = config.levels[i]
 		assert_int(level.number).is_equal(i + 1)
 		assert_int(level.waves.size()).is_between(4, 13)
-		assert_float(level.bot_base_hp).is_between(400.0, 1500.0)
+		assert_float(level.bot_base_hp).is_between(250.0, 900.0)
 		for wave: WaveData in level.waves:
 			assert_bool(wave.entries.is_empty()).is_false()
 		var has_boss := false
@@ -32,18 +41,12 @@ func test_all_levels_load() -> void:
 		assert_bool(has_boss).is_equal((i + 1) % config.levels_per_biome == 0)
 
 
-func test_tutorial_is_won_without_upgrades() -> void:
-	for seed_: int in [1, 2, 3]:
-		assert_bool(_play(1, seed_)).override_failure_message("level 1, seed %d" % seed_).is_true()
+func test_level_1_is_lost_without_upgrades() -> void:
+	assert_int(_wins(1, 0)).is_less_equal(1)
 
 
-func test_level_2_needs_upgrades() -> void:
-	var wins := 0
-	for seed_: int in range(500, 510):
-		if _play(2, seed_):
-			wins += 1
-	# Not reliably won without upgrades (AutoPlayer is a fairly good player).
-	assert_int(wins).is_less_equal(6)
+func test_level_1_is_won_with_army_power() -> void:
+	assert_int(_wins(1, 1)).is_greater_equal(4)
 
 
 func test_level_20_is_not_won_without_upgrades() -> void:

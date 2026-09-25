@@ -7,8 +7,8 @@ const LEVELS := 20
 const PER_BIOME := 10
 ## Total bot wave budget in food per level (split over the waves), index 0 = level 1.
 const BUDGET: Array[float] = [
-	24.0, 64.0, 68.5, 73.5, 78.5, 84.0, 90.0, 96.0, 103.0, 110.0,
-	104.5, 112.0, 119.5, 128.0, 137.0, 146.5, 157.0, 168.0, 179.5, 192.0,
+	33.4, 35.2, 37.68, 40.43, 43.18, 46.2, 49.5, 52.8, 56.65, 60.5,
+	57.48, 61.6, 65.73, 70.4, 75.35, 80.58, 86.35, 92.4, 98.73, 105.6,
 ]
 const INTERVALS: Dictionary[StringName, float] = {
 	&"zombie": 2.0, &"skeleton": 3.0, &"spider": 2.0, &"slime": 4.0,
@@ -16,18 +16,21 @@ const INTERVALS: Dictionary[StringName, float] = {
 }
 ## Bot income for counter picks (food/s), index 0 = level 1.
 const BOT_FOOD: Array[float] = [
-	0.25, 0.55, 0.565, 0.58, 0.595, 0.61, 0.625, 0.64, 0.655, 0.67,
-	0.6, 0.615, 0.63, 0.645, 0.66, 0.675, 0.69, 0.705, 0.72, 0.735,
+	0.3, 0.3, 0.31, 0.32, 0.33, 0.34, 0.34, 0.35, 0.36, 0.37,
+	0.33, 0.34, 0.35, 0.35, 0.36, 0.37, 0.38, 0.39, 0.4, 0.4,
 ]
-## HP/damage multiplier of bot units, index 0 = level 1 (tutorial = 1.0).
+## HP/damage multiplier of bot units, index 0 = level 1. Without "army power"
+## upgrades even level 1 is lost; one level of it tips level 1.
 const BOT_POWER: Array[float] = [
-	1.0, 1.45, 1.5, 1.55, 1.6, 1.65, 1.7, 1.75, 1.8, 1.65,
-	1.4, 1.43, 1.46, 1.49, 1.52, 1.55, 1.58, 1.61, 1.64, 1.6,
+	1.05, 1.15, 1.25, 1.35, 1.45, 1.55, 1.65, 1.75, 1.85, 1.8,
+	1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.4,
 ]
 ## Boss levels get a smaller army: the boss is the threat.
 const BOSS_LEVEL_BUDGET := 0.75
-const FIRST_WAVE_SEC := 10.0
-const WAVE_GAP_SEC := 20.0
+const FIRST_WAVE_SEC := 8.0
+const WAVE_GAP_SEC := 16.0
+## Bot base HP from level 1 to level 20 (SPEC: 400 → 1500, lowered for shorter battles).
+const BOT_BASE_HP := Vector2(250.0, 900.0)
 
 
 func _init() -> void:
@@ -47,7 +50,7 @@ func _init() -> void:
 	config.levels_per_biome = PER_BIOME
 	for id: String in ["zombie", "skeleton", "slime", "spider", "goblin_miner", "barrel_bomber"]:
 		config.player_units.append(u[id])
-	for id: String in ["food_rate", "base_hp", "start_food", "unit_level", "battle_speed"]:
+	for id: String in ["army_power", "food_rate", "base_hp", "start_food", "unit_level", "battle_speed"]:
 		config.upgrades.append(load("res://data/upgrades/%s.tres" % id))
 	config.levels = levels
 	print("game_config -> ", error_string(ResourceSaver.save(config, "res://data/game_config.tres")))
@@ -60,11 +63,11 @@ func _level(n: int, u: Dictionary[String, UnitData]) -> LevelData:
 	var level := LevelData.new()
 	level.number = n
 	level.biome = &"cave" if cave else &"meadow"
-	level.bot_base_hp = roundf(lerpf(400.0, 1500.0, t) / 10.0) * 10.0
+	level.bot_base_hp = roundf(lerpf(BOT_BASE_HP.x, BOT_BASE_HP.y, t) / 10.0) * 10.0
 	level.bot_food_per_sec = BOT_FOOD[n - 1]
 	level.bot_power = BOT_POWER[n - 1]
-	level.counter_pick = n >= 2
-	level.reward_coins = 20 + 5 * (n - 1)
+	level.counter_pick = true
+	level.reward_coins = 30 + 5 * (n - 1)
 	level.tutorial = n == 1
 	level.ore_blocks = 2
 
@@ -94,6 +97,9 @@ func _level(n: int, u: Dictionary[String, UnitData]) -> LevelData:
 	var total_w := 0.0
 	for unit: UnitData in weights:
 		total_w += weights[unit]
+	# Fractional unit counts carry over to the next wave, so rare unit types
+	# still show up instead of rounding to zero every wave.
+	var carry: Dictionary[UnitData, float] = {}
 	for i: int in wave_count:
 		var wave := WaveData.new()
 		wave.start_sec = FIRST_WAVE_SEC + i * WAVE_GAP_SEC + (5.0 if n == 1 else 0.0)
@@ -101,13 +107,18 @@ func _level(n: int, u: Dictionary[String, UnitData]) -> LevelData:
 		var budget: float = BUDGET[n - 1] / wave_count * ramp
 		if n % PER_BIOME == 0:
 			budget *= BOSS_LEVEL_BUDGET
-		for unit: UnitData in weights:
-			var share: float = budget * weights[unit] / total_w
-			# The first wave of a level is melee-only: time to set up.
-			if i == 0 and unit != u["zombie"]:
-				continue
-			var interval: float = INTERVALS.get(unit.id, 3.0)
-			_add(wave, unit, share / unit.cost, interval)
+		# The first wave of a level is zombies only: time to set up.
+		if i == 0:
+			_add(wave, u["zombie"], maxf(budget / u["zombie"].cost, 1.0), 2.0)
+		else:
+			for unit: UnitData in weights:
+				var exact: float = budget * weights[unit] / total_w / unit.cost + carry.get(unit, 0.0)
+				var whole: int = floori(exact)
+				carry[unit] = exact - whole
+				var interval: float = INTERVALS.get(unit.id, 3.0)
+				_add(wave, unit, whole, interval)
+			if wave.entries.is_empty():
+				_add(wave, u["zombie"], 1.0, 2.0)
 		var boss_level: bool = n % PER_BIOME == 0
 		if boss_level and i == wave_count - 1:
 			_add(wave, u["boss_stone_golem"] if cave else u["boss_zombie_king"], 1.0, 1.0)

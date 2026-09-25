@@ -8,6 +8,7 @@ BTN_RETRY,Ещё раз,Retry
 BTN_MENU,Меню,Menu
 BTN_DOUBLE,×2 монеты,×2 coins
 BTN_RESUME,Продолжить,Continue
+BTN_RESTART,Заново,Restart
 PAUSE_TITLE,Пауза,Pause
 SOUND_ON,Звук: вкл,Sound: on
 SOUND_OFF,Звук: выкл,Sound: off
@@ -24,12 +25,14 @@ UNIT_GOBLIN_MINER,Шахтёр-гоблин,Goblin Miner
 UNIT_BARREL_BOMBER,Бочка-бомбер,Barrel Bomber
 UNIT_BOSS_ZOMBIE_KING,Король зомби,Zombie King
 UNIT_BOSS_STONE_GOLEM,Каменный голем,Stone Golem
+UPGRADE_ARMY_POWER,Сила армии,Army power
+DESC_ARMY_POWER,+10% здоровья и урона всем бойцам,+10% health and damage for all fighters
 UPGRADE_FOOD_RATE,Производство еды,Food production
 UPGRADE_BASE_HP,Здоровье базы,Base health
 UPGRADE_START_FOOD,Еда на старте,Starting food
 UPGRADE_BATTLE_SPEED,Скорость боя ×1.5,Battle speed ×1.5
 UPGRADE_UNIT_LEVEL,Уровень бойца,Unit level
-DESC_FOOD_RATE,+0.05 еды в секунду (и больше запас),+0.05 food per second (and a bigger stock)
+DESC_FOOD_RATE,+0.05 еды в секунду,+0.05 food per second
 DESC_BASE_HP,+75 к здоровью базы,+75 base health
 DESC_START_FOOD,+3 еды в начале боя,+3 food at the start
 DESC_BATTLE_SPEED,Бои идут быстрее,Battles run faster

@@ -66,6 +66,7 @@ func _ready() -> void:
 	_hud.debug_spawn.connect(func(side: int, u: UnitData) -> void: sim.spawn(side, u))
 	_pause.resume_pressed.connect(_close_pause)
 	_pause.menu_pressed.connect(_go_menu)
+	_pause.restart_pressed.connect(_restart)
 	_result_panel.next_pressed.connect(_next_level)
 	_result_panel.menu_pressed.connect(_go_menu)
 
@@ -325,6 +326,12 @@ func _next_level() -> void:
 	if _result != null and _result.won:
 		GameState.selected_level = mini(_result.level_number + 1, GameState.level_count())
 	_leave(BATTLE_SCENE)
+
+
+## Replay the same level from scratch (pause menu). Nothing is saved.
+func _restart() -> void:
+	get_tree().paused = false
+	get_tree().reload_current_scene()
 
 
 func _go_menu() -> void:

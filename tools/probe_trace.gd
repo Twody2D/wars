@@ -1,6 +1,6 @@
 extends SceneTree
 ## Traces one AutoPlayer battle: every N sim-seconds prints armies, front, bases.
-## Run: "$GODOT" --headless --path . -s res://tools/probe_trace.gd -- <level> <seed> [every] [food_lvl] [hp_lvl] [bot_power]
+## Run: "$GODOT" --headless --path . -s res://tools/probe_trace.gd -- <level> <seed> [every] [food_lvl] [hp_lvl] [bot_power] [army_power_lvl]
 
 
 func _init() -> void:
@@ -16,6 +16,8 @@ func _init() -> void:
 	if args.size() > 4:
 		s.food_rate += config.upgrade(&"food_rate").per_level * args[3].to_int()
 		s.player_base_hp += config.upgrade(&"base_hp").per_level * args[4].to_int()
+	if args.size() > 6:
+		s.player_power = 1.0 + config.upgrade(&"army_power").per_level * args[6].to_int()
 	var sim := BattleSim.new(s)
 	var bot := BattleBot.new(sim)
 	var ap := AutoPlayer.new(sim, bot)
