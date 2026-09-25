@@ -46,10 +46,21 @@ func _ready() -> void:
 		if n - 1 < map_slots.size():
 			b.position = map_slots[n - 1] - b.size / 2.0
 		b.level_chosen.connect(_start)
+	_tabs[2].resized.connect(_layout_map)
+	_layout_map()
 	GameState.changed.connect(_refresh)
 	_refresh()
 	_show_tab(0)
 	Platform.gameplay_stop()
+
+
+## The map background covers the screen (keeps aspect, crops the edges), so the
+## level slots get the same scale and centring to stay on the path.
+func _layout_map() -> void:
+	var area: Vector2 = _tabs[2].size
+	var s: float = maxf(area.x / _map_slots.size.x, area.y / _map_slots.size.y)
+	_map_slots.scale = Vector2(s, s)
+	_map_slots.position = (area - _map_slots.size * s) / 2.0
 
 
 func _refresh() -> void:
