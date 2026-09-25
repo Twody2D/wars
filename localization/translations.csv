@@ -1,0 +1,51 @@
+keys,ru,en
+WAVE_FMT,Волна %d/%d,Wave %d/%d
+LEVEL_SHORT,ур.%d,lv.%d
+RESULT_WIN,Победа!,Victory!
+RESULT_LOSE,Поражение,Defeat
+BTN_NEXT,Дальше,Next
+BTN_RETRY,Ещё раз,Retry
+BTN_MENU,Меню,Menu
+BTN_DOUBLE,×2 монеты,×2 coins
+BTN_RESUME,Продолжить,Continue
+PAUSE_TITLE,Пауза,Pause
+SOUND_ON,Звук: вкл,Sound: on
+SOUND_OFF,Звук: выкл,Sound: off
+HINT_UPGRADE,Купи улучшения в меню и попробуй снова!,Buy upgrades in the menu and try again!
+HINT_METEOR_TARGET,Выбери место для метеора (ПКМ или Esc — отмена),Pick a spot for the meteor (RMB or Esc to cancel)
+TUTORIAL_CARD,Нажми на карточку — выйдет боец,Tap a card to send a fighter
+TUTORIAL_ORE,Тапни по руде — получишь еду,Tap the ore to get food
+TUTORIAL_METEOR,Жми метеор и выбери врагов,Use the meteor on the enemies
+UNIT_ZOMBIE,Кубозомби,Cube Zombie
+UNIT_SKELETON,Лучник-кость,Bone Archer
+UNIT_SLIME,Желе-куб,Jelly Cube
+UNIT_SPIDER,Кубопаук,Cube Spider
+UNIT_GOBLIN_MINER,Шахтёр-гоблин,Goblin Miner
+UNIT_BARREL_BOMBER,Бочка-бомбер,Barrel Bomber
+UNIT_BOSS_ZOMBIE_KING,Король зомби,Zombie King
+UNIT_BOSS_STONE_GOLEM,Каменный голем,Stone Golem
+UPGRADE_FOOD_RATE,Производство еды,Food production
+UPGRADE_BASE_HP,Здоровье базы,Base health
+UPGRADE_START_FOOD,Еда на старте,Starting food
+UPGRADE_BATTLE_SPEED,Скорость боя ×1.5,Battle speed ×1.5
+UPGRADE_UNIT_LEVEL,Уровень бойца,Unit level
+DESC_FOOD_RATE,+0.1 еды в секунду (и больше запас),+0.1 food per second (and a bigger stock)
+DESC_BASE_HP,+75 к здоровью базы,+75 base health
+DESC_START_FOOD,+3 еды в начале боя,+3 food at the start
+DESC_BATTLE_SPEED,Бои идут быстрее,Battles run faster
+TAB_BATTLE,Бой,Battle
+TAB_UPGRADES,Улучшения,Upgrades
+TAB_MAP,Карта,Map
+BTN_PLAY,Играть,Play
+LEVEL_FMT,Уровень %d,Level %d
+BTN_UNLOCK,Открыть,Unlock
+BTN_EVOLVE,Эволюция!,Evolution!
+MAX,Макс.,Max
+UNLOCKS_IN_CAVE,В пещерах,In the caves
+UPGRADE_LEVEL_FMT,ур. %d/%d,lv. %d/%d
+ON,Вкл,On
+OFF,Выкл,Off
+BIOME_MEADOW,Луг,Meadow
+BIOME_CAVE,Пещеры,Caves
+UNITS_TITLE,Бойцы,Fighters
+EVOLVE_HINT,"Пройди 10-й уровень, чтобы открыть пещеры",Beat level 10 to open the caves

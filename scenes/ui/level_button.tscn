@@ -1,0 +1,70 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/level_button.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://art/ui/icons/icon_star.svg" id="2_star"]
+[ext_resource type="Texture2D" path="res://art/ui/icons/icon_lock.svg" id="3_lock"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_btn_secondary_normal.svg" id="4_btn"]
+
+[sub_resource type="StyleBoxTexture" id="small"]
+content_margin_left = 4.0
+content_margin_top = 2.0
+content_margin_right = 4.0
+content_margin_bottom = 8.0
+texture = ExtResource("4_btn")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+
+[node name="LevelButton" type="Button"]
+custom_minimum_size = Vector2(60, 60)
+offset_right = 60.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("small")
+theme_override_styles/hover = SubResource("small")
+theme_override_styles/pressed = SubResource("small")
+theme_override_styles/disabled = SubResource("small")
+text = "1"
+script = ExtResource("1_script")
+
+[node name="Stars" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 56.0
+offset_right = 62.0
+offset_bottom = 76.0
+mouse_filter = 2
+theme_override_constants/separation = 1
+alignment = 1
+
+[node name="S1" type="TextureRect" parent="Stars"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_star")
+expand_mode = 1
+
+[node name="S2" type="TextureRect" parent="Stars"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_star")
+expand_mode = 1
+
+[node name="S3" type="TextureRect" parent="Stars"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_star")
+expand_mode = 1
+
+[node name="Lock" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 34.0
+offset_top = -10.0
+offset_right = 66.0
+offset_bottom = 22.0
+mouse_filter = 2
+texture = ExtResource("3_lock")
+expand_mode = 1
