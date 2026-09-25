@@ -13,6 +13,7 @@ var _time: float = 0.0
 ## Active spawners: [entry, remaining, timer]
 var _spawners: Array[Array] = []
 var _pressure_timer: float = 0.0
+var _pick_counter: int = 0
 
 
 func _init(sim_: BattleSim) -> void:
@@ -46,7 +47,8 @@ func step(dt: float) -> void:
 			_spawners.append([entry, entry.count, 0.0])
 		waves_started += 1
 	_step_spawners(dt)
-	if level.counter_pick and not is_spawning_wave():
+	# Counter picks only between waves (SPEC 5); after the last wave — pressure only.
+	if level.counter_pick and not is_spawning_wave() and not all_waves_done():
 		food += level.bot_food_per_sec * dt
 		_counter_pick()
 	if all_waves_done():
@@ -60,7 +62,7 @@ func _step_spawners(dt: float) -> void:
 		var timer: float = spawner[2]
 		timer -= dt
 		if timer <= 0.0:
-			if sim.spawn(BattleSim.BOT, entry.unit) != null:
+			if sim.spawn(BattleSim.BOT, entry.unit, 1, _power_for(entry.unit)) != null:
 				var remaining: int = spawner[1]
 				spawner[1] = remaining - 1
 				timer = entry.interval_sec
@@ -79,8 +81,9 @@ func _counter_pick() -> void:
 	var pick: UnitData = _choose_counter()
 	if pick == null or food < pick.cost:
 		return
-	if sim.spawn(BattleSim.BOT, pick) != null:
+	if sim.spawn(BattleSim.BOT, pick, 1, level.bot_power) != null:
 		food -= pick.cost
+		_pick_counter += 1
 
 
 func _choose_counter() -> UnitData:
@@ -94,11 +97,13 @@ func _choose_counter() -> UnitData:
 				ranged += 1
 			else:
 				melee += 1
-	var wanted: StringName = &"zombie"
-	if melee > ranged:
-		wanted = &"skeleton"
-	elif ranged > melee:
+	# Base mix: two melee per archer; lean to archers vs. a melee-only crowd,
+	# to fast spiders vs. many archers.
+	var wanted: StringName = &"skeleton" if _pick_counter % 3 == 0 else &"zombie"
+	if ranged > melee:
 		wanted = &"spider"
+	elif melee > ranged * 3 and _pick_counter % 2 == 0:
+		wanted = &"skeleton"
 	for unit_data: UnitData in level.bot_units:
 		if unit_data.id == wanted:
 			return unit_data
@@ -112,4 +117,10 @@ func _pressure(dt: float) -> void:
 	if _pressure_timer >= sim.balance.bot_pressure_interval:
 		_pressure_timer = 0.0
 		var index: int = sim.rng.randi_range(0, level.bot_units.size() - 1)
+		# Pressure keeps the player from idling; it is not meant to stall the push.
 		sim.spawn(BattleSim.BOT, level.bot_units[index])
+
+
+## Bosses keep their own stats; bot_power scales regular units only.
+func _power_for(unit: UnitData) -> float:
+	return 1.0 if unit.is_boss else level.bot_power

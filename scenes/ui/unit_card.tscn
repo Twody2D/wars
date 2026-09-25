@@ -1,0 +1,81 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/unit_card.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_unit_card.svg" id="2_card"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_key_badge.svg" id="3_badge"]
+
+[node name="UnitCard" type="TextureButton"]
+custom_minimum_size = Vector2(104, 130)
+texture_normal = ExtResource("2_card")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("1_script")
+
+[node name="Portrait" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.07
+anchor_top = 0.07
+anchor_right = 0.93
+anchor_bottom = 0.63
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Cost" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.655
+anchor_right = 0.93
+anchor_bottom = 0.81
+mouse_filter = 2
+theme_override_font_sizes/font_size = 20
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Level" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.07
+anchor_right = 0.93
+anchor_bottom = 0.22
+mouse_filter = 2
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 2
+
+[node name="KeyBadge" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 24.0
+offset_bottom = 24.0
+mouse_filter = 2
+texture = ExtResource("3_badge")
+expand_mode = 1
+
+[node name="Key" type="Label" parent="KeyBadge"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -3.0
+theme_override_colors/font_color = Color(0.105882, 0.105882, 0.184314, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 16
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Cooldown" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.5
+anchor_right = 0.95
+anchor_bottom = 0.95
+mouse_filter = 2
+color = Color(0, 0, 0, 0.45)

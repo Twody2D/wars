@@ -14,12 +14,20 @@ extends Resource
 @export var unit_limit: int = 20
 ## Own unit ahead closer than this → Wait.
 @export var wait_distance: float = 22.0
+## How many own units may crowd into a fight at the front line: while the unit
+## ahead is attacking, followers close in until this many are fighting.
+@export var front_width: int = 3
 @export var projectile_speed: float = 400.0
 @export var projectile_arc: float = 40.0
 ## +HP and damage per unit level above 1.
 @export var unit_level_bonus: float = 0.1
 @export var unit_max_level: int = 5
 @export var sim_dt: float = 1.0 / 60.0
+## Global battle pace: 1 = SPEC speed. Slows movement, food, attacks and waves
+## alike, so balance stays the same.
+@export var battle_pace: float = 0.7
+## Unit size on screen relative to the 64 px design size.
+@export var unit_scale: float = 1.4
 
 @export_group("Economy")
 @export var start_food: float = 5.0
@@ -35,6 +43,8 @@ extends Resource
 @export var meteor_max_charges: int = 2
 @export var meteor_damage: float = 80.0
 @export var meteor_radius: float = 110.0
+## Seconds from the cast to the impact (the rock is falling).
+@export var meteor_fall_time: float = 0.9
 
 @export_group("Bot")
 ## After the last wave: one random unit every N seconds.

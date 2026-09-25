@@ -7,4 +7,4 @@ script = ExtResource("1_nf76u")
 id = &"base_hp"
 name_key = "UPGRADE_BASE_HP"
 base_cost = 20
-per_level = 50.0
+per_level = 75.0

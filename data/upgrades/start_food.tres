@@ -8,4 +8,4 @@ id = &"start_food"
 name_key = "UPGRADE_START_FOOD"
 base_cost = 40
 max_level = 5
-per_level = 2.0
+per_level = 3.0

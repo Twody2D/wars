@@ -34,10 +34,21 @@ const ART_DIR := "res://art/units/%s/"
 @export_range(-180.0, 180.0) var arm_rest_deg: float = 0.0
 ## Bosses play the humanoid library slower (SPEC 10).
 @export var anim_speed: float = 1.0
+## On-screen size multiplier (BalanceData.unit_scale).
+@export var size_scale: float = 1.0:
+	set(value):
+		size_scale = value
+		_apply_size()
+## Battle pace (BalanceData.battle_pace): animations slow down with the sim.
+var pace: float = 1.0
 
 var _rig: Node2D
 var _parts: Node2D
 var _team_sprite: Sprite2D
+var _hp_bar: UnitHpBar
+var _base_parts_scale: float = 1.0
+## Height of the character on screen at size_scale 1.
+var _height: float = 64.0
 
 @onready var _player: AnimationPlayer = $AnimationPlayer
 @onready var _hit_player: AnimationPlayer = $HitPlayer
@@ -48,14 +59,29 @@ func _ready() -> void:
 
 
 func play(anim: StringName, speed: float = 1.0) -> void:
-	_player.speed_scale = anim_speed * speed
+	_player.speed_scale = anim_speed * speed * pace
 	if anim == &"attack" or anim == &"die":
 		_player.stop()
 	if _player.current_animation != anim:
 		_player.play(anim)
 
 
+## Attack or death is playing — state-driven walk/idle must not interrupt it.
+func is_busy() -> bool:
+	return _player.is_playing() and (_player.current_animation == &"attack" or _player.current_animation == &"die")
+
+
+## HP bar: hidden when ratio < 0 (e.g. in menus).
+func set_hp(ratio: float, color: Color) -> void:
+	if _hp_bar == null:
+		return
+	_hp_bar.visible = ratio >= 0.0
+	_hp_bar.ratio = ratio
+	_hp_bar.color = color
+
+
 func play_hit() -> void:
+	_hit_player.speed_scale = pace
 	_hit_player.stop()
 	_hit_player.play(&"hit")
 
@@ -106,8 +132,15 @@ func _build() -> void:
 	move_child(_rig, 0)
 	_parts = Node2D.new()
 	_parts.name = "Parts"
-	_parts.scale = Vector2.ONE * (display_scale / import_scale)
+	_base_parts_scale = display_scale / import_scale
 	_rig.add_child(_parts)
+	var size: float = data["size"]
+	_height = (feet.y - size * 0.15) * display_scale
+	_hp_bar = UnitHpBar.new()
+	_hp_bar.name = "HpBar"
+	_hp_bar.visible = false
+	_rig.add_child(_hp_bar)
+	_apply_size()
 
 	var arm_front_sprite: Sprite2D = null
 	var arm_front_xform := Transform2D.IDENTITY
@@ -143,6 +176,17 @@ func _build() -> void:
 		if part_id == "team_accent":
 			_team_sprite = sprite
 	_apply_team_color()
+
+
+func _apply_size() -> void:
+	if _parts == null:
+		return
+	_parts.scale = Vector2.ONE * _base_parts_scale * size_scale
+	_hp_bar.position = Vector2(0.0, -_height * size_scale - 8.0)
+
+
+func top_offset() -> float:
+	return -_height * size_scale
 
 
 func _apply_team_color() -> void:

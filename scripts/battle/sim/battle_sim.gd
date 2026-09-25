@@ -17,6 +17,7 @@ signal projectile_finished(projectile: SimProjectile)
 signal explosion(x: float, radius: float, side: int)
 signal base_damaged(side: int, amount: float)
 signal meteor_cast(at: Vector2)
+signal meteor_impact(at: Vector2)
 signal battle_over(winner: int)
 
 const PLAYER := 0
@@ -47,6 +48,8 @@ var card_cooldowns: Dictionary[StringName, float] = {}
 var ore_cooldowns: Array[float] = []
 var meteor_charges: int = 0
 var meteor_timer: float = 0.0
+## Falling meteors: [position, seconds left]
+var _meteors: Array[Array] = []
 
 var _next_uid: int = 1
 var _accumulator: float = 0.0
@@ -93,6 +96,7 @@ func step(dt: float) -> void:
 		if unit.is_alive():
 			_step_unit(unit, dt)
 	_step_projectiles(dt)
+	_step_meteors(dt)
 	_remove_dead()
 	_check_winner()
 
@@ -111,7 +115,8 @@ func can_spawn(side: int) -> bool:
 	return not is_over() and alive_count(side) < balance.unit_limit
 
 
-func spawn(side: int, data: UnitData, level: int = 1) -> SimUnit:
+## power — extra HP/damage multiplier (bot difficulty, LevelData.bot_power).
+func spawn(side: int, data: UnitData, level: int = 1, power: float = 1.0) -> SimUnit:
 	if not can_spawn(side):
 		return null
 	var unit := SimUnit.new()
@@ -123,7 +128,7 @@ func spawn(side: int, data: UnitData, level: int = 1) -> SimUnit:
 	unit.dir = 1.0 if side == PLAYER else -1.0
 	unit.x = balance.lane_start_x if side == PLAYER else balance.lane_end_x
 	unit.y_offset = rng.randf_range(-balance.y_jitter, balance.y_jitter)
-	var mult: float = 1.0 + balance.unit_level_bonus * (unit.level - 1)
+	var mult: float = (1.0 + balance.unit_level_bonus * (unit.level - 1)) * power
 	unit.max_hp = data.hp * mult
 	unit.hp = unit.max_hp
 	unit.damage = data.damage * mult
@@ -161,18 +166,33 @@ func tap_ore(index: int) -> bool:
 	return true
 
 
-## Meteor hits bot units within the radius of a point on the field.
+## Meteor: cast now, lands after meteor_fall_time and hits bot units
+## within the radius of the point.
 func cast_meteor(at: Vector2) -> bool:
 	if is_over() or meteor_charges <= 0:
 		return false
 	meteor_charges -= 1
+	_meteors.append([at, balance.meteor_fall_time])
 	meteor_cast.emit(at)
-	for unit: SimUnit in units:
-		if unit.side == BOT and unit.is_alive():
-			var pos := Vector2(unit.x, balance.lane_y + unit.y_offset)
-			if pos.distance_to(at) <= balance.meteor_radius:
-				_damage_unit(unit, balance.meteor_damage, PLAYER)
 	return true
+
+
+func _step_meteors(dt: float) -> void:
+	var landed: Array[Array] = []
+	for m: Array in _meteors:
+		var left: float = m[1]
+		m[1] = left - dt
+		if left - dt <= 0.0:
+			landed.append(m)
+	for m: Array in landed:
+		_meteors.erase(m)
+		var at: Vector2 = m[0]
+		meteor_impact.emit(at)
+		for unit: SimUnit in units:
+			if unit.side == BOT and unit.is_alive():
+				var pos := Vector2(unit.x, balance.lane_y + unit.y_offset)
+				if pos.distance_to(at) <= balance.meteor_radius:
+					_damage_unit(unit, balance.meteor_damage, PLAYER)
 
 
 func add_food(amount: float) -> void:
@@ -394,15 +414,25 @@ func _nearest_enemy_ahead(unit: SimUnit) -> SimUnit:
 	return null
 
 
+## Queue behind the unit ahead (wait_distance). Exception: when the units ahead
+## are already fighting, join them until front_width units are in the crowd.
 func _friend_blocking(unit: SimUnit) -> bool:
 	var order: Array = _front_order[unit.side]
+	var fighting := 0
 	var i: int = unit.rank - 1
 	while i >= 0:
 		var other: SimUnit = order[i]
-		if other.is_alive():
-			var d: float = unit.ahead(other.x)
-			return d >= 0.0 and d < balance.wait_distance
 		i -= 1
+		if not other.is_alive():
+			continue
+		var d: float = unit.ahead(other.x)
+		if d < 0.0 or d >= balance.wait_distance:
+			return false
+		if other.state != SimUnit.State.ATTACK:
+			return true
+		fighting += 1
+		if fighting >= balance.front_width:
+			return true
 	return false
 
 

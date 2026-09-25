@@ -5,6 +5,8 @@ extends Resource
 @export var number: int = 1
 @export var biome: StringName = &"meadow"
 @export var bot_base_hp: float = 400.0
+## Multiplier on HP and damage of every bot unit — the main difficulty knob.
+@export var bot_power: float = 1.0
 @export var waves: Array[WaveData] = []
 ## Bot income between waves, spent on counter picks.
 @export var bot_food_per_sec: float = 0.3
