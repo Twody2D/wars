@@ -6,8 +6,9 @@ mono_crash.*.json
 # Отчёты gdUnit4
 reports/
 
-# Сборка и экспорт
-build/
+# Сборка и экспорт (build/.gdignore — чтобы Godot не импортировал экспорт)
+build/*
+!build/.gdignore
 *.zip
 *.pck
 *.wasm

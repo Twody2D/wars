@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+		<title>$GODOT_PROJECT_NAME</title>
+		<style>
+/* SPEC 16 (Yandex 1.6): no page scroll, no selection, no long-tap menu. */
+html, body, #canvas {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	overflow: hidden;
+	touch-action: none;
+	user-select: none;
+	-webkit-user-select: none;
+	-webkit-touch-callout: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	color: white;
+}
+
+/* Sized and centered by fitCanvas(): full window, but never wider than 2:1. */
+#canvas {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+#canvas:focus {
+	outline: none;
+}
+
+#status {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: $GODOT_SPLASH_COLOR;
+}
+
+#status-splash {
+	max-width: 60%;
+	max-height: 60%;
+}
+
+#status-splash.show-image--false {
+	display: none;
+}
+
+#status-progress {
+	width: 50%;
+	margin-top: 2rem;
+}
+
+#status-notice {
+	display: none;
+	margin: 0 2rem;
+	padding: 1rem;
+	border-radius: 0.5rem;
+	background-color: #5b3943;
+	font-family: Arial, sans-serif;
+	text-align: center;
+}
+		</style>
+		$GODOT_HEAD_INCLUDE
+	</head>
+	<body>
+		<canvas id="canvas"></canvas>
+		<div id="status">
+			<img id="status-splash" class="$GODOT_SPLASH_CLASSES" src="$GODOT_SPLASH" alt="">
+			<progress id="status-progress"></progress>
+			<div id="status-notice"></div>
+		</div>
+
+		<script src="$GODOT_URL"></script>
+		<script>
+const GODOT_CONFIG = $GODOT_CONFIG;
+// Widest allowed aspect (Yandex 1.6.2: field to the edge, ratio ≤ 2:1).
+const MAX_ASPECT = 2.0;
+// Phones report DPR 3+; 2 is sharp enough and much cheaper to render.
+const MAX_PIXEL_RATIO = 2.0;
+
+(function () {
+	const canvas = document.getElementById('canvas');
+	const status = document.getElementById('status');
+	const progress = document.getElementById('status-progress');
+	const notice = document.getElementById('status-notice');
+
+	document.addEventListener('contextmenu', (e) => e.preventDefault());
+	document.addEventListener('selectstart', (e) => e.preventDefault());
+	// iOS: no double-tap zoom / pinch zoom of the page.
+	document.addEventListener('gesturestart', (e) => e.preventDefault());
+
+	// Canvas resize policy is "None" in the export preset: the engine follows
+	// canvas.width/height, which this function owns.
+	function fitCanvas() {
+		const winW = window.innerWidth;
+		const winH = window.innerHeight;
+		const cssW = Math.min(winW, Math.floor(winH * MAX_ASPECT));
+		const cssH = winH;
+		const ratio = Math.min(window.devicePixelRatio || 1, MAX_PIXEL_RATIO);
+		canvas.style.width = cssW + 'px';
+		canvas.style.height = cssH + 'px';
+		canvas.style.left = Math.floor((winW - cssW) / 2) + 'px';
+		canvas.width = Math.floor(cssW * ratio);
+		canvas.height = Math.floor(cssH * ratio);
+	}
+	window.addEventListener('resize', fitCanvas);
+	window.addEventListener('orientationchange', fitCanvas);
+	fitCanvas();
+
+	function fail(err) {
+		console.error(err);
+		notice.textContent = err instanceof Error ? err.message : String(err);
+		notice.style.display = 'block';
+		progress.style.display = 'none';
+	}
+
+	const missing = Engine.getMissingFeatures({ threads: false });
+	if (missing.length !== 0) {
+		fail('Browser is missing features:\n' + missing.join('\n'));
+		return;
+	}
+
+	const engine = new Engine(GODOT_CONFIG);
+	engine.startGame({
+		onProgress: function (current, total) {
+			if (current > 0 && total > 0) {
+				progress.value = current;
+				progress.max = total;
+			}
+		},
+	}).then(() => {
+		status.remove();
+		canvas.focus();
+	}, fail);
+}());
+		</script>
+	</body>
+</html>
