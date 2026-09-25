@@ -5,7 +5,7 @@ extends SceneTree
 const VISUAL_SCRIPT := "res://scripts/battle/unit_visual.gd"
 const LIBS: Dictionary[String, String] = {
 	"zombie": "humanoid",
-	"skeleton": "humanoid",
+	"skeleton": "archer",
 	"goblin_miner": "humanoid",
 	"slime": "slime",
 	"spider": "spider",
@@ -32,6 +32,8 @@ func _init() -> void:
 		if unit_id == "zombie":
 			root.set(&"override_arm_rest", true)
 			root.set(&"arm_rest_deg", -80.0)
+		if unit_id == "skeleton":
+			root.set(&"attack_anim", &"shoot")
 		if unit_id.begins_with("boss_"):
 			root.set(&"anim_speed", 0.6)
 		var scene := PackedScene.new()

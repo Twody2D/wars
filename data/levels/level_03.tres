@@ -10,7 +10,7 @@
 [sub_resource type="Resource" id="Resource_kt86t"]
 script = ExtResource("6_n7jmt")
 unit = ExtResource("2_0bqj5")
-count = 4
+count = 2
 interval_sec = 2.0
 
 [sub_resource type="Resource" id="Resource_74b62"]
@@ -21,13 +21,12 @@ entries = Array[ExtResource("6_n7jmt")]([SubResource("Resource_kt86t")])
 [sub_resource type="Resource" id="Resource_l2ttr"]
 script = ExtResource("6_n7jmt")
 unit = ExtResource("2_0bqj5")
-count = 6
+count = 3
 interval_sec = 2.0
 
 [sub_resource type="Resource" id="Resource_o4n63"]
 script = ExtResource("6_n7jmt")
 unit = ExtResource("3_ba1yj")
-count = 2
 interval_sec = 3.0
 
 [sub_resource type="Resource" id="Resource_oc01v"]
@@ -38,13 +37,12 @@ entries = Array[ExtResource("6_n7jmt")]([SubResource("Resource_l2ttr"), SubResou
 [sub_resource type="Resource" id="Resource_gghgy"]
 script = ExtResource("6_n7jmt")
 unit = ExtResource("2_0bqj5")
-count = 9
+count = 4
 interval_sec = 2.0
 
 [sub_resource type="Resource" id="Resource_adeyp"]
 script = ExtResource("6_n7jmt")
 unit = ExtResource("3_ba1yj")
-count = 3
 interval_sec = 3.0
 
 [sub_resource type="Resource" id="Resource_km01a"]
@@ -55,13 +53,13 @@ entries = Array[ExtResource("6_n7jmt")]([SubResource("Resource_gghgy"), SubResou
 [sub_resource type="Resource" id="Resource_ukf6o"]
 script = ExtResource("6_n7jmt")
 unit = ExtResource("2_0bqj5")
-count = 11
+count = 6
 interval_sec = 2.0
 
 [sub_resource type="Resource" id="Resource_gwv3r"]
 script = ExtResource("6_n7jmt")
 unit = ExtResource("3_ba1yj")
-count = 4
+count = 2
 interval_sec = 3.0
 
 [sub_resource type="Resource" id="Resource_qbsrf"]
@@ -73,9 +71,9 @@ entries = Array[ExtResource("6_n7jmt")]([SubResource("Resource_ukf6o"), SubResou
 script = ExtResource("4_etu6v")
 number = 3
 bot_base_hp = 520.0
-bot_power = 1.85
+bot_power = 1.5
 waves = Array[ExtResource("5_a50vx")]([SubResource("Resource_74b62"), SubResource("Resource_oc01v"), SubResource("Resource_km01a"), SubResource("Resource_qbsrf")])
-bot_food_per_sec = 1.13
+bot_food_per_sec = 0.565
 counter_pick = true
 bot_units = Array[ExtResource("1_ilbil")]([ExtResource("2_0bqj5"), ExtResource("3_ba1yj")])
 reward_coins = 30

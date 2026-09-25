@@ -16,7 +16,7 @@ const BATTLE_SCENE := "res://scenes/battle/battle.tscn"
 @export var biome_backgrounds: Dictionary[StringName, Texture2D] = {}
 @export var biome_bases: Dictionary[StringName, Array] = {}
 @export var result_delay: float = 1.2
-@export var projectile_height: float = 36.0
+@export var projectile_height: float = 50.0
 ## Where the meteor rock starts relative to the target.
 @export var meteor_fall_from: Vector2 = Vector2(260, -520)
 
@@ -184,7 +184,7 @@ func _connect_sim() -> void:
 	sim.unit_attack_started.connect(func(u: SimUnit) -> void:
 		var v: UnitVisual = _views.get(u.uid)
 		if v != null:
-			v.play(&"attack"))
+			v.play(v.attack_anim))
 	sim.unit_damaged.connect(_on_unit_damaged)
 	sim.unit_died.connect(_on_unit_died)
 	sim.projectile_spawned.connect(_on_projectile_spawned)

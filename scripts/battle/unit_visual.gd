@@ -32,6 +32,8 @@ const ART_DIR := "res://art/units/%s/"
 ## Overrides the design's arm rest angle (zombie holds arms forward, SPEC 10).
 @export var override_arm_rest: bool = false
 @export_range(-180.0, 180.0) var arm_rest_deg: float = 0.0
+## Animation played on attack: "attack" (swing/throw) or "shoot" (archer).
+@export var attack_anim: StringName = &"attack"
 ## Bosses play the humanoid library slower (SPEC 10).
 @export var anim_speed: float = 1.0
 ## On-screen size multiplier (BalanceData.unit_scale).
@@ -60,7 +62,7 @@ func _ready() -> void:
 
 func play(anim: StringName, speed: float = 1.0) -> void:
 	_player.speed_scale = anim_speed * speed * pace
-	if anim == &"attack" or anim == &"die":
+	if anim == attack_anim or anim == &"die":
 		_player.stop()
 	if _player.current_animation != anim:
 		_player.play(anim)
@@ -68,7 +70,8 @@ func play(anim: StringName, speed: float = 1.0) -> void:
 
 ## Attack or death is playing — state-driven walk/idle must not interrupt it.
 func is_busy() -> bool:
-	return _player.is_playing() and (_player.current_animation == &"attack" or _player.current_animation == &"die")
+	var current: StringName = _player.current_animation
+	return _player.is_playing() and (current == attack_anim or current == &"die")
 
 
 ## HP bar: hidden when ratio < 0 (e.g. in menus).

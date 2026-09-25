@@ -6,4 +6,4 @@
 script = ExtResource("1_ev4rh")
 id = &"food_rate"
 name_key = "UPGRADE_FOOD_RATE"
-per_level = 0.1
+per_level = 0.05

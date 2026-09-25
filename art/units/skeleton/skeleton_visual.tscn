@@ -1,14 +1,15 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://scripts/battle/unit_visual.gd" id="1_fbrbk"]
-[ext_resource type="AnimationLibrary" path="res://anim/humanoid.tres" id="2_wx866"]
+[ext_resource type="AnimationLibrary" path="res://anim/archer.tres" id="2_wx866"]
 
-[node name="SkeletonVisual" type="Node2D" unique_id=1686034610]
+[node name="SkeletonVisual" type="Node2D" unique_id=1932807157]
 script = ExtResource("1_fbrbk")
 unit_id = &"skeleton"
+attack_anim = &"shoot"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1708543588]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=457334022]
 libraries/ = ExtResource("2_wx866")
 
-[node name="HitPlayer" type="AnimationPlayer" parent="." unique_id=1971938525]
+[node name="HitPlayer" type="AnimationPlayer" parent="." unique_id=1867454600]
 libraries/ = ExtResource("2_wx866")

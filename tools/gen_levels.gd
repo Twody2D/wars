@@ -7,8 +7,8 @@ const LEVELS := 20
 const PER_BIOME := 10
 ## Total bot wave budget in food per level (split over the waves), index 0 = level 1.
 const BUDGET: Array[float] = [
-	48.0, 128.0, 137.0, 147.0, 157.0, 168.0, 180.0, 192.0, 206.0, 220.0,
-	209.0, 224.0, 239.0, 256.0, 274.0, 293.0, 314.0, 336.0, 359.0, 384.0,
+	24.0, 64.0, 68.5, 73.5, 78.5, 84.0, 90.0, 96.0, 103.0, 110.0,
+	104.5, 112.0, 119.5, 128.0, 137.0, 146.5, 157.0, 168.0, 179.5, 192.0,
 ]
 const INTERVALS: Dictionary[StringName, float] = {
 	&"zombie": 2.0, &"skeleton": 3.0, &"spider": 2.0, &"slime": 4.0,
@@ -16,13 +16,13 @@ const INTERVALS: Dictionary[StringName, float] = {
 }
 ## Bot income for counter picks (food/s), index 0 = level 1.
 const BOT_FOOD: Array[float] = [
-	0.5, 1.1, 1.13, 1.16, 1.19, 1.22, 1.25, 1.28, 1.31, 1.34,
-	1.2, 1.23, 1.26, 1.29, 1.32, 1.35, 1.38, 1.41, 1.44, 1.47,
+	0.25, 0.55, 0.565, 0.58, 0.595, 0.61, 0.625, 0.64, 0.655, 0.67,
+	0.6, 0.615, 0.63, 0.645, 0.66, 0.675, 0.69, 0.705, 0.72, 0.735,
 ]
 ## HP/damage multiplier of bot units, index 0 = level 1 (tutorial = 1.0).
 const BOT_POWER: Array[float] = [
-	1.0, 1.8, 1.85, 1.9, 1.95, 2.0, 2.05, 2.1, 2.15, 2.0,
-	1.75, 1.78, 1.81, 1.84, 1.87, 1.9, 1.93, 1.96, 1.99, 1.95,
+	1.0, 1.45, 1.5, 1.55, 1.6, 1.65, 1.7, 1.75, 1.8, 1.65,
+	1.4, 1.43, 1.46, 1.49, 1.52, 1.55, 1.58, 1.61, 1.64, 1.6,
 ]
 ## Boss levels get a smaller army: the boss is the threat.
 const BOSS_LEVEL_BUDGET := 0.75

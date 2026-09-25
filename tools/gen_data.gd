@@ -18,7 +18,7 @@ const UNITS: Dictionary[String, Array] = {
 
 # id: [base_cost, max_level, per_level, one_time]
 const UPGRADES: Dictionary[String, Array] = {
-	"food_rate": [30, 10, 0.1, false],
+	"food_rate": [30, 10, 0.05, false],
 	"base_hp": [20, 10, 75.0, false],
 	"start_food": [40, 5, 3.0, false],
 	"unit_level": [50, 4, 0.1, false],
@@ -29,7 +29,9 @@ const UPGRADES: Dictionary[String, Array] = {
 func _init() -> void:
 	for id: String in UNITS:
 		_save(_unit(id, UNITS[id]), "res://data/units/%s.tres" % id)
-	_save(BalanceData.new(), "res://data/balance.tres")
+	# balance.tres is tuned by hand in the editor — only create it if missing.
+	if not ResourceLoader.exists("res://data/balance.tres"):
+		_save(BalanceData.new(), "res://data/balance.tres")
 	for id: String in UPGRADES:
 		var row: Array = UPGRADES[id]
 		var up := UpgradeData.new()

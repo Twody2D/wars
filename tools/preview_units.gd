@@ -8,7 +8,7 @@ const UNITS: Array[String] = [
 	"boss_zombie_king", "boss_stone_golem",
 ]
 const ROWS: Array[StringName] = [&"idle", &"walk", &"attack", &"die"]
-const ROW_TIMES: Array[float] = [0.0, 0.15, 0.3, 0.3]
+const ROW_TIMES: Array[float] = [0.0, 0.15, 0.25, 0.3]
 
 var _frames := 0
 var _out := "user://units_preview.png"
@@ -41,7 +41,10 @@ func _process(_delta: float) -> bool:
 	if _frames == 2:
 		for i: int in _visuals.size():
 			var player: AnimationPlayer = _visuals[i].get_node("AnimationPlayer")
-			player.play(ROWS[i / UNITS.size()])
+			var anim: StringName = ROWS[i / UNITS.size()]
+			if anim == &"attack":
+				anim = _visuals[i].get(&"attack_anim")
+			player.play(anim)
 			player.seek(ROW_TIMES[i / UNITS.size()], true)
 			player.pause()
 	if _frames == 5:

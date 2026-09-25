@@ -29,7 +29,7 @@ UPGRADE_BASE_HP,Здоровье базы,Base health
 UPGRADE_START_FOOD,Еда на старте,Starting food
 UPGRADE_BATTLE_SPEED,Скорость боя ×1.5,Battle speed ×1.5
 UPGRADE_UNIT_LEVEL,Уровень бойца,Unit level
-DESC_FOOD_RATE,+0.1 еды в секунду (и больше запас),+0.1 food per second (and a bigger stock)
+DESC_FOOD_RATE,+0.05 еды в секунду (и больше запас),+0.05 food per second (and a bigger stock)
 DESC_BASE_HP,+75 к здоровью базы,+75 base health
 DESC_START_FOOD,+3 еды в начале боя,+3 food at the start
 DESC_BATTLE_SPEED,Бои идут быстрее,Battles run faster

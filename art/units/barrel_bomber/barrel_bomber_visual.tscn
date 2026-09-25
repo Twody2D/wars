@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://scripts/battle/unit_visual.gd" id="1_ik7vj"]
 [ext_resource type="AnimationLibrary" path="res://anim/bomber.tres" id="2_4ct6e"]
 
-[node name="BarrelBomberVisual" type="Node2D" unique_id=610264351]
+[node name="BarrelBomberVisual" type="Node2D" unique_id=271542326]
 script = ExtResource("1_ik7vj")
 unit_id = &"barrel_bomber"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=274246741]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1911508661]
 libraries/ = ExtResource("2_4ct6e")
 
-[node name="HitPlayer" type="AnimationPlayer" parent="." unique_id=1206690638]
+[node name="HitPlayer" type="AnimationPlayer" parent="." unique_id=1857954336]
 libraries/ = ExtResource("2_4ct6e")

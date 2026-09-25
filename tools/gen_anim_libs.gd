@@ -13,6 +13,7 @@ const HIT_PATHS := ["Rig/Parts:modulate", "Rig:position:x"]
 
 func _init() -> void:
 	_save(_humanoid(), "res://anim/humanoid.tres")
+	_save(_archer(), "res://anim/archer.tres")
 	_save(_slime(), "res://anim/slime.tres")
 	_save(_spider(), "res://anim/spider.tres")
 	_save(_bomber(), "res://anim/bomber.tres")
@@ -55,6 +56,23 @@ func _humanoid() -> AnimationLibrary:
 
 	lib.add_animation(&"hit", _hit())
 	lib.add_animation(&"die", _die(-90.0))
+	return lib
+
+
+## Humanoid + "shoot": bow arm forward, far arm draws the string, release at
+## the hit frame (SPEC 10: skeleton draws with the far arm, fires in _on_hit_frame).
+func _archer() -> AnimationLibrary:
+	var lib := _humanoid()
+	var shoot := _anim(0.5, false)
+	var t: Array[float] = [0.0, 0.1, 0.3, 0.35, 0.5]
+	_rot(shoot, "ArmFront", t, [0, -85, -85, -85, 0])
+	_rot(shoot, "ArmBack", t, [0, -80, -35, -75, 0])
+	# Keep the bow upright while the arm points forward.
+	_track(shoot, "Rig/Parts/ArmFront/S/Weapon/S:rotation", t,
+		[0.0, deg_to_rad(85.0), deg_to_rad(85.0), deg_to_rad(85.0), 0.0])
+	_rot(shoot, "Body", t, [0, 0, 4, -2, 0])
+	_call(shoot, 0.3, &"_on_hit_frame")
+	lib.add_animation(&"shoot", shoot)
 	return lib
 
 

@@ -4,3 +4,5 @@
 
 [resource]
 script = ExtResource("1_2gprt")
+food_rate = 0.25
+ore_cooldown = 8.0

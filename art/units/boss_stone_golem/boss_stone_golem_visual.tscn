@@ -3,13 +3,13 @@
 [ext_resource type="Script" path="res://scripts/battle/unit_visual.gd" id="1_bhxku"]
 [ext_resource type="AnimationLibrary" path="res://anim/humanoid.tres" id="2_0wd25"]
 
-[node name="BossStoneGolemVisual" type="Node2D" unique_id=1389609189]
+[node name="BossStoneGolemVisual" type="Node2D" unique_id=1428010027]
 script = ExtResource("1_bhxku")
 unit_id = &"boss_stone_golem"
 anim_speed = 0.6
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2139259457]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=512746043]
 libraries/ = ExtResource("2_0wd25")
 
-[node name="HitPlayer" type="AnimationPlayer" parent="." unique_id=566265368]
+[node name="HitPlayer" type="AnimationPlayer" parent="." unique_id=1626655248]
 libraries/ = ExtResource("2_0wd25")

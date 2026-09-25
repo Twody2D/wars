@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://scripts/battle/unit_visual.gd" id="1_6ll4n"]
 [ext_resource type="AnimationLibrary" path="res://anim/spider.tres" id="2_a3i6q"]
 
-[node name="SpiderVisual" type="Node2D" unique_id=390144354]
+[node name="SpiderVisual" type="Node2D" unique_id=29652387]
 script = ExtResource("1_6ll4n")
 unit_id = &"spider"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1768819368]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=335308281]
 libraries/ = ExtResource("2_a3i6q")
 
-[node name="HitPlayer" type="AnimationPlayer" parent="." unique_id=1246335384]
+[node name="HitPlayer" type="AnimationPlayer" parent="." unique_id=451746467]
 libraries/ = ExtResource("2_a3i6q")

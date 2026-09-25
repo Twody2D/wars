@@ -9,6 +9,8 @@ const TEXTS: Array[String] = ["TUTORIAL_CARD", "TUTORIAL_ORE", "TUTORIAL_METEOR"
 @export var bob_px: float = 10.0
 ## Fingertip inside the hand icon (0..1), after the vertical flip.
 @export var fingertip: Vector2 = Vector2(0.43, 0.94)
+## How far inside the target's top edge the fingertip lands, px.
+@export var tip_inset: float = 6.0
 
 var _battle: Battle
 var _step: int = -1
@@ -54,9 +56,11 @@ func _process(delta: float) -> void:
 			target = _battle._hud.meteor_rect()
 	_hand.visible = true
 	_label.visible = true
-	# The hand points down: its fingertip taps the centre of the target.
+	# The hand points down from above: its fingertip touches the top edge of
+	# the target, so the target itself stays visible.
 	var bob: float = (sin(_time * 6.0) - 1.0) * 0.5 * bob_px
-	_hand.global_position = target.get_center() - fingertip * _hand.size + Vector2(0.0, bob)
+	var tip := Vector2(target.get_center().x, target.position.y + tip_inset)
+	_hand.global_position = tip - fingertip * _hand.size + Vector2(0.0, bob)
 	_label.text = tr(TEXTS[_step])
 	_label.global_position = Vector2(
 		clampf(target.get_center().x - _label.size.x / 2.0, 16.0, 1264.0 - _label.size.x),
