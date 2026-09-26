@@ -29,7 +29,7 @@ func open() -> void:
 
 func _toggle_sound() -> void:
 	GameState.set_sound(not GameState.sound_on)
-	AudioServer.set_bus_mute(0, not GameState.sound_on)
+	Platform.update_mute()
 	_update_sound()
 
 

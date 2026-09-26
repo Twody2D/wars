@@ -7,10 +7,12 @@ signal rewarded(tag: StringName)
 signal rewarded_failed(tag: StringName)
 signal paused
 signal resumed
+## init() finished (successfully or not) — the game may start.
+signal initialized
 
 
 func init() -> void:
-	pass
+	initialized.emit.call_deferred()
 
 
 ## LoadingAPI.ready()
@@ -30,8 +32,9 @@ func show_interstitial() -> void:
 	pass
 
 
-func show_rewarded(_tag: StringName) -> void:
-	pass
+## No ads here: the reward is refused (the game must not hang waiting).
+func show_rewarded(tag: StringName) -> void:
+	rewarded_failed.emit.call_deferred(tag)
 
 
 func get_lang() -> String:

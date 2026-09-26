@@ -81,7 +81,7 @@ func _ready() -> void:
 
 	_time_scale_before = Engine.time_scale
 	Engine.time_scale = balance.battle_speed_scale if GameState.battle_speed_on else 1.0
-	AudioServer.set_bus_mute(0, not GameState.sound_on)
+	Platform.update_mute()
 	Platform.paused.connect(_on_platform_paused)
 	Platform.gameplay_start()
 
@@ -339,6 +339,9 @@ func _go_menu() -> void:
 
 
 func _leave(scene: String) -> void:
+	# The ad pauses the platform; this battle is going away and must not react.
+	if Platform.paused.is_connected(_on_platform_paused):
+		Platform.paused.disconnect(_on_platform_paused)
 	get_tree().paused = false
 	Platform.show_interstitial()
 	get_tree().change_scene_to_file(scene)

@@ -24,6 +24,7 @@ func _ready() -> void:
 	_next.pressed.connect(next_pressed.emit)
 	_menu.pressed.connect(menu_pressed.emit)
 	Platform.rewarded.connect(_on_rewarded)
+	Platform.rewarded_failed.connect(_on_rewarded_failed)
 
 
 func show_result(result: BattleResult) -> void:
@@ -54,3 +55,9 @@ func _on_rewarded(tag: StringName) -> void:
 	_result.doubled = true
 	GameState.add_coins(_result.coins)
 	_coins.text = "+%d" % (_result.coins * 2)
+
+
+## Ad closed early or failed: no reward, the button works again.
+func _on_rewarded_failed(tag: StringName) -> void:
+	if tag == AD_TAG and _result != null and not _result.doubled:
+		_double.disabled = false

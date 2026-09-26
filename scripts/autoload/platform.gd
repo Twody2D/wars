@@ -4,20 +4,32 @@ extends Node
 
 signal rewarded(tag: StringName)
 signal rewarded_failed(tag: StringName)
+## The game must pause now (SDK pause, ad on screen, focus lost, portrait).
 signal paused
 signal resumed
+signal initialized
 
 var backend: PlatformBase
+## Backend init finished (the boot scene waits for it).
+var is_initialized: bool = false
+
+var _unfocused: bool = false
+var _sdk_paused: bool = false
 
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	backend = PlatformMock.new()
+	# Web export → Yandex bridge (falls back to offline itself); editor/tests → mock.
+	if OS.has_feature("web"):
+		backend = PlatformYandex.new()
+	else:
+		backend = PlatformMock.new()
 	add_child(backend)
 	backend.rewarded.connect(rewarded.emit)
 	backend.rewarded_failed.connect(rewarded_failed.emit)
-	backend.paused.connect(paused.emit)
-	backend.resumed.connect(resumed.emit)
+	backend.paused.connect(_on_backend_paused)
+	backend.resumed.connect(_on_backend_resumed)
+	backend.initialized.connect(_on_initialized, CONNECT_ONE_SHOT)
 	backend.init()
 
 
@@ -25,10 +37,18 @@ func _ready() -> void:
 ## Sound comes back on focus; the battle stays paused until the player resumes.
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_WINDOW_FOCUS_OUT:
-		AudioServer.set_bus_mute(0, true)
+		_unfocused = true
+		update_mute()
 		paused.emit()
 	elif what == NOTIFICATION_WM_WINDOW_FOCUS_IN:
-		AudioServer.set_bus_mute(0, not GameState.sound_on)
+		_unfocused = false
+		update_mute()
+
+
+## Master bus is silent when sound is off, the window has no focus, or the
+## platform paused the game (an ad is on screen).
+func update_mute() -> void:
+	AudioServer.set_bus_mute(0, not GameState.sound_on or _unfocused or _sdk_paused)
 
 
 ## Ask the current scene to pause (e.g. the rotate overlay); same path as the SDK pause.
@@ -58,3 +78,34 @@ func show_rewarded(tag: StringName) -> void:
 
 func get_lang() -> String:
 	return backend.get_lang()
+
+
+## Cloud save ({} if none or unavailable). May take a moment: use with await.
+func load_cloud() -> Dictionary:
+	var data: Dictionary = await backend.load_cloud()
+	return data
+
+
+func save_cloud(data: Dictionary) -> void:
+	backend.save_cloud(data)
+
+
+func set_leaderboard_score(stars_total: int) -> void:
+	backend.set_leaderboard_score(stars_total)
+
+
+func _on_initialized() -> void:
+	is_initialized = true
+	initialized.emit()
+
+
+func _on_backend_paused() -> void:
+	_sdk_paused = true
+	update_mute()
+	paused.emit()
+
+
+func _on_backend_resumed() -> void:
+	_sdk_paused = false
+	update_mute()
+	resumed.emit()

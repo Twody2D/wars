@@ -102,3 +102,16 @@ func test_win_advances_level() -> void:
 	r.level_number = 2
 	gs.call(&"apply_result", r)
 	assert_int(gs.get(&"current_level")).is_equal(2)
+
+
+func test_cloud_save_taken_only_if_newer() -> void:
+	gs.set(&"saved_at", 100)
+	gs.set(&"coins", 5)
+	gs.call(&"merge_cloud", {"coins": 70, "saved_at": 50})
+	assert_int(gs.get(&"coins")).is_equal(5)
+	gs.call(&"merge_cloud", {})
+	assert_int(gs.get(&"coins")).is_equal(5)
+	gs.call(&"merge_cloud", {"coins": 70, "current_level": 3, "saved_at": 200})
+	assert_int(gs.get(&"coins")).is_equal(70)
+	assert_int(gs.get(&"current_level")).is_equal(3)
+	assert_int(gs.get(&"saved_at")).is_equal(200)

@@ -24,6 +24,8 @@ var lang: String = ""
 var selected_level: int = 1
 ## Off in tests so they never touch the real save file.
 var autosave: bool = true
+## Unix time of the last save; picks the newer of the local and cloud saves.
+var saved_at: int = 0
 
 
 func _ready() -> void:
@@ -173,6 +175,8 @@ func apply_result(result: BattleResult) -> void:
 		if result.level_number >= current_level:
 			current_level = mini(result.level_number + 1, config.levels.size())
 	_commit()
+	if result.won and autosave:
+		Platform.set_leaderboard_score(stars_total())
 
 
 func add_coins(amount: int) -> void:
@@ -223,6 +227,7 @@ func to_dict() -> Dictionary:
 		"upgrades": ups,
 		"battle_speed_on": battle_speed_on,
 		"settings": {"sound": sound_on, "lang": lang},
+		"saved_at": saved_at,
 	}
 
 
@@ -233,6 +238,7 @@ func from_dict(data: Dictionary) -> void:
 		return
 	var max_level: int = config.levels.size()
 	var max_biome: int = ceili(float(max_level) / config.levels_per_biome)
+	saved_at = maxi(_int(data, "saved_at", 0), 0)
 	coins = maxi(_int(data, "coins", 0), 0)
 	current_level = clampi(_int(data, "current_level", 1), 1, max_level)
 	biome_unlocked = clampi(_int(data, "biome_unlocked", 1), 1, max_biome)
@@ -267,6 +273,7 @@ func reset_progress() -> void:
 
 
 func _reset() -> void:
+	saved_at = 0
 	coins = 0
 	level_stars.clear()
 	current_level = 1
@@ -282,9 +289,24 @@ func _reset() -> void:
 			upgrades[up.id] = 0
 
 
-func _commit() -> void:
+## Cloud save from the platform: taken if it is newer than the local one
+## (another device, cleared browser data). Called once at boot.
+func merge_cloud(data: Dictionary) -> void:
+	if data.is_empty() or _int(data, "saved_at", 0) <= saved_at:
+		return
+	from_dict(data)
+	selected_level = current_level
 	if autosave:
 		SaveService.save(to_dict())
+	changed.emit()
+
+
+func _commit() -> void:
+	if autosave:
+		saved_at = int(Time.get_unix_time_from_system())
+		var data: Dictionary = to_dict()
+		SaveService.save(data)
+		Platform.save_cloud(data)
 	changed.emit()
 
 

@@ -24,6 +24,7 @@ const BATTLE_SCENE := "res://scenes/battle/battle.tscn"
 
 
 func _ready() -> void:
+	get_tree().paused = false
 	_logo.texture = logos.get(TranslationServer.get_locale().left(2), logos.get("ru"))
 	for i: int in _tab_buttons.size():
 		_tab_buttons[i].pressed.connect(_show_tab.bind(i))

@@ -83,6 +83,143 @@ html, body {
 
 		<script src="$GODOT_URL"></script>
 		<script>
+// Yandex Games SDK bridge (SPEC 14). Godot calls window.YG through
+// JavaScriptBridge (platform_yandex.gd); every call answers through its
+// callback, also on errors and timeouts, so the game never hangs.
+window.YG = (function () {
+	const INIT_TIMEOUT_MS = 6000;
+	const DATA_TIMEOUT_MS = 5000;
+	const LOCAL_HOST = /^(localhost|127\.|192\.168\.|10\.)/;
+	let sdk = null;
+	let playerPromise = null;
+	let onEvent = null;
+
+	// /sdk.js exists only on Yandex hosting: skip it locally (no 404 in the console).
+	const sdkLoaded = new Promise((resolve) => {
+		if (LOCAL_HOST.test(location.hostname)) {
+			resolve(false);
+			return;
+		}
+		const script = document.createElement('script');
+		script.src = '/sdk.js';
+		script.onload = () => resolve(true);
+		script.onerror = () => resolve(false);
+		document.head.appendChild(script);
+	});
+
+	// Wraps a callback: called at most once, with `fallback` args after `ms`.
+	function once(cb, ms, fallback) {
+		let done = false;
+		const timer = setTimeout(() => {
+			if (!done) {
+				done = true;
+				cb(...fallback);
+			}
+		}, ms);
+		return (...args) => {
+			if (!done) {
+				done = true;
+				clearTimeout(timer);
+				cb(...args);
+			}
+		};
+	}
+
+	function player() {
+		if (playerPromise === null) {
+			playerPromise = sdk.getPlayer({ scopes: false });
+		}
+		return playerPromise;
+	}
+
+	return {
+		// cb('ok', lang) or cb('fail', '').
+		init(cb) {
+			const reply = once(cb, INIT_TIMEOUT_MS, ['fail', '']);
+			sdkLoaded.then((ok) => {
+				if (!ok || typeof YaGames === 'undefined') {
+					reply('fail', '');
+					return null;
+				}
+				return YaGames.init().then((s) => {
+					sdk = s;
+					sdk.on('game_api_pause', () => onEvent && onEvent('pause'));
+					sdk.on('game_api_resume', () => onEvent && onEvent('resume'));
+					reply('ok', (sdk.environment && sdk.environment.i18n && sdk.environment.i18n.lang) || '');
+				});
+			}).catch((err) => {
+				console.warn('YG init', err);
+				reply('fail', '');
+			});
+		},
+		// cb('pause') / cb('resume') from the platform (ads, tab switch in the Yandex UI).
+		setEventHandler(cb) {
+			onEvent = cb;
+		},
+		loadingReady() {
+			sdk?.features?.LoadingAPI?.ready();
+		},
+		gameplayStart() {
+			sdk?.features?.GameplayAPI?.start();
+		},
+		gameplayStop() {
+			sdk?.features?.GameplayAPI?.stop();
+		},
+		// cb('open' | 'close' | 'error').
+		showFullscreen(cb) {
+			if (!sdk) {
+				cb('error');
+				return;
+			}
+			sdk.adv.showFullscreenAdv({ callbacks: {
+				onOpen: () => cb('open'),
+				onClose: () => cb('close'),
+				onError: () => cb('error'),
+				onOffline: () => cb('close'),
+			} });
+		},
+		// cb('open' | 'rewarded' | 'close' | 'error').
+		showRewarded(cb) {
+			if (!sdk) {
+				cb('error');
+				return;
+			}
+			sdk.adv.showRewardedVideo({ callbacks: {
+				onOpen: () => cb('open'),
+				onRewarded: () => cb('rewarded'),
+				onClose: () => cb('close'),
+				onError: () => cb('error'),
+			} });
+		},
+		// cb(json) — the saved JSON string, '' if none or on error.
+		loadData(cb) {
+			const reply = once(cb, DATA_TIMEOUT_MS, ['']);
+			if (!sdk) {
+				reply('');
+				return;
+			}
+			player().then((p) => p.getData(['save'])).then((data) => {
+				reply(data && typeof data.save === 'string' ? data.save : '');
+			}).catch((err) => {
+				console.warn('YG load', err);
+				reply('');
+			});
+		},
+		saveData(json) {
+			if (!sdk) {
+				return;
+			}
+			player().then((p) => p.setData({ save: json }, false)).catch((err) => console.warn('YG save', err));
+		},
+		setScore(board, score) {
+			if (!sdk || !sdk.leaderboards) {
+				return;
+			}
+			Promise.resolve().then(() => sdk.leaderboards.setScore(board, score)).catch((err) => console.warn('YG score', err));
+		},
+	};
+}());
+
 const GODOT_CONFIG = $GODOT_CONFIG;
 // Widest allowed aspect (Yandex 1.6.2: field to the edge, ratio ≤ 2:1).
 const MAX_ASPECT = 2.0;
