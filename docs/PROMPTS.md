@@ -252,3 +252,122 @@ The camera concept changes: the battlefield is now seen from a 3/4 top-down angl
    left to right with 20 empty circular level slots. No characters on it.
 Same GLOBAL STYLE and TECHNICAL RULES as before.
 ```
+
+## Редизайн v2: читаемость, меню, улучшения, состояния кнопок (26.09.2026)
+
+Отправить в тот же проект Claude Design. Перед отправкой вписать название вместо `[GAME TITLE]` (или оставить — тогда раздел G переделать позже).
+
+```
+Keep all units, bosses, projectiles, fx, battle backgrounds, bases, decor, HUD and
+the map exactly as they are. This is a UI redesign pass. Main goals:
+(1) readable on a phone, (2) calmer, less busy screens, (3) every button has
+visible hover / pressed / disabled states.
+
+=====================================================================
+STYLE (same as before, restated)
+=====================================================================
+- Original blocky "voxel-cartoon" style, kids 7–14, chunky and cute.
+- Outline 3 px #1B1B2F. Flat fills: base color + one darker side + one highlight.
+  No gradients. Light from top-left. Same 32-color palette.
+- Team colors: player #3A7BFF, enemy #FF4A4A.
+
+=====================================================================
+READABILITY RULES (new, apply to every UI asset)
+=====================================================================
+- Base resolution 1280×720, but on phones the game is shown at ~40% of that size.
+  So: body text ≥ 26 px, button labels ≥ 32 px, titles ≥ 44 px, numbers/prices ≥ 36 px
+  (in 1280×720 coordinates). Touch targets ≥ 96×96 px.
+- LESS DETAIL: no rivets, no plank lines, no double borders, no nested frames.
+  One outer outline + one flat fill per panel. Empty space is good.
+- Strong contrast: light text on dark fills or dark text on light fills, never
+  text on a busy picture. Backgrounds behind UI must be calm and low-contrast.
+- Buttons are EMPTY (no text baked in): the game draws the label with its own
+  bold rounded Cyrillic font. Mockups may show text only to explain layout.
+
+=====================================================================
+TECHNICAL RULES (same as before)
+=====================================================================
+- Each asset = its own artboard named exactly as the file name (lowercase,
+  underscores). SVG only, transparent background, plain fill/stroke attributes.
+- No filters, blur, shadows, masks, clip-paths, gradients, patterns, raster images,
+  <text> (text only in mockups and logos; logos: text converted to paths), CSS.
+- 9-slice friendly: panels and buttons have a plain center and corners ≤ 16 px so
+  they stretch without distortion.
+
+=====================================================================
+SECTION A — BUTTONS v2 (each 240×96, 9-slice)
+=====================================================================
+ui_btn_primary_{normal,hover,pressed,disabled}   — green
+ui_btn_secondary_{normal,hover,pressed,disabled} — blue
+ui_btn_danger_{normal,hover,pressed,disabled}    — red
+ui_btn_gold_{normal,hover,pressed,disabled}      — yellow/gold, for "buy for coins"
+- normal: flat face + darker 8 px bottom edge (3D block feel).
+- hover: face 12% lighter + thin white inner highlight on top — clearly different.
+- pressed: bottom edge gone, face moved down 6 px (pushed in).
+- disabled: desaturated grey, no highlight.
+ui_tab_{active,inactive,hover} (280×88) — bottom tab bar buttons; active tab is
+  bright and 8 px taller, inactive is a muted dark version (must still be readable).
+ui_btn_icon_{normal,hover,pressed} (96×96, round-cornered square) — for gear,
+  pause, close icons placed on top.
+
+=====================================================================
+SECTION B — PANELS AND CARDS v2
+=====================================================================
+ui_panel_v2 (256×256, 9-slice) — ONE flat dark-navy fill (#2B2740-ish), 3 px outline,
+  rounded 12 px corners. No wood, no rivets.
+ui_card_v2 (256×256, 9-slice) — lighter version for items inside a panel.
+ui_card_v2_locked — same, darker, for locked items.
+ui_level_pips (5 small squares 20×20 in a row, filled/empty versions:
+  ui_pip_full, ui_pip_empty) — to show upgrade level 3/5 without text.
+ui_price_tag (160×64, 9-slice) — gold pill for "coin icon + price".
+
+=====================================================================
+SECTION C — UPGRADE ICONS (each 96×96, simple, big shapes, readable at 40 px)
+=====================================================================
+upgrade_army_power (sword + up arrow), upgrade_food_rate (meat + clock),
+upgrade_base_hp (hut + heart), upgrade_start_food (meat + flag),
+upgrade_battle_speed (hourglass ×1.5), upgrade_unit_level (star + up arrow).
+
+=====================================================================
+SECTION D — MAIN MENU v2
+=====================================================================
+bg_menu_v2 (1280×720): same world as bg_menu but CALM: lower contrast, fewer
+  clouds and blocks, soft sky; the middle band y=260…480 and the bottom band
+  y=560…720 are plain and darker so buttons pop. Keep the two mascots (zombie left,
+  skeleton right) but smaller and at the sides, not behind buttons.
+screen_menu_v2 (1280×720, mockup): logo top center; big "Play" primary button in the
+  center (400×130) with level label above it; bottom tab bar (3 tabs: Battle,
+  Upgrades, Map); coins top-right; round gear button top-left. Nothing overlaps.
+
+=====================================================================
+SECTION E — UPGRADES SCREEN v2 (mockup 1280×720 + the pieces above)
+=====================================================================
+screen_upgrades_v2: calm dark panel on a dimmed background.
+- Top row: 6 unit cards (180×200 each): big portrait, name (26 px), level pips,
+  one price button at the bottom (gold "coin 50" or grey "locked in caves").
+- Below: upgrades as a clean grid of 3 columns × 2 rows, each tile 380×120:
+  icon on the left (72 px), name (28 px) and ONE short effect line (e.g. "+10%"),
+  level pips, gold price button on the right. No long descriptions.
+- Coins top-right, tab bar at the bottom, gear top-left — none of them overlapping
+  the panel (panel spans y=100…560).
+
+=====================================================================
+SECTION F — OTHER SCREENS (mockups 1280×720, reuse pieces above)
+=====================================================================
+screen_settings_v2: panel with sound toggle (icon on/off), language row
+  (globe + "Русский" / "English"), close button.
+screen_pause_v2: Continue / Restart / Sound / Menu.
+screen_result_v2: Win/Lose title, 3 stars, "+coins", "×2 coins (ad)" button with the
+  TV badge, Next, Menu.
+how_to_play_1, how_to_play_2, how_to_play_3 (each 400×260, simple illustrations,
+  no text): 1) finger tapping a unit card → unit walks out; 2) finger tapping a
+  shiny ore block → meat +1; 3) finger tapping the meteor button, then a target on
+  the lane → rock falls on enemies.
+
+=====================================================================
+SECTION G — TITLE AND STORE ART (game title: [GAME TITLE])
+=====================================================================
+logo_ru (Russian title) and logo_en (English title), 600×225, same blocky
+  pixel-letter style as the current logo, text as paths.
+store_icon (512×512): mascot face + short title, readable at 64 px, not a screenshot.
+store_cover (1920×1080): mascots, lane battle scene, title; not a screenshot.
