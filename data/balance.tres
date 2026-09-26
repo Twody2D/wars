@@ -15,3 +15,5 @@ bot_pressure_interval = 14.0
 meteor_damage = 50.0
 meteor_radius = 70.0
 meteor_fall_time = 1.2
+coins_per_kill = 10
+upgrade_cost_round = 10

@@ -8,5 +8,5 @@ script = ExtResource("1_84pgg")
 id = &"army_power"
 name_key = "UPGRADE_ARMY_POWER"
 icon = ExtResource("2_icon")
-base_cost = 20
+base_cost = 200
 per_level = 0.1

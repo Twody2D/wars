@@ -8,6 +8,6 @@ script = ExtResource("1_26ckc")
 id = &"unit_level"
 name_key = "UPGRADE_UNIT_LEVEL"
 icon = ExtResource("2_icon")
-base_cost = 50
+base_cost = 500
 max_level = 4
 per_level = 0.1

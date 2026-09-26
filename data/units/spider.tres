@@ -14,6 +14,6 @@ cooldown = 0.6
 attack_range = 18.0
 speed = 70.0
 cost = 4
-unlock_cost = 300
+unlock_cost = 3000
 visual = ExtResource("3_eq3nt")
 portrait = ExtResource("1_ebqtr")

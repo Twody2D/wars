@@ -8,5 +8,5 @@ script = ExtResource("1_nf76u")
 id = &"base_hp"
 name_key = "UPGRADE_BASE_HP"
 icon = ExtResource("2_icon")
-base_cost = 20
-per_level = 1.0
+base_cost = 200
+per_level = 5.0

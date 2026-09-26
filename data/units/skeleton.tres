@@ -8,9 +8,9 @@
 script = ExtResource("2_ixclv")
 id = &"skeleton"
 name_key = "UNIT_SKELETON"
-hp = 35.0
-damage = 7.0
-cooldown = 1.4
+hp = 50.0
+damage = 14.0
+cooldown = 1.2
 attack_range = 180.0
 speed = 38.0
 projectile = &"arrow"

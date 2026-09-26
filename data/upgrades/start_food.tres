@@ -8,6 +8,6 @@ script = ExtResource("1_qw14q")
 id = &"start_food"
 name_key = "UPGRADE_START_FOOD"
 icon = ExtResource("2_icon")
-base_cost = 40
+base_cost = 400
 max_level = 5
 per_level = 3.0

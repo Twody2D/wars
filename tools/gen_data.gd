@@ -7,23 +7,23 @@ extends SceneTree
 # id: [hp, damage, cooldown, range, speed, cost, unlock_cost, unlock_biome, splash, projectile, explodes, hit_delay, boss]
 const UNITS: Dictionary[String, Array] = {
 	"zombie": [60, 8, 1.0, 20, 40, 3, 0, 1, 0, "", false, 0.3, false],
-	"skeleton": [35, 7, 1.4, 180, 38, 5, 0, 1, 0, "arrow", false, 0.3, false],
-	"slime": [150, 5, 1.2, 20, 30, 7, 150, 1, 0, "", false, 0.3, false],
-	"spider": [40, 6, 0.6, 18, 70, 4, 300, 1, 0, "", false, 0.3, false],
-	"goblin_miner": [55, 12, 1.6, 120, 38, 6, 500, 2, 0, "pickaxe", false, 0.3, false],
-	"barrel_bomber": [30, 60, 1.0, 20, 45, 8, 800, 2, 60, "", true, 0.4, false],
+	"skeleton": [50, 14, 1.2, 180, 38, 5, 0, 1, 0, "arrow", false, 0.3, false],
+	"slime": [150, 5, 1.2, 20, 30, 7, 1500, 1, 0, "", false, 0.3, false],
+	"spider": [40, 6, 0.6, 18, 70, 4, 3000, 1, 0, "", false, 0.3, false],
+	"goblin_miner": [55, 12, 1.6, 120, 38, 6, 5000, 2, 0, "pickaxe", false, 0.3, false],
+	"barrel_bomber": [30, 60, 1.0, 20, 45, 8, 8000, 2, 60, "", true, 0.4, false],
 	"boss_zombie_king": [1200, 30, 1.5, 30, 20, 0, 0, 1, 0, "", false, 0.5, true],
 	"boss_stone_golem": [2000, 45, 2.0, 35, 18, 0, 0, 2, 50, "", false, 0.5, true],
 }
 
 # id: [base_cost, max_level, per_level, one_time]
 const UPGRADES: Dictionary[String, Array] = {
-	"army_power": [20, 10, 0.1, false],
-	"food_rate": [30, 10, 0.05, false],
-	"base_hp": [20, 10, 1.0, false],
-	"start_food": [40, 5, 3.0, false],
-	"unit_level": [50, 4, 0.1, false],
-	"battle_speed": [600, 1, 1.5, true],
+	"army_power": [200, 10, 0.1, false],
+	"food_rate": [300, 10, 0.05, false],
+	"base_hp": [200, 10, 5.0, false],
+	"start_food": [400, 5, 3.0, false],
+	"unit_level": [500, 4, 0.1, false],
+	"battle_speed": [6000, 1, 1.5, true],
 }
 
 

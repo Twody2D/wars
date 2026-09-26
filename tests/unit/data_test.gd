@@ -31,6 +31,8 @@ func test_spec_values() -> void:
 	var skeleton: UnitData = load("res://data/units/skeleton.tres")
 	assert_bool(skeleton.is_ranged()).is_true()
 	assert_float(skeleton.attack_range).is_equal(180.0)
+	# Twody: the archer costs more food, so it must beat the zombie one on one.
+	assert_float(skeleton.damage / skeleton.cooldown).is_greater(zombie.damage / zombie.cooldown)
 	var bomber: UnitData = load("res://data/units/barrel_bomber.tres")
 	assert_bool(bomber.explodes).is_true()
 	assert_float(bomber.splash_radius).is_equal(60.0)
@@ -45,6 +47,8 @@ func test_balance_loads() -> void:
 	# Twody: the player's base has 5 HP, every enemy hit takes 1.
 	assert_float(balance.player_base_hp).is_equal(5.0)
 	assert_float(balance.player_base_hit).is_equal(1.0)
+	# Twody: bigger numbers — 10 coins per kill.
+	assert_int(balance.coins_per_kill).is_equal(10)
 	assert_float(balance.food_max).is_equal(30.0)
 	assert_int(balance.unit_limit).is_equal(20)
 	assert_float(balance.lane_end_x).is_greater(balance.lane_start_x)
@@ -56,8 +60,8 @@ func test_upgrade_costs() -> void:
 		assert_object(up).is_not_null()
 		assert_int(up.max_level).is_greater(0)
 	var food: UpgradeData = load("res://data/upgrades/food_rate.tres")
-	# 30 × 1.35^0 = 30; 30 × 1.35^3 = 73.8 → 75
-	assert_int(food.cost_for_level(0, 1.35, 5)).is_equal(30)
-	assert_int(food.cost_for_level(3, 1.35, 5)).is_equal(75)
+	# 300 × 1.35^0 = 300; 300 × 1.35^3 = 738 → 740
+	assert_int(food.cost_for_level(0, 1.35, 10)).is_equal(300)
+	assert_int(food.cost_for_level(3, 1.35, 10)).is_equal(740)
 	var speed: UpgradeData = load("res://data/upgrades/battle_speed.tres")
-	assert_int(speed.cost_for_level(0, 1.35, 5)).is_equal(600)
+	assert_int(speed.cost_for_level(0, 1.35, 10)).is_equal(6000)

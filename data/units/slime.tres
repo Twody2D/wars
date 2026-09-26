@@ -12,6 +12,6 @@ hp = 150.0
 cooldown = 1.2
 speed = 30.0
 cost = 7
-unlock_cost = 150
+unlock_cost = 1500
 visual = ExtResource("3_mdm02")
 portrait = ExtResource("1_lqcv3")

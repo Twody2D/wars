@@ -32,7 +32,7 @@ func test_fresh_state() -> void:
 
 
 func test_round_trip() -> void:
-	gs.set(&"coins", 500)
+	gs.set(&"coins", 5000)
 	gs.call(&"buy_upgrade", &"base_hp")
 	gs.call(&"unlock_unit", &"slime")
 	var saved: Dictionary = gs.call(&"to_dict")
@@ -69,7 +69,7 @@ func test_bad_save_is_sanitised() -> void:
 
 func test_purchases_need_coins() -> void:
 	assert_bool(gs.call(&"buy_upgrade", &"food_rate")).is_false()
-	gs.set(&"coins", 30)
+	gs.set(&"coins", 300)
 	assert_bool(gs.call(&"buy_upgrade", &"food_rate")).is_true()
 	assert_int(gs.get(&"coins")).is_equal(0)
 	assert_int(gs.call(&"upgrade_level", &"food_rate")).is_equal(1)
@@ -84,7 +84,7 @@ func test_setup_applies_upgrades() -> void:
 	var level: LevelData = gs.call(&"level", 1)
 	var s: BattleSetup = gs.call(&"make_setup", level)
 	var b: BalanceData = gs.call(&"balance")
-	assert_float(s.player_base_hp).is_equal(b.player_base_hp + 1.0)
+	assert_float(s.player_base_hp).is_equal(b.player_base_hp + 5.0)
 	assert_float(s.food_rate).is_equal_approx(b.food_rate + 0.1, 0.0001)
 	assert_float(s.food_max).is_equal(35.0)
 	assert_float(s.start_food).is_equal(3.0)

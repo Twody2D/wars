@@ -24,8 +24,8 @@ const BOT_FOOD: Array[float] = [
 ## ordinary levels ~0.93 of break-even, every third level and bosses ~1.1 —
 ## "lose a couple of times, upgrade, win". Level 1: lost without upgrades.
 const BOT_POWER: Array[float] = [
-	1.12, 1.0, 1.05, 1.6, 1.5, 1.6, 1.9, 2.05, 1.8, 2.6,
-	2.5, 2.75, 3.05, 2.8, 2.9, 3.2, 2.85, 2.95, 3.05, 3.35,
+	1.16, 1.0, 1.05, 1.45, 1.5, 1.6, 1.9, 2.05, 1.8, 2.1,
+	2.5, 2.75, 2.9, 2.8, 2.9, 2.85, 2.85, 2.95, 3.05, 3.35,
 ]
 ## Boss levels get a smaller army: the boss is the threat.
 const BOSS_LEVEL_BUDGET := 0.75
@@ -69,7 +69,7 @@ func _level(n: int, u: Dictionary[String, UnitData]) -> LevelData:
 	level.bot_food_per_sec = BOT_FOOD[n - 1]
 	level.bot_power = BOT_POWER[n - 1]
 	level.counter_pick = true
-	level.reward_coins = 24 + 4 * (n - 1)
+	level.reward_coins = 240 + 40 * (n - 1)
 	level.tutorial = n == 1
 	level.min_start_food = 3.0 if n == 1 else 0.0
 	level.ore_blocks = 2
