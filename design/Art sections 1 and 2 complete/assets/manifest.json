@@ -1,0 +1,1145 @@
+{
+ "sections": [
+  {
+   "num": "A",
+   "title": "Buttons v2",
+   "note": "normal / hover / pressed / disabled · 12 px corners · empty (game draws labels)",
+   "items": [
+    {
+     "name": "ui_btn_primary_normal",
+     "file": "assets/v2/buttons/ui_btn_primary_normal.svg",
+     "w": 240,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_primary_hover",
+     "file": "assets/v2/buttons/ui_btn_primary_hover.svg",
+     "w": 240,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_primary_pressed",
+     "file": "assets/v2/buttons/ui_btn_primary_pressed.svg",
+     "w": 240,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_primary_disabled",
+     "file": "assets/v2/buttons/ui_btn_primary_disabled.svg",
+     "w": 240,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_secondary_normal",
+     "file": "assets/v2/buttons/ui_btn_secondary_normal.svg",
+     "w": 240,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_secondary_hover",
+     "file": "assets/v2/buttons/ui_btn_secondary_hover.svg",
+     "w": 240,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_secondary_pressed",
+     "file": "assets/v2/buttons/ui_btn_secondary_pressed.svg",
+     "w": 240,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_secondary_disabled",
+     "file": "assets/v2/buttons/ui_btn_secondary_disabled.svg",
+     "w": 240,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_danger_normal",
+     "file": "assets/v2/buttons/ui_btn_danger_normal.svg",
+     "w": 240,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_danger_hover",
+     "file": "assets/v2/buttons/ui_btn_danger_hover.svg",
+     "w": 240,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_danger_pressed",
+     "file": "assets/v2/buttons/ui_btn_danger_pressed.svg",
+     "w": 240,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_danger_disabled",
+     "file": "assets/v2/buttons/ui_btn_danger_disabled.svg",
+     "w": 240,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_gold_normal",
+     "file": "assets/v2/buttons/ui_btn_gold_normal.svg",
+     "w": 240,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_gold_hover",
+     "file": "assets/v2/buttons/ui_btn_gold_hover.svg",
+     "w": 240,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_gold_pressed",
+     "file": "assets/v2/buttons/ui_btn_gold_pressed.svg",
+     "w": 240,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_gold_disabled",
+     "file": "assets/v2/buttons/ui_btn_gold_disabled.svg",
+     "w": 240,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "ui_tab_active",
+     "file": "assets/v2/buttons/ui_tab_active.svg",
+     "w": 280,
+     "h": 88,
+     "scale": 1
+    },
+    {
+     "name": "ui_tab_inactive",
+     "file": "assets/v2/buttons/ui_tab_inactive.svg",
+     "w": 280,
+     "h": 88,
+     "scale": 1
+    },
+    {
+     "name": "ui_tab_hover",
+     "file": "assets/v2/buttons/ui_tab_hover.svg",
+     "w": 280,
+     "h": 88,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_icon_normal",
+     "file": "assets/v2/buttons/ui_btn_icon_normal.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1.5
+    },
+    {
+     "name": "ui_btn_icon_hover",
+     "file": "assets/v2/buttons/ui_btn_icon_hover.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1.5
+    },
+    {
+     "name": "ui_btn_icon_pressed",
+     "file": "assets/v2/buttons/ui_btn_icon_pressed.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1.5
+    }
+   ]
+  },
+  {
+   "num": "B",
+   "title": "Panels & cards v2",
+   "note": "Flat, one fill · 12 px corners · 9-slice",
+   "items": [
+    {
+     "name": "ui_panel_v2",
+     "file": "assets/v2/panels/ui_panel_v2.svg",
+     "w": 256,
+     "h": 256,
+     "scale": 1
+    },
+    {
+     "name": "ui_card_v2",
+     "file": "assets/v2/panels/ui_card_v2.svg",
+     "w": 256,
+     "h": 256,
+     "scale": 1
+    },
+    {
+     "name": "ui_card_v2_locked",
+     "file": "assets/v2/panels/ui_card_v2_locked.svg",
+     "w": 256,
+     "h": 256,
+     "scale": 1
+    },
+    {
+     "name": "ui_pip_full",
+     "file": "assets/v2/panels/ui_pip_full.svg",
+     "w": 20,
+     "h": 20,
+     "scale": 3
+    },
+    {
+     "name": "ui_pip_empty",
+     "file": "assets/v2/panels/ui_pip_empty.svg",
+     "w": 20,
+     "h": 20,
+     "scale": 3
+    },
+    {
+     "name": "ui_level_pips",
+     "file": "assets/v2/panels/ui_level_pips.svg",
+     "w": 124,
+     "h": 20,
+     "scale": 2
+    },
+    {
+     "name": "ui_price_tag",
+     "file": "assets/v2/panels/ui_price_tag.svg",
+     "w": 160,
+     "h": 64,
+     "scale": 1.5
+    }
+   ]
+  },
+  {
+   "num": "C",
+   "title": "Upgrade icons",
+   "note": "96×96",
+   "items": [
+    {
+     "name": "upgrade_army_power",
+     "file": "assets/v2/upgrades/upgrade_army_power.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "upgrade_food_rate",
+     "file": "assets/v2/upgrades/upgrade_food_rate.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "upgrade_base_hp",
+     "file": "assets/v2/upgrades/upgrade_base_hp.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "upgrade_start_food",
+     "file": "assets/v2/upgrades/upgrade_start_food.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "upgrade_battle_speed",
+     "file": "assets/v2/upgrades/upgrade_battle_speed.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "upgrade_unit_level",
+     "file": "assets/v2/upgrades/upgrade_unit_level.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1
+    }
+   ]
+  },
+  {
+   "num": "D",
+   "title": "Main menu v2",
+   "note": "Calm bands y 260–480 and 560–720",
+   "items": [
+    {
+     "name": "bg_menu_v2",
+     "file": "assets/v2/screens/bg_menu_v2.svg",
+     "w": 1280,
+     "h": 720,
+     "scale": 1
+    },
+    {
+     "name": "screen_menu_v2",
+     "file": "assets/v2/screens/screen_menu_v2.svg",
+     "w": 1280,
+     "h": 720,
+     "scale": 1
+    }
+   ]
+  },
+  {
+   "num": "E",
+   "title": "Upgrades screen v2",
+   "note": "Mockup · text only to explain layout",
+   "items": [
+    {
+     "name": "screen_upgrades_v2",
+     "file": "assets/v2/screens/screen_upgrades_v2.svg",
+     "w": 1280,
+     "h": 720,
+     "scale": 1
+    }
+   ]
+  },
+  {
+   "num": "F",
+   "title": "Other screens v2",
+   "note": "Mockups + how-to-play illustrations",
+   "items": [
+    {
+     "name": "screen_settings_v2",
+     "file": "assets/v2/screens/screen_settings_v2.svg",
+     "w": 1280,
+     "h": 720,
+     "scale": 1
+    },
+    {
+     "name": "screen_pause_v2",
+     "file": "assets/v2/screens/screen_pause_v2.svg",
+     "w": 1280,
+     "h": 720,
+     "scale": 1
+    },
+    {
+     "name": "screen_result_v2",
+     "file": "assets/v2/screens/screen_result_v2.svg",
+     "w": 1280,
+     "h": 720,
+     "scale": 1
+    },
+    {
+     "name": "how_to_play_1",
+     "file": "assets/v2/screens/how_to_play_1.svg",
+     "w": 400,
+     "h": 260,
+     "scale": 1.5
+    },
+    {
+     "name": "how_to_play_2",
+     "file": "assets/v2/screens/how_to_play_2.svg",
+     "w": 400,
+     "h": 260,
+     "scale": 1.5
+    },
+    {
+     "name": "how_to_play_3",
+     "file": "assets/v2/screens/how_to_play_3.svg",
+     "w": 400,
+     "h": 260,
+     "scale": 1.5
+    }
+   ]
+  },
+  {
+   "num": "G",
+   "title": "HUD pieces v2",
+   "note": "No baked text — empty label areas",
+   "items": [
+    {
+     "name": "booster_speed_v2",
+     "file": "assets/v2/hud/booster_speed_v2.svg",
+     "w": 112,
+     "h": 132,
+     "scale": 1.5
+    },
+    {
+     "name": "booster_food_v2",
+     "file": "assets/v2/hud/booster_food_v2.svg",
+     "w": 112,
+     "h": 132,
+     "scale": 1.5
+    },
+    {
+     "name": "ability_button_v2",
+     "file": "assets/v2/hud/ability_button_v2.svg",
+     "w": 112,
+     "h": 112,
+     "scale": 1.5
+    },
+    {
+     "name": "wave_counter_panel_v2",
+     "file": "assets/v2/hud/wave_counter_panel_v2.svg",
+     "w": 200,
+     "h": 64,
+     "scale": 1.5
+    }
+   ]
+  },
+  {
+   "num": "H",
+   "title": "Title & store art — MINE RUSH",
+   "note": "logo_ru = logo_en",
+   "items": [
+    {
+     "name": "logo_ru",
+     "file": "assets/v2/brand/logo_ru.svg",
+     "w": 600,
+     "h": 225,
+     "scale": 1
+    },
+    {
+     "name": "logo_en",
+     "file": "assets/v2/brand/logo_en.svg",
+     "w": 600,
+     "h": 225,
+     "scale": 1
+    },
+    {
+     "name": "store_icon",
+     "file": "assets/v2/brand/store_icon.svg",
+     "w": 512,
+     "h": 512,
+     "scale": 0.75
+    },
+    {
+     "name": "store_cover",
+     "file": "assets/v2/brand/store_cover.svg",
+     "w": 1920,
+     "h": 1080,
+     "scale": 0.6
+    }
+   ]
+  },
+  {
+   "num": 1,
+   "title": "Style guide · v1",
+   "note": "32-colour palette, outline, lighting, button, block font",
+   "items": [
+    {
+     "name": "style_guide",
+     "file": "assets/style/style_guide.svg",
+     "w": 1280,
+     "h": 720
+    }
+   ]
+  },
+  {
+   "num": 2,
+   "title": "Units · v1",
+   "note": "Dashed line = feet at y 240 · cyan dots in _parts = rotation pivots",
+   "items": [
+    {
+     "name": "unit_zombie",
+     "file": "assets/units/unit_zombie.svg",
+     "w": 256,
+     "h": 256,
+     "guideY": 240,
+     "scale": 1.5
+    },
+    {
+     "name": "unit_zombie_parts",
+     "file": "assets/units/parts/unit_zombie_parts.svg",
+     "w": 896,
+     "h": 183
+    },
+    {
+     "name": "unit_skeleton",
+     "file": "assets/units/unit_skeleton.svg",
+     "w": 256,
+     "h": 256,
+     "guideY": 240,
+     "scale": 1.5
+    },
+    {
+     "name": "unit_skeleton_parts",
+     "file": "assets/units/parts/unit_skeleton_parts.svg",
+     "w": 973,
+     "h": 171
+    },
+    {
+     "name": "unit_slime",
+     "file": "assets/units/unit_slime.svg",
+     "w": 256,
+     "h": 256,
+     "guideY": 240,
+     "scale": 1.5
+    },
+    {
+     "name": "unit_slime_parts",
+     "file": "assets/units/parts/unit_slime_parts.svg",
+     "w": 455,
+     "h": 263
+    },
+    {
+     "name": "unit_spider",
+     "file": "assets/units/unit_spider.svg",
+     "w": 256,
+     "h": 256,
+     "guideY": 240,
+     "scale": 1.5
+    },
+    {
+     "name": "unit_spider_parts",
+     "file": "assets/units/parts/unit_spider_parts.svg",
+     "w": 1091,
+     "h": 187
+    },
+    {
+     "name": "unit_goblin_miner",
+     "file": "assets/units/unit_goblin_miner.svg",
+     "w": 256,
+     "h": 256,
+     "guideY": 240,
+     "scale": 1.5
+    },
+    {
+     "name": "unit_goblin_miner_parts",
+     "file": "assets/units/parts/unit_goblin_miner_parts.svg",
+     "w": 1022,
+     "h": 170
+    },
+    {
+     "name": "unit_barrel_bomber",
+     "file": "assets/units/unit_barrel_bomber.svg",
+     "w": 256,
+     "h": 256,
+     "guideY": 240,
+     "scale": 1.5
+    },
+    {
+     "name": "unit_barrel_bomber_parts",
+     "file": "assets/units/parts/unit_barrel_bomber_parts.svg",
+     "w": 643,
+     "h": 203
+    }
+   ]
+  },
+  {
+   "num": 3,
+   "title": "Bosses · v1",
+   "note": "Dashed line = feet at y 480",
+   "items": [
+    {
+     "name": "boss_zombie_king",
+     "file": "assets/bosses/boss_zombie_king.svg",
+     "w": 512,
+     "h": 512,
+     "guideY": 480
+    },
+    {
+     "name": "boss_zombie_king_parts",
+     "file": "assets/bosses/parts/boss_zombie_king_parts.svg",
+     "w": 1426,
+     "h": 339
+    },
+    {
+     "name": "boss_stone_golem",
+     "file": "assets/bosses/boss_stone_golem.svg",
+     "w": 512,
+     "h": 512,
+     "guideY": 480
+    },
+    {
+     "name": "boss_stone_golem_parts",
+     "file": "assets/bosses/parts/boss_stone_golem_parts.svg",
+     "w": 1155,
+     "h": 289
+    }
+   ]
+  },
+  {
+   "num": 4,
+   "title": "Projectiles · v1",
+   "note": "Shown at 3× · centred, pointing right",
+   "items": [
+    {
+     "name": "proj_arrow",
+     "file": "assets/projectiles/proj_arrow.svg",
+     "w": 64,
+     "h": 64,
+     "scale": 3
+    },
+    {
+     "name": "proj_pickaxe",
+     "file": "assets/projectiles/proj_pickaxe.svg",
+     "w": 64,
+     "h": 64,
+     "scale": 3
+    },
+    {
+     "name": "proj_rock",
+     "file": "assets/projectiles/proj_rock.svg",
+     "w": 64,
+     "h": 64,
+     "scale": 3
+    }
+   ]
+  },
+  {
+   "num": 5,
+   "title": "Bases · 3/4 top-down · v1",
+   "note": "Player base faces right (game mirrors for bot) · <g id=\"flag\"> is white",
+   "items": [
+    {
+     "name": "base_meadow_intact",
+     "file": "assets/bases/base_meadow_intact.svg",
+     "w": 192,
+     "h": 192,
+     "scale": 1.5
+    },
+    {
+     "name": "base_meadow_damaged",
+     "file": "assets/bases/base_meadow_damaged.svg",
+     "w": 192,
+     "h": 192,
+     "scale": 1.5
+    },
+    {
+     "name": "base_meadow_destroyed",
+     "file": "assets/bases/base_meadow_destroyed.svg",
+     "w": 192,
+     "h": 192,
+     "scale": 1.5
+    },
+    {
+     "name": "base_cave_intact",
+     "file": "assets/bases/base_cave_intact.svg",
+     "w": 192,
+     "h": 192,
+     "scale": 1.5
+    },
+    {
+     "name": "base_cave_damaged",
+     "file": "assets/bases/base_cave_damaged.svg",
+     "w": 192,
+     "h": 192,
+     "scale": 1.5
+    },
+    {
+     "name": "base_cave_destroyed",
+     "file": "assets/bases/base_cave_destroyed.svg",
+     "w": 192,
+     "h": 192,
+     "scale": 1.5
+    }
+   ]
+  },
+  {
+   "num": 6,
+   "title": "Battlefields & decor · 3/4 top-down · v1",
+   "note": "Guides: lane x160–1120 / y330–450 · top 60 px HUD · bottom 160 px UI panel",
+   "items": [
+    {
+     "name": "battle_meadow",
+     "file": "assets/battle/battle_meadow.svg",
+     "w": 1280,
+     "h": 720,
+     "laneGuide": true
+    },
+    {
+     "name": "battle_cave",
+     "file": "assets/battle/battle_cave.svg",
+     "w": 1280,
+     "h": 720,
+     "laneGuide": true
+    },
+    {
+     "name": "decor_tree",
+     "file": "assets/battle/decor/decor_tree.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1.5
+    },
+    {
+     "name": "decor_bush",
+     "file": "assets/battle/decor/decor_bush.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1.5
+    },
+    {
+     "name": "decor_rock",
+     "file": "assets/battle/decor/decor_rock.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1.5
+    },
+    {
+     "name": "decor_flower",
+     "file": "assets/battle/decor/decor_flower.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1.5
+    },
+    {
+     "name": "decor_stalagmite",
+     "file": "assets/battle/decor/decor_stalagmite.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1.5
+    },
+    {
+     "name": "decor_mushroom",
+     "file": "assets/battle/decor/decor_mushroom.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1.5
+    },
+    {
+     "name": "decor_crystal",
+     "file": "assets/battle/decor/decor_crystal.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1.5
+    },
+    {
+     "name": "ore_block",
+     "file": "assets/battle/decor/ore_block.svg",
+     "w": 64,
+     "h": 64,
+     "scale": 2
+    }
+   ]
+  },
+  {
+   "num": 7,
+   "title": "Effects · v1",
+   "note": "6 frames × 128 px, start → peak → fade",
+   "items": [
+    {
+     "name": "fx_hit",
+     "file": "assets/fx/fx_hit.svg",
+     "w": 768,
+     "h": 128,
+     "frames": 6
+    },
+    {
+     "name": "fx_explosion",
+     "file": "assets/fx/fx_explosion.svg",
+     "w": 768,
+     "h": 128,
+     "frames": 6
+    },
+    {
+     "name": "fx_death_poof",
+     "file": "assets/fx/fx_death_poof.svg",
+     "w": 768,
+     "h": 128,
+     "frames": 6
+    },
+    {
+     "name": "fx_coin",
+     "file": "assets/fx/fx_coin.svg",
+     "w": 768,
+     "h": 128,
+     "frames": 6
+    },
+    {
+     "name": "fx_heal",
+     "file": "assets/fx/fx_heal.svg",
+     "w": 768,
+     "h": 128,
+     "frames": 6
+    },
+    {
+     "name": "fx_meteor",
+     "file": "assets/fx/fx_meteor.svg",
+     "w": 768,
+     "h": 128,
+     "frames": 6
+    }
+   ]
+  },
+  {
+   "num": 8,
+   "title": "UI kit · v1",
+   "note": "Buttons: 24 px corners safe for 9-slice · panel 32 px · key badge 12 px",
+   "items": [
+    {
+     "name": "ui_btn_primary_normal",
+     "file": "assets/ui/ui_btn_primary_normal.svg",
+     "w": 128,
+     "h": 128,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_primary_pressed",
+     "file": "assets/ui/ui_btn_primary_pressed.svg",
+     "w": 128,
+     "h": 128,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_primary_disabled",
+     "file": "assets/ui/ui_btn_primary_disabled.svg",
+     "w": 128,
+     "h": 128,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_secondary_normal",
+     "file": "assets/ui/ui_btn_secondary_normal.svg",
+     "w": 128,
+     "h": 128,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_secondary_pressed",
+     "file": "assets/ui/ui_btn_secondary_pressed.svg",
+     "w": 128,
+     "h": 128,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_secondary_disabled",
+     "file": "assets/ui/ui_btn_secondary_disabled.svg",
+     "w": 128,
+     "h": 128,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_danger_normal",
+     "file": "assets/ui/ui_btn_danger_normal.svg",
+     "w": 128,
+     "h": 128,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_danger_pressed",
+     "file": "assets/ui/ui_btn_danger_pressed.svg",
+     "w": 128,
+     "h": 128,
+     "scale": 1
+    },
+    {
+     "name": "ui_btn_danger_disabled",
+     "file": "assets/ui/ui_btn_danger_disabled.svg",
+     "w": 128,
+     "h": 128,
+     "scale": 1
+    },
+    {
+     "name": "ui_panel",
+     "file": "assets/ui/ui_panel.svg",
+     "w": 256,
+     "h": 256,
+     "scale": 1
+    },
+    {
+     "name": "ui_unit_card",
+     "file": "assets/ui/ui_unit_card.svg",
+     "w": 160,
+     "h": 200,
+     "scale": 1.5
+    },
+    {
+     "name": "ui_hp_bar_frame",
+     "file": "assets/ui/ui_hp_bar_frame.svg",
+     "w": 192,
+     "h": 32,
+     "scale": 2
+    },
+    {
+     "name": "ui_hp_fill_blue",
+     "file": "assets/ui/ui_hp_fill_blue.svg",
+     "w": 192,
+     "h": 32,
+     "scale": 2
+    },
+    {
+     "name": "ui_hp_fill_red",
+     "file": "assets/ui/ui_hp_fill_red.svg",
+     "w": 192,
+     "h": 32,
+     "scale": 2
+    },
+    {
+     "name": "icon_food",
+     "file": "assets/ui/icons/icon_food.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "icon_coin",
+     "file": "assets/ui/icons/icon_coin.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "icon_heart",
+     "file": "assets/ui/icons/icon_heart.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "icon_sword",
+     "file": "assets/ui/icons/icon_sword.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "icon_lock",
+     "file": "assets/ui/icons/icon_lock.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "icon_star",
+     "file": "assets/ui/icons/icon_star.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "icon_chest",
+     "file": "assets/ui/icons/icon_chest.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "icon_ad",
+     "file": "assets/ui/icons/icon_ad.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "icon_pause",
+     "file": "assets/ui/icons/icon_pause.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "icon_settings",
+     "file": "assets/ui/icons/icon_settings.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "icon_sound_on",
+     "file": "assets/ui/icons/icon_sound_on.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "icon_sound_off",
+     "file": "assets/ui/icons/icon_sound_off.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "icon_close",
+     "file": "assets/ui/icons/icon_close.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "icon_globe",
+     "file": "assets/ui/icons/icon_globe.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "icon_hand_tap",
+     "file": "assets/ui/icons/icon_hand_tap.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "icon_rotate_device",
+     "file": "assets/ui/icons/icon_rotate_device.svg",
+     "w": 96,
+     "h": 96,
+     "scale": 1
+    },
+    {
+     "name": "ui_key_badge",
+     "file": "assets/ui/ui_key_badge.svg",
+     "w": 48,
+     "h": 48,
+     "scale": 2
+    }
+   ]
+  },
+  {
+   "num": 9,
+   "title": "Screens & store art · v1",
+   "note": "Logos use the placeholder title — regenerate once the name is final",
+   "items": [
+    {
+     "name": "map_world",
+     "file": "assets/screens/map_world.svg",
+     "w": 1280,
+     "h": 720,
+     "scale": 1
+    },
+    {
+     "name": "bg_menu",
+     "file": "assets/screens/bg_menu.svg",
+     "w": 1280,
+     "h": 720,
+     "scale": 1
+    }
+   ]
+  },
+  {
+   "num": 10,
+   "title": "Battle HUD · v1",
+   "note": "Panel: 32 px 9-slice corners · wave numbers drawn by the game",
+   "items": [
+    {
+     "name": "hud_bottom_panel",
+     "file": "assets/hud/hud_bottom_panel.svg",
+     "w": 1280,
+     "h": 160
+    },
+    {
+     "name": "booster_speed",
+     "file": "assets/hud/booster_speed.svg",
+     "w": 112,
+     "h": 132,
+     "scale": 1.5
+    },
+    {
+     "name": "booster_food",
+     "file": "assets/hud/booster_food.svg",
+     "w": 112,
+     "h": 132,
+     "scale": 1.5
+    },
+    {
+     "name": "ability_button",
+     "file": "assets/hud/ability_button.svg",
+     "w": 112,
+     "h": 112,
+     "scale": 1.5
+    },
+    {
+     "name": "wave_counter_panel",
+     "file": "assets/hud/wave_counter_panel.svg",
+     "w": 200,
+     "h": 64,
+     "scale": 1.5
+    }
+   ]
+  },
+  {
+   "num": 11,
+   "title": "Upgrades screen (layout reference) · v1",
+   "note": "Mockup only — dark empty slots = numbers/prices drawn by the game",
+   "items": [
+    {
+     "name": "screen_upgrades",
+     "file": "assets/screens/screen_upgrades.svg",
+     "w": 1280,
+     "h": 720
+    }
+   ]
+  }
+ ],
+ "levelSpots": [
+  [
+   64,
+   404
+  ],
+  [
+   125,
+   497
+  ],
+  [
+   185,
+   496
+  ],
+  [
+   246,
+   403
+  ],
+  [
+   307,
+   281
+  ],
+  [
+   367,
+   212
+  ],
+  [
+   428,
+   244
+  ],
+  [
+   488,
+   355
+  ],
+  [
+   549,
+   469
+  ],
+  [
+   610,
+   509
+  ],
+  [
+   670,
+   448
+  ],
+  [
+   731,
+   327
+  ],
+  [
+   792,
+   228
+  ],
+  [
+   852,
+   219
+  ],
+  [
+   913,
+   306
+  ],
+  [
+   973,
+   430
+  ],
+  [
+   1034,
+   506
+  ],
+  [
+   1095,
+   483
+  ],
+  [
+   1155,
+   376
+  ],
+  [
+   1216,
+   259
+  ]
+ ]
+}

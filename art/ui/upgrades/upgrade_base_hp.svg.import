@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ce2xofkhr65yq"
-path="res://.godot/imported/logo_en.svg-3a482d2c9fb9b921161fc3205442ea79.ctex"
+uid="uid://c7j6tkjkp8j75"
+path="res://.godot/imported/upgrade_base_hp.svg-95ad8232ffe6d8b0116825de8517d787.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/screens/logo_en.svg"
-dest_files=["res://.godot/imported/logo_en.svg-3a482d2c9fb9b921161fc3205442ea79.ctex"]
+source_file="res://art/ui/upgrades/upgrade_base_hp.svg"
+dest_files=["res://.godot/imported/upgrade_base_hp.svg-95ad8232ffe6d8b0116825de8517d787.ctex"]
 
 [params]
 

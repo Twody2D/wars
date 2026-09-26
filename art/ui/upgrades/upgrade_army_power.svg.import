@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ce2xofkhr65yq"
-path="res://.godot/imported/logo_en.svg-3a482d2c9fb9b921161fc3205442ea79.ctex"
+uid="uid://cxpx0goq2v7ux"
+path="res://.godot/imported/upgrade_army_power.svg-676f7b29117d98431f3db22a1cceca10.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/screens/logo_en.svg"
-dest_files=["res://.godot/imported/logo_en.svg-3a482d2c9fb9b921161fc3205442ea79.ctex"]
+source_file="res://art/ui/upgrades/upgrade_army_power.svg"
+dest_files=["res://.godot/imported/upgrade_army_power.svg-676f7b29117d98431f3db22a1cceca10.ctex"]
 
 [params]
 

@@ -12,7 +12,7 @@
 | --- | --- | --- |
 | `docs/SPEC.md` | Геймдизайн, цифры, экраны, требования Яндекса | 1 |
 | `docs/TASKS.md` | Задачи по порядку с критериями готовности | 1 |
-| `design/Art sections 1 and 2 complete+/` | Готовые SVG из Claude Design (только читать) | — |
+| `design/Art sections 1 and 2 complete/` | Готовые SVG из Claude Design (только читать) | — |
 | `docs/PROMPTS.md` | Промпты для Claude Design | справочно |
 | `docs/PLAN.md` | Старый черновик. При расхождении верны SPEC и TASKS | 3 |
 

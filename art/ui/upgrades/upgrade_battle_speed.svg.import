@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ce2xofkhr65yq"
-path="res://.godot/imported/logo_en.svg-3a482d2c9fb9b921161fc3205442ea79.ctex"
+uid="uid://df7h0ibxqhw37"
+path="res://.godot/imported/upgrade_battle_speed.svg-5da8a695919405e6bbe0e1df713e061e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/screens/logo_en.svg"
-dest_files=["res://.godot/imported/logo_en.svg-3a482d2c9fb9b921161fc3205442ea79.ctex"]
+source_file="res://art/ui/upgrades/upgrade_battle_speed.svg"
+dest_files=["res://.godot/imported/upgrade_battle_speed.svg-5da8a695919405e6bbe0e1df713e061e.ctex"]
 
 [params]
 

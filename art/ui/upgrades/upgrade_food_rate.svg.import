@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ce2xofkhr65yq"
-path="res://.godot/imported/logo_en.svg-3a482d2c9fb9b921161fc3205442ea79.ctex"
+uid="uid://dqomhq30wl1hj"
+path="res://.godot/imported/upgrade_food_rate.svg-c5e425a57d6d2fe503e41ac2b0a71970.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/screens/logo_en.svg"
-dest_files=["res://.godot/imported/logo_en.svg-3a482d2c9fb9b921161fc3205442ea79.ctex"]
+source_file="res://art/ui/upgrades/upgrade_food_rate.svg"
+dest_files=["res://.godot/imported/upgrade_food_rate.svg-c5e425a57d6d2fe503e41ac2b0a71970.ctex"]
 
 [params]
 

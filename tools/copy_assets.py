@@ -1,8 +1,8 @@
 """Copy non-unit art from Claude Design into art/ with import presets.
 
 Copies projectiles, effects, UI, icons, HUD, bases, battlefields, decor, menu
-screens and logos. Skips store_* (catalog art), style_guide and the
-screen_upgrades layout reference. c2pa metadata is stripped.
+screens, logos and the v2 UI kit. Skips store_* (catalog art), style_guide and
+screen_* layout mockups. c2pa metadata is stripped.
 
 Each copied file gets a seeded .import (only if missing) with the SVG scale
 and compression from SPEC 11, so Godot imports it right the first time.
@@ -32,13 +32,22 @@ RULES: list[tuple[str, str, float, int]] = [
 	("battle", "battle", 1.0, LOSSY),
 	("battle/decor", "battle/decor", 1.0, LOSSLESS),
 	("screens", "screens", 1.0, LOSSY),
+	# UI redesign v2 (docs/PROMPTS.md «Редизайн v2»).
+	("v2/buttons", "ui/buttons", 1.0, LOSSLESS),
+	("v2/panels", "ui/panels", 1.0, LOSSLESS),
+	("v2/upgrades", "ui/upgrades", 1.0, LOSSLESS),
+	("v2/hud", "hud", 1.0, LOSSLESS),
+	("v2/screens", "screens", 1.0, LOSSY),
+	("v2/brand", "screens", 1.0, LOSSLESS),
 ]
 
-SKIP_PREFIXES = ("store_", "style_guide", "screen_upgrades")
-# Logos are big (1024x384) — import at half size, lossless for crisp edges.
+# store_* — catalog art (uploaded to the console, not the game); screen_* — layout mockups.
+SKIP_PREFIXES = ("store_", "style_guide", "screen_")
+# how_to_play illustrations have crisp pixel edges — keep them lossless.
 OVERRIDES: dict[str, tuple[float, int]] = {
-	"logo_ru": (0.5, LOSSLESS),
-	"logo_en": (0.5, LOSSLESS),
+	"how_to_play_1": (1.0, LOSSLESS),
+	"how_to_play_2": (1.0, LOSSLESS),
+	"how_to_play_3": (1.0, LOSSLESS),
 }
 
 
