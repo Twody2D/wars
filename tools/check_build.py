@@ -31,6 +31,8 @@ def main() -> int:
     errors: list[str] = []
     if not (WEB / "index.html").is_file():
         errors.append(f"no index.html in {WEB}")
+    if (WEB / "sdk.js").exists():
+        errors.append("build/web/sdk.js found: the fake Yandex SDK must not be shipped (delete it)")
 
     files = sorted(p for p in WEB.rglob("*") if p.is_file()) if WEB.is_dir() else []
     if not files:
