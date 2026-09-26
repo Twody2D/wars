@@ -37,6 +37,12 @@ const SFX: Dictionary[StringName, Array] = {
 	&"win": [preload("res://audio/sfx/win.ogg")],
 	&"lose": [preload("res://audio/sfx/lose.ogg")],
 	&"click": [preload("res://audio/sfx/click.ogg")],
+	&"wave": [preload("res://audio/sfx/wave.ogg")],
+	&"base_hit": [
+		preload("res://audio/sfx/base_hit_1.ogg"),
+		preload("res://audio/sfx/base_hit_2.ogg"),
+		preload("res://audio/sfx/base_hit_3.ogg"),
+	],
 }
 const MUSIC: Dictionary[StringName, AudioStream] = {
 	&"menu": preload("res://audio/music/menu.ogg"),
