@@ -2,7 +2,7 @@ extends SceneTree
 ## Opens a scene, lets it run, saves screenshots. For reviewing layout from the CLI.
 ## Run (needs a window): "$GODOT" --path . -s res://tools/shot.gd -- <scene> <out_prefix> <t1,t2,...> [spawn]
 ## "spawn" — in a battle, sends a mixed army for the player every few seconds.
-## "call=<method>:<int>" — calls a method on the scene root after the first frame.
+## "call=<method>[:<int>]" — calls a method on the scene root after the first frame.
 
 var _scene: String
 var _prefix: String
@@ -30,7 +30,10 @@ func _process(delta: float) -> bool:
 	_elapsed += delta
 	if _call != "" and current_scene != null and _elapsed > 0.3:
 		var parts: PackedStringArray = _call.split(":")
-		current_scene.call(StringName(parts[0]), parts[1].to_int())
+		if parts.size() > 1:
+			current_scene.call(StringName(parts[0]), parts[1].to_int())
+		else:
+			current_scene.call(StringName(parts[0]))
 		_call = ""
 	# Duck-typed: -s scripts compile before autoloads, so no Battle type here.
 	if _spawn and current_scene != null and current_scene.get(&"sim") != null:

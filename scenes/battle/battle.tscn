@@ -408,13 +408,15 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="PauseButton" type="TextureButton" parent="HUD/Root/TopBar"]
+[node name="PauseButton" type="Button" parent="HUD/Root/TopBar"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(56, 56)
+custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
-texture_normal = ExtResource("28_pause")
-ignore_texture_size = true
-stretch_mode = 5
+size_flags_vertical = 4
+theme_type_variation = &"IconButton"
+icon = ExtResource("28_pause")
+icon_alignment = 1
+expand_icon = true
 
 [node name="BottomPanel" type="TextureRect" parent="HUD/Root"]
 layout_mode = 1
