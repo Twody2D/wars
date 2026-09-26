@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/settings_panel.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://art/ui/icons/icon_globe.svg" id="2_globe"]
+[ext_resource type="PackedScene" path="res://scenes/ui/upgrade_row.tscn" id="3_row"]
 
 [node name="Settings" type="Control"]
 visible = false
@@ -29,9 +30,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -280.0
-offset_top = -200.0
+offset_top = -270.0
 offset_right = 280.0
-offset_bottom = 200.0
+offset_bottom = 270.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -79,6 +80,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 auto_translate_mode = 2
 text = "English"
+
+[node name="SpeedRow" parent="Panel/Box" instance=ExtResource("3_row")]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="CloseButton" type="Button" parent="Panel/Box"]
 unique_name_in_owner = true

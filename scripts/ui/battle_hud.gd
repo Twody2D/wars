@@ -13,11 +13,20 @@ signal debug_spawn(side: int, unit: UnitData)
 @export var card_scene: PackedScene
 ## Debug buttons that spawn units for both sides (T07). Off in release builds.
 @export var show_debug: bool = false
+## Coins flying from killed enemies to the counter.
+@export var coin_texture: Texture2D
+@export var coin_size: float = 40.0
+@export var coin_pop_px: float = 40.0
+@export var coin_pop_time: float = 0.25
+@export var coin_fly_time: float = 0.55
+@export var coin_pool_size: int = 16
 
 var _cards: Array[UnitCard] = []
 
 @onready var _hp_label: Label = %HpLabel
 @onready var _coins_label: Label = %CoinsLabel
+@onready var _coin_icon: TextureRect = %CoinIcon
+@onready var _flying_coins: Control = %FlyingCoins
 @onready var _wave_label: Label = %WaveLabel
 @onready var _food_label: Label = %FoodLabel
 @onready var _food_progress: ProgressBar = %FoodProgress
@@ -34,6 +43,10 @@ var _cards: Array[UnitCard] = []
 @onready var _boost_food_label: Label = %BoostFoodLabel
 
 var _boosters: Dictionary[StringName, TextureButton] = {}
+## Coins earned in this battle so far (shown next to the coin icon).
+var _earned: int = 0
+var _coin_pool: Array[TextureRect] = []
+var _pulse: Tween
 
 
 func _ready() -> void:
@@ -61,7 +74,6 @@ func setup(units: Array[UnitData], unit_levels: Dictionary[StringName, int], deb
 
 func refresh(sim: BattleSim, bot: BattleBot) -> void:
 	_hp_label.text = str(ceili(sim.base_hp[BattleSim.PLAYER]))
-	_coins_label.text = str(GameState.coins)
 	_wave_label.text = tr("WAVE_FMT") % [maxi(bot.current_wave(), 1), bot.wave_count()]
 	_food_label.text = "%d/%d" % [floori(sim.food), roundi(sim.food_max)]
 	# Progress to the next whole food; full bar when the stock is maxed.
@@ -79,9 +91,59 @@ func refresh(sim: BattleSim, bot: BattleBot) -> void:
 	_meteor_progress.value = sim.meteor_timer / sim.balance.meteor_recharge * 100.0
 
 
+## Pool of coin sprites, created once before the battle (no instantiate in battle).
+func prewarm_coins() -> void:
+	_coins_label.text = "0"
+	for i: int in coin_pool_size:
+		var c := TextureRect.new()
+		c.texture = coin_texture
+		c.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		c.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		c.size = Vector2(coin_size, coin_size)
+		c.pivot_offset = c.size / 2.0
+		c.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		c.visible = false
+		_flying_coins.add_child(c)
+		_coin_pool.append(c)
+
+
+## A coin pops out at `from` (screen position), flies to the counter and adds
+## `amount` there when it arrives.
+func fly_coin(from: Vector2, amount: int) -> void:
+	if _coin_pool.is_empty():
+		_add_earned(amount)
+		return
+	var c: TextureRect = _coin_pool.pop_back()
+	c.visible = true
+	c.scale = Vector2.ONE
+	c.position = from - c.size / 2.0
+	var target: Vector2 = _coin_icon.get_global_rect().get_center() - c.size / 2.0
+	var tween := c.create_tween()
+	tween.tween_property(c, "position:y", c.position.y - coin_pop_px, coin_pop_time) 		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(c, "position", target, coin_fly_time) 		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	tween.parallel().tween_property(c, "scale", Vector2(0.7, 0.7), coin_fly_time)
+	tween.tween_callback(func() -> void:
+		c.visible = false
+		_coin_pool.append(c)
+		_add_earned(amount))
+
+
+func _add_earned(amount: int) -> void:
+	_earned += amount
+	_coins_label.text = str(_earned)
+	Audio.play_sfx(&"coin")
+	if _pulse != null and _pulse.is_valid():
+		_pulse.kill()
+	_coin_icon.pivot_offset = _coin_icon.size / 2.0
+	_coin_icon.scale = Vector2(1.35, 1.35)
+	_pulse = _coin_icon.create_tween()
+	_pulse.tween_property(_coin_icon, "scale", Vector2.ONE, 0.2)
+
+
 ## What the boosters give, from BalanceData (the art has an empty label box).
 func set_booster_texts(time_scale: float, food: float) -> void:
-	_boost_speed_label.text = "×%s" % String.num(time_scale)
+	var whole: bool = is_equal_approx(time_scale, roundf(time_scale))
+	_boost_speed_label.text = ("×%d" % roundi(time_scale)) if whole else ("×%.1f" % time_scale)
 	_boost_food_label.text = "+%d" % roundi(food)
 
 

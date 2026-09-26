@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" path="res://art/ui/icons/icon_coin.svg" id="3_coin"]
 
 [node name="UnitTile" type="PanelContainer"]
-custom_minimum_size = Vector2(180, 184)
+custom_minimum_size = Vector2(200, 220)
 theme_type_variation = &"CardPanel"
 script = ExtResource("1_script")
 coin_icon = ExtResource("3_coin")
@@ -16,7 +16,7 @@ theme_override_constants/separation = 4
 
 [node name="Portrait" type="TextureRect" parent="Box"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
@@ -24,7 +24,7 @@ stretch_mode = 5
 [node name="Name" type="Label" parent="Box"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 19
+theme_override_font_sizes/font_size = 21
 text = "UNIT_ZOMBIE"
 horizontal_alignment = 1
 text_overrun_behavior = 3

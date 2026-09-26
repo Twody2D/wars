@@ -8,6 +8,7 @@ extends Control
 @onready var _ru: Button = %RuButton
 @onready var _en: Button = %EnButton
 @onready var _close: Button = %CloseButton
+@onready var _speed: UpgradeRow = %SpeedRow
 
 
 func _ready() -> void:
@@ -15,6 +16,7 @@ func _ready() -> void:
 	_ru.pressed.connect(_set_lang.bind("ru"))
 	_en.pressed.connect(_set_lang.bind("en"))
 	_close.pressed.connect(func() -> void: visible = false)
+	_speed.setup(GameState.config.upgrade(&"battle_speed"))
 
 
 func open() -> void:

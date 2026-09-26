@@ -10,6 +10,9 @@ const BATTLE_SCENE := "res://scenes/battle/battle.tscn"
 @export var logos: Dictionary[String, Texture2D] = {}
 ## Level slot centres on map_world (ARTBOARDS.md), index 0 = level 1.
 @export var map_slots: PackedVector2Array = PackedVector2Array()
+## Upgrades on the upgrades screen, in order (the rest are hidden or elsewhere:
+## battle speed is in the settings).
+@export var shown_upgrades: Array[StringName] = [&"army_power", &"food_rate", &"base_hp"]
 
 @onready var _coins: Label = %CoinsLabel
 @onready var _logo: TextureRect = %Logo
@@ -38,8 +41,9 @@ func _ready() -> void:
 		var tile: UnitTile = unit_tile_scene.instantiate()
 		_unit_tiles.add_child(tile)
 		tile.setup(u)
-	for up: UpgradeData in GameState.config.upgrades:
-		if up.id == &"unit_level":
+	for id: StringName in shown_upgrades:
+		var up: UpgradeData = GameState.config.upgrade(id)
+		if up == null:
 			continue
 		var row: UpgradeRow = upgrade_row_scene.instantiate()
 		_upgrade_rows.add_child(row)

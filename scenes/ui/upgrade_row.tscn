@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/level_pips.tscn" id="3_pips"]
 
 [node name="UpgradeRow" type="PanelContainer"]
-custom_minimum_size = Vector2(380, 108)
+custom_minimum_size = Vector2(380, 120)
 theme_type_variation = &"CardPanel"
 script = ExtResource("1_script")
 coin_icon = ExtResource("2_coin")

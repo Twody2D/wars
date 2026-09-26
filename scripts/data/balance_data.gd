@@ -34,6 +34,12 @@ extends Resource
 @export var food_rate: float = 0.5
 @export var food_max: float = 30.0
 @export var player_base_hp: float = 300.0
+## Every enemy hit on the player's base takes exactly this much, whatever the
+## unit's damage (base HP counts hits; 0 = use the unit damage).
+@export var player_base_hit: float = 0.0
+## After a hit the player's base ignores further hits for this long, so a crowd
+## of fast attackers cannot erase a 5-HP base in two seconds.
+@export var player_base_hit_interval: float = 0.0
 @export var card_cooldown: float = 1.0
 @export var ore_food: float = 2.0
 @export var ore_cooldown: float = 4.0

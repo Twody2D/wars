@@ -147,3 +147,21 @@ func test_bot_vs_bot_battles_always_end() -> void:
 		assert_bool(sim.is_over()).override_failure_message("battle %d did not end" % battle).is_true()
 		for unit: SimUnit in sim.units:
 			assert_bool(unit.is_alive()).is_true()
+
+
+func test_player_base_loses_one_per_hit() -> void:
+	var level := LevelData.new()
+	level.bot_base_hp = 100.0
+	var units: Array[UnitData] = [zombie]
+	var sim := BattleSim.new(BattleSetup.basic(balance, level, units))
+	sim._damage_base(BattleSim.PLAYER, 25.0)
+	assert_float(sim.base_hp[BattleSim.PLAYER]).is_equal(balance.player_base_hp - balance.player_base_hit)
+	# A second hit right away is ignored (guard interval), later it counts.
+	sim._damage_base(BattleSim.PLAYER, 25.0)
+	assert_float(sim.base_hp[BattleSim.PLAYER]).is_equal(balance.player_base_hp - balance.player_base_hit)
+	for i: int in roundi(balance.player_base_hit_interval / balance.sim_dt) + 1:
+		sim.step(balance.sim_dt)
+	sim._damage_base(BattleSim.PLAYER, 25.0)
+	assert_float(sim.base_hp[BattleSim.PLAYER]).is_equal(balance.player_base_hp - 2.0 * balance.player_base_hit)
+	sim._damage_base(BattleSim.BOT, 25.0)
+	assert_float(sim.base_hp[BattleSim.BOT]).is_equal(75.0)

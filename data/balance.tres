@@ -5,7 +5,10 @@
 [resource]
 script = ExtResource("1_2gprt")
 start_food = 0.0
-food_rate = 0.2
+food_rate = 0.24
+player_base_hp = 5.0
+player_base_hit = 1.0
+player_base_hit_interval = 1.0
 ore_food = 1.0
 ore_cooldown = 8.0
 bot_pressure_interval = 14.0

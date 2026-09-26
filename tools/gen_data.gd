@@ -20,7 +20,7 @@ const UNITS: Dictionary[String, Array] = {
 const UPGRADES: Dictionary[String, Array] = {
 	"army_power": [20, 10, 0.1, false],
 	"food_rate": [30, 10, 0.05, false],
-	"base_hp": [20, 10, 75.0, false],
+	"base_hp": [20, 10, 1.0, false],
 	"start_food": [40, 5, 3.0, false],
 	"unit_level": [50, 4, 0.1, false],
 	"battle_speed": [600, 1, 1.5, true],

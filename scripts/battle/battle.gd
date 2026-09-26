@@ -71,6 +71,7 @@ func _ready() -> void:
 	_hud.meteor_pressed.connect(_toggle_meteor_targeting)
 	_hud.booster_pressed.connect(_request_booster)
 	_hud.set_booster_texts(balance.booster_time_scale, balance.booster_food)
+	_hud.prewarm_coins()
 	Platform.rewarded.connect(_on_booster_rewarded)
 	Platform.rewarded_failed.connect(_on_booster_failed)
 	_hud.debug_spawn.connect(func(side: int, u: UnitData) -> void: sim.spawn(side, u))
@@ -256,13 +257,16 @@ func _on_unit_damaged(u: SimUnit, _amount: float) -> void:
 	_effects.spawn(&"hit", v.position + Vector2(0, v.top_offset() * 0.5), 0.8)
 
 
-func _on_unit_died(u: SimUnit, _killed: bool) -> void:
+func _on_unit_died(u: SimUnit, killed: bool) -> void:
 	var v: UnitVisual = _views.get(u.uid)
 	if v == null:
 		return
 	_views.erase(u.uid)
 	v.play(&"die")
 	Audio.play_sfx(&"death")
+	if killed and u.side == BattleSim.BOT and balance.coins_per_kill > 0:
+		var at: Vector2 = get_viewport().get_canvas_transform() * (v.position + Vector2(0.0, v.top_offset() * 0.6))
+		_hud.fly_coin(at, balance.coins_per_kill)
 
 
 func _sync_units() -> void:

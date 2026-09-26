@@ -35,6 +35,8 @@ var time: float = 0.0
 var units: Array[SimUnit] = []
 var projectiles: Array[SimProjectile] = []
 var base_hp: Array[float] = [0.0, 0.0]
+## Seconds left while the player's base ignores hits (BalanceData.player_base_hit_interval).
+var base_guard: float = 0.0
 var base_max_hp: Array[float] = [0.0, 0.0]
 ## Enemies killed by each side (bomber self-destruction doesn't count).
 var kills: Array[int] = [0, 0]
@@ -90,6 +92,7 @@ func step(dt: float) -> void:
 	if is_over():
 		return
 	time += dt
+	base_guard = maxf(base_guard - dt, 0.0)
 	_step_economy(dt)
 	_sort_sides()
 	for unit: SimUnit in units:
@@ -356,6 +359,11 @@ func _kill(unit: SimUnit, killed: bool, killer_side: int) -> void:
 func _damage_base(side: int, amount: float) -> void:
 	if is_over():
 		return
+	if side == PLAYER and balance.player_base_hit > 0.0:
+		if base_guard > 0.0:
+			return
+		amount = balance.player_base_hit
+		base_guard = balance.player_base_hit_interval
 	base_hp[side] = maxf(base_hp[side] - amount, 0.0)
 	base_damaged.emit(side, amount)
 

@@ -83,8 +83,9 @@ func test_setup_applies_upgrades() -> void:
 	gs.call(&"buy_upgrade", &"start_food")
 	var level: LevelData = gs.call(&"level", 1)
 	var s: BattleSetup = gs.call(&"make_setup", level)
-	assert_float(s.player_base_hp).is_equal(375.0)
-	assert_float(s.food_rate).is_equal_approx(0.3, 0.0001)
+	var b: BalanceData = gs.call(&"balance")
+	assert_float(s.player_base_hp).is_equal(b.player_base_hp + 1.0)
+	assert_float(s.food_rate).is_equal_approx(b.food_rate + 0.1, 0.0001)
 	assert_float(s.food_max).is_equal(35.0)
 	assert_float(s.start_food).is_equal(3.0)
 

@@ -7,7 +7,7 @@ func _init() -> void:
 	var args := OS.get_cmdline_user_args()
 	var config: GameConfig = load("res://data/game_config.tres")
 	var level: LevelData = config.levels[args[0].to_int() - 1]
-	if args.size() > 5:
+	if args.size() > 5 and args[5] != "-":
 		level = level.duplicate()
 		level.bot_power = args[5].to_float()
 	var every: float = args[2].to_float() if args.size() > 2 else 20.0

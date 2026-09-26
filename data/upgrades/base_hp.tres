@@ -9,4 +9,4 @@ id = &"base_hp"
 name_key = "UPGRADE_BASE_HP"
 icon = ExtResource("2_icon")
 base_cost = 20
-per_level = 75.0
+per_level = 1.0

@@ -25,7 +25,7 @@
 [ext_resource type="Texture2D" path="res://art/ui/panels/ui_panel_v2.svg" id="23_ui_panel_v2"]
 [ext_resource type="Texture2D" path="res://art/ui/panels/ui_card_v2.svg" id="24_ui_card_v2"]
 [ext_resource type="Texture2D" path="res://art/ui/panels/ui_card_v2_locked.svg" id="25_ui_card_v2_locked"]
-[ext_resource type="FontFile" path="res://art/fonts/russo_one.ttf" id="26_russo_one"]
+[ext_resource type="FontVariation" path="res://art/fonts/rubik_extrabold.tres" id="26_font"]
 
 [sub_resource type="StyleBoxTexture" id="primary_normal"]
 content_margin_left = 20.0
@@ -312,7 +312,7 @@ content_margin_bottom = 2.0
 bg_color = Color(0.105882, 0.105882, 0.184314, 0.8)
 
 [resource]
-default_font = ExtResource("26_russo_one")
+default_font = ExtResource("26_font")
 default_font_size = 26
 AccentLabel/base_type = &"Label"
 AccentLabel/colors/font_color = Color(0.623529, 0.890196, 0.345098, 1)

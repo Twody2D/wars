@@ -15,7 +15,8 @@ func _init() -> void:
 	var config: GameConfig = load("res://data/game_config.tres")
 	var b: BalanceData = config.balance
 	var coins := 0
-	var ups: Dictionary[StringName, int] = {&"army_power": 0, &"food_rate": 0, &"base_hp": 0, &"start_food": 0}
+	# Only what the upgrades screen offers (main_menu.gd shown_upgrades).
+	var ups: Dictionary[StringName, int] = {&"army_power": 0, &"food_rate": 0, &"base_hp": 0}
 	var unit_lvls: Dictionary[StringName, int] = {&"zombie": 1, &"skeleton": 1}
 	var attempt_seed := seed_ * 1000
 	for n: int in range(1, to + 1):
@@ -34,7 +35,6 @@ func _init() -> void:
 			s.food_rate += config.upgrade(&"food_rate").per_level * ups[&"food_rate"]
 			s.food_max += floorf(ups[&"food_rate"] / 2.0) * b.food_max_per_2_levels
 			s.player_base_hp += config.upgrade(&"base_hp").per_level * ups[&"base_hp"]
-			s.start_food += config.upgrade(&"start_food").per_level * ups[&"start_food"]
 			s.unit_levels = unit_lvls.duplicate()
 			s.player_power = 1.0 + config.upgrade(&"army_power").per_level * ups[&"army_power"]
 			var sim := BattleSim.new(s)
@@ -65,10 +65,9 @@ func _spend(config: GameConfig, b: BalanceData, coins: int, ups: Dictionary[Stri
 					best_cost = c
 					best = "up:" + String(id)
 		for u: UnitData in config.player_units:
-			if not unit_lvls.has(u.id) and u.unlock_biome <= biome and u.unlock_cost < best_cost:
-				best_cost = u.unlock_cost
-				best = "unlock:" + String(u.id)
-			elif unit_lvls.has(u.id) and unit_lvls[u.id] < b.unit_max_level:
+			# No unlocks: a new level-1 unit in the fixed AutoPlayer mix only weakens
+			# it (greedy buys slime around level 18 and then fails level 19).
+			if unit_lvls.has(u.id) and unit_lvls[u.id] < b.unit_max_level:
 				var lc: int = unit_up.cost_for_level(unit_lvls[u.id] - 1, b.upgrade_cost_growth, b.upgrade_cost_round)
 				if lc < best_cost:
 					best_cost = lc

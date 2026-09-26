@@ -24,8 +24,8 @@ const BOT_FOOD: Array[float] = [
 ## ordinary levels ~0.93 of break-even, every third level and bosses ~1.1 —
 ## "lose a couple of times, upgrade, win". Level 1: lost without upgrades.
 const BOT_POWER: Array[float] = [
-	1.05, 1.1, 1.05, 1.55, 1.55, 1.7, 1.8, 1.85, 1.95, 2.1,
-	2.15, 2.5, 2.85, 2.65, 2.7, 3.25, 2.7, 3.0, 3.2, 3.65,
+	1.12, 1.0, 1.05, 1.6, 1.5, 1.6, 1.9, 2.05, 1.8, 2.6,
+	2.5, 2.75, 3.05, 2.8, 2.9, 3.2, 2.85, 2.95, 3.05, 3.35,
 ]
 ## Boss levels get a smaller army: the boss is the threat.
 const BOSS_LEVEL_BUDGET := 0.75

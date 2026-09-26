@@ -40,8 +40,11 @@ func test_balance_loads() -> void:
 	var balance: BalanceData = load("res://data/balance.tres")
 	# Twody: battles start with no food.
 	assert_float(balance.start_food).is_equal(0.0)
-	# Lowered from SPEC (0.5) at Twody's request: the game felt too fast.
-	assert_float(balance.food_rate).is_equal(0.2)
+	# Lowered from SPEC (0.5) at Twody's request: the game felt too fast; then a bit faster again.
+	assert_float(balance.food_rate).is_equal(0.24)
+	# Twody: the player's base has 5 HP, every enemy hit takes 1.
+	assert_float(balance.player_base_hp).is_equal(5.0)
+	assert_float(balance.player_base_hit).is_equal(1.0)
 	assert_float(balance.food_max).is_equal(30.0)
 	assert_int(balance.unit_limit).is_equal(20)
 	assert_float(balance.lane_end_x).is_greater(balance.lane_start_x)

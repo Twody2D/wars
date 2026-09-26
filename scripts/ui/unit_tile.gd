@@ -28,6 +28,8 @@ func setup(unit_: UnitData) -> void:
 func refresh() -> void:
 	if unit == null:
 		return
+	# Only the biomes the player has reached (SPEC 7: later units after Evolution).
+	visible = unit.unlock_biome <= GameState.biome_unlocked
 	var unlocked: bool = GameState.is_unit_unlocked(unit.id)
 	theme_type_variation = &"CardPanel" if unlocked else &"LockedCard"
 	_portrait.modulate = Color.WHITE if unlocked else Color(0.35, 0.35, 0.42)
