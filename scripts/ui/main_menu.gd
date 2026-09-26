@@ -21,15 +21,19 @@ const BATTLE_SCENE := "res://scenes/battle/battle.tscn"
 @onready var _upgrade_rows: GridContainer = %UpgradeRows
 @onready var _evolve: Button = %EvolveButton
 @onready var _map_slots: Control = %MapSlots
+@onready var _settings: SettingsPanel = %Settings
+@onready var _settings_button: TextureButton = %SettingsButton
 
 
 func _ready() -> void:
 	get_tree().paused = false
+	Audio.play_music(&"menu")
 	_logo.texture = logos.get(TranslationServer.get_locale().left(2), logos.get("ru"))
 	for i: int in _tab_buttons.size():
 		_tab_buttons[i].pressed.connect(_show_tab.bind(i))
 	_play.pressed.connect(func() -> void: _start(GameState.max_playable_level()))
 	_evolve.pressed.connect(func() -> void: GameState.evolve())
+	_settings_button.pressed.connect(_settings.open)
 	for u: UnitData in GameState.config.player_units:
 		var tile: UnitTile = unit_tile_scene.instantiate()
 		_unit_tiles.add_child(tile)

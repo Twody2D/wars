@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 SaveService="*res://scripts/autoload/save_service.gd"
 GameState="*res://scripts/autoload/game_state.gd"
 Platform="*res://scripts/autoload/platform.gd"
+Audio="*res://scripts/autoload/audio.gd"
 RotateOverlay="*res://scenes/ui/rotate_overlay.tscn"
 
 [debug]

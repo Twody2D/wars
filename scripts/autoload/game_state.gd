@@ -24,7 +24,7 @@ var lang: String = ""
 var selected_level: int = 1
 ## Off in tests so they never touch the real save file.
 var autosave: bool = true
-## Unix time of the last save; picks the newer of the local and cloud saves.
+## Unix time of the last save (diagnostics; the cloud merge compares progress).
 var saved_at: int = 0
 
 
@@ -162,6 +162,12 @@ func set_battle_speed(on: bool) -> void:
 	_commit()
 
 
+## "ru" / "en"; "" — take it from the platform.
+func set_lang(code: String) -> void:
+	lang = code if code in ["", "ru", "en"] else ""
+	_commit()
+
+
 func set_sound(on: bool) -> void:
 	sound_on = on
 	_commit()
@@ -289,12 +295,18 @@ func _reset() -> void:
 			upgrades[up.id] = 0
 
 
-## Cloud save from the platform: taken if it is newer than the local one
-## (another device, cleared browser data). Called once at boot.
+## Cloud save from the platform (SPEC 13): taken if it has more progress —
+## more stars in total, then more coins (another device, cleared browser data).
+## Called once at boot.
 func merge_cloud(data: Dictionary) -> void:
-	if data.is_empty() or _int(data, "saved_at", 0) <= saved_at:
+	if data.is_empty():
 		return
+	var local: Dictionary = to_dict()
+	var local_rank: Vector2i = Vector2i(stars_total(), coins)
 	from_dict(data)
+	if Vector2i(stars_total(), coins) <= local_rank:
+		from_dict(local)
+		return
 	selected_level = current_level
 	if autosave:
 		SaveService.save(to_dict())

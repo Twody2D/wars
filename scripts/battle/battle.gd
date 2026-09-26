@@ -82,6 +82,7 @@ func _ready() -> void:
 	_time_scale_before = Engine.time_scale
 	Engine.time_scale = balance.battle_speed_scale if GameState.battle_speed_on else 1.0
 	Platform.update_mute()
+	Audio.play_music(&"battle")
 	Platform.paused.connect(_on_platform_paused)
 	Platform.gameplay_start()
 
@@ -155,6 +156,7 @@ func _mine(index: int) -> void:
 	if sim.tap_ore(index):
 		var ore: OreBlock = _ore_list()[index]
 		ore.punch()
+		Audio.play_sfx(&"ore")
 		_effects.spawn(&"coin", ore.position + ore.size / 2.0 - Vector2(0, 20), 0.8)
 		_tutorial.notify(&"ore")
 
@@ -191,9 +193,11 @@ func _connect_sim() -> void:
 	sim.projectile_spawned.connect(_on_projectile_spawned)
 	sim.projectile_finished.connect(_on_projectile_finished)
 	sim.explosion.connect(func(x: float, radius: float, _side: int) -> void:
+		Audio.play_sfx(&"explosion")
 		_effects.spawn(&"explosion", Vector2(x, balance.lane_y - 20.0), radius / 40.0))
 	sim.meteor_cast.connect(_on_meteor_cast)
 	sim.meteor_impact.connect(func(at: Vector2) -> void:
+		Audio.play_sfx(&"explosion")
 		_effects.spawn(&"meteor", at, balance.meteor_radius / 40.0)
 		_effects.spawn(&"explosion", at, balance.meteor_radius / 45.0))
 	sim.base_damaged.connect(_on_base_damaged)
@@ -202,6 +206,7 @@ func _connect_sim() -> void:
 
 ## A rock falls from the upper right onto the target during meteor_fall_time.
 func _on_meteor_cast(at: Vector2) -> void:
+	Audio.play_sfx(&"meteor", false)
 	var rock := _meteor_rock
 	rock.visible = true
 	rock.position = at + meteor_fall_from
@@ -225,6 +230,8 @@ func _on_unit_spawned(u: SimUnit) -> void:
 	v.set_hp(1.0, v.team_color)
 	v.play(&"walk")
 	_views[u.uid] = v
+	if u.side == BattleSim.PLAYER:
+		Audio.play_sfx(&"spawn")
 
 
 func _on_unit_damaged(u: SimUnit, _amount: float) -> void:
@@ -234,6 +241,7 @@ func _on_unit_damaged(u: SimUnit, _amount: float) -> void:
 	v.set_hp(u.hp / u.max_hp if u.is_alive() else -1.0, v.team_color)
 	if u.is_alive():
 		v.play_hit()
+		Audio.play_sfx(&"hit")
 	_effects.spawn(&"hit", v.position + Vector2(0, v.top_offset() * 0.5), 0.8)
 
 
@@ -243,6 +251,7 @@ func _on_unit_died(u: SimUnit, _killed: bool) -> void:
 		return
 	_views.erase(u.uid)
 	v.play(&"die")
+	Audio.play_sfx(&"death")
 
 
 func _sync_units() -> void:
@@ -265,6 +274,7 @@ func _on_projectile_spawned(p: SimProjectile) -> void:
 	s.rotation = 0.0
 	s.visible = true
 	_projectile_views[p.uid] = s
+	Audio.play_sfx(&"shoot")
 
 
 func _on_projectile_finished(p: SimProjectile) -> void:
@@ -295,6 +305,7 @@ func _sync_projectiles(delta: float) -> void:
 func _on_base_damaged(side: int, _amount: float) -> void:
 	var view: BaseView = _player_base if side == BattleSim.PLAYER else _bot_base
 	view.hit()
+	Audio.play_sfx(&"hit")
 	_update_bases()
 
 
@@ -312,8 +323,10 @@ func _sync_ore() -> void:
 
 # --- end of battle -----------------------------------------------------------
 
-func _on_battle_over(_winner: int) -> void:
+func _on_battle_over(winner: int) -> void:
 	_set_targeting(false)
+	Audio.stop_music()
+	Audio.play_sfx(&"win" if winner == BattleSim.PLAYER else &"lose", false)
 	_update_bases()
 	_result = Rewards.calculate(sim)
 	GameState.apply_result(_result)

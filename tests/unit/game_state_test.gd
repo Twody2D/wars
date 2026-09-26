@@ -104,14 +104,18 @@ func test_win_advances_level() -> void:
 	assert_int(gs.get(&"current_level")).is_equal(2)
 
 
-func test_cloud_save_taken_only_if_newer() -> void:
-	gs.set(&"saved_at", 100)
-	gs.set(&"coins", 5)
-	gs.call(&"merge_cloud", {"coins": 70, "saved_at": 50})
-	assert_int(gs.get(&"coins")).is_equal(5)
+func test_cloud_save_taken_only_with_more_progress() -> void:
+	gs.call(&"from_dict", {"coins": 50, "levels": {"1": 3}})
+	# Fewer stars — ignored, even with more coins.
+	gs.call(&"merge_cloud", {"coins": 900, "levels": {"1": 1}})
+	assert_int(gs.get(&"coins")).is_equal(50)
+	assert_int(gs.call(&"stars_total")).is_equal(3)
 	gs.call(&"merge_cloud", {})
-	assert_int(gs.get(&"coins")).is_equal(5)
-	gs.call(&"merge_cloud", {"coins": 70, "current_level": 3, "saved_at": 200})
+	assert_int(gs.get(&"coins")).is_equal(50)
+	# Same stars, more coins — taken.
+	gs.call(&"merge_cloud", {"coins": 70, "levels": {"1": 3}})
 	assert_int(gs.get(&"coins")).is_equal(70)
+	# More stars — taken.
+	gs.call(&"merge_cloud", {"coins": 10, "current_level": 3, "levels": {"1": 3, "2": 2}})
+	assert_int(gs.call(&"stars_total")).is_equal(5)
 	assert_int(gs.get(&"current_level")).is_equal(3)
-	assert_int(gs.get(&"saved_at")).is_equal(200)

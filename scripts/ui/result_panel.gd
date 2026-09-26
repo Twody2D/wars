@@ -53,6 +53,7 @@ func _on_rewarded(tag: StringName) -> void:
 	if tag != AD_TAG or _result == null or _result.doubled:
 		return
 	_result.doubled = true
+	Audio.play_sfx(&"coin", false)
 	GameState.add_coins(_result.coins)
 	_coins.text = "+%d" % (_result.coins * 2)
 
