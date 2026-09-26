@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3]
+[gd_scene load_steps=46 format=3]
 
 [ext_resource type="Script" path="res://scripts/battle/battle.gd" id="1_battle"]
 [ext_resource type="Texture2D" path="res://art/battle/battle_meadow.svg" id="2_bg_meadow"]
@@ -44,6 +44,7 @@
 [ext_resource type="Texture2D" path="res://art/battle/decor/decor_flower.svg" id="42_flower"]
 [ext_resource type="Texture2D" path="res://art/hud/booster_speed.svg" id="43_boost_speed"]
 [ext_resource type="Texture2D" path="res://art/hud/booster_food.svg" id="44_boost_food"]
+[ext_resource type="Texture2D" path="res://art/ui/icons/icon_star.svg" id="45_star"]
 
 [sub_resource type="StyleBoxFlat" id="food_bg"]
 bg_color = Color(0.105882, 0.105882, 0.184314, 1)
@@ -147,6 +148,51 @@ theme_override_font_sizes/font_size = 16
 text = "300"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="StarMarks" type="Control" parent="PlayerBase/HpBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -26.0
+offset_bottom = -26.0
+mouse_filter = 2
+
+[node name="Star3" type="TextureRect" parent="PlayerBase/HpBar/StarMarks"]
+layout_mode = 0
+offset_right = 24.0
+offset_bottom = 24.0
+mouse_filter = 2
+texture = ExtResource("45_star")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Tick" type="ColorRect" parent="PlayerBase/HpBar/StarMarks/Star3"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 24.0
+offset_right = 13.0
+offset_bottom = 50.0
+mouse_filter = 2
+color = Color(0.105882, 0.105882, 0.184314, 1)
+
+[node name="Star2" type="TextureRect" parent="PlayerBase/HpBar/StarMarks"]
+layout_mode = 0
+offset_right = 24.0
+offset_bottom = 24.0
+mouse_filter = 2
+texture = ExtResource("45_star")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Tick" type="ColorRect" parent="PlayerBase/HpBar/StarMarks/Star2"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 24.0
+offset_right = 13.0
+offset_bottom = 50.0
+mouse_filter = 2
+color = Color(0.105882, 0.105882, 0.184314, 1)
 
 [node name="BotBase" type="Node2D" parent="."]
 position = Vector2(1190, 380)

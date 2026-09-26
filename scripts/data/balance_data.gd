@@ -53,6 +53,8 @@ extends Resource
 @export_group("Rewards")
 @export var coins_per_kill: int = 1
 @export var lose_reward_ratio: float = 0.3
+## Win bonus per star: +10% of the reward for each star (3 stars → +30%).
+@export var star_coin_bonus: float = 0.1
 @export var three_stars_hp: float = 0.7
 @export var two_stars_hp: float = 0.35
 

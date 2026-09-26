@@ -12,6 +12,8 @@ var _result: BattleResult
 @onready var _title: Label = %Title
 @onready var _stars: Array[TextureRect] = [%Star1, %Star2, %Star3]
 @onready var _coins: Label = %CoinsValue
+@onready var _base_left: Label = %BaseLeft
+@onready var _star_bonus: Label = %StarBonus
 @onready var _double: Button = %DoubleButton
 @onready var _next: Button = %NextButton
 @onready var _menu: Button = %MenuButton
@@ -36,8 +38,18 @@ func show_result(result: BattleResult) -> void:
 	_coins.text = "+%d" % result.coins
 	_double.disabled = result.coins <= 0
 	_next.text = tr("BTN_NEXT") if result.won else tr("BTN_RETRY")
-	_hint.visible = not result.won
-	_hint.text = tr("HINT_UPGRADE")
+	# Stars are the base HP left (SPEC 6): say it, and what the next star needs.
+	var balance: BalanceData = GameState.balance()
+	_base_left.visible = result.won
+	_base_left.text = tr("RESULT_BASE_FMT") % roundi(result.hp_ratio * 100.0)
+	_star_bonus.visible = result.won and result.stars > 0
+	_star_bonus.text = tr("STAR_BONUS_FMT") % roundi(balance.star_coin_bonus * result.stars * 100.0)
+	var next_hp: float = Rewards.next_star_hp(balance, result.stars)
+	if not result.won:
+		_hint.text = tr("HINT_UPGRADE")
+	else:
+		_hint.text = tr("HINT_NEXT_STAR_FMT") % [roundi(next_hp * 100.0), result.stars + 1]
+	_hint.visible = not result.won or next_hp > 0.0
 	visible = true
 	scale = Vector2(0.8, 0.8)
 	pivot_offset = size / 2.0

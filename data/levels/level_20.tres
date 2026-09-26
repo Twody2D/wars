@@ -186,4 +186,4 @@ waves = Array[ExtResource("9_corec")]([SubResource("Resource_5spj0"), SubResourc
 bot_food_per_sec = 0.4
 counter_pick = true
 bot_units = Array[ExtResource("1_fmr8e")]([ExtResource("2_ybssx"), ExtResource("3_vs475"), ExtResource("4_c2ufa"), ExtResource("5_ldye8"), ExtResource("6_itw2o"), ExtResource("7_o5mhb")])
-reward_coins = 125
+reward_coins = 100

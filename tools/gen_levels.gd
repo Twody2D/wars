@@ -69,7 +69,7 @@ func _level(n: int, u: Dictionary[String, UnitData]) -> LevelData:
 	level.bot_food_per_sec = BOT_FOOD[n - 1]
 	level.bot_power = BOT_POWER[n - 1]
 	level.counter_pick = true
-	level.reward_coins = 30 + 5 * (n - 1)
+	level.reward_coins = 24 + 4 * (n - 1)
 	level.tutorial = n == 1
 	level.ore_blocks = 2
 

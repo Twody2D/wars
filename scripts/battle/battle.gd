@@ -85,6 +85,7 @@ func _ready() -> void:
 	_reticle.visible = false
 	_reticle.radius = balance.meteor_radius
 	_last_base_hp = sim.base_hp.duplicate()
+	_player_base.set_star_marks(balance.three_stars_hp, balance.two_stars_hp)
 	_update_bases()
 	_tutorial.setup(self, level.tutorial)
 

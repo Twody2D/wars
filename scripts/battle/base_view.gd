@@ -13,6 +13,8 @@ extends Node2D
 
 var _ratio: float = 1.0
 var _tween: Tween
+## HP share → star mark above the bar (player base only, SPEC 6).
+var _star_marks: Dictionary[float, TextureRect] = {}
 
 @onready var _sprite: Sprite2D = $Sprite
 @onready var _bar: TextureProgressBar = $HpBar
@@ -35,6 +37,27 @@ func set_hp(hp: float, max_hp: float) -> void:
 		_sprite.texture = damaged
 	else:
 		_sprite.texture = intact
+	_update_star_marks()
+
+
+## Shows where the stars are lost: a star with a tick at each HP threshold.
+## The star dims when the base HP drops below it.
+func set_star_marks(three_stars_hp: float, two_stars_hp: float) -> void:
+	var box: Control = get_node_or_null("HpBar/StarMarks")
+	if box == null:
+		return
+	_star_marks.clear()
+	var marks: Dictionary[String, float] = {"Star3": three_stars_hp, "Star2": two_stars_hp}
+	for mark_name: String in marks:
+		var mark: TextureRect = box.get_node(mark_name)
+		mark.position.x = marks[mark_name] * _bar.size.x - mark.size.x / 2.0
+		_star_marks[marks[mark_name]] = mark
+	_update_star_marks()
+
+
+func _update_star_marks() -> void:
+	for threshold: float in _star_marks:
+		_star_marks[threshold].modulate = Color.WHITE if _ratio >= threshold else Color(0.3, 0.3, 0.35, 0.7)
 
 
 func hit() -> void:

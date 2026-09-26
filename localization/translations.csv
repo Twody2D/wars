@@ -56,3 +56,6 @@ EVOLVE_HINT,"Пройди 10-й уровень, чтобы открыть пещ
 ROTATE_DEVICE,Поверните устройство,Rotate your device
 SETTINGS_TITLE,Настройки,Settings
 BTN_CLOSE,Закрыть,Close
+RESULT_BASE_FMT,База цела на %d%%,Base left: %d%%
+STAR_BONUS_FMT,(+%d%% за звёзды),(+%d%% for stars)
+HINT_NEXT_STAR_FMT,Сохрани %d%% базы — получишь %d звезды,Keep %d%% of your base to get %d stars

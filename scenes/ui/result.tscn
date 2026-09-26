@@ -75,6 +75,13 @@ texture = ExtResource("2_star")
 expand_mode = 1
 stretch_mode = 5
 
+[node name="BaseLeft" type="Label" parent="Panel/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "RESULT_BASE_FMT"
+horizontal_alignment = 1
+
 [node name="Coins" type="HBoxContainer" parent="Panel/Box"]
 layout_mode = 2
 alignment = 1
@@ -91,6 +98,14 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "+0"
+
+[node name="StarBonus" type="Label" parent="Panel/Box/Coins"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 0.839216, 0.25098, 1)
+theme_override_font_sizes/font_size = 24
+text = "STAR_BONUS_FMT"
 
 [node name="Hint" type="Label" parent="Panel/Box"]
 unique_name_in_owner = true

@@ -66,5 +66,5 @@ bot_power = 1.05
 waves = Array[ExtResource("5_6r1wk")]([SubResource("Resource_a27lr"), SubResource("Resource_0crcv"), SubResource("Resource_yk1dp"), SubResource("Resource_lriho")])
 counter_pick = true
 bot_units = Array[ExtResource("1_vjtlv")]([ExtResource("2_y1woe"), ExtResource("3_qg5lk")])
-reward_coins = 30
+reward_coins = 24
 tutorial = true
