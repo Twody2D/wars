@@ -22,7 +22,7 @@ const BATTLE_SCENE := "res://scenes/battle/battle.tscn"
 @onready var _evolve: Button = %EvolveButton
 @onready var _map_slots: Control = %MapSlots
 @onready var _settings: SettingsPanel = %Settings
-@onready var _settings_button: TextureButton = %SettingsButton
+@onready var _settings_button: Button = %SettingsButton
 
 
 func _ready() -> void:
@@ -79,7 +79,7 @@ func _refresh() -> void:
 func _show_tab(index: int) -> void:
 	for i: int in _tabs.size():
 		_tabs[i].visible = i == index
-		_tab_buttons[i].theme_type_variation = &"" if i == index else &"SecondaryButton"
+		_tab_buttons[i].theme_type_variation = &"TabActive" if i == index else &"TabButton"
 
 
 func _start(level_number: int) -> void:

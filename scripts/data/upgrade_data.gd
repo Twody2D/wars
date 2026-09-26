@@ -4,6 +4,8 @@ extends Resource
 
 @export var id: StringName
 @export var name_key: String
+## Picture on the upgrades screen.
+@export var icon: Texture2D
 @export var base_cost: int = 30
 @export var max_level: int = 10
 ## Effect per level, meaning depends on the upgrade (food/s, HP, food).

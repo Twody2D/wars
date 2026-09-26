@@ -70,6 +70,7 @@ func _ready() -> void:
 	_hud.pause_pressed.connect(_open_pause)
 	_hud.meteor_pressed.connect(_toggle_meteor_targeting)
 	_hud.booster_pressed.connect(_request_booster)
+	_hud.set_booster_texts(balance.booster_time_scale, balance.booster_food)
 	Platform.rewarded.connect(_on_booster_rewarded)
 	Platform.rewarded_failed.connect(_on_booster_failed)
 	_hud.debug_spawn.connect(func(side: int, u: UnitData) -> void: sim.spawn(side, u))

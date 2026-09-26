@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="UpgradeData" format=3]
+[gd_resource type="Resource" script_class="UpgradeData" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/data/upgrade_data.gd" id="1_qw14q"]
+[ext_resource type="Texture2D" path="res://art/ui/upgrades/upgrade_start_food.svg" id="2_icon"]
 
 [resource]
 script = ExtResource("1_qw14q")
 id = &"start_food"
 name_key = "UPGRADE_START_FOOD"
+icon = ExtResource("2_icon")
 base_cost = 40
 max_level = 5
 per_level = 3.0

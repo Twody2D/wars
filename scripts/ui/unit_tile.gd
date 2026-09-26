@@ -1,12 +1,15 @@
 class_name UnitTile
 extends PanelContainer
-## Unit on the upgrades screen: portrait, name, level, unlock / level-up button.
+## Unit on the upgrades screen: portrait, name, level pips, one gold price button
+## (unlock or next level). Locked units sit on a darker card.
+
+@export var coin_icon: Texture2D
 
 var unit: UnitData
 
 @onready var _portrait: TextureRect = %Portrait
 @onready var _name: Label = %Name
-@onready var _level: Label = %Level
+@onready var _pips: LevelPips = %Pips
 @onready var _button: Button = %BuyButton
 
 
@@ -26,18 +29,20 @@ func refresh() -> void:
 	if unit == null:
 		return
 	var unlocked: bool = GameState.is_unit_unlocked(unit.id)
-	_portrait.modulate = Color.WHITE if unlocked else Color(0.25, 0.25, 0.3)
-	if unlocked:
-		var lvl: int = GameState.unit_level(unit.id)
-		_level.text = tr("UPGRADE_LEVEL_FMT") % [lvl, GameState.balance().unit_max_level]
-		var cost: int = GameState.unit_level_cost(unit.id)
-		_button.text = tr("MAX") if cost < 0 else "%s %d" % [tr("BTN_LEVEL_UP"), cost]
-		_button.disabled = cost < 0 or GameState.coins < cost
+	theme_type_variation = &"CardPanel" if unlocked else &"LockedCard"
+	_portrait.modulate = Color.WHITE if unlocked else Color(0.35, 0.35, 0.42)
+	var max_level: int = GameState.balance().unit_max_level
+	_pips.set_level(GameState.unit_level(unit.id) if unlocked else 0, max_level)
+	var cost: int = GameState.unit_level_cost(unit.id) if unlocked else GameState.unit_unlock_cost(unit.id)
+	if cost < 0:
+		# Maxed out, or unlocks only in a later biome.
+		_button.icon = null
+		_button.text = tr("MAX") if unlocked else tr("UNLOCKS_IN_CAVE")
+		_button.disabled = true
 	else:
-		var cost: int = GameState.unit_unlock_cost(unit.id)
-		_level.text = ""
-		_button.text = tr("UNLOCKS_IN_CAVE") if cost < 0 else "%s %d" % [tr("BTN_UNLOCK"), cost]
-		_button.disabled = cost < 0 or GameState.coins < cost
+		_button.icon = coin_icon
+		_button.text = str(cost)
+		_button.disabled = GameState.coins < cost
 
 
 func _on_buy() -> void:

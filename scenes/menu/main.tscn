@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/level_button.tscn" id="4_level"]
 [ext_resource type="Texture2D" path="res://art/screens/logo_ru.svg" id="5_logo_ru"]
 [ext_resource type="Texture2D" path="res://art/screens/logo_en.svg" id="6_logo_en"]
-[ext_resource type="Texture2D" path="res://art/screens/bg_menu.svg" id="7_bg"]
+[ext_resource type="Texture2D" path="res://art/screens/bg_menu_v2.svg" id="7_bg"]
 [ext_resource type="Texture2D" path="res://art/screens/map_world.svg" id="8_map"]
 [ext_resource type="Texture2D" path="res://art/ui/icons/icon_coin.svg" id="9_coin"]
 [ext_resource type="Texture2D" path="res://art/ui/icons/icon_sword.svg" id="10_sword"]
@@ -41,6 +41,18 @@ texture = ExtResource("7_bg")
 expand_mode = 1
 stretch_mode = 6
 
+[node name="BottomBand" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -118.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+color = Color(0.168627, 0.152941, 0.25098, 1)
+
 [node name="BattleTab" type="Control" parent="."]
 unique_name_in_owner = true
 layout_mode = 1
@@ -58,9 +70,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -300.0
-offset_top = 40.0
+offset_top = 20.0
 offset_right = 300.0
-offset_bottom = 265.0
+offset_bottom = 245.0
 grow_horizontal = 2
 texture = ExtResource("5_logo_ru")
 expand_mode = 1
@@ -73,11 +85,11 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -200.0
-offset_top = 290.0
+offset_top = 262.0
 offset_right = 200.0
-offset_bottom = 330.0
+offset_bottom = 306.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 36
 text = "LEVEL_FMT"
 horizontal_alignment = 1
 
@@ -87,12 +99,12 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -190.0
-offset_top = 345.0
-offset_right = 190.0
-offset_bottom = 475.0
+offset_left = -200.0
+offset_top = 318.0
+offset_right = 200.0
+offset_bottom = 448.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 56
 text = "BTN_PLAY"
 icon = ExtResource("10_sword")
 
@@ -107,37 +119,43 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="Title" type="Label" parent="UpgradesTab"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_top = 22.0
+offset_right = 300.0
+offset_bottom = 92.0
+grow_horizontal = 2
+theme_type_variation = &"TitleLabel"
+text = "UPGRADES_TITLE"
+horizontal_alignment = 1
+
 [node name="Panel" type="PanelContainer" parent="UpgradesTab"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 20.0
-offset_top = 72.0
+offset_top = 104.0
 offset_right = -20.0
-offset_bottom = -118.0
+offset_bottom = -126.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Box" type="VBoxContainer" parent="UpgradesTab/Panel"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 12
+alignment = 1
 
-[node name="Header" type="HBoxContainer" parent="UpgradesTab/Panel/Box"]
-layout_mode = 2
-
-[node name="UnitsTitle" type="Label" parent="UpgradesTab/Panel/Box/Header"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 26
-text = "UNITS_TITLE"
-
-[node name="EvolveButton" type="Button" parent="UpgradesTab/Panel/Box/Header"]
+[node name="EvolveButton" type="Button" parent="UpgradesTab/Panel/Box"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(260, 56)
+custom_minimum_size = Vector2(360, 64)
 layout_mode = 2
+size_flags_horizontal = 4
 theme_type_variation = &"DangerButton"
-theme_override_font_sizes/font_size = 24
 text = "BTN_EVOLVE"
 
 [node name="UnitTiles" type="HBoxContainer" parent="UpgradesTab/Panel/Box"]
@@ -151,7 +169,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/h_separation = 12
-theme_override_constants/v_separation = 8
+theme_override_constants/v_separation = 10
 columns = 3
 
 [node name="MapTab" type="Control" parent="."]
@@ -183,43 +201,48 @@ texture = ExtResource("8_map")
 expand_mode = 1
 stretch_mode = 1
 
-[node name="TopBar" type="HBoxContainer" parent="."]
+[node name="CoinPill" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -240.0
-offset_top = 10.0
-offset_right = -20.0
-offset_bottom = 62.0
+offset_left = -250.0
+offset_top = 14.0
+offset_right = -16.0
+offset_bottom = 82.0
 grow_horizontal = 0
 mouse_filter = 2
-alignment = 2
 
-[node name="CoinIcon" type="TextureRect" parent="TopBar"]
+[node name="TopBar" type="HBoxContainer" parent="CoinPill"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="CoinIcon" type="TextureRect" parent="CoinPill/TopBar"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = ExtResource("9_coin")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CoinsLabel" type="Label" parent="TopBar"]
+[node name="CoinsLabel" type="Label" parent="CoinPill/TopBar"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 34
 text = "0"
 
-[node name="SettingsButton" type="TextureButton" parent="."]
+[node name="SettingsButton" type="Button" parent="."]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(96, 96)
+custom_minimum_size = Vector2(88, 88)
 layout_mode = 0
-offset_left = 12.0
-offset_top = 8.0
-offset_right = 108.0
-offset_bottom = 104.0
-texture_normal = ExtResource("11_gear")
-ignore_texture_size = true
-stretch_mode = 5
+offset_left = 16.0
+offset_top = 12.0
+offset_right = 104.0
+offset_bottom = 100.0
+theme_type_variation = &"IconButton"
+icon = ExtResource("11_gear")
+icon_alignment = 1
+expand_icon = true
 
 [node name="TabBar" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -228,9 +251,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -420.0
-offset_top = -106.0
-offset_right = 420.0
+offset_left = -450.0
+offset_top = -100.0
+offset_right = 450.0
 offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -240,18 +263,21 @@ theme_override_constants/separation = 16
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_type_variation = &"TabButton"
 text = "TAB_BATTLE"
 
 [node name="TabUpgrades" type="Button" parent="TabBar"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_type_variation = &"TabButton"
 text = "TAB_UPGRADES"
 
 [node name="TabMap" type="Button" parent="TabBar"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_type_variation = &"TabButton"
 text = "TAB_MAP"
 
 [node name="Settings" parent="." instance=ExtResource("12_settings")]

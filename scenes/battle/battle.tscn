@@ -26,11 +26,11 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/unit_card.tscn" id="24_card"]
 [ext_resource type="Texture2D" path="res://art/ui/icons/icon_heart.svg" id="25_heart"]
 [ext_resource type="Texture2D" path="res://art/ui/icons/icon_coin.svg" id="26_coin"]
-[ext_resource type="Texture2D" path="res://art/hud/wave_counter_panel.svg" id="27_wave"]
+[ext_resource type="Texture2D" path="res://art/hud/wave_counter_panel_v2.svg" id="27_wave"]
 [ext_resource type="Texture2D" path="res://art/ui/icons/icon_pause.svg" id="28_pause"]
 [ext_resource type="Texture2D" path="res://art/hud/hud_bottom_panel.svg" id="29_panel"]
 [ext_resource type="Texture2D" path="res://art/ui/icons/icon_food.svg" id="30_food"]
-[ext_resource type="Texture2D" path="res://art/hud/ability_button.svg" id="31_ability"]
+[ext_resource type="Texture2D" path="res://art/hud/ability_button_v2.svg" id="31_ability"]
 [ext_resource type="PackedScene" path="res://scenes/ui/pause.tscn" id="32_pause"]
 [ext_resource type="PackedScene" path="res://scenes/ui/result.tscn" id="33_result"]
 [ext_resource type="Script" path="res://scripts/ui/tutorial_hints.gd" id="34_tutorial"]
@@ -42,8 +42,8 @@
 [ext_resource type="Texture2D" path="res://art/battle/decor/decor_bush.svg" id="40_bush"]
 [ext_resource type="Texture2D" path="res://art/battle/decor/decor_rock.svg" id="41_rock"]
 [ext_resource type="Texture2D" path="res://art/battle/decor/decor_flower.svg" id="42_flower"]
-[ext_resource type="Texture2D" path="res://art/hud/booster_speed.svg" id="43_boost_speed"]
-[ext_resource type="Texture2D" path="res://art/hud/booster_food.svg" id="44_boost_food"]
+[ext_resource type="Texture2D" path="res://art/hud/booster_speed_v2.svg" id="43_boost_speed"]
+[ext_resource type="Texture2D" path="res://art/hud/booster_food_v2.svg" id="44_boost_food"]
 [ext_resource type="Texture2D" path="res://art/ui/icons/icon_star.svg" id="45_star"]
 
 [sub_resource type="StyleBoxFlat" id="food_bg"]
@@ -473,6 +473,24 @@ texture_normal = ExtResource("43_boost_speed")
 ignore_texture_size = true
 stretch_mode = 5
 
+[node name="BoostSpeedLabel" type="Label" parent="HUD/Root/BottomPanel/Content/BoostSpeed"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = -46.0
+offset_right = -14.0
+offset_bottom = -12.0
+theme_override_colors/font_color = Color(0.105882, 0.105882, 0.184314, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 28
+text = "x2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="BoostFood" type="TextureButton" parent="HUD/Root/BottomPanel/Content"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(112, 132)
@@ -481,6 +499,24 @@ size_flags_vertical = 4
 texture_normal = ExtResource("44_boost_food")
 ignore_texture_size = true
 stretch_mode = 5
+
+[node name="BoostFoodLabel" type="Label" parent="HUD/Root/BottomPanel/Content/BoostFood"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = -46.0
+offset_right = -14.0
+offset_bottom = -12.0
+theme_override_colors/font_color = Color(0.105882, 0.105882, 0.184314, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 28
+text = "x2"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MeteorButton" type="TextureButton" parent="HUD/Root/BottomPanel/Content"]
 unique_name_in_owner = true

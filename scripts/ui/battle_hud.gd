@@ -30,6 +30,8 @@ var _cards: Array[UnitCard] = []
 @onready var _pause_button: TextureButton = %PauseButton
 @onready var _boost_speed: TextureButton = %BoostSpeed
 @onready var _boost_food: TextureButton = %BoostFood
+@onready var _boost_speed_label: Label = %BoostSpeedLabel
+@onready var _boost_food_label: Label = %BoostFoodLabel
 
 var _boosters: Dictionary[StringName, TextureButton] = {}
 
@@ -75,6 +77,12 @@ func refresh(sim: BattleSim, bot: BattleBot) -> void:
 	var charged: bool = sim.meteor_charges >= sim.balance.meteor_max_charges
 	_meteor_progress.visible = not charged
 	_meteor_progress.value = sim.meteor_timer / sim.balance.meteor_recharge * 100.0
+
+
+## What the boosters give, from BalanceData (the art has an empty label box).
+func set_booster_texts(time_scale: float, food: float) -> void:
+	_boost_speed_label.text = "×%s" % String.num(time_scale)
+	_boost_food_label.text = "+%d" % roundi(food)
 
 
 ## Boosters work once per battle: a used one stays grey.

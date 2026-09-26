@@ -42,6 +42,7 @@ func _init() -> void:
 		up.max_level = row[1]
 		up.per_level = row[2]
 		up.one_time = row[3]
+		up.icon = load("res://art/ui/upgrades/upgrade_%s.svg" % id)
 		_save(up, "res://data/upgrades/%s.tres" % id)
 	quit()
 

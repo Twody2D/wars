@@ -1,45 +1,58 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/upgrade_row.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://art/ui/icons/icon_coin.svg" id="2_coin"]
+[ext_resource type="PackedScene" path="res://scenes/ui/level_pips.tscn" id="3_pips"]
 
 [node name="UpgradeRow" type="PanelContainer"]
-custom_minimum_size = Vector2(392, 0)
+custom_minimum_size = Vector2(380, 108)
+theme_type_variation = &"CardPanel"
 script = ExtResource("1_script")
+coin_icon = ExtResource("2_coin")
 
 [node name="Box" type="HBoxContainer" parent="."]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 10
+
+[node name="Icon" type="TextureRect" parent="Box"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+size_flags_vertical = 4
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Text" type="VBoxContainer" parent="Box"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 0
+theme_override_constants/separation = 2
+alignment = 1
 
 [node name="Name" type="Label" parent="Box/Text"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "UPGRADE_FOOD_RATE"
+theme_override_font_sizes/font_size = 26
+text = "UPGRADE_ARMY_POWER_SHORT"
+text_overrun_behavior = 3
 
-[node name="Desc" type="Label" parent="Box/Text"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(220, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 14
-text = "DESC_FOOD_RATE"
-autowrap_mode = 3
-
-[node name="Level" type="Label" parent="Box/Text"]
+[node name="Effect" type="Label" parent="Box/Text"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 15
+theme_type_variation = &"AccentLabel"
+text = "+10%"
+
+[node name="Pips" parent="Box/Text" instance=ExtResource("3_pips")]
+unique_name_in_owner = true
+layout_mode = 2
+pip_size = 12.0
 
 [node name="BuyButton" type="Button" parent="Box"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(124, 64)
+custom_minimum_size = Vector2(128, 72)
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 24
+theme_type_variation = &"GoldButton"
+theme_override_font_sizes/font_size = 28
 text = "30"
 icon = ExtResource("2_coin")
+expand_icon = true
