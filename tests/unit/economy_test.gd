@@ -76,3 +76,13 @@ func test_meteor_charges_and_delayed_impact() -> void:
 	assert_float(enemy.hp).is_less(enemy.max_hp)
 	_run(sim, balance.meteor_recharge)
 	assert_int(sim.meteor_charges).is_equal(1)
+
+
+func test_level_min_start_food() -> void:
+	var level := LevelData.new()
+	level.min_start_food = 3.0
+	var units: Array[UnitData] = [zombie]
+	var sim := BattleSim.new(BattleSetup.basic(balance, level, units))
+	assert_float(sim.food).is_equal(maxf(balance.start_food, 3.0))
+	var level1: LevelData = load("res://data/levels/level_01.tres")
+	assert_float(level1.min_start_food).is_equal(3.0)

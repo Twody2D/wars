@@ -68,3 +68,4 @@ counter_pick = true
 bot_units = Array[ExtResource("1_vjtlv")]([ExtResource("2_y1woe"), ExtResource("3_qg5lk")])
 reward_coins = 24
 tutorial = true
+min_start_food = 3.0

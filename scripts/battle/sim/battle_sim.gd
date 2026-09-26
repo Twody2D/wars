@@ -63,7 +63,7 @@ func _init(setup_: BattleSetup) -> void:
 	rng.seed = setup_.rng_seed
 	base_hp = [setup_.player_base_hp, setup_.level.bot_base_hp]
 	base_max_hp = base_hp.duplicate()
-	food = setup_.start_food
+	food = maxf(setup_.start_food, setup_.level.min_start_food if setup_.level != null else 0.0)
 	food_rate = setup_.food_rate
 	food_max = setup_.food_max
 	ore_cooldowns.resize(setup_.level.ore_blocks)

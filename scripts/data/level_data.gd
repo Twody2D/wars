@@ -16,3 +16,5 @@ extends Resource
 @export var reward_coins: int = 20
 @export var ore_blocks: int = 2
 @export var tutorial: bool = false
+## Food at the start is at least this (level 1: enough for the first unit).
+@export var min_start_food: float = 0.0

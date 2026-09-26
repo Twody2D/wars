@@ -71,6 +71,7 @@ func _level(n: int, u: Dictionary[String, UnitData]) -> LevelData:
 	level.counter_pick = true
 	level.reward_coins = 24 + 4 * (n - 1)
 	level.tutorial = n == 1
+	level.min_start_food = 3.0 if n == 1 else 0.0
 	level.ore_blocks = 2
 
 	var pool: Array[UnitData] = [u["zombie"], u["skeleton"]]
