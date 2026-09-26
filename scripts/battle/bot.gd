@@ -16,6 +16,8 @@ var _time: float = 0.0
 var _spawners: Array[Array] = []
 var _pressure_timer: float = 0.0
 var _pick_counter: int = 0
+## Leader or boss of the last wave once it is on the field.
+var _leader: SimUnit = null
 
 
 func _init(sim_: BattleSim) -> void:
@@ -41,6 +43,19 @@ func wave_leader(index: int) -> WaveEntry:
 		if entry.elite:
 			found = entry
 	return found
+
+
+## The last wave is beaten — its leader or boss is dead (no leader: every bot
+## unit is dead). The bot base stops sending units; only the base is left.
+func is_broken() -> bool:
+	if not all_waves_done():
+		return false
+	if _leader != null:
+		return not _leader.is_alive()
+	for unit: SimUnit in sim.units:
+		if unit.side == BattleSim.BOT and unit.is_alive():
+			return false
+	return true
 
 
 ## Current wave for the HUD, 1-based; 0 before the first wave.
@@ -72,7 +87,7 @@ func step(dt: float) -> void:
 		food += level.bot_food_per_sec * dt
 		if not is_spawning_wave() and _threatened():
 			_counter_pick()
-	if all_waves_done():
+	if all_waves_done() and not is_broken():
 		_pressure(dt)
 
 
@@ -83,7 +98,10 @@ func _step_spawners(dt: float) -> void:
 		var timer: float = spawner[2]
 		timer -= dt
 		if timer <= 0.0:
-			if sim.spawn(BattleSim.BOT, entry.unit, 1, _power_for(entry.unit), entry.elite) != null:
+			var spawned: SimUnit = sim.spawn(BattleSim.BOT, entry.unit, 1, _power_for(entry.unit), entry.elite)
+			if spawned != null:
+				if entry.elite or entry.unit.is_boss:
+					_leader = spawned
 				var remaining: int = spawner[1]
 				spawner[1] = remaining - 1
 				timer = entry.interval_sec

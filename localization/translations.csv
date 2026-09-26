@@ -75,3 +75,5 @@ BANNER_WAVE_INCOMING,Враги идут!,Enemies incoming!
 BANNER_FINAL_WAVE,Финальная волна!,Final wave!
 BANNER_BOSS_FMT,Босс: %s,Boss: %s
 BANNER_LEADER_FMT,Вожак: %s,Leader: %s
+BANNER_BASE_OPEN,База врага беззащитна!,The enemy base is open!
+BANNER_BASE_OPEN_SUB,Добей её!,Finish it!

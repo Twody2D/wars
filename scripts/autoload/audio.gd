@@ -54,12 +54,17 @@ const POOL_SIZE := 12
 const REPEAT_GAP_SEC := 0.06
 ## Random pitch spread so repeated hits don't sound identical.
 const PITCH_JITTER := 0.08
+## Seconds for the music to fade out on pause and back in on resume.
+const MUSIC_FADE_SEC := 0.6
+## Silence for volume_db fades.
+const SILENT_DB := -40.0
 
 var _players: Array[AudioStreamPlayer] = []
 var _next: int = 0
 var _last_played: Dictionary[StringName, int] = {}
 var _music: AudioStreamPlayer
 var _music_id: StringName = &""
+var _music_fade: Tween
 
 
 func _ready() -> void:
@@ -93,7 +98,9 @@ func play_sfx(id: StringName, jitter: bool = true) -> void:
 
 
 func play_music(id: StringName) -> void:
-	if id == _music_id and _music.playing:
+	if id == _music_id and (_music.playing or _music.stream_paused):
+		# Same track (e.g. restart from the pause screen): just bring it back.
+		fade_music(true)
 		return
 	var stream: AudioStream = MUSIC.get(id)
 	if stream == null:
@@ -101,7 +108,22 @@ func play_music(id: StringName) -> void:
 		return
 	_music_id = id
 	_music.stream = stream
+	_music.stream_paused = false
+	_music.volume_db = 0.0
 	_music.play()
+
+
+## Smoothly silence the music and hold it (pause screen) or bring it back.
+func fade_music(on: bool) -> void:
+	if _music_fade != null and _music_fade.is_valid():
+		_music_fade.kill()
+	_music_fade = create_tween()
+	if on:
+		_music.stream_paused = false
+		_music_fade.tween_property(_music, "volume_db", 0.0, MUSIC_FADE_SEC)
+	else:
+		_music_fade.tween_property(_music, "volume_db", SILENT_DB, MUSIC_FADE_SEC)
+		_music_fade.tween_callback(func() -> void: _music.stream_paused = true)
 
 
 func stop_music() -> void:

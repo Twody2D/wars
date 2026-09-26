@@ -51,3 +51,26 @@ func test_level_1_is_won_with_army_power() -> void:
 
 func test_level_20_is_not_won_without_upgrades() -> void:
 	assert_bool(_play(20, 1)).is_false()
+
+
+## Twody: after the final leader falls the bot base must stop sending units
+## (it used to spawn for five more minutes).
+func test_bot_stops_after_final_leader_dies() -> void:
+	var level: LevelData = config.levels[4]
+	var s := BattleSetup.basic(config.balance, level, [config.player_units[0]] as Array[UnitData], 1)
+	var sim := BattleSim.new(s)
+	var bot := BattleBot.new(sim)
+	var guard := 0
+	while not bot.all_waves_done() and guard < 100000:
+		bot.step(sim.balance.sim_dt)
+		guard += 1
+	assert_bool(bot.is_broken()).is_false()
+	for u: SimUnit in sim.units:
+		if u.side == BattleSim.BOT:
+			u.hp = 0.0
+			u.state = SimUnit.State.DEAD
+	assert_bool(bot.is_broken()).is_true()
+	var before: int = sim.units.size()
+	for i: int in 3000:
+		bot.step(sim.balance.sim_dt)
+	assert_int(sim.units.size()).is_equal(before)

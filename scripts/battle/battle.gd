@@ -46,6 +46,7 @@ var _ad_running: bool = false
 var _blast_this_frame: bool = false
 ## Waves already announced by the banner.
 var _announced_waves: int = 0
+var _announced_broken: bool = false
 
 @onready var _background: Sprite2D = $Background
 @onready var _units_layer: Node2D = $Units
@@ -123,6 +124,9 @@ func _process(delta: float) -> void:
 	if bot.current_wave() > _announced_waves and not sim.is_over():
 		_announced_waves = bot.current_wave()
 		_announce_wave(_announced_waves - 1)
+	if not _announced_broken and bot.is_broken() and not sim.is_over():
+		_announced_broken = true
+		_banner.announce(tr("BANNER_BASE_OPEN"), tr("BANNER_BASE_OPEN_SUB"))
 	if targeting_meteor:
 		_reticle.global_position = get_global_mouse_position()
 
@@ -443,12 +447,14 @@ func _open_pause() -> void:
 		return
 	get_tree().paused = true
 	Platform.gameplay_stop()
+	Audio.fade_music(false)
 	_pause.open()
 
 
 func _close_pause() -> void:
 	_pause.visible = false
 	get_tree().paused = false
+	Audio.fade_music(true)
 	Platform.gameplay_start()
 
 
