@@ -255,7 +255,7 @@ Same GLOBAL STYLE and TECHNICAL RULES as before.
 
 ## Редизайн v2: читаемость, меню, улучшения, состояния кнопок (26.09.2026)
 
-Отправить в тот же проект Claude Design. Перед отправкой вписать название вместо `[GAME TITLE]` (или оставить — тогда раздел G переделать позже).
+Отправить в тот же проект Claude Design. Название — Mine Rush (одно для ru и en).
 
 ```
 Keep all units, bosses, projectiles, fx, battle backgrounds, bases, decor, HUD and
@@ -376,9 +376,12 @@ ability_button_v2 (112×112): meteor button, calmer, empty space at the bottom f
 wave_counter_panel_v2 (200×64): flag icon on the left, plain empty area for text.
 
 =====================================================================
-SECTION H — TITLE AND STORE ART (game title: [GAME TITLE])
+SECTION H — TITLE AND STORE ART (game title: MINE RUSH)
 =====================================================================
-logo_ru (Russian title) and logo_en (English title), 600×225, same blocky
-  pixel-letter style as the current logo, text as paths.
+The game is called "Mine Rush" in every language (no translation).
+logo_ru and logo_en (600×225, identical): "MINE RUSH" in the same blocky
+  pixel-letter style as the current logo (two lines: MINE / RUSH), text as paths.
+  "MINE" in stone-grey/ore colors, "RUSH" in warm orange; must not resemble any
+  existing game logo.
 store_icon (512×512): mascot face + short title, readable at 64 px, not a screenshot.
 store_cover (1920×1080): mascots, lane battle scene, title; not a screenshot.

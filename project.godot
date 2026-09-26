@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Кубо-битва"
+config/name="Mine Rush"
 run/main_scene="res://scenes/boot.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
