@@ -21,6 +21,8 @@ const BOOSTERS: Array[StringName] = [&"boost_speed", &"boost_food"]
 @export var projectile_height: float = 50.0
 ## Where the meteor rock starts relative to the target.
 @export var meteor_fall_from: Vector2 = Vector2(260, -520)
+## Seconds after the start before "Level N" is announced.
+@export var level_banner_delay: float = 0.4
 
 var sim: BattleSim
 var bot: BattleBot
@@ -39,6 +41,11 @@ var _time_scale_before: float = 1.0
 var _boosts_used: Dictionary[StringName, bool] = {}
 ## Our own rewarded ad is on screen: the SDK pause must not open the pause menu.
 var _ad_running: bool = false
+## A blast is dealing its damage this frame: the hits it causes are covered by
+## the explosion sound, no sword clangs.
+var _blast_this_frame: bool = false
+## Waves already announced by the banner.
+var _announced_waves: int = 0
 
 @onready var _background: Sprite2D = $Background
 @onready var _units_layer: Node2D = $Units
@@ -50,6 +57,7 @@ var _ad_running: bool = false
 @onready var _reticle: MeteorReticle = $MeteorReticle
 @onready var _meteor_rock: Sprite2D = $MeteorRock
 @onready var _hud: BattleHud = $HUD
+@onready var _banner: BattleBanner = %Banner
 @onready var _pause: PausePanel = $Overlay/Pause
 @onready var _result_panel: ResultPanel = $Overlay/Result
 @onready var _tutorial: TutorialHints = $Overlay/Tutorial
@@ -97,6 +105,7 @@ func _ready() -> void:
 	Audio.play_music(&"battle")
 	Platform.paused.connect(_on_platform_paused)
 	Platform.gameplay_start()
+	get_tree().create_timer(level_banner_delay).timeout.connect(_announce_level)
 
 
 func _exit_tree() -> void:
@@ -111,6 +120,9 @@ func _process(delta: float) -> void:
 	_sync_projectiles(delta)
 	_sync_ore()
 	_hud.refresh(sim, bot)
+	if bot.current_wave() > _announced_waves and not sim.is_over():
+		_announced_waves = bot.current_wave()
+		_announce_wave(_announced_waves - 1)
 	if targeting_meteor:
 		_reticle.global_position = get_global_mouse_position()
 
@@ -205,15 +217,23 @@ func _connect_sim() -> void:
 	sim.projectile_spawned.connect(_on_projectile_spawned)
 	sim.projectile_finished.connect(_on_projectile_finished)
 	sim.explosion.connect(func(x: float, radius: float, _side: int) -> void:
+		_mark_blast()
 		Audio.play_sfx(&"explosion")
 		_effects.spawn(&"explosion", Vector2(x, balance.lane_y - 20.0), radius / 40.0))
 	sim.meteor_cast.connect(_on_meteor_cast)
 	sim.meteor_impact.connect(func(at: Vector2) -> void:
+		_mark_blast()
 		Audio.play_sfx(&"explosion")
 		_effects.spawn(&"meteor", at, balance.meteor_radius / 40.0)
 		_effects.spawn(&"explosion", at, balance.meteor_radius / 45.0))
 	sim.base_damaged.connect(_on_base_damaged)
 	sim.battle_over.connect(_on_battle_over)
+
+
+func _mark_blast() -> void:
+	if not _blast_this_frame:
+		_blast_this_frame = true
+		set_deferred(&"_blast_this_frame", false)
 
 
 ## A rock falls from the upper right onto the target during meteor_fall_time.
@@ -234,7 +254,7 @@ func _on_unit_spawned(u: SimUnit) -> void:
 	var v: UnitVisual = _acquire(u.data)
 	v.team_color = balance.player_color if u.side == BattleSim.PLAYER else balance.bot_color
 	v.facing_left = u.side == BattleSim.BOT
-	v.size_scale = balance.unit_scale
+	v.size_scale = balance.unit_scale * (balance.elite_scale if u.elite else 1.0)
 	v.pace = balance.battle_pace
 	v.position = Vector2(u.x, balance.lane_y + u.y_offset)
 	v.visible = true
@@ -253,7 +273,8 @@ func _on_unit_damaged(u: SimUnit, _amount: float) -> void:
 	v.set_hp(u.hp / u.max_hp if u.is_alive() else -1.0, v.team_color)
 	if u.is_alive():
 		v.play_hit()
-		Audio.play_sfx(&"hit")
+		if not _blast_this_frame:
+			Audio.play_sfx(&"hit")
 	_effects.spawn(&"hit", v.position + Vector2(0, v.top_offset() * 0.5), 0.8)
 
 
@@ -263,7 +284,9 @@ func _on_unit_died(u: SimUnit, killed: bool) -> void:
 		return
 	_views.erase(u.uid)
 	v.play(&"die")
-	Audio.play_sfx(&"death")
+	# A bomber that blew itself up is already covered by the explosion.
+	if killed:
+		Audio.play_sfx(&"death")
 	if killed and u.side == BattleSim.BOT and balance.coins_per_kill > 0:
 		var at: Vector2 = get_viewport().get_canvas_transform() * (v.position + Vector2(0.0, v.top_offset() * 0.6))
 		_hud.fly_coin(at, balance.coins_per_kill)
@@ -320,7 +343,8 @@ func _sync_projectiles(delta: float) -> void:
 func _on_base_damaged(side: int, _amount: float) -> void:
 	var view: BaseView = _player_base if side == BattleSim.PLAYER else _bot_base
 	view.hit()
-	Audio.play_sfx(&"hit")
+	if not _blast_this_frame:
+		Audio.play_sfx(&"base_hit")
 	_update_bases()
 
 
@@ -334,6 +358,43 @@ func _sync_ore() -> void:
 	for i: int in sim.ore_cooldowns.size():
 		if i < ores.size():
 			ores[i].set_cooldown(sim.ore_cooldowns[i] / balance.ore_cooldown)
+
+
+# --- announcements -----------------------------------------------------------
+
+## "Level N" and what is new here: an enemy not seen on the previous level,
+## otherwise the number of waves.
+func _announce_level() -> void:
+	if sim.is_over() or _announced_waves > 0:
+		return
+	var subtitle: String = tr("BANNER_WAVES_FMT") % bot.wave_count()
+	var fresh: UnitData = _new_enemy()
+	if fresh != null:
+		subtitle = tr("BANNER_NEW_ENEMY_FMT") % tr(fresh.name_key)
+	_banner.announce(tr("LEVEL_FMT") % level.number, subtitle)
+
+
+func _new_enemy() -> UnitData:
+	if level.number <= 1 or level_override != null:
+		return null
+	var before: LevelData = GameState.level(level.number - 1)
+	for u: UnitData in level.bot_units:
+		if not before.bot_units.has(u):
+			return u
+	return null
+
+
+## Each wave gets a banner and a horn; the last one names its leader or boss.
+func _announce_wave(index: int) -> void:
+	Audio.play_sfx(&"wave", false)
+	if not bot.is_final_wave(index):
+		_banner.announce(tr("BANNER_WAVE_FMT") % (index + 1), tr("BANNER_WAVE_INCOMING"))
+		return
+	var subtitle: String = ""
+	var leader: WaveEntry = bot.wave_leader(index)
+	if leader != null:
+		subtitle = tr("BANNER_BOSS_FMT" if leader.unit.is_boss else "BANNER_LEADER_FMT") % tr(leader.unit.name_key)
+	_banner.announce(tr("BANNER_FINAL_WAVE"), subtitle, true)
 
 
 # --- end of battle -----------------------------------------------------------

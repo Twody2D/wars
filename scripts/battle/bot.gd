@@ -1,7 +1,9 @@
 class_name BattleBot
 extends RefCounted
-## Scripted bot (SPEC 5): waves from LevelData, counter picks on its own food
-## between waves, and one random unit every few seconds after the last wave.
+## Scripted bot (SPEC 5): waves from LevelData; on its own food it sends
+## defenders (counter picks) only while the player's army is on its half of
+## the field, so waves stay clear packs; one random unit every few seconds
+## after the last wave.
 ## Pure logic — drives BattleSim, no nodes.
 
 var sim: BattleSim
@@ -25,6 +27,22 @@ func wave_count() -> int:
 	return level.waves.size()
 
 
+## The wave that will start next is the last one.
+func is_final_wave(index: int) -> bool:
+	return index == wave_count() - 1
+
+
+## The strongest unit of wave `index` (0-based): a boss, a leader or null.
+func wave_leader(index: int) -> WaveEntry:
+	var found: WaveEntry = null
+	for entry: WaveEntry in level.waves[index].entries:
+		if entry.unit.is_boss:
+			return entry
+		if entry.elite:
+			found = entry
+	return found
+
+
 ## Current wave for the HUD, 1-based; 0 before the first wave.
 func current_wave() -> int:
 	return waves_started
@@ -43,14 +61,17 @@ func step(dt: float) -> void:
 		return
 	_time += dt
 	while waves_started < wave_count() and level.waves[waves_started].start_sec <= _time:
-		for entry: WaveEntry in level.waves[waves_started].entries:
-			_spawners.append([entry, entry.count, 0.0])
+		var entries: Array[WaveEntry] = level.waves[waves_started].entries
+		for i: int in entries.size():
+			# Entries run in parallel; a small offset keeps them from stacking.
+			_spawners.append([entries[i], entries[i].count, i * sim.balance.wave_stagger])
 		waves_started += 1
 	_step_spawners(dt)
-	# Counter picks only between waves (SPEC 5); after the last wave — pressure only.
-	if level.counter_pick and not is_spawning_wave() and not all_waves_done():
+	# Defenders only between waves and only under threat; after the last wave — pressure only.
+	if level.counter_pick and not all_waves_done():
 		food += level.bot_food_per_sec * dt
-		_counter_pick()
+		if not is_spawning_wave() and _threatened():
+			_counter_pick()
 	if all_waves_done():
 		_pressure(dt)
 
@@ -62,7 +83,7 @@ func _step_spawners(dt: float) -> void:
 		var timer: float = spawner[2]
 		timer -= dt
 		if timer <= 0.0:
-			if sim.spawn(BattleSim.BOT, entry.unit, 1, _power_for(entry.unit)) != null:
+			if sim.spawn(BattleSim.BOT, entry.unit, 1, _power_for(entry.unit), entry.elite) != null:
 				var remaining: int = spawner[1]
 				spawner[1] = remaining - 1
 				timer = entry.interval_sec
@@ -74,6 +95,17 @@ func _step_spawners(dt: float) -> void:
 			done.append(spawner)
 	for spawner: Array in done:
 		_spawners.erase(spawner)
+
+
+## A player unit has crossed BalanceData.bot_defend_line (share of the lane
+## from the player's side).
+func _threatened() -> bool:
+	var b: BalanceData = sim.balance
+	var line: float = lerpf(b.lane_start_x, b.lane_end_x, b.bot_defend_line)
+	for unit: SimUnit in sim.units:
+		if unit.side == BattleSim.PLAYER and unit.is_alive() and unit.x >= line:
+			return true
+	return false
 
 
 ## Answer the player's army: many melee → archers, many ranged → fast spiders.

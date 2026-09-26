@@ -119,7 +119,7 @@ func can_spawn(side: int) -> bool:
 
 
 ## power — extra HP/damage multiplier (bot difficulty, LevelData.bot_power).
-func spawn(side: int, data: UnitData, level: int = 1, power: float = 1.0) -> SimUnit:
+func spawn(side: int, data: UnitData, level: int = 1, power: float = 1.0, elite: bool = false) -> SimUnit:
 	if not can_spawn(side):
 		return null
 	var unit := SimUnit.new()
@@ -128,6 +128,9 @@ func spawn(side: int, data: UnitData, level: int = 1, power: float = 1.0) -> Sim
 	unit.data = data
 	unit.side = side
 	unit.level = clampi(level, 1, balance.unit_max_level)
+	unit.elite = elite
+	if elite:
+		power *= balance.elite_power
 	unit.dir = 1.0 if side == PLAYER else -1.0
 	unit.x = balance.lane_start_x if side == PLAYER else balance.lane_end_x
 	unit.y_offset = rng.randf_range(-balance.y_jitter, balance.y_jitter)

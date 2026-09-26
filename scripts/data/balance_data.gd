@@ -53,6 +53,14 @@ extends Resource
 @export var meteor_fall_time: float = 0.9
 
 @export_group("Bot")
+## Wave leader (last wave of a level): HP and damage multiplier on top of bot_power.
+@export var elite_power: float = 3.0
+## Wave leader size on screen relative to a normal unit.
+@export var elite_scale: float = 1.5
+## Units of one wave that start together are let out this far apart (s).
+@export var wave_stagger: float = 0.35
+## The bot sends defenders once a player unit is past this share of the lane.
+@export var bot_defend_line: float = 0.5
 ## After the last wave: one random unit every N seconds.
 @export var bot_pressure_interval: float = 6.0
 

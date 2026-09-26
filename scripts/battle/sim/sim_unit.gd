@@ -8,6 +8,8 @@ var uid: int
 var data: UnitData
 var side: int
 var level: int = 1
+## Wave leader (last wave): stronger and drawn bigger.
+var elite: bool = false
 ## +1 — moves right (player), −1 — moves left (bot).
 var dir: float = 1.0
 var x: float

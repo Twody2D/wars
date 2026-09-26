@@ -67,3 +67,11 @@ UPGRADE_BATTLE_SPEED_SHORT,Скорость,Speed
 UPGRADE_UNIT_LEVEL_SHORT,Уровень,Level
 EFFECT_PER_SEC_FMT,+%s/с,+%s/s
 UPGRADES_TITLE,Улучшения,Upgrades
+LEVEL_WAVE_FMT,Ур. %d · Волна %d/%d,Lv %d · Wave %d/%d
+BANNER_WAVES_FMT,Волн: %d,Waves: %d
+BANNER_NEW_ENEMY_FMT,Новый враг: %s,New enemy: %s
+BANNER_WAVE_FMT,Волна %d,Wave %d
+BANNER_WAVE_INCOMING,Враги идут!,Enemies incoming!
+BANNER_FINAL_WAVE,Финальная волна!,Final wave!
+BANNER_BOSS_FMT,Босс: %s,Boss: %s
+BANNER_LEADER_FMT,Вожак: %s,Leader: %s

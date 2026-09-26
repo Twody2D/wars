@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3]
+[gd_scene load_steps=48 format=3]
 
 [ext_resource type="Script" path="res://scripts/battle/battle.gd" id="1_battle"]
 [ext_resource type="Texture2D" path="res://art/battle/battle_meadow.svg" id="2_bg_meadow"]
@@ -45,6 +45,7 @@
 [ext_resource type="Texture2D" path="res://art/hud/booster_speed_v2.svg" id="43_boost_speed"]
 [ext_resource type="Texture2D" path="res://art/hud/booster_food_v2.svg" id="44_boost_food"]
 [ext_resource type="Texture2D" path="res://art/ui/icons/icon_star.svg" id="45_star"]
+[ext_resource type="PackedScene" path="res://scenes/ui/battle_banner.tscn" id="40_banner"]
 
 [sub_resource type="StyleBoxTexture" id="wave_panel"]
 content_margin_left = 60.0
@@ -566,6 +567,10 @@ offset_bottom = -4.0
 theme_override_font_sizes/font_size = 22
 text = "1/2"
 horizontal_alignment = 1
+
+[node name="Banner" parent="HUD/Root" instance=ExtResource("40_banner")]
+unique_name_in_owner = true
+layout_mode = 1
 
 [node name="TargetingHint" type="Label" parent="HUD/Root"]
 unique_name_in_owner = true

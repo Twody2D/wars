@@ -74,7 +74,7 @@ func setup(units: Array[UnitData], unit_levels: Dictionary[StringName, int], deb
 
 func refresh(sim: BattleSim, bot: BattleBot) -> void:
 	_hp_label.text = str(ceili(sim.base_hp[BattleSim.PLAYER]))
-	_wave_label.text = tr("WAVE_FMT") % [maxi(bot.current_wave(), 1), bot.wave_count()]
+	_wave_label.text = tr("LEVEL_WAVE_FMT") % [sim.setup.level.number, maxi(bot.current_wave(), 1), bot.wave_count()]
 	_food_label.text = "%d/%d" % [floori(sim.food), roundi(sim.food_max)]
 	# Progress to the next whole food; full bar when the stock is maxed.
 	var full: bool = sim.food >= sim.food_max

@@ -31,7 +31,7 @@ func test_all_levels_load() -> void:
 	for i: int in config.levels.size():
 		var level: LevelData = config.levels[i]
 		assert_int(level.number).is_equal(i + 1)
-		assert_int(level.waves.size()).is_between(4, 13)
+		assert_int(level.waves.size()).is_between(3, 12)
 		assert_float(level.bot_base_hp).is_between(250.0, 900.0)
 		for wave: WaveData in level.waves:
 			assert_bool(wave.entries.is_empty()).is_false()
