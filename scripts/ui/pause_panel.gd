@@ -27,6 +27,13 @@ func open() -> void:
 	_resume.grab_focus()
 
 
+## Esc (the "pause" action) on the open pause screen goes back to the battle.
+func _unhandled_input(event: InputEvent) -> void:
+	if visible and event.is_action_pressed(&"pause"):
+		get_viewport().set_input_as_handled()
+		resume_pressed.emit()
+
+
 func _toggle_sound() -> void:
 	GameState.set_sound(not GameState.sound_on)
 	Platform.update_mute()

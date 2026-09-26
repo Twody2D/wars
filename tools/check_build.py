@@ -3,12 +3,15 @@
 - build/web/index.html must exist (Yandex 1.22: index.html in the zip root);
 - file names: ASCII only, no spaces (Yandex 1.21);
 - packs build/web/* into build/game.zip (files at the zip root);
-- prints sizes and exits with 1 if the zip is over the budget (CLAUDE.md: 10 MB).
+- prints sizes and exits with 1 if the zip is over the budget (CLAUDE.md: 10 MB);
+- no scene or script uses a class cut out of the web template (custom.build) —
+  such nodes turn into empty placeholders only in the browser.
 
 Run: python tools/check_build.py [--max-mb 10]
 """
 
 import argparse
+import re
 import sys
 import zipfile
 from pathlib import Path
@@ -17,6 +20,23 @@ ROOT = Path(__file__).resolve().parent.parent
 WEB = ROOT / "build" / "web"
 ZIP = ROOT / "build" / "game.zip"
 MB = 1024 * 1024
+
+
+def disabled_classes_used() -> list[str]:
+    profile = ROOT / "custom.build"
+    if not profile.is_file():
+        return []
+    disabled = set(re.findall(r'"([A-Z][A-Za-z0-9]+)"', profile.read_text(encoding="utf-8")))
+    found: list[str] = []
+    for pattern, rx in (("*.tscn", r'type="([A-Za-z0-9]+)"'), ("*.tres", r'type="([A-Za-z0-9]+)"'),
+                        ("*.gd", r"([A-Z][A-Za-z0-9]+)\.new\(")):
+        for path in ROOT.rglob(pattern):
+            rel = path.relative_to(ROOT).as_posix()
+            if rel.startswith(("addons/", "build/", "design/", "tests/", "tools/", ".godot/")):
+                continue
+            for cls in set(re.findall(rx, path.read_text(encoding="utf-8", errors="ignore"))) & disabled:
+                found.append(f"{rel}: {cls}")
+    return sorted(found)
 
 
 def bad_name(name: str) -> bool:
@@ -33,6 +53,9 @@ def main() -> int:
         errors.append(f"no index.html in {WEB}")
     if (WEB / "sdk.js").exists():
         errors.append("build/web/sdk.js found: the fake Yandex SDK must not be shipped (delete it)")
+
+    for hit in disabled_classes_used():
+        errors.append(f"class disabled in the web template (custom.build): {hit}")
 
     files = sorted(p for p in WEB.rglob("*") if p.is_file()) if WEB.is_dir() else []
     if not files:

@@ -115,6 +115,17 @@ func unit_level_cost(id: StringName) -> int:
 	return up.cost_for_level(lvl - 1, balance().upgrade_cost_growth, balance().upgrade_cost_round)
 
 
+## HP and damage of one player unit at `level` in battle, with army power
+## (the same multiplier BattleSim.spawn applies). For the upgrades screen.
+func unit_stats(id: StringName, level: int) -> Vector2:
+	var u: UnitData = config.unit(id)
+	if u == null:
+		return Vector2.ZERO
+	var army: float = 1.0 + upgrade_level(&"army_power") * _per_level(&"army_power")
+	var mult: float = (1.0 + balance().unit_level_bonus * (maxi(level, 1) - 1)) * army
+	return Vector2(u.hp * mult, u.damage * mult)
+
+
 # --- purchases (each saves) ------------------------------------------------
 
 func buy_upgrade(id: StringName) -> bool:

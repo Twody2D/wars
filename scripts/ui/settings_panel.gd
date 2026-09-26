@@ -25,6 +25,13 @@ func open() -> void:
 	_close.grab_focus()
 
 
+## Esc closes the settings.
+func _unhandled_input(event: InputEvent) -> void:
+	if visible and event.is_action_pressed(&"pause"):
+		get_viewport().set_input_as_handled()
+		visible = false
+
+
 func _toggle_sound() -> void:
 	GameState.set_sound(not GameState.sound_on)
 	Platform.update_mute()

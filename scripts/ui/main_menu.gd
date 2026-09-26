@@ -30,6 +30,9 @@ const BATTLE_SCENE := "res://scenes/battle/battle.tscn"
 
 ## Look of each tab button when it is not open (set in the scene: Battle is green).
 var _tab_idle_styles: Array[StringName] = []
+## Tabs opened before the current one; Esc goes back through them.
+var _tab_history: Array[int] = []
+var _current_tab: int = 0
 
 
 func _ready() -> void:
@@ -39,7 +42,7 @@ func _ready() -> void:
 	Audio.play_music(&"menu")
 	_logo.texture = logos.get(TranslationServer.get_locale().left(2), logos.get("ru"))
 	for i: int in _tab_buttons.size():
-		_tab_buttons[i].pressed.connect(_show_tab.bind(i))
+		_tab_buttons[i].pressed.connect(_open_tab.bind(i))
 	_play.pressed.connect(func() -> void: _start(GameState.max_playable_level()))
 	_evolve.pressed.connect(func() -> void: GameState.evolve())
 	_settings_button.pressed.connect(_settings.open)
@@ -86,7 +89,23 @@ func _refresh() -> void:
 	_evolve.visible = GameState.can_evolve()
 
 
+## Esc (the "pause" action): back to the previous tab.
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed(&"pause") and not _tab_history.is_empty():
+		get_viewport().set_input_as_handled()
+		var previous: int = _tab_history.pop_back()
+		_show_tab(previous)
+
+
+func _open_tab(index: int) -> void:
+	if index == _current_tab:
+		return
+	_tab_history.append(_current_tab)
+	_show_tab(index)
+
+
 func _show_tab(index: int) -> void:
+	_current_tab = index
 	for i: int in _tabs.size():
 		_tabs[i].visible = i == index
 		_tab_buttons[i].theme_type_variation = &"TabActive" if i == index else _tab_idle_styles[i]
