@@ -365,7 +365,18 @@ how_to_play_1, how_to_play_2, how_to_play_3 (each 400×260, simple illustrations
   the lane → rock falls on enemies.
 
 =====================================================================
-SECTION G — TITLE AND STORE ART (game title: [GAME TITLE])
+SECTION G — HUD PIECES WITHOUT BAKED TEXT
+=====================================================================
+The game draws all numbers with its own font, so remove drawn digits/letters:
+booster_speed_v2, booster_food_v2 (112×132): same card (hourglass / meat icon +
+  TV-play badge top-right) but the bottom label box is EMPTY (plain light fill,
+  the game writes "×2" / "+15" there). Same simplification rules: fewer details.
+ability_button_v2 (112×112): meteor button, calmer, empty space at the bottom for
+  the "1/2" counter.
+wave_counter_panel_v2 (200×64): flag icon on the left, plain empty area for text.
+
+=====================================================================
+SECTION H — TITLE AND STORE ART (game title: [GAME TITLE])
 =====================================================================
 logo_ru (Russian title) and logo_en (English title), 600×225, same blocky
   pixel-letter style as the current logo, text as paths.
