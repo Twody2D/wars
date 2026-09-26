@@ -21,6 +21,21 @@ func _ready() -> void:
 	backend.init()
 
 
+## Window/tab lost focus (Yandex 1.3, 4.7): silence at once, pause the battle.
+## Sound comes back on focus; the battle stays paused until the player resumes.
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_WINDOW_FOCUS_OUT:
+		AudioServer.set_bus_mute(0, true)
+		paused.emit()
+	elif what == NOTIFICATION_WM_WINDOW_FOCUS_IN:
+		AudioServer.set_bus_mute(0, not GameState.sound_on)
+
+
+## Ask the current scene to pause (e.g. the rotate overlay); same path as the SDK pause.
+func request_pause() -> void:
+	paused.emit()
+
+
 func ready_to_play() -> void:
 	backend.ready_to_play()
 

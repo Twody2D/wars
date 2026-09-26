@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/rotate_overlay.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://art/ui/icons/icon_rotate_device.svg" id="2_icon"]
+
+[node name="RotateOverlay" type="CanvasLayer"]
+layer = 100
+visible = false
+script = ExtResource("1_script")
+
+[node name="Shade" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.105882, 0.105882, 0.184314, 0.96)
+
+[node name="Box" type="VBoxContainer" parent="Shade"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -220.0
+offset_right = 400.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Shade/Box"]
+custom_minimum_size = Vector2(288, 288)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Text" type="Label" parent="Shade/Box"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "ROTATE_DEVICE"
+horizontal_alignment = 1
+autowrap_mode = 2

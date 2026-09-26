@@ -54,13 +54,14 @@ func _ready() -> void:
 	Platform.gameplay_stop()
 
 
-## The map background covers the screen (keeps aspect, crops the edges), so the
-## level slots get the same scale and centring to stay on the path.
+## The map (1280×720, slots and background together) is scaled to the screen
+## width so all 20 levels are always visible; on taller screens the background
+## repeats mirrored above and below (MapBg tiles with texture_repeat = mirror).
 func _layout_map() -> void:
 	var area: Vector2 = _tabs[2].size
-	var s: float = maxf(area.x / _map_slots.size.x, area.y / _map_slots.size.y)
+	var s: float = area.x / _map_slots.size.x
 	_map_slots.scale = Vector2(s, s)
-	_map_slots.position = (area - _map_slots.size * s) / 2.0
+	_map_slots.position = Vector2(0.0, (area.y - _map_slots.size.y * s) / 2.0)
 
 
 func _refresh() -> void:
