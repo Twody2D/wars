@@ -1,24 +1,46 @@
 extends Node
 ## Sound (SPEC 12): SFX from a fixed pool of players (nothing is created in
 ## battle), one looping music track. Mute is the Master bus — see
-## Platform.update_mute(). Sounds are placeholders from tools/gen_sounds.py.
+## Platform.update_mute(). Sounds: CC0 packs via tools/import_sounds.py
+## (docs/AUDIO_CREDITS.md).
 
-const SFX: Dictionary[StringName, AudioStream] = {
-	&"hit": preload("res://audio/sfx/hit.wav"),
-	&"shoot": preload("res://audio/sfx/shoot.wav"),
-	&"explosion": preload("res://audio/sfx/explosion.wav"),
-	&"death": preload("res://audio/sfx/death.wav"),
-	&"spawn": preload("res://audio/sfx/spawn.wav"),
-	&"coin": preload("res://audio/sfx/coin.wav"),
-	&"ore": preload("res://audio/sfx/ore.wav"),
-	&"meteor": preload("res://audio/sfx/meteor.wav"),
-	&"win": preload("res://audio/sfx/win.wav"),
-	&"lose": preload("res://audio/sfx/lose.wav"),
-	&"click": preload("res://audio/sfx/click.wav"),
+## Several files = variants, one is picked at random each time.
+const SFX: Dictionary[StringName, Array] = {
+	&"hit": [
+		preload("res://audio/sfx/hit_1.ogg"),
+		preload("res://audio/sfx/hit_2.ogg"),
+		preload("res://audio/sfx/hit_3.ogg"),
+		preload("res://audio/sfx/hit_4.ogg"),
+		preload("res://audio/sfx/hit_5.ogg"),
+	],
+	&"shoot": [
+		preload("res://audio/sfx/shoot_1.ogg"),
+		preload("res://audio/sfx/shoot_2.ogg"),
+		preload("res://audio/sfx/shoot_3.ogg"),
+	],
+	&"explosion": [preload("res://audio/sfx/explosion.ogg")],
+	&"death": [
+		preload("res://audio/sfx/death_1.ogg"),
+		preload("res://audio/sfx/death_2.ogg"),
+		preload("res://audio/sfx/death_3.ogg"),
+		preload("res://audio/sfx/death_4.ogg"),
+		preload("res://audio/sfx/death_5.ogg"),
+	],
+	&"spawn": [preload("res://audio/sfx/spawn_1.ogg"), preload("res://audio/sfx/spawn_2.ogg")],
+	&"coin": [preload("res://audio/sfx/coin_1.ogg"), preload("res://audio/sfx/coin_2.ogg")],
+	&"ore": [
+		preload("res://audio/sfx/ore_1.ogg"),
+		preload("res://audio/sfx/ore_2.ogg"),
+		preload("res://audio/sfx/ore_3.ogg"),
+	],
+	&"meteor": [preload("res://audio/sfx/meteor.ogg")],
+	&"win": [preload("res://audio/sfx/win.ogg")],
+	&"lose": [preload("res://audio/sfx/lose.ogg")],
+	&"click": [preload("res://audio/sfx/click.ogg")],
 }
 const MUSIC: Dictionary[StringName, AudioStream] = {
-	&"menu": preload("res://audio/music/menu.wav"),
-	&"battle": preload("res://audio/music/battle.wav"),
+	&"menu": preload("res://audio/music/menu.ogg"),
+	&"battle": preload("res://audio/music/battle.ogg"),
 }
 ## Simultaneous SFX; the oldest one is cut when all are busy.
 const POOL_SIZE := 12
@@ -50,8 +72,8 @@ func _ready() -> void:
 
 
 func play_sfx(id: StringName, jitter: bool = true) -> void:
-	var stream: AudioStream = SFX.get(id)
-	if stream == null:
+	var variants: Array = SFX.get(id, [])
+	if variants.is_empty():
 		push_warning("Audio: unknown sfx %s" % id)
 		return
 	var now: int = Time.get_ticks_msec()
@@ -59,7 +81,7 @@ func play_sfx(id: StringName, jitter: bool = true) -> void:
 		return
 	_last_played[id] = now
 	var p: AudioStreamPlayer = _free_player()
-	p.stream = stream
+	p.stream = variants.pick_random()
 	p.pitch_scale = 1.0 + (randf_range(-PITCH_JITTER, PITCH_JITTER) if jitter else 0.0)
 	p.play()
 

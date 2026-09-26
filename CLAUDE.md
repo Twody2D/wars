@@ -35,7 +35,7 @@
 ## Окружение
 
 - Windows, Git Bash. Godot 4.x stable (точная версия — в `README.md`, путь к бинарнику — переменная окружения `GODOT`).
-- Python 3 — только для `tools/`, без сторонних пакетов (stdlib).
+- Python 3 — только для `tools/`. Сторонние пакеты можно (Twody, 26.09.2026), ставить `py -3.14 -m pip install --user`; сейчас — `imageio-ffmpeg` для звука.
 - Ни Docker, ни VPS, ни WSL.
 
 ## Технические правила
