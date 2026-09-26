@@ -5,18 +5,18 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/level_pips.tscn" id="3_pips"]
 
 [node name="UpgradeRow" type="PanelContainer"]
-custom_minimum_size = Vector2(380, 120)
-theme_type_variation = &"CardPanel"
+custom_minimum_size = Vector2(380, 66)
+theme_type_variation = &"RowPanel"
 script = ExtResource("1_script")
 coin_icon = ExtResource("2_coin")
 
 [node name="Box" type="HBoxContainer" parent="."]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 12
 
 [node name="Icon" type="TextureRect" parent="Box"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(72, 72)
+custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 size_flags_vertical = 4
 expand_mode = 1
@@ -28,31 +28,36 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 2
 alignment = 1
 
-[node name="Name" type="Label" parent="Box/Text"]
+[node name="Head" type="HBoxContainer" parent="Box/Text"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Label" parent="Box/Text/Head"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 26
+theme_type_variation = &"InkLabel"
+theme_override_font_sizes/font_size = 24
 text = "UPGRADE_ARMY_POWER_SHORT"
-text_overrun_behavior = 3
 
-[node name="Effect" type="Label" parent="Box/Text"]
+[node name="Effect" type="Label" parent="Box/Text/Head"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"AccentLabel"
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
 text = "+10%"
 
 [node name="Pips" parent="Box/Text" instance=ExtResource("3_pips")]
 unique_name_in_owner = true
 layout_mode = 2
-pip_size = 12.0
+pip_size = 26.0
 
 [node name="BuyButton" type="Button" parent="Box"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(128, 72)
+custom_minimum_size = Vector2(176, 56)
 layout_mode = 2
 size_flags_vertical = 4
-theme_type_variation = &"GoldButton"
-theme_override_font_sizes/font_size = 28
-text = "30"
+theme_override_font_sizes/font_size = 26
+text = "300"
 icon = ExtResource("2_coin")
 expand_icon = true

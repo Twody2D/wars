@@ -1,12 +1,13 @@
 class_name UnitTile
 extends PanelContainer
-## Unit on the upgrades screen: portrait, name, level pips, one gold price button
-## (unlock or next level). Locked units sit on a darker card.
+## Unit on the upgrades screen: portrait in a sky window, name, level pips, one
+## green price button (unlock or next level). Locked units sit on a grey card.
 
 @export var coin_icon: Texture2D
 
 var unit: UnitData
 
+@onready var _window: PanelContainer = %Window
 @onready var _portrait: TextureRect = %Portrait
 @onready var _name: Label = %Name
 @onready var _pips: LevelPips = %Pips
@@ -32,6 +33,7 @@ func refresh() -> void:
 	visible = unit.unlock_biome <= GameState.biome_unlocked
 	var unlocked: bool = GameState.is_unit_unlocked(unit.id)
 	theme_type_variation = &"CardPanel" if unlocked else &"LockedCard"
+	_window.theme_type_variation = &"PortraitWindow" if unlocked else &"PortraitLocked"
 	_portrait.modulate = Color.WHITE if unlocked else Color(0.35, 0.35, 0.42)
 	var max_level: int = GameState.balance().unit_max_level
 	_pips.set_level(GameState.unit_level(unit.id) if unlocked else 0, max_level)

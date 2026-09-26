@@ -1,7 +1,7 @@
 class_name UpgradeRow
 extends PanelContainer
 ## One meta upgrade on the upgrades screen (SPEC 7): icon, short name, effect
-## of one level, level pips, gold price button. "Battle speed" is bought once
+## of one level, level pips, green price button. "Battle speed" is bought once
 ## and then works as an on/off toggle.
 
 @export var coin_icon: Texture2D
@@ -53,7 +53,7 @@ func refresh() -> void:
 		_button.theme_type_variation = &"" if GameState.battle_speed_on else &"SecondaryButton"
 		_button.disabled = false
 		return
-	_button.theme_type_variation = &"GoldButton"
+	_button.theme_type_variation = &""
 	if cost < 0:
 		_button.icon = null
 		_button.text = tr("MAX")

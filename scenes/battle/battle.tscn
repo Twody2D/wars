@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3]
+[gd_scene load_steps=47 format=3]
 
 [ext_resource type="Script" path="res://scripts/battle/battle.gd" id="1_battle"]
 [ext_resource type="Texture2D" path="res://art/battle/battle_meadow.svg" id="2_bg_meadow"]
@@ -45,6 +45,17 @@
 [ext_resource type="Texture2D" path="res://art/hud/booster_speed_v2.svg" id="43_boost_speed"]
 [ext_resource type="Texture2D" path="res://art/hud/booster_food_v2.svg" id="44_boost_food"]
 [ext_resource type="Texture2D" path="res://art/ui/icons/icon_star.svg" id="45_star"]
+
+[sub_resource type="StyleBoxTexture" id="wave_panel"]
+content_margin_left = 60.0
+content_margin_top = 4.0
+content_margin_right = 20.0
+content_margin_bottom = 4.0
+texture = ExtResource("27_wave")
+texture_margin_left = 56.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
 
 [sub_resource type="StyleBoxFlat" id="food_bg"]
 bg_color = Color(0.105882, 0.105882, 0.184314, 1)
@@ -376,22 +387,16 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="WavePanel" type="TextureRect" parent="HUD/Root/TopBar"]
+[node name="WavePanel" type="PanelContainer" parent="HUD/Root/TopBar"]
 custom_minimum_size = Vector2(200, 56)
 layout_mode = 2
+size_flags_vertical = 4
 mouse_filter = 2
-texture = ExtResource("27_wave")
-expand_mode = 1
-stretch_mode = 5
+theme_override_styles/panel = SubResource("wave_panel")
 
 [node name="WaveLabel" type="Label" parent="HUD/Root/TopBar/WavePanel"]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 50.0
-offset_bottom = -4.0
+layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "WAVE_FMT"
 horizontal_alignment = 1

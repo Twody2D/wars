@@ -5,42 +5,51 @@
 [ext_resource type="Texture2D" path="res://art/ui/icons/icon_coin.svg" id="3_coin"]
 
 [node name="UnitTile" type="PanelContainer"]
-custom_minimum_size = Vector2(200, 220)
+custom_minimum_size = Vector2(172, 0)
 theme_type_variation = &"CardPanel"
 script = ExtResource("1_script")
 coin_icon = ExtResource("3_coin")
 
 [node name="Box" type="VBoxContainer" parent="."]
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 6
 
-[node name="Portrait" type="TextureRect" parent="Box"]
+[node name="Window" type="PanelContainer" parent="Box"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_type_variation = &"PortraitWindow"
+
+[node name="Portrait" type="TextureRect" parent="Box/Window"]
+unique_name_in_owner = true
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Name" type="Label" parent="Box"]
+[node name="Name" type="Label" parent="Box/Window"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 21
+size_flags_vertical = 8
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 18
 text = "UNIT_ZOMBIE"
 horizontal_alignment = 1
 text_overrun_behavior = 3
 
-[node name="Pips" parent="Box" instance=ExtResource("2_pips")]
+[node name="Plate" type="PanelContainer" parent="Box"]
+layout_mode = 2
+theme_type_variation = &"PlatePanel"
+
+[node name="Pips" parent="Box/Plate" instance=ExtResource("2_pips")]
 unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
 
 [node name="BuyButton" type="Button" parent="Box"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(0, 54)
 layout_mode = 2
-size_flags_vertical = 10
-theme_type_variation = &"GoldButton"
-theme_override_font_sizes/font_size = 26
-text = "50"
+theme_override_font_sizes/font_size = 24
+text = "500"
 icon = ExtResource("3_coin")
 expand_icon = true

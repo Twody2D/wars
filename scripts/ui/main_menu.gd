@@ -21,15 +21,21 @@ const BATTLE_SCENE := "res://scenes/battle/battle.tscn"
 @onready var _play: Button = %PlayButton
 @onready var _level_label: Label = %LevelLabel
 @onready var _unit_tiles: HBoxContainer = %UnitTiles
-@onready var _upgrade_rows: GridContainer = %UpgradeRows
+@onready var _upgrade_rows: VBoxContainer = %UpgradeRows
 @onready var _evolve: Button = %EvolveButton
 @onready var _map_slots: Control = %MapSlots
 @onready var _settings: SettingsPanel = %Settings
 @onready var _settings_button: Button = %SettingsButton
 
 
+## Look of each tab button when it is not open (set in the scene: Battle is green).
+var _tab_idle_styles: Array[StringName] = []
+
+
 func _ready() -> void:
 	get_tree().paused = false
+	for b: Button in _tab_buttons:
+		_tab_idle_styles.append(b.theme_type_variation)
 	Audio.play_music(&"menu")
 	_logo.texture = logos.get(TranslationServer.get_locale().left(2), logos.get("ru"))
 	for i: int in _tab_buttons.size():
@@ -83,7 +89,7 @@ func _refresh() -> void:
 func _show_tab(index: int) -> void:
 	for i: int in _tabs.size():
 		_tabs[i].visible = i == index
-		_tab_buttons[i].theme_type_variation = &"TabActive" if i == index else &"TabButton"
+		_tab_buttons[i].theme_type_variation = &"TabActive" if i == index else _tab_idle_styles[i]
 
 
 func _start(level_number: int) -> void:
