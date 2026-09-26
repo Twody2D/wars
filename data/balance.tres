@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_2gprt")
 start_food = 0.0
+battle_pace = 0.77
 food_rate = 0.24
 player_base_hp = 5.0
 player_base_hit = 1.0
