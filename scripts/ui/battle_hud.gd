@@ -6,6 +6,8 @@ extends CanvasLayer
 signal card_pressed(unit: UnitData)
 signal pause_pressed
 signal meteor_pressed
+## Rewarded booster (SPEC 4): &"boost_speed" or &"boost_food".
+signal booster_pressed(tag: StringName)
 signal debug_spawn(side: int, unit: UnitData)
 
 @export var card_scene: PackedScene
@@ -26,11 +28,18 @@ var _cards: Array[UnitCard] = []
 @onready var _targeting_hint: Label = %TargetingHint
 @onready var _debug_panel: Control = %DebugPanel
 @onready var _pause_button: TextureButton = %PauseButton
+@onready var _boost_speed: TextureButton = %BoostSpeed
+@onready var _boost_food: TextureButton = %BoostFood
+
+var _boosters: Dictionary[StringName, TextureButton] = {}
 
 
 func _ready() -> void:
 	_pause_button.pressed.connect(pause_pressed.emit)
 	_meteor_button.pressed.connect(meteor_pressed.emit)
+	_boosters = {&"boost_speed": _boost_speed, &"boost_food": _boost_food}
+	for tag: StringName in _boosters:
+		_boosters[tag].pressed.connect(booster_pressed.emit.bind(tag))
 	_targeting_hint.visible = false
 	_debug_panel.visible = show_debug and OS.is_debug_build()
 
@@ -66,6 +75,14 @@ func refresh(sim: BattleSim, bot: BattleBot) -> void:
 	var charged: bool = sim.meteor_charges >= sim.balance.meteor_max_charges
 	_meteor_progress.visible = not charged
 	_meteor_progress.value = sim.meteor_timer / sim.balance.meteor_recharge * 100.0
+
+
+## Boosters work once per battle: a used one stays grey.
+func set_booster_available(tag: StringName, available: bool) -> void:
+	var b: TextureButton = _boosters.get(tag)
+	if b != null:
+		b.disabled = not available
+		b.modulate = Color.WHITE if available else Color(0.45, 0.45, 0.45, 0.8)
 
 
 func set_targeting(on: bool) -> void:

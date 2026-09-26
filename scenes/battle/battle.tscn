@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3]
+[gd_scene load_steps=45 format=3]
 
 [ext_resource type="Script" path="res://scripts/battle/battle.gd" id="1_battle"]
 [ext_resource type="Texture2D" path="res://art/battle/battle_meadow.svg" id="2_bg_meadow"]
@@ -42,6 +42,8 @@
 [ext_resource type="Texture2D" path="res://art/battle/decor/decor_bush.svg" id="40_bush"]
 [ext_resource type="Texture2D" path="res://art/battle/decor/decor_rock.svg" id="41_rock"]
 [ext_resource type="Texture2D" path="res://art/battle/decor/decor_flower.svg" id="42_flower"]
+[ext_resource type="Texture2D" path="res://art/hud/booster_speed.svg" id="43_boost_speed"]
+[ext_resource type="Texture2D" path="res://art/hud/booster_food.svg" id="44_boost_food"]
 
 [sub_resource type="StyleBoxFlat" id="food_bg"]
 bg_color = Color(0.105882, 0.105882, 0.184314, 1)
@@ -415,6 +417,24 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
+
+[node name="BoostSpeed" type="TextureButton" parent="HUD/Root/BottomPanel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(112, 132)
+layout_mode = 2
+size_flags_vertical = 4
+texture_normal = ExtResource("43_boost_speed")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="BoostFood" type="TextureButton" parent="HUD/Root/BottomPanel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(112, 132)
+layout_mode = 2
+size_flags_vertical = 4
+texture_normal = ExtResource("44_boost_food")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="MeteorButton" type="TextureButton" parent="HUD/Root/BottomPanel/Content"]
 unique_name_in_owner = true

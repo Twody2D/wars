@@ -7,6 +7,8 @@ extends Node2D
 
 const MENU_SCENE := "res://scenes/menu/main.tscn"
 const BATTLE_SCENE := "res://scenes/battle/battle.tscn"
+## Rewarded ad tags of the boosters (also the Platform.show_rewarded tag).
+const BOOSTERS: Array[StringName] = [&"boost_speed", &"boost_food"]
 
 ## Play this level instead of GameState.selected_level (handy for F6 in the editor).
 @export var level_override: LevelData
@@ -33,6 +35,10 @@ var _projectile_pool: Array[Sprite2D] = []
 var _last_base_hp: Array[float] = [0.0, 0.0]
 var _result: BattleResult
 var _time_scale_before: float = 1.0
+## Rewarded boosters used in this battle (one each, SPEC 4).
+var _boosts_used: Dictionary[StringName, bool] = {}
+## Our own rewarded ad is on screen: the SDK pause must not open the pause menu.
+var _ad_running: bool = false
 
 @onready var _background: Sprite2D = $Background
 @onready var _units_layer: Node2D = $Units
@@ -63,6 +69,9 @@ func _ready() -> void:
 	_hud.card_pressed.connect(_buy)
 	_hud.pause_pressed.connect(_open_pause)
 	_hud.meteor_pressed.connect(_toggle_meteor_targeting)
+	_hud.booster_pressed.connect(_request_booster)
+	Platform.rewarded.connect(_on_booster_rewarded)
+	Platform.rewarded_failed.connect(_on_booster_failed)
 	_hud.debug_spawn.connect(func(side: int, u: UnitData) -> void: sim.spawn(side, u))
 	_pause.resume_pressed.connect(_close_pause)
 	_pause.menu_pressed.connect(_go_menu)
@@ -325,6 +334,8 @@ func _sync_ore() -> void:
 
 func _on_battle_over(winner: int) -> void:
 	_set_targeting(false)
+	for tag: StringName in BOOSTERS:
+		_hud.set_booster_available(tag, false)
 	Audio.stop_music()
 	Audio.play_sfx(&"win" if winner == BattleSim.PLAYER else &"lose", false)
 	_update_bases()
@@ -375,8 +386,47 @@ func _close_pause() -> void:
 
 
 func _on_platform_paused() -> void:
+	if _ad_running:
+		return
 	if not get_tree().paused:
 		_open_pause()
+
+
+# --- rewarded boosters (SPEC 4) -------------------------------------------------
+
+## Watch an ad → the battle is paused while it is on screen → reward on success.
+func _request_booster(tag: StringName) -> void:
+	if _ad_running or _boosts_used.get(tag, false) or sim.is_over():
+		return
+	_ad_running = true
+	_set_targeting(false)
+	get_tree().paused = true
+	Platform.gameplay_stop()
+	Platform.show_rewarded(tag)
+
+
+func _on_booster_rewarded(tag: StringName) -> void:
+	if not _ad_running or not tag in BOOSTERS:
+		return
+	_boosts_used[tag] = true
+	_hud.set_booster_available(tag, false)
+	if tag == &"boost_speed":
+		Engine.time_scale = maxf(Engine.time_scale, balance.booster_time_scale)
+	else:
+		sim.add_food(balance.booster_food)
+	Audio.play_sfx(&"coin", false)
+	_end_booster_ad()
+
+
+func _on_booster_failed(tag: StringName) -> void:
+	if _ad_running and tag in BOOSTERS:
+		_end_booster_ad()
+
+
+func _end_booster_ad() -> void:
+	_ad_running = false
+	get_tree().paused = false
+	Platform.gameplay_start()
 
 
 # --- setup -------------------------------------------------------------------
