@@ -215,7 +215,10 @@ window.YG = (function () {
 			if (!sdk || !sdk.leaderboards) {
 				return;
 			}
-			Promise.resolve().then(() => sdk.leaderboards.setScore(board, score)).catch((err) => console.warn('YG score', err));
+			// Only a signed-in player has a place in the table: skip guests quietly.
+			sdk.isAvailableMethod('leaderboards.setScore')
+				.then((ok) => ok && sdk.leaderboards.setScore(board, score))
+				.catch((err) => console.warn('YG score', err));
 		},
 	};
 }());
