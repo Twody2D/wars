@@ -4,8 +4,8 @@ extends Control
 ## window, name, HP and damage (with the next level's values in green after
 ## "›" when it can be bought), level pips, a price button — green when
 ## affordable, grey when not; maxed — a gold card with "МАКС"; locked — a
-## black silhouette with a lock and the unlock price (grey until the unit's
-## biome is open).
+## black silhouette with a lock and the unlock price. Units of a biome that is
+## not open yet are hidden (Twody: the screen was too crowded).
 
 ## Card by state: "normal", "locked", "max".
 @export var frames: Dictionary[String, Texture2D] = {}
@@ -49,6 +49,8 @@ func setup(unit_: UnitData) -> void:
 func refresh() -> void:
 	if unit == null:
 		return
+	# Only the biomes the player has reached: later units appear after the caves open.
+	visible = unit.unlock_biome <= GameState.biome_unlocked
 	var unlocked: bool = GameState.is_unit_unlocked(unit.id)
 	var max_level: int = GameState.balance().unit_max_level
 	var level: int = maxi(GameState.unit_level(unit.id), 1)
@@ -68,9 +70,7 @@ func refresh() -> void:
 	if maxed:
 		return
 	var cost: int = GameState.unit_level_cost(unit.id) if unlocked else GameState.unit_unlock_cost(unit.id)
-	# A unit of a biome that is not open yet: its price, greyed out.
-	var shown: int = cost if cost >= 0 else unit.unlock_cost
-	_button.text = _format(shown)
+	_button.text = _format(maxi(cost, 0))
 	var can_buy: bool = cost >= 0 and GameState.coins >= cost
 	_button.theme_type_variation = &"" if can_buy else &"GreyButton"
 	_button.disabled = cost < 0
