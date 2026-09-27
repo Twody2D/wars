@@ -390,50 +390,118 @@ store_cover (1920×1080): mascots, lane battle scene, title; not a screenshot.
 
 ## Обложка и иконка v3: кликабельные (27.09.2026)
 
-Зачем: в каталоге Яндекса (подборка «Игры война») наши обложка и иконка теряются — у соседей крупные персонажи крупным планом, действие, яркий контрастный фон. Разбор соседей: Age of Heroes, «Битва за эволюцию», Mage Castle, стикмены с раздвоенным красно-синим фоном. Отправить в тот же проект Claude Design, результат — PNG. Положить в `build/store/` вместо `icon_512.png` и `cover_800x470.png`.
+Зачем: в каталоге Яндекса (подборка «Игры война») наши обложка и иконка теряются — у соседей крупные персонажи крупным планом, действие, яркий контрастный фон (Age of Heroes, «Битва за эволюцию», Mage Castle).
+
+Как: **один промпт целиком** в Claude Design — лучше в тот же проект, где рисовались персонажи (он их помнит). В новом проекте — приложить к сообщению `design/Art sections 1 and 2 complete/assets/v2/brand/store_cover.svg` и SVG юнитов/боссов как образцы. Результат — PNG в `build/store/`: выбранные вариант обложки → `cover_800x470.png`, иконки → `icon_512.png`.
 
 ```
-New task for Mine Rush: a store COVER and ICON that win clicks in the Yandex
-Games catalog. This is marketing art, not a game screen and not a screenshot.
+NEW TASK — STORE ART FOR "MINE RUSH" (cover + icon for the Yandex Games catalog)
 
-WHAT WE COMPETE WITH (catalog thumbnails ~400×235 px, next to each other):
-- one to three characters HUGE and close-up, filling 60–80% of the frame;
-- a frozen action moment: a sword swing with a glowing trail, a fireball,
-  an explosion, an arrow flying at the viewer;
-- faces with strong emotion (angry roar, fierce grin, panic);
-- saturated, contrasting background; very popular: a diagonal split into two
-  colors (our army BLUE vs enemy RED) with a lightning/crack between them;
-- little or no text. Our flat, small-character cover disappears among them.
+This is MARKETING ART, not a game asset. The technical rules of the game assets
+(flat fills only, no gradients, no filters, SVG only, neutral poses) DO NOT
+apply here. Use anything that makes it look great: gradients, glow, light rays,
+motion blur, particles, depth, perspective. Final delivery is PNG.
 
-STYLE: bold vector cartoon illustration — thick dark outlines (#1B1B2F),
-cel shading with 2–3 tones per color, rim light, glow and sparks, speed lines,
-flying debris. Keep our characters recognizable (same shapes, colors, bandana
-colors, faces) but draw them big and dynamic, with depth and perspective.
-Not pixel-flat, not a screenshot, no UI.
+--------------------------------------------------------------------
+1. THE GAME (for context)
+--------------------------------------------------------------------
+Mine Rush is a 2D side-view lane battle for kids 7–14 and casual players:
+our base on the left, the enemy base on the right, armies of cute blocky
+"voxel-cartoon" monsters walk toward each other along one road and fight in
+waves. Our team color is BLUE #3A7BFF, the enemy's is RED #FF4A4A. Biomes:
+a sunny meadow and a dark cave with blue crystals.
 
-COVER (deliver 800×470 exactly + a 1600×940 master; 3 variants):
-- Variant A "Clash": the Cube Zombie (blue bandana, our side, left) swings a
-  big glowing sword at the Zombie King (red, enemy, right); diagonal
-  blue/red split with a lightning crack in the middle; sparks where the
-  weapons meet.
-- Variant B "Charge": our army (zombie, bone archer, jelly cube, spider) runs
-  at the viewer from the left, the enemy horde and the Stone Golem from the
-  right; a meteor with a fire trail falls in the center; dust and explosion.
-- Variant C "Boss": the Zombie King towers over the scene, low camera angle,
-  our tiny brave zombie with a sword in the foreground, back to us.
-- Logo "MINE RUSH" (our logo from the brand section) in the top area, at most
-  ~20% of the image; the rest is characters and action.
-- Safe zones: keep the bottom-left 18%×18% and bottom-right 15%×15% free of
-  important details (the catalog draws the rating and age badges there).
-- Must read at 200×118 px: check by scaling down — silhouettes and the main
-  action must stay clear.
+--------------------------------------------------------------------
+2. THE CHARACTERS (keep them recognizable: same shapes, colors, faces)
+--------------------------------------------------------------------
+All built from cubes and rectangles, chibi proportions (big square head
+~40% of height), square eyes, thick dark outline #1B1B2F, cute and funny,
+never scary. Our fighters wear a BLUE team accent, enemies a RED one.
+- Cube Zombie: sleepy green-grey blocky creature, torn orange pajama top,
+  tongue sticking out, one ear bigger than the other; team headband.
+- Bone Archer: skinny bone-white blocky skeleton, leafy green hood, short
+  twig bow; team scarf.
+- Jelly Cube: purple cube (lighter/darker faces), droplet on top, angry
+  eyebrows; small team flag on top.
+- Cube Spider: square teal body, four cube eyes, eight blocky legs; tiny
+  team bandana.
+- Goblin Miner: short green goblin, yellow helmet with a headlamp, pickaxe.
+- Barrel Bomber: walking wooden barrel with big eyes, a lit fuse on top,
+  stubby legs.
+- BOSS Zombie King: the Cube Zombie 3x bigger and chunkier, a cooking pot as
+  a crown, a log as a club. Enemy (red).
+- BOSS Stone Golem: massive golem of grey stone blocks, glowing light-blue
+  crystals, moss patches, huge fists. Enemy (red).
+- Logo "MINE RUSH": chunky 3D block letters, as in our brand section
+  (if you do not have it, draw bold 3D block letters in the same spirit).
 
-ICON (deliver 512×512; 3 variants):
-- One face, close-up, filling ~80%: the Cube Zombie with an angry-funny grin
-  and a sword, OR the Zombie King roaring.
-- Bright radial background (blue or orange), glow behind the head.
-- No text, or at most a tiny "MR". Must read at 64×64 px.
+--------------------------------------------------------------------
+3. WHAT WE COMPETE WITH
+--------------------------------------------------------------------
+In the catalog the cover is shown ~400x235 px among other war games. The
+winners all have:
+- 1–3 characters HUGE and close-up, filling 60–80% of the frame;
+- a frozen action moment: a weapon swing with a glowing trail, an explosion,
+  a fireball/meteor, an arrow flying at the viewer;
+- faces with strong emotion (battle roar, fierce grin, comic panic);
+- a saturated, contrasting background — very popular: a diagonal split into
+  two colors (our side BLUE vs enemy side RED) with a lightning crack between;
+- little or no text.
+Our current cover (small flat characters, lots of empty space) disappears
+among them. Make ours the most eye-catching thumbnail on the page.
 
-Deliver PNG exports named store_cover_A/B/C.png (800×470),
-store_cover_A/B/C_master.png (1600×940), store_icon_A/B/C.png (512×512),
-and a sheet showing all of them next to each other at catalog size.
+--------------------------------------------------------------------
+4. STYLE
+--------------------------------------------------------------------
+Bold cartoon illustration in the spirit of mobile game ads: thick dark
+outlines, cel shading with 2–3 tones per color, strong rim light, glow and
+sparks, speed lines, flying cube debris and dust, dramatic low camera angle,
+strong depth (big foreground, smaller background). Bright and friendly —
+for kids, no blood, no gore. Not pixel-flat, not a game screenshot, no UI.
+
+--------------------------------------------------------------------
+5. COVER — 3 variants (A, B, C)
+--------------------------------------------------------------------
+Size: 1600x940 master + 800x470 export (the same image scaled).
+- A "Clash": the Cube Zombie (blue, left, sword with a glowing blue trail)
+  clashes with the Zombie King (red, right, log club); diagonal blue/red
+  split background with a bright lightning crack in the middle; a burst of
+  sparks exactly where the weapons meet.
+- B "Charge": our army (Cube Zombie in front, Bone Archer, Jelly Cube,
+  Cube Spider) charges from the left, the red horde with the Stone Golem from
+  the right; a flaming meteor falls into the center; explosion of cubes and
+  dust; the meadow on the left turns into the crystal cave on the right.
+- C "Boss": the Stone Golem towers over the frame, glowing blue crystals,
+  seen from a very low angle; in the foreground our small brave Cube Zombie
+  with a sword and a Barrel Bomber with a lit fuse, seen from behind.
+Rules for all three:
+- logo "MINE RUSH" in the top area, at most ~20% of the image;
+- keep the bottom-left 18%x18% and bottom-right 15%x15% free of important
+  details (the catalog puts rating and age badges there);
+- test by scaling down to 200x118 px: silhouettes, faces and the main action
+  must still read clearly. Fix anything that turns into mush.
+
+--------------------------------------------------------------------
+6. ICON — 3 variants (A, B, C)
+--------------------------------------------------------------------
+Size: 512x512 (square, the catalog may round the corners — keep ~8% margin).
+- A: the Cube Zombie's face close-up (~80% of the icon), fierce-funny grin,
+  blue headband, sword raised; bright blue radial background with a glow.
+- B: the Zombie King roaring, pot crown, close-up; hot orange/red radial
+  background.
+- C: Cube Zombie and Zombie King face to face, split blue/red background
+  with a lightning crack.
+No text (or a tiny "MR" at most). Must read at 64x64 px — test it.
+
+--------------------------------------------------------------------
+7. DELIVERY
+--------------------------------------------------------------------
+PNG files:
+- store_cover_A.png, store_cover_B.png, store_cover_C.png (800x470)
+- store_cover_A_master.png, ..._B_master.png, ..._C_master.png (1600x940)
+- store_icon_A.png, store_icon_B.png, store_icon_C.png (512x512)
+- catalog_preview.png: all covers at 400x235 and all icons at 128 and 64 px
+  side by side on a white page, so we can pick the winner.
+Then write in one line which cover and which icon you think will get the
+most clicks, and why.
+```
