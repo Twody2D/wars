@@ -107,7 +107,8 @@ func _ready() -> void:
 	_tutorial.setup(self, level.tutorial)
 
 	_time_scale_before = Engine.time_scale
-	Engine.time_scale = balance.battle_speed_scale if GameState.battle_speed_on else 1.0
+	_apply_time_scale()
+	GameState.changed.connect(_apply_time_scale)
 	Platform.update_mute()
 	Audio.play_music(&"battle")
 	Platform.paused.connect(_on_platform_paused)
@@ -501,11 +502,20 @@ func _on_booster_rewarded(tag: StringName) -> void:
 	_boosts_used[tag] = true
 	_hud.set_booster_available(tag, false)
 	if tag == &"boost_speed":
-		Engine.time_scale = maxf(Engine.time_scale, balance.booster_time_scale)
+		_apply_time_scale()
 	else:
 		sim.add_food(balance.booster_food)
 	Audio.play_sfx(&"coin", false)
 	_end_booster_ad()
+
+
+## Game speed: the bought "battle speed" (switchable in the settings, also
+## mid-battle) and the ×2 booster — the faster one wins.
+func _apply_time_scale() -> void:
+	var scale: float = balance.battle_speed_scale if GameState.battle_speed_on else 1.0
+	if _boosts_used.get(&"boost_speed", false):
+		scale = maxf(scale, balance.booster_time_scale)
+	Engine.time_scale = scale
 
 
 func _on_booster_failed(tag: StringName) -> void:

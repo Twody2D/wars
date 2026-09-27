@@ -86,3 +86,9 @@ UPGRADES_ARMY,Армия,Army
 MAP_SOON,Скоро,Soon
 MAP_SOON_BIOMES,Пустыня · Снега · Вулкан,Desert · Snow · Volcano
 SPEED_FMT,Скорость боя ×1.5: %s,Battle speed ×1.5: %s
+HOWTO_TITLE,Как играть,How to play
+HOWTO_CARDS,"Нажимай на карточки — бойцы идут в бой (клавиши 1–6)","Tap the cards to send fighters (keys 1–6)"
+HOWTO_ORE,"Нажимай на руду на поле — получишь еду","Tap the ore on the field to get food"
+HOWTO_METEOR,"Бросай метеор в толпу врагов (клавиша Q)","Drop the meteor on a crowd of enemies (Q key)"
+HOWTO_GOAL,"Разрушь базу врага и сохрани свою — получишь звёзды и монеты!","Destroy the enemy base and keep yours to earn stars and coins!"
+BTN_OK,Понятно,Got it

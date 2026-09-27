@@ -35,7 +35,7 @@ anchor_bottom = 0.5
 offset_left = -280.0
 offset_top = -210.0
 offset_right = 280.0
-offset_bottom = 250.0
+offset_bottom = 170.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_window")
@@ -68,9 +68,9 @@ vertical_alignment = 1
 [node name="Box" type="VBoxContainer" parent="Window"]
 layout_mode = 0
 offset_left = 80.0
-offset_top = 70.0
+offset_top = 64.0
 offset_right = 480.0
-offset_bottom = 420.0
+offset_bottom = 340.0
 theme_override_constants/separation = 14
 alignment = 1
 
@@ -81,26 +81,6 @@ layout_mode = 2
 theme_type_variation = &"BlueButton"
 theme_override_font_sizes/font_size = 30
 text = "SOUND_ON"
-
-[node name="Lang" type="HBoxContainer" parent="Window/Box"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="RuButton" type="Button" parent="Window/Box/Lang"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 80)
-layout_mode = 2
-size_flags_horizontal = 3
-auto_translate_mode = 2
-text = "Русский"
-
-[node name="EnButton" type="Button" parent="Window/Box/Lang"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 80)
-layout_mode = 2
-size_flags_horizontal = 3
-auto_translate_mode = 2
-text = "English"
 
 [node name="SpeedButton" type="Button" parent="Window/Box"]
 unique_name_in_owner = true

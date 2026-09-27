@@ -18,8 +18,6 @@ var unit_levels: Dictionary[StringName, int] = {}
 var upgrades: Dictionary[StringName, int] = {}
 var battle_speed_on: bool = false
 var sound_on: bool = true
-## "" — take the language from the platform.
-var lang: String = ""
 ## Level chosen for the next battle.
 var selected_level: int = 1
 ## Off in tests so they never touch the real save file.
@@ -173,12 +171,6 @@ func set_battle_speed(on: bool) -> void:
 	_commit()
 
 
-## "ru" / "en"; "" — take it from the platform.
-func set_lang(code: String) -> void:
-	lang = code if code in ["", "ru", "en"] else ""
-	_commit()
-
-
 func set_sound(on: bool) -> void:
 	sound_on = on
 	_commit()
@@ -243,7 +235,7 @@ func to_dict() -> Dictionary:
 		"units": units,
 		"upgrades": ups,
 		"battle_speed_on": battle_speed_on,
-		"settings": {"sound": sound_on, "lang": lang},
+		"settings": {"sound": sound_on},
 		"saved_at": saved_at,
 	}
 
@@ -277,8 +269,6 @@ func from_dict(data: Dictionary) -> void:
 	battle_speed_on = data.get("battle_speed_on", false) == true and upgrade_level(&"battle_speed") > 0
 	var settings: Dictionary = _dict(data, "settings")
 	sound_on = settings.get("sound", true) != false
-	var saved_lang: Variant = settings.get("lang", "")
-	lang = saved_lang if saved_lang is String and saved_lang in ["", "ru", "en"] else ""
 
 
 func reset_progress() -> void:

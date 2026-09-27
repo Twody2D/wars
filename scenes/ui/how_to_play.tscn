@@ -1,0 +1,159 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/how_to_play.gd" id="1_script"]
+[ext_resource type="Theme" path="res://scenes/ui/theme_v3.tres" id="2_theme"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/window_panel.svg" id="3_window"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/ribbon_title.svg" id="4_ribbon"]
+[ext_resource type="Texture2D" path="res://art/screens/how_to_play_1.svg" id="5_step1"]
+[ext_resource type="Texture2D" path="res://art/screens/how_to_play_2.svg" id="6_step2"]
+[ext_resource type="Texture2D" path="res://art/screens/how_to_play_3.svg" id="7_step3"]
+
+[node name="HowToPlay" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="Dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0392157, 0.0470588, 0.156863, 0.62)
+
+[node name="Window" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -540.0
+offset_top = -250.0
+offset_right = 540.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_window")
+patch_margin_left = 44
+patch_margin_top = 44
+patch_margin_right = 44
+patch_margin_bottom = 52
+
+[node name="Ribbon" type="TextureRect" parent="Window"]
+layout_mode = 0
+offset_left = 280.0
+offset_top = -52.0
+offset_right = 800.0
+offset_bottom = 52.0
+mouse_filter = 2
+texture = ExtResource("4_ribbon")
+expand_mode = 1
+
+[node name="Title" type="Label" parent="Window"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = -44.0
+offset_right = 760.0
+offset_bottom = 26.0
+theme_override_font_sizes/font_size = 40
+text = "HOWTO_TITLE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Steps" type="HBoxContainer" parent="Window"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 70.0
+offset_right = 1030.0
+offset_bottom = 370.0
+theme_override_constants/separation = 25
+
+[node name="Step1" type="VBoxContainer" parent="Window/Steps"]
+custom_minimum_size = Vector2(310, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Picture" type="TextureRect" parent="Window/Steps/Step1"]
+custom_minimum_size = Vector2(310, 202)
+layout_mode = 2
+texture = ExtResource("5_step1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Text" type="Label" parent="Window/Steps/Step1"]
+custom_minimum_size = Vector2(310, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "HOWTO_CARDS"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Step2" type="VBoxContainer" parent="Window/Steps"]
+custom_minimum_size = Vector2(310, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Picture" type="TextureRect" parent="Window/Steps/Step2"]
+custom_minimum_size = Vector2(310, 202)
+layout_mode = 2
+texture = ExtResource("6_step2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Text" type="Label" parent="Window/Steps/Step2"]
+custom_minimum_size = Vector2(310, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "HOWTO_ORE"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Step3" type="VBoxContainer" parent="Window/Steps"]
+custom_minimum_size = Vector2(310, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Picture" type="TextureRect" parent="Window/Steps/Step3"]
+custom_minimum_size = Vector2(310, 202)
+layout_mode = 2
+texture = ExtResource("7_step3")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Text" type="Label" parent="Window/Steps/Step3"]
+custom_minimum_size = Vector2(310, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "HOWTO_METEOR"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Goal" type="Label" parent="Window"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 378.0
+offset_right = 1030.0
+offset_bottom = 416.0
+theme_type_variation = &"GreenLabel"
+theme_override_font_sizes/font_size = 26
+text = "HOWTO_GOAL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OkButton" type="Button" parent="Window"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 420.0
+offset_top = 436.0
+offset_right = 660.0
+offset_bottom = 516.0
+theme_override_font_sizes/font_size = 30
+text = "BTN_OK"

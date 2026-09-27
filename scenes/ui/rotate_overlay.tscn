@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/rotate_overlay.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://art/ui/icons/icon_rotate_device.svg" id="2_icon"]
+[ext_resource type="Theme" path="res://scenes/ui/theme_v3.tres" id="3_theme"]
 
 [node name="RotateOverlay" type="CanvasLayer"]
 layer = 100
@@ -14,7 +15,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.105882, 0.105882, 0.184314, 0.96)
+theme = ExtResource("3_theme")
+color = Color(0.101961, 0.117647, 0.333333, 0.97)
 
 [node name="Box" type="VBoxContainer" parent="Shade"]
 layout_mode = 1

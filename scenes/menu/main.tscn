@@ -29,12 +29,13 @@
 [ext_resource type="Texture2D" path="res://art/ui/v3/chars/king_face.png" id="28_king"]
 [ext_resource type="Texture2D" path="res://art/ui/v3/coin_counter.svg" id="29_counter"]
 [ext_resource type="Texture2D" path="res://art/ui/v3/icon_coin.svg" id="30_coin"]
-[ext_resource type="Texture2D" path="res://art/ui/v3/icon_plus.svg" id="31_plus"]
 [ext_resource type="Texture2D" path="res://art/ui/v3/icon_settings.svg" id="32_gear"]
 [ext_resource type="Texture2D" path="res://art/ui/v3/tabbar_bg.svg" id="33_tabbar"]
 [ext_resource type="Texture2D" path="res://art/ui/v3/icon_up.svg" id="34_up"]
 [ext_resource type="Texture2D" path="res://art/ui/v3/icon_map.svg" id="35_map_icon"]
 [ext_resource type="Texture2D" path="res://art/ui/v3/badge_dot.svg" id="36_dot"]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/how_to_play.tscn" id="37_howto"]
 
 [sub_resource type="Gradient" id="dim_gradient"]
 offsets = PackedFloat32Array(0, 0.45, 1)
@@ -699,12 +700,32 @@ icon = ExtResource("32_gear")
 icon_alignment = 1
 expand_icon = true
 
+[node name="HelpButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 16.0
+offset_top = 128.0
+offset_right = 120.0
+offset_bottom = 238.0
+theme_type_variation = &"IconButton"
+
+[node name="Label" type="Label" parent="HelpButton"]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 10.0
+offset_right = 82.0
+offset_bottom = 84.0
+theme_override_font_sizes/font_size = 60
+text = "?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="CoinCounter" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -306.0
+offset_left = -276.0
 offset_top = 20.0
 offset_right = -16.0
 offset_bottom = 92.0
@@ -733,22 +754,12 @@ expand_mode = 1
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 70.0
-offset_right = 228.0
+offset_right = 246.0
 offset_bottom = 66.0
 theme_override_font_sizes/font_size = 34
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Plus" type="TextureRect" parent="CoinCounter"]
-layout_mode = 0
-offset_left = 228.0
-offset_top = 2.0
-offset_right = 290.0
-offset_bottom = 64.0
-mouse_filter = 2
-texture = ExtResource("31_plus")
-expand_mode = 1
 
 [node name="TabBar" type="Control" parent="."]
 layout_mode = 1
@@ -849,5 +860,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Settings" parent="." instance=ExtResource("9_settings")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="HowToPlay" parent="." instance=ExtResource("37_howto")]
 unique_name_in_owner = true
 layout_mode = 1

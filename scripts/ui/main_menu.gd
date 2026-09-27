@@ -1,7 +1,7 @@
 class_name MainMenu
 extends Control
 ## Main menu (SPEC 7, menu v3 mockup "Mine Rush menu redesign"): bottom tab bar
-## — Battle, Upgrades, Map; settings and the coin counter on top.
+## — Battle, Upgrades, Map; settings, "How to play" (?) and the coin counter on top.
 
 const BATTLE_SCENE := "res://scenes/battle/battle.tscn"
 const MAP_SIZE := Vector2(2560.0, 720.0)
@@ -55,6 +55,8 @@ const MAP_WHEEL_STEP := 120.0
 @onready var _map_nodes: Control = %Nodes
 @onready var _settings: SettingsPanel = %Settings
 @onready var _settings_button: Button = %SettingsButton
+@onready var _how_to_play: HowToPlay = %HowToPlay
+@onready var _help_button: Button = %HelpButton
 
 ## Tabs opened before the current one; Esc goes back through them.
 var _tab_history: Array[int] = []
@@ -73,6 +75,7 @@ func _ready() -> void:
 	_play.pressed.connect(func() -> void: _start(GameState.max_playable_level()))
 	_cave.pressed.connect(func() -> void: GameState.evolve())
 	_settings_button.pressed.connect(_settings.open)
+	_help_button.pressed.connect(_how_to_play.open)
 	for u: UnitData in GameState.config.player_units:
 		var tile: UnitTile = unit_tile_scene.instantiate()
 		_unit_tiles.add_child(tile)
@@ -222,6 +225,7 @@ func _show_tab(index: int) -> void:
 	_scenery.visible = index != 2
 	_sky.visible = index != 2
 	_characters.visible = index == 0
+	_help_button.visible = index == 0
 	for i: int in _tabs.size():
 		_tabs[i].visible = i == index
 		_style_tab(_tab_buttons[i], i, i == index)
