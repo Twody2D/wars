@@ -505,3 +505,136 @@ PNG files:
 Then write in one line which cover and which icon you think will get the
 most clicks, and why.
 ```
+
+## Редизайн меню v3: главное, улучшения, карта (27.09.2026)
+
+Зачем: меню выглядит как прототип рядом с Age of Heroes и «Битвой за эволюцию». Нужен современный глянцевый казуальный интерфейс в их духе. Отправлять в **новый чат** Claude Design. Приложить:
+1. Текущие экраны: `build/store/shot_menu_0.png`, `shot_upgrades_0.png`, `shot_map_0.png`, `shot_battle_0.png`.
+2. Скриншоты меню конкурентов (главный экран, прокачка, карта уровней Age of Heroes и «Битвы за эволюцию»).
+3. Логотип и персонажи: `design/Art sections 1 and 2 complete/assets/v2/brand/logo_ru.svg` и `store_cover.svg` (или новую обложку v3, если уже готова).
+
+```
+NEW TASK — REDESIGN THE MENUS OF "MINE RUSH": main screen, upgrades, level map.
+
+Attached: our current screens (shot_menu, shot_upgrades, shot_map, shot_battle),
+screenshots of competitor games, our logo and our characters.
+Goal: a modern, beautiful, polished casual-mobile UI that fits right next to
+the top war/army games in the Yandex Games catalog (see the competitor
+screenshots), while keeping our characters and our logo.
+
+--------------------------------------------------------------------
+1. THE GAME
+--------------------------------------------------------------------
+Mine Rush is a 2D side-view lane battle for kids 7–14 and casual players, PC
+and phones, LANDSCAPE only. Our blocky "voxel-cartoon" monsters (Cube Zombie,
+Bone Archer, Jelly Cube, Cube Spider, Goblin Miner, Barrel Bomber; bosses Zombie
+King and Stone Golem) fight the enemy army on one road. Between battles the
+player spends coins on new fighters and upgrades. Team colors: ours BLUE
+#3A7BFF, enemy RED #FF4A4A. Font in the game: Rubik ExtraBold (Cyrillic),
+white with a dark outline — the game draws all text itself.
+
+--------------------------------------------------------------------
+2. WHAT IS WRONG NOW
+--------------------------------------------------------------------
+Flat pixel blocks, grey/brown dull colors, thin empty rows, the upgrade screen
+looks like a spreadsheet, the map is six flat color stripes with a zigzag,
+nothing glows, nothing invites a tap. It looks like a prototype.
+
+--------------------------------------------------------------------
+3. TARGET STYLE (like the competitors)
+--------------------------------------------------------------------
+- Glossy casual mobile-game UI: chunky rounded buttons with a bevel, a light
+  top highlight and a darker bottom edge (3D "candy" look), clear pressed state.
+- Rich saturated colors, soft gradients, gentle glows behind important things,
+  depth: panels over a painted blurred-looking background scene.
+- Cards with colored frames, ribbons for titles, shiny coin counter with a
+  "+" button, red notification dot when something can be bought.
+- Big friendly icons with volume (not flat pixel icons).
+- The main action always obvious: a huge glowing PLAY button.
+- Cute and bright, for kids; readable at 1280×720 and on a phone
+  (touch targets at least 96×96 px at 1280×720, text at least 24 px).
+- Keep our characters' look; UI can be smoother/rounder than the pixel art.
+
+--------------------------------------------------------------------
+4. SCREENS (each a 1280×720 mockup; also check a 1440×720 wide phone)
+--------------------------------------------------------------------
+Common to all three: top-left settings button (gear), top-right coin counter
+(coin icon + "16 450" + "+" button), bottom tab bar with 3 tabs:
+"Бой" (sword), "Улучшения" (arrow up), "Карта" (map) — active tab clearly
+raised and bright, inactive tabs calmer, red dot on "Улучшения" when there is
+something to buy.
+
+A) MAIN ("Бой" tab)
+- Painted meadow battlefield background with depth; our army on the left
+  (Cube Zombie in front with a blue headband, Bone Archer behind), the enemy
+  in the distance on the right (red accents) — feels like a battle is about
+  to start.
+- Logo "MINE RUSH" top center.
+- "Уровень 7" on a ribbon/plate above a HUGE glowing green "Играть" button
+  (sword icon), with a subtle pulse glow.
+- Under it three stars of the current level (earned ones gold, others grey).
+- A boss hint for boss levels: a small red plate "Босс: Король зомби".
+
+B) UPGRADES ("Улучшения" tab)
+Top: title ribbon "Улучшения".
+Fighters — a row of 6 cards (Кубозомби, Лучник-кость, Желе-куб, Кубопаук,
+Шахтёр-гоблин, Бочка-бомбер), each card:
+- portrait window with the character on a soft radial background;
+- name;
+- stats: heart "66 › 72" and sword "9 › 10" (the next level value in green);
+- level pips 1–5;
+- price button: coin + "680" (green when affordable, grey when not);
+- LOCKED card: darkened silhouette, lock, "1500" to unlock;
+- MAX card: gold frame, "МАКС" instead of the price.
+Army upgrades — cards or wide tiles with a big icon each:
+"Сила армии +10%", "Производство еды +0.05/с", "Здоровье базы +5",
+"Еда на старте", "Уровень бойца", "Скорость боя ×1.5":
+icon, name, effect in green, level "ур. 3/10" with a progress bar, price
+button with a coin. Must look like a shop of power-ups, not a table.
+Special wide button "Открыть пещеры" (the next world), locked with the hint
+"Пройди 10-й уровень, чтобы открыть пещеры".
+
+C) MAP ("Карта" tab)
+- A painted world map, scroll or single screen, 20 level nodes on a winding
+  road: levels 1–10 in a sunny meadow, 11–20 in a crystal cave; after that
+  a misty "Скоро" (coming soon) area teasing desert, snow and volcano.
+- Level node states: passed (with 0–3 stars under it), current (bigger,
+  glowing, bouncing arrow or our zombie standing on it), locked (grey + lock).
+- Boss nodes 10 and 20: bigger, red, with the boss face (Zombie King, Stone
+  Golem).
+- Decorations: trees, rocks, crystals, tiny animated-looking details.
+
+--------------------------------------------------------------------
+5. TECHNICAL RULES (Godot 4 game, small web build)
+--------------------------------------------------------------------
+- Deliver every UI piece as a separate SVG (plus the 3 full-screen mockups as
+  PNG for reference). Allowed in SVG: paths, rects, circles, fill, stroke,
+  opacity, linear and radial gradients. NOT allowed: filters, blur, drop
+  shadows via filter, masks, clip-paths, patterns, embedded images, <text>
+  (the game draws all text), CSS. Fake shadows and glows with extra shapes
+  and gradients.
+- Buttons, panels, cards, ribbons, plates: 9-slice friendly — corners must
+  not distort when stretched; write the corner size in px for each one.
+- Buttons in states: _normal, _hover, _pressed, _disabled.
+- Icons 128×128, transparent background.
+- Backgrounds 1280×720 (menu, map), no transparency; the map may be 2560×720
+  if it scrolls.
+- Keep file sizes small: the whole game must fit in 10 MB.
+
+--------------------------------------------------------------------
+6. DELIVERY
+--------------------------------------------------------------------
+1. Three mockups: mockup_main.png, mockup_upgrades.png, mockup_map.png
+   (1280×720), plus the same at 1440×720.
+2. The UI kit as SVG files, named snake_case:
+   btn_play_*, btn_green_*, btn_grey_*, btn_icon_*, tab_active, tab_inactive,
+   coin_counter, badge_dot, ribbon_title, plate_level, card_unit,
+   card_unit_locked, card_unit_max, card_upgrade, pip_empty, pip_full,
+   progress_bar_frame, progress_bar_fill, level_node_passed,
+   level_node_current, level_node_locked, level_node_boss, star_full,
+   star_empty, bg_menu, bg_map;
+   icons: icon_settings, icon_coin, icon_plus, icon_lock, icon_sword,
+   icon_up, icon_map, icon_heart, icon_food, icon_base, icon_army,
+   icon_speed, icon_start_food, icon_unit_level, icon_cave.
+3. A table: file name, size, 9-slice corners (px), where it is used.
+```
