@@ -147,8 +147,11 @@ static func _format(n: int) -> String:
 func _on_buy() -> void:
 	var cost: int = GameState.unit_level_cost(unit.id) if GameState.is_unit_unlocked(unit.id) else GameState.unit_unlock_cost(unit.id)
 	if cost < 0 or GameState.coins < cost:
+		Audio.play_sfx(&"deny", false)
 		return
 	if GameState.is_unit_unlocked(unit.id):
 		GameState.level_up_unit(unit.id)
+		Audio.play_sfx(&"upgrade", false)
 	else:
 		GameState.unlock_unit(unit.id)
+		Audio.play_sfx(&"unlock", false)

@@ -220,6 +220,7 @@ uppercase = true
 
 [node name="BuyButton" type="Button" parent="."]
 unique_name_in_owner = true
+metadata/no_click = true
 layout_mode = 0
 offset_left = 16.0
 offset_top = 196.0

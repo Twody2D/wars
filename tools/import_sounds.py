@@ -43,24 +43,25 @@ SOURCES: dict[str, str] = {
 # Several sources = variants, Audio picks one at random.
 SFX: dict[str, list[tuple[str, float, float, float]]] = {
     # Swords clashing (a unit's melee hit).
-    "hit": [(f"sword_clash/sword_clash.{i}.ogg", 0.0, 0.45, -4.0) for i in (1, 2, 3, 4, 5)],
+    "hit": [(f"sword_clash/sword_clash.{i}.ogg", 0.0, 0.45, -11.0) for i in (1, 2, 3, 4, 5)],
     # Arrow / thrown pickaxe whoosh.
-    "shoot": [("rpg_pack/RPG Sound Pack/battle/swing.wav", 0.0, 0.3, -5.0),
-              ("rpg_pack/RPG Sound Pack/battle/swing2.wav", 0.0, 0.3, -5.0),
-              ("rpg_pack/RPG Sound Pack/battle/swing3.wav", 0.0, 0.3, -5.0)],
+    "shoot": [("rpg_pack/RPG Sound Pack/battle/swing.wav", 0.0, 0.3, -9.0),
+              ("rpg_pack/RPG Sound Pack/battle/swing2.wav", 0.0, 0.3, -9.0),
+              ("rpg_pack/RPG Sound Pack/battle/swing3.wav", 0.0, 0.3, -9.0)],
     "explosion": [("sfx100/explosion.ogg", 0.0, 0.8, -1.0)],
     # Monsters: short hurt cries when a unit falls.
-    "death": [(f"creatures/hurt_0{i}.ogg", 0.0, 0.5, -7.0) for i in (1, 2, 3, 4, 5)],
+    "death": [(f"creatures/hurt_0{i}.ogg", 0.0, 0.5, -9.0) for i in (1, 2, 3, 4, 5)],
     # A unit joins the army: sword drawn.
-    "spawn": [("rpg_pack/RPG Sound Pack/battle/sword-unsheathe.wav", 0.0, 0.5, -8.0),
-              ("rpg_pack/RPG Sound Pack/battle/sword-unsheathe2.wav", 0.0, 0.5, -8.0)],
+    "spawn": [("rpg_pack/RPG Sound Pack/battle/sword-unsheathe.wav", 0.0, 0.5, -14.0),
+              ("rpg_pack/RPG Sound Pack/battle/sword-unsheathe2.wav", 0.0, 0.5, -14.0)],
     "coin": [("kenney_rpg/Audio/handleCoins.ogg", 0.0, 0.5, -6.0),
              ("kenney_rpg/Audio/handleCoins2.ogg", 0.0, 0.5, -6.0)],
     "ore": [(f"kenney_impact/Audio/impactMining_00{i}.ogg", 0.0, 0.4, -4.0) for i in (0, 1, 2)],
     # Meteor impact: a cannon shot.
     "meteor": [("bangs/cannon_01.ogg", 0.0, 1.3, 0.0)],
     # Twody: the victory must be short and light — an orchestral pizzicato jingle.
-    "win": [("kenney_jingles/Audio/Pizzicato jingles/jingles_PIZZI07.ogg", 0.0, 1.4, -2.0)],
+    # 10 goes up D-E-F#-G (07 went down chromatically: it sounded like a defeat).
+    "win": [("kenney_jingles/Audio/Pizzicato jingles/jingles_PIZZI10.ogg", 0.0, 1.4, -2.0)],
     # Defeat: a war horn call.
     "lose": [("war_horns.wav", 0.4, 3.0, -2.0)],
     # A wave is coming: a short horn call.
@@ -68,6 +69,10 @@ SFX: dict[str, list[tuple[str, float, float, float]]] = {
     # Hits on a (wooden) base: planks, not swords.
     "base_hit": [(f"kenney_impact/Audio/impactPlank_medium_00{i}.ogg", 0.0, 0.4, -3.0) for i in (0, 1, 2)],
     "click": [("kenney_interface/Audio/click_002.ogg", 0.0, 0.2, -6.0)],
+    # Upgrades screen: a level bought, a new fighter, not enough coins.
+    "upgrade": [("kenney_interface/Audio/confirmation_001.ogg", 0.0, 0.6, -5.0)],
+    "unlock": [("kenney_jingles/Audio/Pizzicato jingles/jingles_PIZZI08.ogg", 0.0, 1.0, -3.0)],
+    "deny": [("kenney_interface/Audio/error_004.ogg", 0.0, 0.4, -9.0)],
 }
 
 # out name -> (source, end sec, fades). Looped by Audio. Twody: light, not
@@ -125,7 +130,7 @@ def convert(src: Path, dst: Path, filters: list[str], channels: int, quality: fl
 
 def sfx() -> None:
     for old in (OUT / "sfx").glob("*"):
-        if old.suffix in (".wav", ".ogg") or old.name.endswith(".import"):
+        if old.suffix in (".wav", ".ogg"):
             old.unlink()
     for name, variants in SFX.items():
         for i, (rel, start, length, gain) in enumerate(variants):
@@ -142,7 +147,7 @@ def sfx() -> None:
 
 def music() -> None:
     for old in (OUT / "music").glob("*"):
-        if old.suffix in (".wav", ".ogg") or old.name.endswith(".import"):
+        if old.suffix in (".wav", ".ogg"):
             old.unlink()
     for name, (rel, end, fades) in MUSIC.items():
         src = find(rel)

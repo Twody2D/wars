@@ -24,7 +24,7 @@ const UPGRADES_SEC := 4.6
 const RESULT_HOLD_SEC := 3.0
 const MAX_TOTAL_SEC := 150.0
 ## The director presses a card this often (s of battle time).
-const THINK_SEC := 0.45
+const THINK_SEC := 0.75
 
 ## Per battle: level, kept waves, their start (sim s), boss HP, bot base HP,
 ## bot power, fighters already on the field at the first frame (ours, theirs).

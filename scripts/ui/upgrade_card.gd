@@ -74,5 +74,6 @@ func refresh() -> void:
 func _on_pressed() -> void:
 	if upgrade.one_time and GameState.upgrade_level(upgrade.id) > 0:
 		GameState.set_battle_speed(not GameState.battle_speed_on)
+		Audio.play_sfx(&"click", false)
 	else:
-		GameState.buy_upgrade(upgrade.id)
+		Audio.play_sfx(&"upgrade" if GameState.buy_upgrade(upgrade.id) else &"deny", false)

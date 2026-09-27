@@ -40,8 +40,8 @@ SEGMENTS: list[tuple[str, float, float, str]] = [
     ("end", 0.0, 2.0, ""),
 ]
 XFADE = 0.45
-MUSIC_VOLUME = 0.55
-SFX_VOLUME = 1.0
+MUSIC_VOLUME = 0.75
+SFX_VOLUME = 0.7
 FADE_OUT = 0.6
 
 

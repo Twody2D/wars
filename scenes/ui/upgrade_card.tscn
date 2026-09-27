@@ -119,6 +119,7 @@ vertical_alignment = 1
 
 [node name="BuyButton" type="Button" parent="."]
 unique_name_in_owner = true
+metadata/no_click = true
 layout_mode = 0
 offset_left = 252.0
 offset_top = 56.0

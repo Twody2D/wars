@@ -37,6 +37,9 @@ const SFX: Dictionary[StringName, Array] = {
 	&"win": [preload("res://audio/sfx/win.ogg")],
 	&"lose": [preload("res://audio/sfx/lose.ogg")],
 	&"click": [preload("res://audio/sfx/click.ogg")],
+	&"upgrade": [preload("res://audio/sfx/upgrade.ogg")],
+	&"unlock": [preload("res://audio/sfx/unlock.ogg")],
+	&"deny": [preload("res://audio/sfx/deny.ogg")],
 	&"wave": [preload("res://audio/sfx/wave.ogg")],
 	&"base_hit": [
 		preload("res://audio/sfx/base_hit_1.ogg"),
@@ -52,6 +55,11 @@ const MUSIC: Dictionary[StringName, AudioStream] = {
 const POOL_SIZE := 12
 ## The same SFX again within this time is skipped (a crowd hitting at once).
 const REPEAT_GAP_SEC := 0.06
+## Longer gaps for the sounds a big fight repeats all the time: without them
+## the battle is a wall of sword clangs.
+const REPEAT_GAP: Dictionary[StringName, float] = {
+	&"hit": 0.16, &"shoot": 0.12, &"death": 0.1, &"spawn": 0.2, &"base_hit": 0.15,
+}
 ## Random pitch spread so repeated hits don't sound identical.
 const PITCH_JITTER := 0.08
 ## Seconds for the music to fade out on pause and back in on resume.
@@ -88,7 +96,8 @@ func play_sfx(id: StringName, jitter: bool = true) -> void:
 		push_warning("Audio: unknown sfx %s" % id)
 		return
 	var now: int = Time.get_ticks_msec()
-	if now - _last_played.get(id, -100000) < int(REPEAT_GAP_SEC * 1000.0):
+	var gap: float = REPEAT_GAP.get(id, REPEAT_GAP_SEC)
+	if now - _last_played.get(id, -100000) < int(gap * 1000.0):
 		return
 	_last_played[id] = now
 	var p: AudioStreamPlayer = _free_player()
@@ -131,9 +140,10 @@ func stop_music() -> void:
 	_music.stop()
 
 
-## Every button in the game clicks (one place instead of each scene).
+## Every button in the game clicks (one place instead of each scene). A
+## button with the "no_click" meta plays its own sound (buy buttons).
 func _on_node_added(node: Node) -> void:
-	if node is BaseButton:
+	if node is BaseButton and not node.has_meta(&"no_click"):
 		var button: BaseButton = node
 		if not button.pressed.is_connected(_on_button_pressed):
 			button.pressed.connect(_on_button_pressed)
