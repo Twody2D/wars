@@ -71,6 +71,7 @@
 - `probe_breakeven.gd -- <с> <по> [сидов]` — сила бота, при которой типичный игрок уровня выигрывает половину боёв; `BOT_POWER` ставить относительно неё. Таблица `STATE` (прокачка на входе в уровень) — из прогона `probe_campaign`, обновлять после смены экономики.
 - `probe_trace.gd -- <ур> <seed> [шаг] [еда] [hp] [сила_бота|-] [сила_армии]` — один бой с трассировкой; `winner 0` = игрок; `-` = сила бота из уровня (без копии).
 - `import_sounds.py` — звуки из CC0-наборов (скачивает в `build/audio_src`, режет, выравнивает, OGG; нужен `imageio-ffmpeg`); `gen_ui_wood.py` / `gen_theme.py` — детали UI v1 и тема; `copy_assets.py` — арт из `design/` (включая v2); `check_build.py` — проверка и упаковка zip (падает, если в сборке остался `sdk.js`).
+- `record_trailer.gd` + `make_trailer.py` — видео для каталога (см. `docs/STORE.md`; нужны `imageio-ffmpeg`, `fonttools`).
 - `browser_check.py` + `fake_yandex_sdk.js` — проверка в Chrome (см. «Окружение»).
 - `probe_waves.gd` — состав волн всех уровней.
 - `shot.gd -- <сцена> <префикс> <t1,t2> [spawn|call=метод:арг]` — скриншоты (нужно окно, не headless).
