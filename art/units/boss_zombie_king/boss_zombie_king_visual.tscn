@@ -5,6 +5,7 @@
 
 [node name="BossZombieKingVisual" type="Node2D" unique_id=1100416279]
 script = ExtResource("1_4sron")
+attack_anim = &"swing"
 unit_id = &"boss_zombie_king"
 anim_speed = 0.6
 

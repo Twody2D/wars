@@ -25,6 +25,9 @@ STORE = ROOT / "build" / "store"
 FONT_SRC = ROOT / "art" / "fonts" / "rubik.ttf"
 FONT = "build/store/rubik_800.ttf"
 MUSIC = ROOT / "audio" / "music" / "battle.ogg"
+# End card: the store cover (Claude Design, 1600×940) if it is there, else the
+# frame the recorder saved from store_cover.svg.
+COVER = STORE / "new" / "store_cover_A_master.png"
 MAX_SEC = 28.0
 
 # (anchor event, offset s, raw length s, speed, caption, caption y in 1080p).
@@ -33,11 +36,11 @@ MAX_SEC = 28.0
 # not happen; "end" is the end card. m_ — meadow battle, c_ — cave battle.
 SEGMENTS: list[tuple[str, float, float, float, str, int]] = [
     ("start", 0.1, 1.5, 1.0, "", 0),
-    ("m_wave_1", 1.0, 4.5, 1.4, "", 0),
+    ("m_wave_1", 5.5, 4.0, 1.4, "", 0),
     ("m_final", -0.2, 4.0, 1.25, "", 0),
     ("m_final", 6.0, 3.5, 1.5, "", 0),
     ("upgrades", 0.6, 2.4, 1.0, "", 0),
-    ("c_wave_1", -0.2, 4.0, 1.4, "", 0),
+    ("c_wave_1", 3.5, 4.0, 1.4, "", 0),
     ("c_meteor|m_meteor", -0.1, 2.4, 1.0, "", 0),
     ("c_final", -0.2, 3.5, 1.25, "", 0),
     ("c_over", -3.5, 3.5, 1.4, "", 0),
@@ -63,7 +66,8 @@ def main() -> None:
     for i, (anchor, offset, length, speed, caption, y) in enumerate(SEGMENTS):
         if anchor == "end":
             # Still image input 2, silent audio from anullsrc (input 3).
-            v = (f"[2:v]trim=duration={length:.3f},setpts=PTS-STARTPTS,scale=1920:1080,fps=30,"
+            v = (f"[2:v]trim=duration={length:.3f},setpts=PTS-STARTPTS,"
+                 f"scale=1920:-2,crop=1920:1080,fps=30,"
                  f"format=yuv420p,fade=t=in:d=0.25")
             a = f"[3:a]atrim=duration={length:.3f},asetpts=PTS-STARTPTS[a{i}]"
         else:
@@ -100,7 +104,7 @@ def main() -> None:
     out = STORE / "trailer.mp4"
     cmd = [imageio_ffmpeg.get_ffmpeg_exe(), "-v", "error", "-y",
            "-i", str(STORE / "raw.avi"), "-i", str(MUSIC),
-           "-loop", "1", "-i", str(STORE / "end_card.png"),
+           "-loop", "1", "-i", str(COVER if COVER.exists() else STORE / "end_card.png"),
            "-f", "lavfi", "-i", "anullsrc=r=48000:cl=stereo",
            "-filter_complex", graph, "-map", "[vout]", "-map", "[aout]",
            "-c:v", "libx264", "-preset", "slow", "-crf", "20", "-pix_fmt", "yuv420p", "-r", "30",

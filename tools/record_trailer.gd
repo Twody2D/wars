@@ -247,8 +247,10 @@ func _prepare(sim: BattleSim) -> void:
 	if u.has(&"barrel_bomber"):
 		_mix.append(u[&"barrel_bomber"])
 	sim.food = 16.0
-	# Only the field and the banners: no top bar, no bottom panel.
-	for path: NodePath in [^"HUD/Root/TopBar", ^"HUD/Root/BottomPanel"]:
+	# Only the field and the banners: no top bar, no bottom panel, no ore
+	# (its recharge ring sits at the bottom edge of the close-up; the director
+	# still mines it).
+	for path: NodePath in [^"HUD/Root/TopBar", ^"HUD/Root/BottomPanel", ^"OreBlocks"]:
 		var n: CanvasItem = _battle.get_node(path)
 		n.visible = false
 	var cam: Camera2D = _battle.get_node(^"Camera")

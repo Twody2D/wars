@@ -15,6 +15,10 @@ extends Control
 
 const WINDOW := Rect2(17.0, 17.0, 162.0, 88.0)
 const ART_BOTTOM_GAP := 6.0
+## The stats row must fit inside the card frame; big numbers get a smaller font.
+const STATS_MAX_WIDTH := 184.0
+const STATS_FONT_MAX := 24
+const STATS_FONT_MIN := 15
 
 var unit: UnitData
 
@@ -27,6 +31,7 @@ var unit: UnitData
 @onready var _hp_next: Control = %HpNext
 @onready var _damage: Label = %Damage
 @onready var _damage_next: Control = %DamageNext
+@onready var _stats: Control = $Stats
 @onready var _max_plate: Control = %MaxPlate
 @onready var _button: Button = %BuyButton
 
@@ -65,6 +70,7 @@ func refresh() -> void:
 		next = GameState.unit_stats(unit.id, level + 1)
 	_show_stat(_hp, _hp_next, now.x, next.x)
 	_show_stat(_damage, _damage_next, now.y, next.y)
+	_fit_stats()
 	_max_plate.visible = maxed
 	_button.visible = not maxed
 	if maxed:
@@ -82,6 +88,18 @@ func _show_stat(label: Label, next_box: Control, now: float, next: float) -> voi
 	next_box.visible = roundi(next) != roundi(now)
 	var value: Label = next_box.get_child(1)
 	value.text = str(roundi(next))
+
+
+## Shrinks the stats font until the row fits the card (e.g. "140›151 ⚔19›20").
+func _fit_stats() -> void:
+	var labels: Array[Label] = []
+	for label: Node in _stats.find_children("*", "Label", true, false):
+		labels.append(label as Label)
+	for font_size: int in range(STATS_FONT_MAX, STATS_FONT_MIN - 1, -1):
+		for label: Label in labels:
+			label.add_theme_font_size_override(&"font_size", font_size)
+		if _stats.get_combined_minimum_size().x <= STATS_MAX_WIDTH:
+			return
 
 
 ## 20000 → "20 000", like the mockup.

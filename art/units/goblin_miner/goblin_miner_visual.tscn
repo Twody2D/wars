@@ -5,6 +5,7 @@
 
 [node name="GoblinMinerVisual" type="Node2D" unique_id=1363665660]
 script = ExtResource("1_q74uu")
+attack_anim = &"swing"
 unit_id = &"goblin_miner"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1922503007]
