@@ -91,15 +91,47 @@ func _show_stat(label: Label, next_box: Control, now: float, next: float) -> voi
 
 
 ## Shrinks the stats font until the row fits the card (e.g. "140›151 ⚔19›20").
+## The width is measured from the font: the containers' minimum size is
+## updated a frame later and would still hold the old font size.
 func _fit_stats() -> void:
 	var labels: Array[Label] = []
 	for label: Node in _stats.find_children("*", "Label", true, false):
 		labels.append(label as Label)
-	for font_size: int in range(STATS_FONT_MAX, STATS_FONT_MIN - 1, -1):
-		for label: Label in labels:
-			label.add_theme_font_size_override(&"font_size", font_size)
-		if _stats.get_combined_minimum_size().x <= STATS_MAX_WIDTH:
-			return
+	var font_size: int = STATS_FONT_MAX
+	while font_size > STATS_FONT_MIN and _stats_width(font_size) > STATS_MAX_WIDTH:
+		font_size -= 1
+	for label: Label in labels:
+		label.add_theme_font_size_override(&"font_size", font_size)
+
+
+func _stats_width(font_size: int) -> float:
+	var width: float = 0.0
+	var boxes: Array[Node] = _stats.get_children()
+	for box: Node in boxes:
+		var row: BoxContainer = box
+		var shown: int = 0
+		for part: Node in row.get_children():
+			var c: Control = part
+			if c.visible:
+				shown += 1
+				width += _part_width(c, font_size)
+		width += row.get_theme_constant(&"separation") * maxi(shown - 1, 0)
+	return width + _stats.get_theme_constant(&"separation") * (boxes.size() - 1)
+
+
+func _part_width(part: Control, font_size: int) -> float:
+	if not part.visible:
+		return 0.0
+	if part is Label:
+		var label: Label = part
+		var font: Font = label.get_theme_font(&"font")
+		return font.get_string_size(label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
+	if part is BoxContainer:
+		var sum: float = 0.0
+		for child: Node in part.get_children():
+			sum += _part_width(child as Control, font_size)
+		return sum
+	return part.custom_minimum_size.x
 
 
 ## 20000 → "20 000", like the mockup.
