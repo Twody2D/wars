@@ -1,19 +1,19 @@
-[gd_scene load_steps=49 format=3]
+[gd_scene load_steps=70 format=3]
 
 [ext_resource type="Script" path="res://scripts/battle/battle.gd" id="1_battle"]
-[ext_resource type="Texture2D" path="res://art/battle/battle_meadow.svg" id="2_bg_meadow"]
-[ext_resource type="Texture2D" path="res://art/battle/battle_cave.svg" id="3_bg_cave"]
-[ext_resource type="Texture2D" path="res://art/bases/base_meadow_intact.svg" id="4_bm_i"]
-[ext_resource type="Texture2D" path="res://art/bases/base_meadow_damaged.svg" id="5_bm_d"]
-[ext_resource type="Texture2D" path="res://art/bases/base_meadow_destroyed.svg" id="6_bm_x"]
-[ext_resource type="Texture2D" path="res://art/bases/base_cave_intact.svg" id="7_bc_i"]
-[ext_resource type="Texture2D" path="res://art/bases/base_cave_damaged.svg" id="8_bc_d"]
-[ext_resource type="Texture2D" path="res://art/bases/base_cave_destroyed.svg" id="9_bc_x"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/bg_battle_meadow.svg" id="2_bg_meadow"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/bg_battle_cave.svg" id="3_bg_cave"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/base_meadow_blue_intact.svg" id="4_bm_i"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/base_meadow_blue_damaged.svg" id="5_bm_d"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/base_meadow_blue_destroyed.svg" id="6_bm_x"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/base_cave_blue_intact.svg" id="7_bc_i"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/base_cave_blue_damaged.svg" id="8_bc_d"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/base_cave_blue_destroyed.svg" id="9_bc_x"]
 [ext_resource type="Script" path="res://scripts/battle/base_view.gd" id="10_base"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_hp_bar_frame.svg" id="11_bar"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_hp_fill_blue.svg" id="12_blue"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_hp_fill_red.svg" id="13_red"]
-[ext_resource type="Texture2D" path="res://art/battle/decor/ore_block.svg" id="14_ore"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/hp_bar_base_frame.svg" id="11_bar"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/hp_bar_base_fill_blue.svg" id="12_blue"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/hp_bar_base_fill_red.svg" id="13_red"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/ore_meadow.svg" id="14_ore"]
 [ext_resource type="Script" path="res://scripts/battle/ore_block.gd" id="15_ore"]
 [ext_resource type="Script" path="res://scripts/battle/effect_layer.gd" id="16_fx"]
 [ext_resource type="Texture2D" path="res://art/fx/fx_hit.svg" id="17_hit"]
@@ -24,13 +24,6 @@
 [ext_resource type="Script" path="res://scripts/battle/meteor_reticle.gd" id="22_reticle"]
 [ext_resource type="Script" path="res://scripts/ui/battle_hud.gd" id="23_hud"]
 [ext_resource type="PackedScene" path="res://scenes/ui/unit_card.tscn" id="24_card"]
-[ext_resource type="Texture2D" path="res://art/ui/icons/icon_heart.svg" id="25_heart"]
-[ext_resource type="Texture2D" path="res://art/ui/icons/icon_coin.svg" id="26_coin"]
-[ext_resource type="Texture2D" path="res://art/hud/wave_counter_panel_v2.svg" id="27_wave"]
-[ext_resource type="Texture2D" path="res://art/ui/icons/icon_pause.svg" id="28_pause"]
-[ext_resource type="Texture2D" path="res://art/hud/hud_bottom_panel.svg" id="29_panel"]
-[ext_resource type="Texture2D" path="res://art/ui/icons/icon_food.svg" id="30_food"]
-[ext_resource type="Texture2D" path="res://art/hud/ability_button_v2.svg" id="31_ability"]
 [ext_resource type="PackedScene" path="res://scenes/ui/pause.tscn" id="32_pause"]
 [ext_resource type="PackedScene" path="res://scenes/ui/result.tscn" id="33_result"]
 [ext_resource type="Script" path="res://scripts/ui/tutorial_hints.gd" id="34_tutorial"]
@@ -38,40 +31,46 @@
 [ext_resource type="Texture2D" path="res://art/projectiles/proj_arrow.svg" id="36_arrow"]
 [ext_resource type="Texture2D" path="res://art/projectiles/proj_pickaxe.svg" id="37_pickaxe"]
 [ext_resource type="Texture2D" path="res://art/projectiles/proj_rock.svg" id="38_rock"]
-[ext_resource type="Texture2D" path="res://art/battle/decor/decor_tree.svg" id="39_tree"]
-[ext_resource type="Texture2D" path="res://art/battle/decor/decor_bush.svg" id="40_bush"]
-[ext_resource type="Texture2D" path="res://art/battle/decor/decor_rock.svg" id="41_rock"]
-[ext_resource type="Texture2D" path="res://art/battle/decor/decor_flower.svg" id="42_flower"]
-[ext_resource type="Texture2D" path="res://art/hud/booster_speed_v2.svg" id="43_boost_speed"]
-[ext_resource type="Texture2D" path="res://art/hud/booster_food_v2.svg" id="44_boost_food"]
-[ext_resource type="Texture2D" path="res://art/ui/icons/icon_star.svg" id="45_star"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/hp_star_mark.svg" id="45_star"]
 [ext_resource type="PackedScene" path="res://scenes/ui/battle_banner.tscn" id="40_banner"]
-[ext_resource type="Texture2D" path="res://art/fx/fx_shield.svg" id="46_shield"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/shield_dome.svg" id="46_shield"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/base_meadow_red_intact.svg" id="60_rm_i"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/base_meadow_red_damaged.svg" id="61_rm_d"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/base_meadow_red_destroyed.svg" id="62_rm_x"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/base_cave_red_intact.svg" id="63_rc_i"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/base_cave_red_damaged.svg" id="64_rc_d"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/base_cave_red_destroyed.svg" id="65_rc_x"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/ore_meadow_empty.svg" id="66_ore_empty"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/ore_cave.svg" id="67_ore_cave"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/ore_cave_empty.svg" id="68_ore_cave_empty"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/ore_ring_track.svg" id="69_ring_track"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/ore_ring_fill.svg" id="70_ring_fill"]
+[ext_resource type="Theme" path="res://scenes/ui/theme_v3.tres" id="71_theme_v3"]
 
-[sub_resource type="StyleBoxTexture" id="wave_panel"]
-content_margin_left = 60.0
-content_margin_top = 4.0
-content_margin_right = 20.0
-content_margin_bottom = 4.0
-texture = ExtResource("27_wave")
-texture_margin_left = 56.0
-texture_margin_top = 16.0
-texture_margin_right = 16.0
-texture_margin_bottom = 16.0
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/hud_counter.svg" id="72_counter"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/wave_plate.svg" id="73_wave_plate"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/icon_wave_flag.svg" id="74_flag"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/icon_pause.svg" id="76_pause"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/panel_bottom.svg" id="77_panel"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/food_well.svg" id="78_well"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/food_bar_frame.svg" id="79_food_frame"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/food_bar_fill.svg" id="80_food_fill"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_food.svg" id="81_food"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_heart.svg" id="82_heart"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_coin.svg" id="83_coin"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_speed.svg" id="84_speed"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/badge_ad.svg" id="85_ad"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/meteor_glow.svg" id="86_glow"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/btn_meteor_normal.svg" id="87_meteor"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/btn_meteor_hover.svg" id="88_meteor_hover"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/btn_meteor_pressed.svg" id="89_meteor_pressed"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/btn_meteor_disabled.svg" id="90_meteor_disabled"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/meteor_ring_track.svg" id="91_ring_track"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/meteor_ring_fill.svg" id="92_ring_fill"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/icon_meteor.svg" id="93_meteor_icon"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/charge_plate.svg" id="94_charge"]
 
-[sub_resource type="StyleBoxFlat" id="food_bg"]
-bg_color = Color(0.105882, 0.105882, 0.184314, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="food_fill"]
-bg_color = Color(1, 0.72, 0.2, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
+[ext_resource type="PackedScene" path="res://scenes/ui/settings.tscn" id="95_settings"]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_battle")
@@ -88,6 +87,14 @@ biome_bases = {
 &"cave": [ExtResource("7_bc_i"), ExtResource("8_bc_d"), ExtResource("9_bc_x")],
 &"meadow": [ExtResource("4_bm_i"), ExtResource("5_bm_d"), ExtResource("6_bm_x")]
 }
+biome_bot_bases = {
+&"cave": [ExtResource("63_rc_i"), ExtResource("64_rc_d"), ExtResource("65_rc_x")],
+&"meadow": [ExtResource("60_rm_i"), ExtResource("61_rm_d"), ExtResource("62_rm_x")]
+}
+biome_ores = {
+&"cave": [ExtResource("67_ore_cave"), ExtResource("68_ore_cave_empty")],
+&"meadow": [ExtResource("14_ore"), ExtResource("66_ore_empty")]
+}
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(640, 360)
@@ -98,163 +105,144 @@ position = Vector2(-400, -300)
 texture = ExtResource("2_bg_meadow")
 centered = false
 region_enabled = true
-region_rect = Rect2(-400, -300, 2080, 1320)
-
-[node name="Decor" type="Node2D" parent="."]
-
-[node name="Tree1" type="Sprite2D" parent="Decor"]
-position = Vector2(300, 190)
-texture = ExtResource("39_tree")
-
-[node name="Bush1" type="Sprite2D" parent="Decor"]
-position = Vector2(560, 260)
-texture = ExtResource("40_bush")
-
-[node name="Tree2" type="Sprite2D" parent="Decor"]
-position = Vector2(880, 175)
-texture = ExtResource("39_tree")
-
-[node name="Flower1" type="Sprite2D" parent="Decor"]
-position = Vector2(1010, 270)
-texture = ExtResource("42_flower")
-
-[node name="Rock1" type="Sprite2D" parent="Decor"]
-position = Vector2(560, 505)
-texture = ExtResource("41_rock")
-
-[node name="Bush2" type="Sprite2D" parent="Decor"]
-position = Vector2(1040, 510)
-texture = ExtResource("40_bush")
+region_rect = Rect2(-320, -300, 2080, 1320)
 
 [node name="PlayerBase" type="Node2D" parent="."]
-position = Vector2(90, 380)
+position = Vector2(96, 346)
 script = ExtResource("10_base")
 intact = ExtResource("4_bm_i")
 damaged = ExtResource("5_bm_d")
 destroyed = ExtResource("6_bm_x")
-bar_fill = ExtResource("12_blue")
 
 [node name="Sprite" type="Sprite2D" parent="PlayerBase"]
+scale = Vector2(0.75, 0.75)
 texture = ExtResource("4_bm_i")
 
-[node name="HpBar" type="TextureProgressBar" parent="PlayerBase"]
-offset_left = -70.0
-offset_top = -128.0
-offset_right = 70.0
-offset_bottom = -104.0
-value = 100.0
-nine_patch_stretch = true
-stretch_margin_left = 8
-stretch_margin_top = 8
-stretch_margin_right = 8
-stretch_margin_bottom = 8
-texture_under = ExtResource("11_bar")
-texture_progress = ExtResource("12_blue")
+[node name="HpBar" type="NinePatchRect" parent="PlayerBase"]
+offset_left = -75.0
+offset_top = -150.0
+offset_right = 75.0
+offset_bottom = -126.0
+mouse_filter = 2
+theme = ExtResource("71_theme_v3")
+texture = ExtResource("11_bar")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="Fill" type="NinePatchRect" parent="PlayerBase/HpBar"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 147.0
+offset_bottom = 21.0
+mouse_filter = 2
+texture = ExtResource("12_blue")
+patch_margin_left = 9
+patch_margin_top = 9
+patch_margin_right = 9
+patch_margin_bottom = 9
 
 [node name="Value" type="Label" parent="PlayerBase/HpBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -3.0
-theme_override_font_sizes/font_size = 16
-text = "300"
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 6
+theme_override_font_sizes/font_size = 20
+text = "5"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="StarMarks" type="Control" parent="PlayerBase/HpBar"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -26.0
-offset_bottom = -26.0
+offset_top = -30.0
+offset_bottom = 10.0
 mouse_filter = 2
 
 [node name="Star3" type="TextureRect" parent="PlayerBase/HpBar/StarMarks"]
 layout_mode = 0
-offset_right = 24.0
-offset_bottom = 24.0
+offset_right = 26.0
+offset_bottom = 40.0
 mouse_filter = 2
 texture = ExtResource("45_star")
 expand_mode = 1
-stretch_mode = 5
-
-[node name="Tick" type="ColorRect" parent="PlayerBase/HpBar/StarMarks/Star3"]
-layout_mode = 0
-offset_left = 11.0
-offset_top = 24.0
-offset_right = 13.0
-offset_bottom = 50.0
-mouse_filter = 2
-color = Color(0.105882, 0.105882, 0.184314, 1)
 
 [node name="Star2" type="TextureRect" parent="PlayerBase/HpBar/StarMarks"]
 layout_mode = 0
-offset_right = 24.0
-offset_bottom = 24.0
+offset_right = 26.0
+offset_bottom = 40.0
 mouse_filter = 2
 texture = ExtResource("45_star")
 expand_mode = 1
-stretch_mode = 5
-
-[node name="Tick" type="ColorRect" parent="PlayerBase/HpBar/StarMarks/Star2"]
-layout_mode = 0
-offset_left = 11.0
-offset_top = 24.0
-offset_right = 13.0
-offset_bottom = 50.0
-mouse_filter = 2
-color = Color(0.105882, 0.105882, 0.184314, 1)
 
 [node name="BotBase" type="Node2D" parent="."]
-position = Vector2(1190, 380)
+position = Vector2(1184, 346)
 script = ExtResource("10_base")
-intact = ExtResource("4_bm_i")
-damaged = ExtResource("5_bm_d")
-destroyed = ExtResource("6_bm_x")
-bar_fill = ExtResource("13_red")
+intact = ExtResource("60_rm_i")
+damaged = ExtResource("61_rm_d")
+destroyed = ExtResource("62_rm_x")
 
 [node name="Sprite" type="Sprite2D" parent="BotBase"]
-texture = ExtResource("4_bm_i")
-flip_h = true
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("60_rm_i")
 
 [node name="Shield" type="Sprite2D" parent="BotBase"]
-position = Vector2(0, -30)
+position = Vector2(0, -11)
+scale = Vector2(0.853, 0.853)
 texture = ExtResource("46_shield")
 
-[node name="HpBar" type="TextureProgressBar" parent="BotBase"]
-offset_left = -70.0
-offset_top = -128.0
-offset_right = 70.0
-offset_bottom = -104.0
-value = 100.0
-nine_patch_stretch = true
-stretch_margin_left = 8
-stretch_margin_top = 8
-stretch_margin_right = 8
-stretch_margin_bottom = 8
-texture_under = ExtResource("11_bar")
-texture_progress = ExtResource("13_red")
+[node name="HpBar" type="NinePatchRect" parent="BotBase"]
+offset_left = -75.0
+offset_top = -150.0
+offset_right = 75.0
+offset_bottom = -126.0
+mouse_filter = 2
+theme = ExtResource("71_theme_v3")
+texture = ExtResource("11_bar")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="Fill" type="NinePatchRect" parent="BotBase/HpBar"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 147.0
+offset_bottom = 21.0
+mouse_filter = 2
+texture = ExtResource("13_red")
+patch_margin_left = 9
+patch_margin_top = 9
+patch_margin_right = 9
+patch_margin_bottom = 9
 
 [node name="Value" type="Label" parent="BotBase/HpBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -3.0
-theme_override_font_sizes/font_size = 16
-text = "400"
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 6
+theme_override_font_sizes/font_size = 20
+text = "5"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="OreBlocks" type="Node2D" parent="."]
 
 [node name="Ore0" type="TextureButton" parent="OreBlocks"]
-offset_left = 300.0
-offset_top = 462.0
-offset_right = 364.0
-offset_bottom = 526.0
+offset_left = 282.0
+offset_top = 458.0
+offset_right = 378.0
+offset_bottom = 554.0
 texture_normal = ExtResource("14_ore")
 ignore_texture_size = true
 stretch_mode = 5
@@ -262,21 +250,21 @@ script = ExtResource("15_ore")
 
 [node name="Cooldown" type="TextureProgressBar" parent="OreBlocks/Ore0"]
 visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+layout_mode = 0
+offset_left = 26.0
+offset_top = -18.0
+offset_right = 70.0
+offset_bottom = 26.0
 mouse_filter = 2
-fill_mode = 3
-nine_patch_stretch = true
-texture_progress = ExtResource("14_ore")
-tint_progress = Color(0.1, 0.1, 0.15, 0.55)
+fill_mode = 4
+texture_under = ExtResource("69_ring_track")
+texture_progress = ExtResource("70_ring_fill")
 
 [node name="Ore1" type="TextureButton" parent="OreBlocks"]
-offset_left = 840.0
-offset_top = 462.0
-offset_right = 904.0
-offset_bottom = 526.0
+offset_left = 852.0
+offset_top = 458.0
+offset_right = 948.0
+offset_bottom = 554.0
 texture_normal = ExtResource("14_ore")
 ignore_texture_size = true
 stretch_mode = 5
@@ -285,15 +273,15 @@ index = 1
 
 [node name="Cooldown" type="TextureProgressBar" parent="OreBlocks/Ore1"]
 visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+layout_mode = 0
+offset_left = 26.0
+offset_top = -18.0
+offset_right = 70.0
+offset_bottom = 26.0
 mouse_filter = 2
-fill_mode = 3
-nine_patch_stretch = true
-texture_progress = ExtResource("14_ore")
-tint_progress = Color(0.1, 0.1, 0.15, 0.55)
+fill_mode = 4
+texture_under = ExtResource("69_ring_track")
+texture_progress = ExtResource("70_ring_fill")
 
 [node name="Units" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -327,7 +315,7 @@ script = ExtResource("22_reticle")
 script = ExtResource("23_hud")
 card_scene = ExtResource("24_card")
 show_debug = false
-coin_texture = ExtResource("26_coin")
+coin_texture = ExtResource("83_coin")
 
 [node name="Root" type="Control" parent="HUD"]
 layout_mode = 3
@@ -337,48 +325,149 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("71_theme_v3")
 
-[node name="TopBar" type="HBoxContainer" parent="HUD/Root"]
+[node name="TopBar" type="Control" parent="HUD/Root"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 16.0
-offset_top = 4.0
-offset_right = -16.0
-offset_bottom = 60.0
+offset_bottom = 100.0
 grow_horizontal = 2
 mouse_filter = 2
-theme_override_constants/separation = 12
 
-[node name="HeartIcon" type="TextureRect" parent="HUD/Root/TopBar"]
-custom_minimum_size = Vector2(44, 44)
-layout_mode = 2
+[node name="HeartCounter" type="NinePatchRect" parent="HUD/Root/TopBar"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 172.0
+offset_bottom = 70.0
 mouse_filter = 2
-texture = ExtResource("25_heart")
-expand_mode = 1
-stretch_mode = 5
+texture = ExtResource("72_counter")
+patch_margin_left = 54
+patch_margin_top = 26
+patch_margin_right = 30
+patch_margin_bottom = 32
 
-[node name="HpLabel" type="Label" parent="HUD/Root/TopBar"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(70, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "300"
-
-[node name="CoinIcon" type="TextureRect" parent="HUD/Root/TopBar"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(44, 44)
-layout_mode = 2
+[node name="HeartIcon" type="TextureRect" parent="HUD/Root/TopBar/HeartCounter"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 48.0
+offset_bottom = 48.0
 mouse_filter = 2
-texture = ExtResource("26_coin")
+texture = ExtResource("82_heart")
 expand_mode = 1
-stretch_mode = 5
 
-[node name="CoinsLabel" type="Label" parent="HUD/Root/TopBar"]
+[node name="HpLabel" type="Label" parent="HUD/Root/TopBar/HeartCounter"]
 unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
+layout_mode = 0
+offset_left = 52.0
+offset_right = 148.0
+offset_bottom = 52.0
+theme_override_font_sizes/font_size = 30
+text = "5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CoinCounter" type="NinePatchRect" parent="HUD/Root/TopBar"]
+layout_mode = 0
+offset_left = 182.0
+offset_top = 12.0
+offset_right = 342.0
+offset_bottom = 70.0
+mouse_filter = 2
+texture = ExtResource("72_counter")
+patch_margin_left = 54
+patch_margin_top = 26
+patch_margin_right = 30
+patch_margin_bottom = 32
+
+[node name="CoinIcon" type="TextureRect" parent="HUD/Root/TopBar/CoinCounter"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 48.0
+offset_bottom = 48.0
+mouse_filter = 2
+texture = ExtResource("83_coin")
+expand_mode = 1
+
+[node name="CoinsLabel" type="Label" parent="HUD/Root/TopBar/CoinCounter"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 52.0
+offset_right = 148.0
+offset_bottom = 52.0
+theme_override_font_sizes/font_size = 30
 text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WavePanel" type="NinePatchRect" parent="HUD/Root/TopBar"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -170.0
+offset_top = 10.0
+offset_right = 170.0
+offset_bottom = 70.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("73_wave_plate")
+patch_margin_left = 56
+patch_margin_top = 26
+patch_margin_right = 30
+patch_margin_bottom = 32
+
+[node name="Flag" type="TextureRect" parent="HUD/Root/TopBar/WavePanel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 7.0
+offset_right = 50.0
+offset_bottom = 47.0
+mouse_filter = 2
+texture = ExtResource("74_flag")
+expand_mode = 1
+
+[node name="WaveLabel" type="Label" parent="HUD/Root/TopBar/WavePanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 50.0
+offset_right = -12.0
+offset_bottom = 54.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 26
+text = "LEVEL_WAVE_FMT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PauseButton" type="Button" parent="HUD/Root/TopBar"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -96.0
+offset_top = 6.0
+offset_right = -12.0
+offset_bottom = 96.0
+grow_horizontal = 0
+theme_type_variation = &"PauseButton"
+
+[node name="Icon" type="TextureRect" parent="HUD/Root/TopBar/PauseButton"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 16.0
+offset_right = 64.0
+offset_bottom = 60.0
+mouse_filter = 2
+texture = ExtResource("76_pause")
+expand_mode = 1
 
 [node name="FlyingCoins" type="Control" parent="HUD/Root"]
 unique_name_in_owner = true
@@ -388,192 +477,265 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="SpacerL" type="Control" parent="HUD/Root/TopBar"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="WavePanel" type="PanelContainer" parent="HUD/Root/TopBar"]
-custom_minimum_size = Vector2(200, 56)
-layout_mode = 2
-size_flags_vertical = 4
-mouse_filter = 2
-theme_override_styles/panel = SubResource("wave_panel")
-
-[node name="WaveLabel" type="Label" parent="HUD/Root/TopBar/WavePanel"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "WAVE_FMT"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="SpacerR" type="Control" parent="HUD/Root/TopBar"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="PauseButton" type="Button" parent="HUD/Root/TopBar"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(72, 72)
-layout_mode = 2
-size_flags_vertical = 4
-theme_type_variation = &"IconButton"
-icon = ExtResource("28_pause")
-icon_alignment = 1
-expand_icon = true
-
-[node name="BottomPanel" type="TextureRect" parent="HUD/Root"]
+[node name="BottomPanel" type="Control" parent="HUD/Root"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -160.0
+offset_top = -148.0
 grow_horizontal = 2
 grow_vertical = 0
-texture = ExtResource("29_panel")
-expand_mode = 1
+mouse_filter = 2
 
-[node name="Content" type="HBoxContainer" parent="HUD/Root/BottomPanel"]
+[node name="Panel" type="NinePatchRect" parent="HUD/Root/BottomPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 30.0
-offset_top = 16.0
-offset_right = -30.0
-offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 14
+texture = ExtResource("77_panel")
+patch_margin_left = 40
+patch_margin_top = 40
+patch_margin_right = 40
 
-[node name="FoodBox" type="VBoxContainer" parent="HUD/Root/BottomPanel/Content"]
-custom_minimum_size = Vector2(110, 0)
-layout_mode = 2
-alignment = 1
+[node name="FoodWell" type="NinePatchRect" parent="HUD/Root/BottomPanel"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 162.0
+offset_bottom = 140.0
+mouse_filter = 2
+texture = ExtResource("78_well")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
 
-[node name="FoodIcon" type="TextureRect" parent="HUD/Root/BottomPanel/Content/FoodBox"]
-custom_minimum_size = Vector2(0, 48)
-layout_mode = 2
-texture = ExtResource("30_food")
+[node name="FoodIcon" type="TextureRect" parent="HUD/Root/BottomPanel/FoodWell"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 2.0
+offset_right = 107.0
+offset_bottom = 66.0
+mouse_filter = 2
+texture = ExtResource("81_food")
 expand_mode = 1
-stretch_mode = 5
 
-[node name="FoodLabel" type="Label" parent="HUD/Root/BottomPanel/Content/FoodBox"]
+[node name="FoodLabel" type="Label" parent="HUD/Root/BottomPanel/FoodWell"]
 unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "5/30"
-horizontal_alignment = 1
-
-[node name="FoodProgress" type="ProgressBar" parent="HUD/Root/BottomPanel/Content/FoodBox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 14)
-layout_mode = 2
-theme_override_styles/background = SubResource("food_bg")
-theme_override_styles/fill = SubResource("food_fill")
-value = 50.0
-show_percentage = false
-
-[node name="Cards" type="HBoxContainer" parent="HUD/Root/BottomPanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/separation = 12
-alignment = 1
-
-[node name="Spacer" type="Control" parent="HUD/Root/BottomPanel/Content"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="BoostSpeed" type="TextureButton" parent="HUD/Root/BottomPanel/Content"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(112, 132)
-layout_mode = 2
-size_flags_vertical = 4
-texture_normal = ExtResource("43_boost_speed")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="BoostSpeedLabel" type="Label" parent="HUD/Root/BottomPanel/Content/BoostSpeed"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 14.0
-offset_top = -46.0
-offset_right = -14.0
-offset_bottom = -12.0
-theme_override_colors/font_color = Color(0.105882, 0.105882, 0.184314, 1)
-theme_override_constants/outline_size = 0
-theme_override_font_sizes/font_size = 28
-text = "x2"
+layout_mode = 0
+offset_top = 62.0
+offset_right = 150.0
+offset_bottom = 98.0
+theme_override_font_sizes/font_size = 30
+text = "25/30"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BoostFood" type="TextureButton" parent="HUD/Root/BottomPanel/Content"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(112, 132)
-layout_mode = 2
-size_flags_vertical = 4
-texture_normal = ExtResource("44_boost_food")
-ignore_texture_size = true
-stretch_mode = 5
+[node name="FoodBar" type="NinePatchRect" parent="HUD/Root/BottomPanel/FoodWell"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 104.0
+offset_right = 138.0
+offset_bottom = 122.0
+mouse_filter = 2
+texture = ExtResource("79_food_frame")
+patch_margin_left = 9
+patch_margin_top = 9
+patch_margin_right = 9
+patch_margin_bottom = 9
 
-[node name="BoostFoodLabel" type="Label" parent="HUD/Root/BottomPanel/Content/BoostFood"]
+[node name="FoodProgress" type="NinePatchRect" parent="HUD/Root/BottomPanel/FoodWell/FoodBar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 124.0
+offset_bottom = 16.0
+mouse_filter = 2
+texture = ExtResource("80_food_fill")
+patch_margin_left = 7
+patch_margin_top = 7
+patch_margin_right = 7
+patch_margin_bottom = 7
+
+[node name="Cards" type="HBoxContainer" parent="HUD/Root/BottomPanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 174.0
+offset_top = -10.0
+offset_right = 874.0
+offset_bottom = 146.0
+theme_override_constants/separation = 8
+
+[node name="BoostSpeed" type="Button" parent="HUD/Root/BottomPanel"]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 14.0
-offset_top = -46.0
-offset_right = -14.0
-offset_bottom = -12.0
-theme_override_colors/font_color = Color(0.105882, 0.105882, 0.184314, 1)
-theme_override_constants/outline_size = 0
-theme_override_font_sizes/font_size = 28
-text = "x2"
+offset_left = -386.0
+offset_top = 6.0
+offset_right = -290.0
+offset_bottom = 134.0
+grow_horizontal = 0
+theme_type_variation = &"BoosterButton"
+
+[node name="Icon" type="TextureRect" parent="HUD/Root/BottomPanel/BoostSpeed"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 10.0
+offset_right = 76.0
+offset_bottom = 66.0
+mouse_filter = 2
+texture = ExtResource("84_speed")
+expand_mode = 1
+
+[node name="AdBadge" type="TextureRect" parent="HUD/Root/BottomPanel/BoostSpeed"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = -14.0
+offset_right = 104.0
+offset_bottom = 20.0
+mouse_filter = 2
+texture = ExtResource("85_ad")
+expand_mode = 1
+
+[node name="BoostSpeedLabel" type="Label" parent="HUD/Root/BottomPanel/BoostSpeed"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 71.0
+offset_right = 96.0
+offset_bottom = 101.0
+theme_override_font_sizes/font_size = 26
+text = "×2"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MeteorButton" type="TextureButton" parent="HUD/Root/BottomPanel/Content"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(124, 124)
-layout_mode = 2
-size_flags_vertical = 4
-texture_normal = ExtResource("31_ability")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="MeteorProgress" type="TextureProgressBar" parent="HUD/Root/BottomPanel/Content/MeteorButton"]
+[node name="BoostFood" type="Button" parent="HUD/Root/BottomPanel"]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
+offset_left = -280.0
+offset_top = 6.0
+offset_right = -184.0
+offset_bottom = 134.0
+grow_horizontal = 0
+theme_type_variation = &"BoosterButton"
+
+[node name="Icon" type="TextureRect" parent="HUD/Root/BottomPanel/BoostFood"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 10.0
+offset_right = 76.0
+offset_bottom = 66.0
 mouse_filter = 2
-fill_mode = 3
-nine_patch_stretch = true
-texture_progress = ExtResource("31_ability")
-tint_progress = Color(1, 0.85, 0.3, 0.35)
+texture = ExtResource("81_food")
+expand_mode = 1
 
-[node name="MeteorLabel" type="Label" parent="HUD/Root/BottomPanel/Content/MeteorButton"]
+[node name="AdBadge" type="TextureRect" parent="HUD/Root/BottomPanel/BoostFood"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = -14.0
+offset_right = 104.0
+offset_bottom = 20.0
+mouse_filter = 2
+texture = ExtResource("85_ad")
+expand_mode = 1
+
+[node name="BoostFoodLabel" type="Label" parent="HUD/Root/BottomPanel/BoostFood"]
 unique_name_in_owner = true
+layout_mode = 0
+offset_top = 71.0
+offset_right = 96.0
+offset_bottom = 101.0
+theme_override_font_sizes/font_size = 26
+text = "+15"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Meteor" type="Control" parent="HUD/Root/BottomPanel"]
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -34.0
-offset_bottom = -4.0
+offset_left = -172.0
+offset_top = -26.0
+offset_right = -12.0
+offset_bottom = 150.0
+grow_horizontal = 0
+mouse_filter = 2
+
+[node name="Glow" type="TextureRect" parent="HUD/Root/BottomPanel/Meteor"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 210.0
+offset_bottom = 210.0
+pivot_offset = Vector2(130, 130)
+mouse_filter = 2
+texture = ExtResource("86_glow")
+expand_mode = 1
+
+[node name="MeteorButton" type="TextureButton" parent="HUD/Root/BottomPanel/Meteor"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 160.0
+offset_bottom = 176.0
+texture_normal = ExtResource("87_meteor")
+texture_pressed = ExtResource("89_meteor_pressed")
+texture_hover = ExtResource("88_meteor_hover")
+texture_disabled = ExtResource("90_meteor_disabled")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="MeteorProgress" type="TextureProgressBar" parent="HUD/Root/BottomPanel/Meteor"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 168.0
+offset_bottom = 168.0
+mouse_filter = 2
+fill_mode = 4
+texture_under = ExtResource("91_ring_track")
+texture_progress = ExtResource("92_ring_fill")
+
+[node name="Icon" type="TextureRect" parent="HUD/Root/BottomPanel/Meteor"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 32.0
+offset_top = 26.0
+offset_right = 128.0
+offset_bottom = 122.0
+mouse_filter = 2
+texture = ExtResource("93_meteor_icon")
+expand_mode = 1
+
+[node name="ChargePlate" type="TextureRect" parent="HUD/Root/BottomPanel/Meteor"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 132.0
+offset_right = 115.0
+offset_bottom = 164.0
+mouse_filter = 2
+texture = ExtResource("94_charge")
+expand_mode = 1
+
+[node name="MeteorLabel" type="Label" parent="HUD/Root/BottomPanel/Meteor/ChargePlate"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 70.0
+offset_bottom = 32.0
 theme_override_font_sizes/font_size = 22
 text = "1/2"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Banner" parent="HUD/Root" instance=ExtResource("40_banner")]
 unique_name_in_owner = true
@@ -585,8 +747,8 @@ visible = false
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 72.0
-offset_bottom = 104.0
+offset_top = 76.0
+offset_bottom = 108.0
 grow_horizontal = 2
 text = "HINT_METEOR_TARGET"
 horizontal_alignment = 1
@@ -595,9 +757,9 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 16.0
-offset_top = 66.0
+offset_top = 80.0
 offset_right = 16.0
-offset_bottom = 66.0
+offset_bottom = 80.0
 
 [node name="Overlay" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -633,3 +795,5 @@ horizontal_alignment = 1
 [node name="Pause" parent="Overlay" instance=ExtResource("32_pause")]
 
 [node name="Result" parent="Overlay" instance=ExtResource("33_result")]
+
+[node name="Settings" parent="Overlay" instance=ExtResource("95_settings")]

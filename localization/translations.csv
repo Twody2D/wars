@@ -5,8 +5,8 @@ RESULT_WIN,Победа!,Victory!
 RESULT_LOSE,Поражение,Defeat
 BTN_NEXT,Дальше,Next
 BTN_RETRY,Ещё раз,Retry
-BTN_MENU,Меню,Menu
-BTN_DOUBLE,×2 монеты,×2 coins
+BTN_MENU,В меню,Menu
+BTN_DOUBLE,×2 монеты за рекламу,×2 coins for an ad
 BTN_RESUME,Продолжить,Continue
 BTN_RESTART,Заново,Restart
 PAUSE_TITLE,Пауза,Pause
@@ -85,3 +85,4 @@ UPGRADES_UNITS,Бойцы,Fighters
 UPGRADES_ARMY,Армия,Army
 MAP_SOON,Скоро,Soon
 MAP_SOON_BIOMES,Пустыня · Снега · Вулкан,Desert · Snow · Volcano
+SPEED_FMT,Скорость боя ×1.5: %s,Battle speed ×1.5: %s

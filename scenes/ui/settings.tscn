@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/settings_panel.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://art/ui/icons/icon_globe.svg" id="2_globe"]
-[ext_resource type="PackedScene" path="res://scenes/ui/upgrade_row.tscn" id="3_row"]
+[ext_resource type="Theme" path="res://scenes/ui/theme_v3.tres" id="2_theme"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/window_panel.svg" id="3_window"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/ribbon_title.svg" id="4_ribbon"]
 
 [node name="Settings" type="Control"]
 visible = false
@@ -12,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_theme")
 script = ExtResource("1_script")
 
 [node name="Dim" type="ColorRect" parent="."]
@@ -19,10 +21,11 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0, 0, 0, 0.55)
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0392157, 0.0470588, 0.156863, 0.62)
 
-[node name="Panel" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(560, 0)
+[node name="Window" type="NinePatchRect" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -30,63 +33,86 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -280.0
-offset_top = -270.0
+offset_top = -210.0
 offset_right = 280.0
-offset_bottom = 270.0
+offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("3_window")
+patch_margin_left = 44
+patch_margin_top = 44
+patch_margin_right = 44
+patch_margin_bottom = 52
 
-[node name="Box" type="VBoxContainer" parent="Panel"]
-layout_mode = 2
-theme_override_constants/separation = 16
+[node name="Ribbon" type="TextureRect" parent="Window"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = -52.0
+offset_right = 540.0
+offset_bottom = 52.0
+mouse_filter = 2
+texture = ExtResource("4_ribbon")
+expand_mode = 1
 
-[node name="Title" type="Label" parent="Panel/Box"]
-layout_mode = 2
-theme_type_variation = &"TitleLabel"
+[node name="Title" type="Label" parent="Window"]
+layout_mode = 0
+offset_left = 60.0
+offset_top = -44.0
+offset_right = 500.0
+offset_bottom = 26.0
+theme_override_font_sizes/font_size = 40
 text = "SETTINGS_TITLE"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="SoundButton" type="Button" parent="Panel/Box"]
+[node name="Box" type="VBoxContainer" parent="Window"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 70.0
+offset_right = 480.0
+offset_bottom = 420.0
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="SoundButton" type="Button" parent="Window/Box"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 96)
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
-theme_type_variation = &"SecondaryButton"
+theme_type_variation = &"BlueButton"
+theme_override_font_sizes/font_size = 30
 text = "SOUND_ON"
 
-[node name="Lang" type="HBoxContainer" parent="Panel/Box"]
+[node name="Lang" type="HBoxContainer" parent="Window/Box"]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 20
 
-[node name="Globe" type="TextureRect" parent="Panel/Box/Lang"]
-custom_minimum_size = Vector2(72, 72)
-layout_mode = 2
-size_flags_vertical = 4
-texture = ExtResource("2_globe")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="RuButton" type="Button" parent="Panel/Box/Lang"]
+[node name="RuButton" type="Button" parent="Window/Box/Lang"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 96)
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_horizontal = 3
 auto_translate_mode = 2
 text = "Русский"
 
-[node name="EnButton" type="Button" parent="Panel/Box/Lang"]
+[node name="EnButton" type="Button" parent="Window/Box/Lang"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 96)
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_horizontal = 3
 auto_translate_mode = 2
 text = "English"
 
-[node name="SpeedRow" parent="Panel/Box" instance=ExtResource("3_row")]
+[node name="SpeedButton" type="Button" parent="Window/Box"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
+theme_type_variation = &"BlueButton"
+theme_override_font_sizes/font_size = 26
+text = "SPEED_FMT"
 
-[node name="CloseButton" type="Button" parent="Panel/Box"]
+[node name="CloseButton" type="Button" parent="Window/Box"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 96)
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
 text = "BTN_CLOSE"

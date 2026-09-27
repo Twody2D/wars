@@ -1,7 +1,7 @@
 class_name BattleHud
 extends CanvasLayer
-## Battle HUD (SPEC 2, 9): top bar, bottom panel with food and unit cards,
-## meteor button. Reads BattleSim state every frame; sends player intents up.
+## Battle HUD (SPEC 2, 9; battle v3 kit): top counters and wave plate, bottom
+## panel with food, unit cards, ad boosters and the meteor button. Reads BattleSim state every frame; sends player intents up.
 
 signal card_pressed(unit: UnitData)
 signal pause_pressed
@@ -9,6 +9,8 @@ signal meteor_pressed
 ## Rewarded booster (SPEC 4): &"boost_speed" or &"boost_food".
 signal booster_pressed(tag: StringName)
 signal debug_spawn(side: int, unit: UnitData)
+
+const WAVE_PLATE_PADDING := 62.0
 
 @export var card_scene: PackedScene
 ## Debug buttons that spawn units for both sides (T07). Off in release builds.
@@ -28,25 +30,31 @@ var _cards: Array[UnitCard] = []
 @onready var _coin_icon: TextureRect = %CoinIcon
 @onready var _flying_coins: Control = %FlyingCoins
 @onready var _wave_label: Label = %WaveLabel
+@onready var _wave_panel: Control = %WavePanel
+@onready var _wave_min_width: float = _wave_panel.size.x
 @onready var _food_label: Label = %FoodLabel
-@onready var _food_progress: ProgressBar = %FoodProgress
+@onready var _food_progress: Control = %FoodProgress
+@onready var _food_full_width: float = _food_progress.size.x
 @onready var _cards_box: HBoxContainer = %Cards
 @onready var _meteor_button: TextureButton = %MeteorButton
 @onready var _meteor_label: Label = %MeteorLabel
 @onready var _meteor_progress: TextureProgressBar = %MeteorProgress
+@onready var _meteor_glow: Control = %Glow
+@onready var _meteor_icon: Control = %Icon
 @onready var _targeting_hint: Label = %TargetingHint
 @onready var _debug_panel: Control = %DebugPanel
 @onready var _pause_button: Button = %PauseButton
-@onready var _boost_speed: TextureButton = %BoostSpeed
-@onready var _boost_food: TextureButton = %BoostFood
+@onready var _boost_speed: Button = %BoostSpeed
+@onready var _boost_food: Button = %BoostFood
 @onready var _boost_speed_label: Label = %BoostSpeedLabel
 @onready var _boost_food_label: Label = %BoostFoodLabel
 
-var _boosters: Dictionary[StringName, TextureButton] = {}
+var _boosters: Dictionary[StringName, Button] = {}
 ## Coins earned in this battle so far (shown next to the coin icon).
 var _earned: int = 0
 var _coin_pool: Array[TextureRect] = []
 var _pulse: Tween
+var _glow_tween: Tween
 
 
 func _ready() -> void:
@@ -74,21 +82,40 @@ func setup(units: Array[UnitData], unit_levels: Dictionary[StringName, int], deb
 
 func refresh(sim: BattleSim, bot: BattleBot) -> void:
 	_hp_label.text = str(ceili(sim.base_hp[BattleSim.PLAYER]))
-	_wave_label.text = tr("LEVEL_WAVE_FMT") % [sim.setup.level.number, maxi(bot.current_wave(), 1), bot.wave_count()]
+	var wave_text: String = tr("LEVEL_WAVE_FMT") % [sim.setup.level.number, maxi(bot.current_wave(), 1), bot.wave_count()]
+	if wave_text != _wave_label.text:
+		_wave_label.text = wave_text
+		# The plate stretches with the text (flag socket 50 px + right edge 12 px).
+		var w: float = maxf(_wave_min_width, _wave_label.get_minimum_size().x + WAVE_PLATE_PADDING)
+		_wave_panel.offset_left = -w / 2.0
+		_wave_panel.offset_right = w / 2.0
 	_food_label.text = "%d/%d" % [floori(sim.food), roundi(sim.food_max)]
 	# Progress to the next whole food; full bar when the stock is maxed.
 	var full: bool = sim.food >= sim.food_max
-	_food_progress.value = 100.0 if full else (sim.food - floorf(sim.food)) * 100.0
+	var part: float = 1.0 if full else sim.food - floorf(sim.food)
+	_food_progress.size.x = maxf(_food_progress.size.y, _food_full_width * part)
 	for card: UnitCard in _cards:
 		var cd: float = sim.card_cooldowns.get(card.unit.id, 0.0)
 		var affordable: bool = sim.food >= card.unit.cost and sim.alive_count(BattleSim.PLAYER) < sim.balance.unit_limit
 		card.refresh(sim.buy_block_reason(card.unit), affordable, cd / sim.balance.card_cooldown)
 	_meteor_label.text = "%d/%d" % [sim.meteor_charges, sim.balance.meteor_max_charges]
 	_meteor_button.disabled = sim.meteor_charges <= 0 or sim.is_over()
-	_meteor_button.modulate = Color(0.55, 0.55, 0.55) if _meteor_button.disabled else Color.WHITE
+	_meteor_icon.modulate.a = 0.5 if _meteor_button.disabled else 1.0
+	_set_meteor_glow(not _meteor_button.disabled)
 	var charged: bool = sim.meteor_charges >= sim.balance.meteor_max_charges
 	_meteor_progress.visible = not charged
 	_meteor_progress.value = sim.meteor_timer / sim.balance.meteor_recharge * 100.0
+
+
+## A ready meteor glows and pulses behind the button.
+func _set_meteor_glow(on: bool) -> void:
+	_meteor_glow.visible = on
+	if on and (_glow_tween == null or not _glow_tween.is_valid()):
+		_glow_tween = create_tween().set_loops().set_trans(Tween.TRANS_SINE)
+		_glow_tween.tween_property(_meteor_glow, "modulate:a", 0.6, 0.8)
+		_glow_tween.tween_property(_meteor_glow, "modulate:a", 1.0, 0.8)
+	elif not on and _glow_tween != null and _glow_tween.is_valid():
+		_glow_tween.kill()
 
 
 ## Pool of coin sprites, created once before the battle (no instantiate in battle).
@@ -147,12 +174,13 @@ func set_booster_texts(time_scale: float, food: float) -> void:
 	_boost_food_label.text = "+%d" % roundi(food)
 
 
-## Boosters work once per battle: a used one stays grey.
+## Boosters work once per battle: a used one stays grey, without the ad badge.
 func set_booster_available(tag: StringName, available: bool) -> void:
-	var b: TextureButton = _boosters.get(tag)
+	var b: Button = _boosters.get(tag)
 	if b != null:
 		b.disabled = not available
-		b.modulate = Color.WHITE if available else Color(0.45, 0.45, 0.45, 0.8)
+		(b.get_node(^"AdBadge") as CanvasItem).visible = available
+		(b.get_node(^"Icon") as CanvasItem).modulate.a = 1.0 if available else 0.45
 
 
 func set_targeting(on: bool) -> void:

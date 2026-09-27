@@ -30,8 +30,20 @@ func setup(upgrade_: UpgradeData) -> void:
 	upgrade = upgrade_
 	_icon.texture = icons.get(upgrade.id, upgrade.icon)
 	_name.text = tr(upgrade.name_key)
-	_effect.text = UpgradeRow.effect_text(upgrade)
+	_effect.text = effect_text(upgrade)
 	refresh()
+
+
+## What one level gives, as short as possible ("+10%", "+75", "+0.05/с", "×1.5").
+static func effect_text(up: UpgradeData) -> String:
+	match up.id:
+		&"army_power":
+			return "+%d%%" % roundi(up.per_level * 100.0)
+		&"food_rate":
+			return TranslationServer.translate("EFFECT_PER_SEC_FMT") % String.num(up.per_level, 2)
+		&"battle_speed":
+			return "×%s" % String.num(up.per_level, 1)
+	return "+%d" % roundi(up.per_level)
 
 
 func refresh() -> void:

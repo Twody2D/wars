@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700;800;900&display=swap" rel="stylesheet">
+<style>html,body{margin:0;background:#141847}a{color:#8FCBFF}a:hover{color:#fff}</style>
+</helmet>
+<div data-screen-label="Battle" style="position:relative;width:100%;height:100%;min-height:720px;overflow:hidden;background:#3E9C35;font-family:'Rubik',sans-serif;font-weight:800;color:#fff;">
+  <div style="position:absolute;left:50%;top:0;width:1440px;height:720px;margin-left:-720px;">
+    <img src="{{ bg }}" style="position:absolute;left:0;top:0;width:1440px;height:720px;">
+    <img src="{{ baseOurs }}" style="position:absolute;left:80px;top:250px;width:192px;height:192px;">
+    <img src="{{ baseEnemy }}" style="position:absolute;left:1168px;top:250px;width:192px;height:192px;">
+    <sc-if value="{{ cave }}" hint-placeholder-val="{{ false }}">
+      <img src="kit_battle/shield_dome.svg" style="position:absolute;left:1136px;top:224px;width:256px;height:222px;">
+    </sc-if>
+
+    <img src="kit_battle/hp_bar_base_frame.svg" style="position:absolute;left:101px;top:196px;width:150px;height:24px;">
+    <img src="{{ oursFill }}" style="position:absolute;left:104px;top:199px;height:18px;">
+    <div style="position:absolute;left:101px;top:196px;width:150px;height:24px;text-align:center;font-size:20px;line-height:24px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">{{ oursHp }}</div>
+    <img src="kit_battle/hp_star_mark.svg" style="position:absolute;left:139px;top:166px;width:26px;height:40px;">
+    <img src="kit_battle/hp_star_mark.svg" style="position:absolute;left:187px;top:166px;width:26px;height:40px;">
+    <img src="kit_battle/hp_bar_base_frame.svg" style="position:absolute;left:1189px;top:196px;width:150px;height:24px;">
+    <img src="{{ enemyFill }}" style="position:absolute;left:1192px;top:199px;height:18px;">
+    <div style="position:absolute;left:1189px;top:196px;width:150px;height:24px;text-align:center;font-size:20px;line-height:24px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">{{ enemyHp }}</div>
+
+    <img src="{{ ore }}" style="position:absolute;left:362px;top:458px;width:96px;height:96px;">
+    <img src="{{ oreEmpty }}" style="position:absolute;left:932px;top:458px;width:96px;height:96px;">
+    <img src="mockups/parts/battle/ore_ring_45.svg" style="position:absolute;left:958px;top:440px;width:44px;height:44px;">
+
+    <img src="assets/zombie_blue.png" height="72" style="position:absolute;left:312px;top:342px;">
+    <img src="assets/skeleton_blue.png" height="70" style="position:absolute;left:405px;top:328px;">
+    <img src="assets/slime_blue.png" height="52" style="position:absolute;left:488px;top:366px;">
+    <img src="assets/zombie_blue.png" height="72" style="position:absolute;left:602px;top:330px;">
+    <img src="assets/spider_blue.png" height="40" style="position:absolute;left:659px;top:372px;">
+    <img src="assets/zombie_red.png" height="72" style="position:absolute;left:762px;top:332px;transform:scaleX(-1);">
+    <img src="assets/skeleton_red.png" height="70" style="position:absolute;left:845px;top:346px;transform:scaleX(-1);">
+    <img src="assets/zombie_red.png" height="72" style="position:absolute;left:962px;top:324px;transform:scaleX(-1);">
+    <sc-if value="{{ meadow }}" hint-placeholder-val="{{ true }}">
+      <img src="assets/skeleton_red.png" height="70" style="position:absolute;left:1065px;top:340px;transform:scaleX(-1);">
+      <img src="kit_battle/hp_unit_frame.svg" style="position:absolute;left:1062px;top:326px;width:36px;height:9px;">
+      <img src="kit_battle/hp_unit_fill_red.svg" style="position:absolute;left:1063.5px;top:327.5px;width:33px;height:6px;">
+    </sc-if>
+    <sc-if value="{{ cave }}" hint-placeholder-val="{{ false }}">
+      <img src="assets/golem_red.png" height="120" style="position:absolute;left:1070px;top:300px;transform:scaleX(-1);">
+      <img src="mockups/parts/battle/hp_boss_frame_72.svg" style="position:absolute;left:1066px;top:282px;width:72px;height:12px;">
+      <img src="mockups/parts/battle/hp_boss_red_50.svg" style="position:absolute;left:1068px;top:284px;width:50px;height:8px;">
+    </sc-if>
+    <img src="kit_battle/hp_unit_frame.svg" style="position:absolute;left:312px;top:328px;width:36px;height:9px;">
+    <img src="kit_battle/hp_unit_fill_blue.svg" style="position:absolute;left:313.5px;top:329.5px;width:33px;height:6px;">
+    <img src="kit_battle/hp_unit_frame.svg" style="position:absolute;left:402px;top:314px;width:36px;height:9px;">
+    <img src="mockups/parts/battle/hp_unit_blue_25.svg" style="position:absolute;left:403.5px;top:315.5px;width:25px;height:6px;">
+    <img src="kit_battle/hp_unit_frame.svg" style="position:absolute;left:492px;top:352px;width:36px;height:9px;">
+    <img src="kit_battle/hp_unit_fill_blue.svg" style="position:absolute;left:493.5px;top:353.5px;width:33px;height:6px;">
+    <img src="kit_battle/hp_unit_frame.svg" style="position:absolute;left:602px;top:316px;width:36px;height:9px;">
+    <img src="mockups/parts/battle/hp_unit_blue_17.svg" style="position:absolute;left:603.5px;top:317.5px;width:17px;height:6px;">
+    <img src="kit_battle/hp_unit_frame.svg" style="position:absolute;left:672px;top:358px;width:36px;height:9px;">
+    <img src="mockups/parts/battle/hp_unit_blue_25.svg" style="position:absolute;left:673.5px;top:359.5px;width:25px;height:6px;">
+    <img src="kit_battle/hp_unit_frame.svg" style="position:absolute;left:762px;top:318px;width:36px;height:9px;">
+    <img src="mockups/parts/battle/hp_unit_red_9.svg" style="position:absolute;left:763.5px;top:319.5px;width:9px;height:6px;">
+    <img src="kit_battle/hp_unit_frame.svg" style="position:absolute;left:842px;top:332px;width:36px;height:9px;">
+    <img src="mockups/parts/battle/hp_unit_red_25.svg" style="position:absolute;left:843.5px;top:333.5px;width:25px;height:6px;">
+    <img src="kit_battle/hp_unit_frame.svg" style="position:absolute;left:962px;top:310px;width:36px;height:9px;">
+    <img src="kit_battle/hp_unit_fill_red.svg" style="position:absolute;left:963.5px;top:311.5px;width:33px;height:6px;">
+  </div>
+
+  <sc-if value="{{ noOverlay }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;left:50%;top:92px;width:620px;height:124px;margin-left:-310px;">
+    <img src="{{ bannerSrc }}" style="position:absolute;left:0;top:0;width:620px;height:124px;">
+    <div style="position:absolute;left:60px;right:60px;top:8px;height:54px;text-align:center;font-size:40px;line-height:54px;text-shadow:0 -4px 0 #1E1B3A,0 4px 0 #1E1B3A,-4px 0 0 #1E1B3A,4px 0 0 #1E1B3A,-3px -3px 0 #1E1B3A,3px -3px 0 #1E1B3A,-3px 3px 0 #1E1B3A,3px 3px 0 #1E1B3A,0 7px 0 #1E1B3A;">{{ bTitle }}</div>
+    <div style="position:absolute;left:60px;right:60px;top:62px;height:30px;text-align:center;font-size:24px;line-height:30px;color:#FFF3D6;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">{{ bSub }}</div>
+  </div></sc-if>
+
+  <div style="position:absolute;left:12px;top:12px;width:160px;height:58px;">
+    <img src="kit_battle/hud_counter.svg" style="position:absolute;left:0;top:0;width:160px;height:58px;">
+    <img src="kit/icon_heart.svg" style="position:absolute;left:4px;top:4px;width:44px;height:44px;">
+    <div style="position:absolute;left:52px;top:0;width:96px;height:52px;text-align:center;font-size:30px;line-height:52px;text-shadow:0 -3px 0 #1E1B3A,0 3px 0 #1E1B3A,-3px 0 0 #1E1B3A,3px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 5px 0 #1E1B3A;">{{ heartVal }}</div>
+  </div>
+  <div style="position:absolute;left:182px;top:12px;width:160px;height:58px;">
+    <img src="kit_battle/hud_counter.svg" style="position:absolute;left:0;top:0;width:160px;height:58px;">
+    <img src="kit/icon_coin.svg" style="position:absolute;left:4px;top:4px;width:44px;height:44px;">
+    <div style="position:absolute;left:52px;top:0;width:96px;height:52px;text-align:center;font-size:30px;line-height:52px;text-shadow:0 -3px 0 #1E1B3A,0 3px 0 #1E1B3A,-3px 0 0 #1E1B3A,3px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 5px 0 #1E1B3A;">{{ coinVal }}</div>
+  </div>
+  <div style="position:absolute;left:50%;top:10px;width:340px;height:60px;margin-left:-170px;">
+    <img src="kit_battle/wave_plate.svg" style="position:absolute;left:0;top:0;width:340px;height:60px;">
+    <img src="kit_battle/icon_wave_flag.svg" style="position:absolute;left:10px;top:7px;width:40px;height:40px;">
+    <div style="position:absolute;left:50px;right:12px;top:0;height:54px;text-align:center;font-size:26px;line-height:54px;white-space:nowrap;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">{{ wave }}</div>
+  </div>
+  <div style="position:absolute;right:12px;top:6px;width:84px;height:90px;">
+    <img src="kit_battle/btn_pause_normal.svg" style="position:absolute;left:0;top:0;width:84px;height:90px;">
+    <img src="kit_battle/icon_pause.svg" style="position:absolute;left:20px;top:16px;width:44px;height:44px;">
+  </div>
+
+  <sc-if value="{{ narrow }}" hint-placeholder-val="{{ true }}"><img src="kit_battle/panel_bottom.svg" style="position:absolute;left:0;bottom:0;width:1280px;height:148px;"></sc-if>
+  <sc-if value="{{ wide }}" hint-placeholder-val="{{ false }}"><img src="mockups/parts/battle/panel_bottom_1440.svg" style="position:absolute;left:0;bottom:0;width:1440px;height:148px;"></sc-if>
+
+  <div style="position:absolute;left:12px;top:580px;width:150px;height:132px;">
+    <img src="kit_battle/food_well.svg" style="position:absolute;left:0;top:0;width:150px;height:132px;">
+    <img src="kit/icon_food.svg" style="position:absolute;left:43px;top:2px;width:64px;height:64px;">
+    <div style="position:absolute;left:0;right:0;top:62px;text-align:center;font-size:30px;line-height:36px;text-shadow:0 -3px 0 #1E1B3A,0 3px 0 #1E1B3A,-3px 0 0 #1E1B3A,3px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 5px 0 #1E1B3A;">25/30</div>
+    <img src="kit_battle/food_bar_frame.svg" style="position:absolute;left:12px;top:104px;width:126px;height:18px;">
+    <img src="mockups/parts/battle/food_bar_fill_101.svg" style="position:absolute;left:14px;top:106px;width:101px;height:14px;">
+  </div>
+
+  <div style="position:absolute;left:174px;top:562px;display:flex;gap:8px;">
+    <sc-for list="{{ cards }}" as="c" hint-placeholder-count="6">
+      <div style="position:relative;width:110px;height:156px;flex:none;">
+        <img src="{{ c.frame }}" style="position:absolute;left:0;top:0;width:110px;height:156px;">
+        <div style="position:absolute;left:12px;top:12px;width:86px;height:86px;display:flex;align-items:flex-end;justify-content:center;">
+          <sc-if value="{{ c.bright }}" hint-placeholder-val="{{ true }}"><img src="{{ c.img }}" height="{{ c.h }}" style="display:block;margin-bottom:2px;"></sc-if>
+          <sc-if value="{{ c.dimImg }}" hint-placeholder-val="{{ false }}"><img src="{{ c.img }}" height="{{ c.h }}" style="display:block;margin-bottom:2px;opacity:.5;"></sc-if>
+        </div>
+        <sc-if value="{{ c.cd }}" hint-placeholder-val="{{ false }}">
+          <img src="mockups/parts/battle/cd_overlay_50.svg" style="position:absolute;left:8px;top:10px;width:94px;height:50px;">
+          <img src="kit_battle/card_cd_bar_frame.svg" style="position:absolute;left:8px;top:100px;width:94px;height:12px;">
+          <img src="mockups/parts/battle/cd_fill_40.svg" style="position:absolute;left:10px;top:102px;width:40px;height:8px;">
+        </sc-if>
+        <img src="kit_battle/price_plate.svg" style="position:absolute;left:16px;top:114px;width:78px;height:32px;">
+        <img src="kit/icon_food.svg" style="position:absolute;left:21px;top:117px;width:26px;height:26px;">
+        <sc-if value="{{ c.ok }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;left:46px;top:114px;width:44px;height:32px;text-align:center;font-size:22px;line-height:32px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">{{ c.price }}</div></sc-if>
+        <sc-if value="{{ c.exp }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:46px;top:114px;width:44px;height:32px;text-align:center;font-size:22px;line-height:32px;color:#FF6B6B;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">{{ c.price }}</div></sc-if>
+        <img src="kit_battle/level_tag.svg" style="position:absolute;left:58px;top:-8px;width:50px;height:26px;">
+        <div style="position:absolute;left:58px;top:-8px;width:50px;height:24px;text-align:center;font-size:17px;line-height:24px;text-shadow:0 -1.5px 0 #1E1B3A,0 1.5px 0 #1E1B3A,-1.5px 0 0 #1E1B3A,1.5px 0 0 #1E1B3A,0 3px 0 #1E1B3A;">{{ c.lvl }}</div>
+        <img src="kit_battle/hotkey_badge.svg" style="position:absolute;left:-6px;top:-8px;width:32px;height:32px;">
+        <div style="position:absolute;left:-6px;top:-8px;width:32px;height:28px;text-align:center;font-size:20px;line-height:28px;color:#1E1B3A;">{{ c.key }}</div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="position:absolute;right:290px;top:578px;width:96px;height:128px;">
+    <sc-if value="{{ b1on }}" hint-placeholder-val="{{ true }}">
+      <img src="kit_battle/btn_booster_normal.svg" style="position:absolute;left:0;top:0;width:96px;height:128px;">
+      <img src="kit/icon_speed.svg" style="position:absolute;left:20px;top:10px;width:56px;height:56px;">
+      <img src="kit_battle/badge_ad.svg" style="position:absolute;left:64px;top:-14px;width:40px;height:34px;">
+    </sc-if>
+    <sc-if value="{{ b1dim }}" hint-placeholder-val="{{ false }}">
+      <img src="kit_battle/btn_booster_disabled.svg" style="position:absolute;left:0;top:0;width:96px;height:128px;">
+      <img src="kit/icon_speed.svg" style="position:absolute;left:20px;top:10px;width:56px;height:56px;opacity:.45;">
+    </sc-if>
+    <div style="position:absolute;left:0;right:0;top:71px;height:30px;text-align:center;font-size:26px;line-height:30px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">×2</div>
+  </div>
+  <div style="position:absolute;right:184px;top:578px;width:96px;height:128px;">
+    <img src="kit_battle/btn_booster_normal.svg" style="position:absolute;left:0;top:0;width:96px;height:128px;">
+    <img src="kit/icon_food.svg" style="position:absolute;left:20px;top:10px;width:56px;height:56px;">
+    <img src="kit_battle/badge_ad.svg" style="position:absolute;left:64px;top:-14px;width:40px;height:34px;">
+    <div style="position:absolute;left:0;right:0;top:71px;height:30px;text-align:center;font-size:26px;line-height:30px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">+15</div>
+  </div>
+
+  <div style="position:absolute;right:12px;top:546px;width:160px;height:176px;">
+    <sc-if value="{{ meteorReady }}" hint-placeholder-val="{{ true }}">
+      <img src="kit_battle/meteor_glow.svg" style="position:absolute;left:-50px;top:-50px;width:260px;height:260px;">
+      <img src="kit_battle/btn_meteor_normal.svg" style="position:absolute;left:0;top:0;width:160px;height:176px;">
+      <img src="mockups/parts/battle/meteor_ring_60.svg" style="position:absolute;left:-8px;top:-8px;width:176px;height:176px;">
+      <img src="kit_battle/icon_meteor.svg" style="position:absolute;left:32px;top:26px;width:96px;height:96px;">
+      <img src="kit_battle/charge_plate.svg" style="position:absolute;left:45px;top:132px;width:70px;height:32px;">
+      <div style="position:absolute;left:45px;top:132px;width:70px;height:32px;text-align:center;font-size:22px;line-height:32px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">1/2</div>
+    </sc-if>
+    <sc-if value="{{ meteorCharging }}" hint-placeholder-val="{{ false }}">
+      <img src="kit_battle/btn_meteor_disabled.svg" style="position:absolute;left:0;top:0;width:160px;height:176px;">
+      <img src="mockups/parts/battle/meteor_ring_35.svg" style="position:absolute;left:-8px;top:-8px;width:176px;height:176px;">
+      <img src="kit_battle/icon_meteor.svg" style="position:absolute;left:32px;top:26px;width:96px;height:96px;opacity:.5;">
+      <img src="kit_battle/charge_plate.svg" style="position:absolute;left:45px;top:132px;width:70px;height:32px;">
+      <div style="position:absolute;left:45px;top:132px;width:70px;height:32px;text-align:center;font-size:22px;line-height:32px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">0/2</div>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ dim }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;background:rgba(10,12,40,.62);"></div></sc-if>
+  <sc-if value="{{ pause }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;left:50%;top:150px;width:560px;height:440px;margin-left:-280px;">
+      <img src="kit_battle/window_panel.svg" style="position:absolute;left:0;top:0;width:560px;height:440px;">
+      <img src="kit/ribbon_title.svg" style="position:absolute;left:20px;top:-52px;width:520px;height:104px;">
+      <div style="position:absolute;left:60px;right:60px;top:-44px;height:70px;text-align:center;font-size:40px;line-height:70px;text-shadow:0 -3px 0 #1E1B3A,0 3px 0 #1E1B3A,-3px 0 0 #1E1B3A,3px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 5px 0 #1E1B3A;">Пауза</div>
+      <div style="position:absolute;left:120px;top:84px;width:320px;height:300px;display:flex;flex-direction:column;gap:22px;">
+        <div style="position:relative;width:320px;height:80px;"><img src="mockups/parts/battle/btn_green_320.svg" style="position:absolute;left:0;top:0;width:320px;height:80px;"><img src="kit_battle/icon_play.svg" style="position:absolute;left:28px;top:14px;width:36px;height:36px;"><div style="position:absolute;left:60px;right:20px;top:4px;height:56px;text-align:center;font-size:30px;line-height:56px;text-shadow:0 -3px 0 #1E1B3A,0 3px 0 #1E1B3A,-3px 0 0 #1E1B3A,3px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 5px 0 #1E1B3A;">Продолжить</div></div>
+        <div style="position:relative;width:320px;height:80px;"><img src="mockups/parts/battle/btn_blue_320.svg" style="position:absolute;left:0;top:0;width:320px;height:80px;"><img src="kit/icon_settings.svg" style="position:absolute;left:24px;top:10px;width:44px;height:44px;"><div style="position:absolute;left:60px;right:20px;top:4px;height:56px;text-align:center;font-size:30px;line-height:56px;text-shadow:0 -3px 0 #1E1B3A,0 3px 0 #1E1B3A,-3px 0 0 #1E1B3A,3px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 5px 0 #1E1B3A;">Настройки</div></div>
+        <div style="position:relative;width:320px;height:80px;"><img src="mockups/parts/battle/btn_grey_320.svg" style="position:absolute;left:0;top:0;width:320px;height:80px;"><img src="kit_battle/icon_home.svg" style="position:absolute;left:24px;top:10px;width:44px;height:44px;"><div style="position:absolute;left:60px;right:20px;top:4px;height:56px;text-align:center;font-size:30px;line-height:56px;text-shadow:0 -3px 0 #1E1B3A,0 3px 0 #1E1B3A,-3px 0 0 #1E1B3A,3px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 5px 0 #1E1B3A;">В меню</div></div>
+      </div>
+    </div>
+  </sc-if>
+  <sc-if value="{{ result }}" hint-placeholder-val="{{ false }}">
+    <sc-if value="{{ victory }}" hint-placeholder-val="{{ false }}"><img src="kit_battle/rays_burst.svg" style="position:absolute;left:50%;top:-110px;width:720px;height:720px;margin-left:-360px;"></sc-if>
+    <div style="position:absolute;left:50%;top:160px;width:560px;height:440px;margin-left:-280px;">
+      <img src="kit_battle/window_panel.svg" style="position:absolute;left:0;top:0;width:560px;height:440px;">
+      <img src="{{ resRibbon }}" style="position:absolute;left:20px;top:-52px;width:520px;height:104px;">
+      <div style="position:absolute;left:60px;right:60px;top:-44px;height:70px;text-align:center;font-size:40px;line-height:70px;text-shadow:0 -3px 0 #1E1B3A,0 3px 0 #1E1B3A,-3px 0 0 #1E1B3A,3px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 5px 0 #1E1B3A;">{{ resTitle }}</div>
+      <div style="position:absolute;left:0;right:0;top:44px;height:120px;display:flex;justify-content:center;align-items:flex-end;gap:6px;">
+        <img src="{{ star1 }}" style="width:88px;height:88px;">
+        <img src="{{ star2 }}" style="width:112px;height:112px;margin-bottom:14px;">
+        <img src="{{ star3 }}" style="width:88px;height:88px;">
+      </div>
+      <div style="position:absolute;left:150px;top:172px;width:260px;height:72px;">
+        <img src="kit/coin_counter.svg" style="position:absolute;left:0;top:0;width:260px;height:72px;">
+        <img src="kit/icon_coin.svg" style="position:absolute;left:1px;top:1px;width:64px;height:64px;">
+        <div style="position:absolute;left:66px;right:12px;top:0;height:66px;text-align:center;font-size:36px;line-height:66px;text-shadow:0 -3px 0 #1E1B3A,0 3px 0 #1E1B3A,-3px 0 0 #1E1B3A,3px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 5px 0 #1E1B3A;">{{ resCoins }}</div>
+      </div>
+      <div style="position:absolute;left:80px;top:258px;width:400px;height:80px;">
+        <img src="mockups/parts/battle/btn_purple_400.svg" style="position:absolute;left:0;top:0;width:400px;height:80px;">
+        <div style="position:absolute;left:20px;right:56px;top:4px;height:56px;text-align:center;font-size:26px;line-height:56px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">×2 монеты за рекламу</div>
+        <img src="kit_battle/badge_ad.svg" style="position:absolute;right:14px;top:14px;width:44px;height:37px;">
+      </div>
+      <div style="position:absolute;left:80px;top:348px;width:400px;height:80px;display:flex;gap:20px;">
+        <div style="position:relative;width:190px;height:80px;"><img src="mockups/parts/battle/btn_grey_190.svg" style="position:absolute;left:0;top:0;width:190px;height:80px;"><div style="position:absolute;left:0;right:0;top:4px;height:56px;text-align:center;font-size:28px;line-height:56px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">В меню</div></div>
+        <div style="position:relative;width:190px;height:80px;"><img src="mockups/parts/battle/btn_green_190.svg" style="position:absolute;left:0;top:0;width:190px;height:80px;"><div style="position:absolute;left:0;right:0;top:4px;height:56px;text-align:center;font-size:28px;line-height:56px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">{{ resNext }}</div></div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:720},&quot;biome&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;meadow&quot;,&quot;cave&quot;],&quot;default&quot;:&quot;meadow&quot;,&quot;tsType&quot;:&quot;'meadow'|'cave'&quot;},&quot;overlay&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;none&quot;,&quot;pause&quot;,&quot;victory&quot;,&quot;defeat&quot;],&quot;default&quot;:&quot;none&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;wide&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const cave = this.props.biome === 'cave', ov = this.props.overlay || 'none', wide = !!this.props.wide;
+    const K = 'kit_battle/', B = 'mockups/parts/battle/';
+    const card = (img, h, price, lvl, key, state) => ({ img, h, price, lvl, key,
+      frame: K + (state === 'ready' ? 'card_battle_ready.svg' : 'card_battle_dim.svg'),
+      bright: state === 'ready', dimImg: state !== 'ready', cd: state === 'cd', exp: state === 'exp', ok: state !== 'exp' });
+    const victory = ov === 'victory';
+    return {
+      meadow: !cave, cave, wide, narrow: !wide,
+      bg: K + (cave ? 'bg_battle_cave.svg' : 'bg_battle_meadow.svg'),
+      baseOurs: K + (cave ? 'base_cave_blue_damaged.svg' : 'base_meadow_blue_intact.svg'),
+      baseEnemy: K + (cave ? 'base_cave_red_intact.svg' : 'base_meadow_red_damaged.svg'),
+      ore: K + (cave ? 'ore_cave.svg' : 'ore_meadow.svg'), oreEmpty: K + (cave ? 'ore_cave_empty.svg' : 'ore_meadow_empty.svg'),
+      oursFill: B + (cave ? 'hp_base_blue_72.svg' : 'hp_base_blue_120.svg'), oursHp: cave ? '3' : '5',
+      enemyFill: cave ? K + 'hp_bar_base_fill_red.svg' : B + 'hp_base_red_101.svg', enemyHp: cave ? '450' : '280',
+      heartVal: cave ? '3' : '5', coinVal: cave ? '260' : '120', wave: cave ? 'Ур. 20 · Волна 6/6' : 'Ур. 7 · Волна 6/6',
+      bannerSrc: K + (cave ? 'banner_danger.svg' : 'banner_normal.svg'), bTitle: 'Финальная волна!', bSub: cave ? 'Босс: Каменный голем' : 'Продержись до конца!',
+      cards: [
+        card('assets/zombie_blue.png', 76, '3', 'ур.2', '1', 'ready'),
+        card('assets/skeleton_blue.png', 76, '5', 'ур.1', '2', 'cd'),
+        card('assets/slime_blue.png', 60, '8', 'ур.1', '3', 'ready'),
+        card('assets/spider_blue.png', 46, '12', 'ур.1', '4', 'ready'),
+        card('assets/art_goblin.png', 62, '28', 'ур.1', '5', 'exp'),
+        card('assets/art_barrel.png', 74, '35', 'ур.1', '6', 'exp')
+      ],
+      b1on: !cave, b1dim: cave, meteorReady: !cave, meteorCharging: cave,
+      dim: ov !== 'none', noOverlay: ov === 'none', pause: ov === 'pause', result: ov === 'victory' || ov === 'defeat', victory,
+      resRibbon: K + (victory ? 'ribbon_win.svg' : 'ribbon_lose.svg'), resTitle: victory ? 'Победа!' : 'Поражение',
+      star1: victory ? 'kit/star_full.svg' : 'kit/star_empty.svg', star2: victory ? 'kit/star_full.svg' : 'kit/star_empty.svg', star3: victory ? 'kit/star_full.svg' : 'kit/star_empty.svg',
+      resCoins: victory ? '+120' : '+40', resNext: victory ? 'Дальше' : 'Ещё раз'
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,12 +1,12 @@
 class_name BaseView
 extends Node2D
 ## A base on the field: sprite by HP (100–60% / 60–25% / < 25%), shake on hit,
-## HP bar above it (SPEC 2, T07).
+## HP bar above it (SPEC 2, T07; battle v3 kit: a frame with a nine-sliced
+## fill that shrinks with HP).
 
 @export var intact: Texture2D
 @export var damaged: Texture2D
 @export var destroyed: Texture2D
-@export var bar_fill: Texture2D
 @export var damaged_below: float = 0.6
 @export var destroyed_below: float = 0.25
 @export var shake_px: float = 4.0
@@ -17,26 +17,29 @@ var _tween: Tween
 var _star_marks: Dictionary[float, TextureRect] = {}
 
 @onready var _sprite: Sprite2D = $Sprite
-@onready var _bar: TextureProgressBar = $HpBar
+@onready var _bar: Control = $HpBar
+@onready var _fill: Control = $HpBar/Fill
+@onready var _fill_width: float = _fill.size.x
 @onready var _hp_label: Label = $HpBar/Value
 ## Optional dome over the bot base (see BattleBot.is_shielded).
 @onready var _shield: CanvasItem = get_node_or_null(^"Shield")
 var _shield_on: bool = false
 var _shield_tween: Tween
+var _shield_scale: Vector2 = Vector2.ONE
 
 
 func _ready() -> void:
-	if bar_fill != null:
-		_bar.texture_progress = bar_fill
 	_sprite.texture = intact
 	if _shield != null:
+		_shield_scale = (_shield as Node2D).scale
 		_shield.visible = false
 		_shield.modulate.a = 0.0
 
 
 func set_hp(hp: float, max_hp: float) -> void:
 	_ratio = hp / max_hp if max_hp > 0.0 else 0.0
-	_bar.value = _ratio * 100.0
+	_fill.visible = _ratio > 0.0
+	_fill.size.x = maxf(_fill.size.y, _fill_width * _ratio)
 	_hp_label.text = str(ceili(hp))
 	if _ratio < destroyed_below:
 		_sprite.texture = destroyed
@@ -87,10 +90,11 @@ func set_shield(on: bool) -> void:
 	_shield.visible = true
 	_shield_tween = create_tween()
 	if on:
+		_shield.set(&"scale", _shield_scale)
 		_shield_tween.tween_property(_shield, "modulate:a", 1.0, 0.4)
 	else:
 		# Breaks: a flash and a quick fade.
-		_shield_tween.tween_property(_shield, "scale", Vector2(1.25, 1.25), 0.25)
+		_shield_tween.tween_property(_shield, "scale", _shield_scale * 1.25, 0.25)
 		_shield_tween.parallel().tween_property(_shield, "modulate:a", 0.0, 0.25)
 		_shield_tween.tween_callback(_shield.hide)
 

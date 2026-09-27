@@ -48,6 +48,9 @@ var _rig: Node2D
 var _parts: Node2D
 var _team_sprite: Sprite2D
 var _hp_bar: UnitHpBar
+const HP_BAR_WIDTH := 36.0
+## A unit this tall (px on screen) gets the plain 36 px bar; taller ones a longer one.
+const HP_BAR_REF_HEIGHT := 72.0
 var _base_parts_scale: float = 1.0
 ## Height of the character on screen at size_scale 1.
 var _height: float = 64.0
@@ -185,7 +188,9 @@ func _apply_size() -> void:
 	if _parts == null:
 		return
 	_parts.scale = Vector2.ONE * _base_parts_scale * size_scale
-	_hp_bar.position = Vector2(0.0, -_height * size_scale - 8.0)
+	_hp_bar.position = Vector2(0.0, -_height * size_scale - 10.0)
+	# Leaders and bosses get a longer bar (the kit's boss bar is 2× wide).
+	_hp_bar.width = HP_BAR_WIDTH * clampf(size_scale * _height / HP_BAR_REF_HEIGHT, 1.0, 2.0)
 
 
 func top_offset() -> float:

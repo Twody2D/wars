@@ -1,81 +1,172 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=17 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/unit_card.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_unit_card.svg" id="2_card"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_key_badge.svg" id="3_badge"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/card_battle_ready.svg" id="2_ready"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/card_battle_dim.svg" id="3_dim"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/card_cd_overlay.svg" id="4_cd"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/card_cd_bar_frame.svg" id="5_cd_frame"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/card_cd_bar_fill.svg" id="6_cd_fill"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/price_plate.svg" id="7_price"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_food.svg" id="8_food"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/level_tag.svg" id="9_tag"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/hotkey_badge.svg" id="10_key"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/chars/zombie_blue.png" id="11_zombie"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/chars/skeleton_blue.png" id="12_skeleton"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/chars/slime_blue.png" id="13_slime"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/chars/spider_blue.png" id="14_spider"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/chars/art_goblin.png" id="15_goblin"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/chars/art_barrel.png" id="16_barrel"]
 
 [node name="UnitCard" type="TextureButton"]
-custom_minimum_size = Vector2(104, 130)
-texture_normal = ExtResource("2_card")
+custom_minimum_size = Vector2(110, 156)
+offset_right = 110.0
+offset_bottom = 156.0
+texture_normal = ExtResource("2_ready")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("1_script")
+ready_texture = ExtResource("2_ready")
+dim_texture = ExtResource("3_dim")
+art = {
+&"barrel_bomber": ExtResource("16_barrel"),
+&"goblin_miner": ExtResource("15_goblin"),
+&"skeleton": ExtResource("12_skeleton"),
+&"slime": ExtResource("13_slime"),
+&"spider": ExtResource("14_spider"),
+&"zombie": ExtResource("11_zombie")
+}
+art_height = {
+&"barrel_bomber": 74.0,
+&"goblin_miner": 62.0,
+&"skeleton": 76.0,
+&"slime": 60.0,
+&"spider": 46.0,
+&"zombie": 76.0
+}
 
 [node name="Portrait" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.07
-anchor_top = 0.07
-anchor_right = 0.93
-anchor_bottom = 0.63
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 98.0
+offset_bottom = 98.0
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Cost" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.25
-anchor_top = 0.655
-anchor_right = 0.93
-anchor_bottom = 0.81
+[node name="Cooldown" type="NinePatchRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 8.0
+offset_top = 10.0
+offset_right = 102.0
+offset_bottom = 100.0
 mouse_filter = 2
-theme_override_font_sizes/font_size = 20
+texture = ExtResource("4_cd")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="CooldownBar" type="NinePatchRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 8.0
+offset_top = 100.0
+offset_right = 102.0
+offset_bottom = 112.0
+mouse_filter = 2
+texture = ExtResource("5_cd_frame")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="Fill" type="NinePatchRect" parent="CooldownBar"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 92.0
+offset_bottom = 10.0
+mouse_filter = 2
+texture = ExtResource("6_cd_fill")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="PricePlate" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 114.0
+offset_right = 94.0
+offset_bottom = 146.0
+mouse_filter = 2
+texture = ExtResource("7_price")
+expand_mode = 1
+
+[node name="FoodIcon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 117.0
+offset_right = 47.0
+offset_bottom = 143.0
+mouse_filter = 2
+texture = ExtResource("8_food")
+expand_mode = 1
+
+[node name="Cost" type="Label" parent="."]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 114.0
+offset_right = 90.0
+offset_bottom = 146.0
+theme_override_font_sizes/font_size = 22
 text = "3"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Level" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.4
-anchor_top = 0.07
-anchor_right = 0.93
-anchor_bottom = 0.22
-mouse_filter = 2
-theme_override_font_sizes/font_size = 14
-horizontal_alignment = 2
-
-[node name="KeyBadge" type="TextureRect" parent="."]
+[node name="LevelTag" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = -8.0
+offset_left = 58.0
 offset_top = -8.0
-offset_right = 24.0
-offset_bottom = 24.0
+offset_right = 108.0
+offset_bottom = 18.0
 mouse_filter = 2
-texture = ExtResource("3_badge")
+texture = ExtResource("9_tag")
 expand_mode = 1
 
-[node name="Key" type="Label" parent="KeyBadge"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = -3.0
-theme_override_colors/font_color = Color(0.105882, 0.105882, 0.184314, 1)
-theme_override_constants/outline_size = 0
-theme_override_font_sizes/font_size = 16
-text = "1"
+[node name="Level" type="Label" parent="LevelTag"]
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 24.0
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 5
+theme_override_font_sizes/font_size = 17
+text = "ур.1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Cooldown" type="ColorRect" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.05
-anchor_top = 0.5
-anchor_right = 0.95
-anchor_bottom = 0.95
+[node name="KeyBadge" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -8.0
+offset_right = 26.0
+offset_bottom = 24.0
 mouse_filter = 2
-color = Color(0, 0, 0, 0.45)
+texture = ExtResource("10_key")
+expand_mode = 1
+
+[node name="Key" type="Label" parent="KeyBadge"]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(0.117647, 0.105882, 0.227451, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_constants/outline_size = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 20
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1

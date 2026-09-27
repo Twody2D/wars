@@ -16,7 +16,11 @@ const BOOSTERS: Array[StringName] = [&"boost_speed", &"boost_food"]
 @export var pool_per_type: int = 6
 @export var projectile_textures: Dictionary[StringName, Texture2D] = {}
 @export var biome_backgrounds: Dictionary[StringName, Texture2D] = {}
+## Per biome: [intact, damaged, destroyed] of our base (blue) and the bot's (red).
 @export var biome_bases: Dictionary[StringName, Array] = {}
+@export var biome_bot_bases: Dictionary[StringName, Array] = {}
+## Per biome: [ready, mined-out] ore.
+@export var biome_ores: Dictionary[StringName, Array] = {}
 @export var result_delay: float = 1.2
 @export var projectile_height: float = 50.0
 ## Where the meteor rock starts relative to the target.
@@ -63,6 +67,7 @@ var _announced_shield: bool = false
 @onready var _pause: PausePanel = $Overlay/Pause
 @onready var _result_panel: ResultPanel = $Overlay/Result
 @onready var _tutorial: TutorialHints = $Overlay/Tutorial
+@onready var _settings: SettingsPanel = $Overlay/Settings
 
 
 func _ready() -> void:
@@ -87,7 +92,7 @@ func _ready() -> void:
 	_hud.debug_spawn.connect(func(side: int, u: UnitData) -> void: sim.spawn(side, u))
 	_pause.resume_pressed.connect(_close_pause)
 	_pause.menu_pressed.connect(_go_menu)
-	_pause.restart_pressed.connect(_restart)
+	_pause.settings_pressed.connect(_settings.open)
 	_result_panel.next_pressed.connect(_next_level)
 	_result_panel.menu_pressed.connect(_go_menu)
 
@@ -441,12 +446,6 @@ func _next_level() -> void:
 	_leave(BATTLE_SCENE)
 
 
-## Replay the same level from scratch (pause menu). Nothing is saved.
-func _restart() -> void:
-	get_tree().paused = false
-	get_tree().reload_current_scene()
-
-
 func _go_menu() -> void:
 	_leave(MENU_SCENE)
 
@@ -526,12 +525,22 @@ func _apply_biome() -> void:
 	var bg: Texture2D = biome_backgrounds.get(level.biome)
 	if bg != null:
 		_background.texture = bg
-	var bases: Array = biome_bases.get(level.biome, [])
-	if bases.size() == 3:
-		for view: BaseView in [_player_base, _bot_base]:
+	var sides: Dictionary[BaseView, Array] = {
+		_player_base: biome_bases.get(level.biome, []),
+		_bot_base: biome_bot_bases.get(level.biome, []),
+	}
+	for view: BaseView in sides:
+		var bases: Array = sides[view]
+		if bases.size() == 3:
 			view.intact = bases[0]
 			view.damaged = bases[1]
 			view.destroyed = bases[2]
+	var ores: Array = biome_ores.get(level.biome, [])
+	if ores.size() == 2:
+		var ore_ready: Texture2D = ores[0]
+		var ore_empty: Texture2D = ores[1]
+		for ore: OreBlock in _ore_list():
+			ore.set_textures(ore_ready, ore_empty)
 
 
 func _prewarm() -> void:

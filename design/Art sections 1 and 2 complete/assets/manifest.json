@@ -1,6 +1,59 @@
 {
  "sections": [
   {
+   "num": "S",
+   "title": "Store art — Yandex Games (PNG)",
+   "note": "Masters 1600×940 alongside: store_cover_*_master.png",
+   "items": [
+    {
+     "name": "catalog_preview",
+     "file": "assets/store/catalog_preview.png",
+     "w": 1400,
+     "h": 900,
+     "scale": 0.8
+    },
+    {
+     "name": "store_cover_A",
+     "file": "assets/store/store_cover_A.png",
+     "w": 800,
+     "h": 470
+    },
+    {
+     "name": "store_cover_B",
+     "file": "assets/store/store_cover_B.png",
+     "w": 800,
+     "h": 470
+    },
+    {
+     "name": "store_cover_C",
+     "file": "assets/store/store_cover_C.png",
+     "w": 800,
+     "h": 470
+    },
+    {
+     "name": "store_icon_A",
+     "file": "assets/store/store_icon_A.png",
+     "w": 512,
+     "h": 512,
+     "scale": 0.5
+    },
+    {
+     "name": "store_icon_B",
+     "file": "assets/store/store_icon_B.png",
+     "w": 512,
+     "h": 512,
+     "scale": 0.5
+    },
+    {
+     "name": "store_icon_C",
+     "file": "assets/store/store_icon_C.png",
+     "w": 512,
+     "h": 512,
+     "scale": 0.5
+    }
+   ]
+  },
+  {
    "num": "A",
    "title": "Buttons v2",
    "note": "normal / hover / pressed / disabled · 12 px corners · empty (game draws labels)",

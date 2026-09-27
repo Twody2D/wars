@@ -1,23 +1,33 @@
 class_name ResultPanel
 extends Control
-## Battle result (SPEC 6): stars, coins, ×2 coins for a rewarded ad, next, menu.
+## Battle result (SPEC 6, battle v3 kit): a gold "Победа!" or grey
+## "Поражение" ribbon, stars, coins, ×2 coins for a rewarded ad, next / retry,
+## menu. Light rays turn behind a victory.
 
 signal next_pressed
 signal menu_pressed
 
 const AD_TAG := &"double_coins"
+## Turns per second of the light rays behind a victory.
+const RAYS_SPEED := 0.1
+
+@export var win_ribbon: Texture2D
+@export var lose_ribbon: Texture2D
+@export var star_full: Texture2D
+@export var star_empty: Texture2D
 
 var _result: BattleResult
+var _rays_tween: Tween
 
+@onready var _rays: Control = %Rays
+@onready var _window: Control = %Window
+@onready var _ribbon: TextureRect = %Ribbon
 @onready var _title: Label = %Title
 @onready var _stars: Array[TextureRect] = [%Star1, %Star2, %Star3]
 @onready var _coins: Label = %CoinsValue
-@onready var _base_left: Label = %BaseLeft
-@onready var _star_bonus: Label = %StarBonus
 @onready var _double: Button = %DoubleButton
 @onready var _next: Button = %NextButton
 @onready var _menu: Button = %MenuButton
-@onready var _hint: Label = %Hint
 
 
 func _ready() -> void:
@@ -32,28 +42,19 @@ func _ready() -> void:
 func show_result(result: BattleResult) -> void:
 	_result = result
 	_title.text = tr("RESULT_WIN") if result.won else tr("RESULT_LOSE")
+	_ribbon.texture = win_ribbon if result.won else lose_ribbon
 	for i: int in _stars.size():
-		_stars[i].modulate = Color.WHITE if i < result.stars else Color(0.2, 0.2, 0.25, 0.6)
-		_stars[i].visible = result.won
+		_stars[i].texture = star_full if i < result.stars else star_empty
 	_coins.text = "+%d" % result.coins
 	_double.disabled = result.coins <= 0
 	_next.text = tr("BTN_NEXT") if result.won else tr("BTN_RETRY")
-	# Stars are the base HP left (SPEC 6): say it, and what the next star needs.
-	var balance: BalanceData = GameState.balance()
-	_base_left.visible = result.won
-	_base_left.text = tr("RESULT_BASE_FMT") % roundi(result.hp_ratio * 100.0)
-	_star_bonus.visible = result.won and result.stars > 0
-	_star_bonus.text = tr("STAR_BONUS_FMT") % roundi(balance.star_coin_bonus * result.stars * 100.0)
-	var next_hp: float = Rewards.next_star_hp(balance, result.stars)
-	if not result.won:
-		_hint.text = tr("HINT_UPGRADE")
-	else:
-		_hint.text = tr("HINT_NEXT_STAR_FMT") % [roundi(next_hp * 100.0), result.stars + 1]
-	_hint.visible = not result.won or next_hp > 0.0
+	_rays.visible = result.won
+	if result.won:
+		_rays_tween = create_tween().set_loops()
+		_rays_tween.tween_property(_rays, "rotation", TAU, 1.0 / RAYS_SPEED).from(0.0)
 	visible = true
-	scale = Vector2(0.8, 0.8)
-	pivot_offset = size / 2.0
-	create_tween().tween_property(self, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	_window.scale = Vector2(0.8, 0.8)
+	create_tween().tween_property(_window, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 
 func _on_double() -> void:

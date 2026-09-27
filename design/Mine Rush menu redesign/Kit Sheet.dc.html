@@ -38,10 +38,10 @@ class Component extends DCLogic {
     fetch('kit/manifest.json').then(r => r.json()).then(man => this.setState({ man })).catch(() => {});
   }
   renderVals() {
-    const order = ['Buttons', 'Tabs', 'Plates', 'Cards', 'Bars', 'Map', 'Icons', 'Backgrounds'];
+    const order = ['Buttons', 'Tabs', 'Plates', 'Cards', 'Bars', 'Map', 'Icons', 'Backgrounds', 'Battle HUD', 'Battle cards', 'Battle abilities', 'Battle banners & shield', 'Battle windows', 'Battle ore', 'Battle bases', 'Battle backgrounds'];
     const groups = order.map(name => ({
       name,
-      items: this.state.man.filter(m => m.group === name).map(m => ({ file: m.file, src: 'kit/' + m.file, size: `${m.w}×${m.h}`, slice: m.slice, use: m.use }))
+      items: this.state.man.filter(m => m.group === name).map(m => ({ file: (m.dir || 'kit') + '/' + m.file, src: (m.dir || 'kit') + '/' + m.file, size: `${m.w}×${m.h}`, slice: m.slice, use: m.use }))
     })).filter(g => g.items.length);
     return { groups, kitLoaded: this.state.man.length > 0 };
   }

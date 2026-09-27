@@ -1,7 +1,8 @@
 class_name OreBlock
 extends TextureButton
 ## Ore on the field: tap/click → +food, then cools down (SPEC 4). A ready
-## ore pulses so the player sees it can be tapped.
+## ore pulses so the player sees it can be tapped; a mined-out one shows the
+## empty rock with a recharge ring above it (battle v3 kit).
 
 signal mined(index: int)
 
@@ -13,11 +14,14 @@ signal mined(index: int)
 ## Seconds for one grow-and-shrink.
 @export var pulse_period: float = 1.0
 
+var _ready_texture: Texture2D
+var _empty_texture: Texture2D
 var _tween: Tween
 var _pulse: Tween
 var _hovered: bool = false
 var _cooling: bool = false
 
+## Recharge ring: fills clockwise while the ore comes back.
 @onready var _cooldown: TextureProgressBar = $Cooldown
 
 
@@ -34,14 +38,23 @@ func _ready() -> void:
 	_update_look()
 
 
+## The biome's ready and mined-out ore.
+func set_textures(ready_texture: Texture2D, empty_texture: Texture2D) -> void:
+	_ready_texture = ready_texture
+	_empty_texture = empty_texture
+	texture_normal = _empty_texture if _cooling else _ready_texture
+
+
 ## ratio 0 — ready, 1 — just mined.
 func set_cooldown(ratio: float) -> void:
 	var cooling: bool = ratio > 0.0
 	disabled = cooling
 	_cooldown.visible = cooling
-	_cooldown.value = ratio * 100.0
+	_cooldown.value = (1.0 - ratio) * 100.0
 	if cooling != _cooling:
 		_cooling = cooling
+		if _ready_texture != null:
+			texture_normal = _empty_texture if cooling else _ready_texture
 		_update_look()
 
 
@@ -55,7 +68,7 @@ func _update_look() -> void:
 	if pulsing:
 		return
 	if _cooling:
-		modulate = Color(0.55, 0.55, 0.55)
+		modulate = Color.WHITE
 	elif _hovered:
 		modulate = hover_tint
 	else:

@@ -2,6 +2,16 @@
 
 | Section | File name | Size |
 |---|---|---|
+| S Store art | store_cover_A.png | 800×470 |
+| S Store art | store_cover_A_master.png | 1600×940 |
+| S Store art | store_cover_B.png | 800×470 |
+| S Store art | store_cover_B_master.png | 1600×940 |
+| S Store art | store_cover_C.png | 800×470 |
+| S Store art | store_cover_C_master.png | 1600×940 |
+| S Store art | store_icon_A.png | 512×512 |
+| S Store art | store_icon_B.png | 512×512 |
+| S Store art | store_icon_C.png | 512×512 |
+| S Store art | catalog_preview.png | 1400×900 |
 | A Buttons v2 | ui_btn_primary_normal | 240×96 |
 | A Buttons v2 | ui_btn_primary_hover | 240×96 |
 | A Buttons v2 | ui_btn_primary_pressed | 240×96 |

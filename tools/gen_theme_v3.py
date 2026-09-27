@@ -7,7 +7,8 @@ the battle, pause and result keep their look until their own redesign.
 
 Defines: Label (white, dark outline and a drop shadow like the mockup's
 text-shadow), Button = green buy button, GreyButton (can't afford), PlayButton,
-IconButton (settings), PurpleButton (open the caves), TabButton / TabActive
+IconButton (settings), PurpleButton (open the caves, ×2 coins), BlueButton,
+PauseButton, BoosterButton (battle), TabButton / TabActive
 (bottom tabs), MapNode (flat, the level node draws itself), SoftLabel (light
 lilac, inactive tabs), GreenLabel (next value / effect), ArrowLabel ("›").
 Nine-slice margins come from kit/manifest.json ("top / right / bottom / left").
@@ -34,12 +35,12 @@ def slice_(top: float, right: float, bottom: float, left: float) -> tuple[float,
 
 
 def button(t: Theme, type_: str, kind: str, tm: tuple[float, float, float, float],
-           cm: tuple[float, float, float, float], disabled: str | None = None) -> None:
+           cm: tuple[float, float, float, float], disabled: str | None = None, folder: str = V3) -> None:
     l, top, r, b = cm
     pressed_cm = (l, top + 3.0, r, b - 3.0)
     states = {"normal": cm, "hover": cm, "pressed": pressed_cm, "disabled": cm}
     for state, margins in states.items():
-        tex = f"{V3}btn_{kind}_{state}.svg"
+        tex = f"{folder}btn_{kind}_{state}.svg"
         if state == "disabled" and disabled:
             tex = f"{V3}btn_{disabled}_normal.svg"
         sid = t.tex_box(f"{type_.lower()}_{state}", tex, tm, margins)
@@ -91,6 +92,12 @@ def main() -> None:
     button(t, "IconButton", "icon", slice_(32, 34, 42, 34), (22.0, 17.0, 22.0, 33.0))
     t.set("IconButton/constants/icon_max_width", "60")
     button(t, "PurpleButton", "purple", slice_(32, 34, 42, 34), (0.0, 0.0, 0.0, 0.0))
+
+    # Battle (kit_battle): blue secondary button, pause, ad boosters.
+    battle = V3 + "battle/"
+    button(t, "BlueButton", "blue", slice_(28, 30, 38, 30), (12.0, 3.0, 12.0, 20.0), folder=battle)
+    button(t, "PauseButton", "pause", slice_(28, 30, 38, 30), (0.0, 0.0, 0.0, 0.0), folder=battle)
+    button(t, "BoosterButton", "booster", slice_(28, 30, 62, 30), (0.0, 0.0, 0.0, 0.0), folder=battle)
 
     # Bottom tabs: one texture for every state (the active tab is raised by the scene).
     for type_, tex, tm in (("TabButton", "tab_inactive", slice_(32, 34, 42, 34)),

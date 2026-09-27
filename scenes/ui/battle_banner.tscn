@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/battle_banner.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/banner_normal.svg" id="2_normal"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/banner_danger.svg" id="3_danger"]
 
 [node name="Banner" type="Control"]
 layout_mode = 3
@@ -11,31 +13,53 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_script")
+normal_texture = ExtResource("2_normal")
+danger_texture = ExtResource("3_danger")
 
-[node name="Box" type="VBoxContainer" parent="."]
+[node name="Box" type="Control" parent="."]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 110.0
-offset_bottom = 250.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -310.0
+offset_top = 92.0
+offset_right = 310.0
+offset_bottom = 216.0
 grow_horizontal = 2
+pivot_offset = Vector2(310, 62)
 mouse_filter = 2
-theme_override_constants/separation = 0
-alignment = 1
+
+[node name="Plate" type="TextureRect" parent="Box"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 620.0
+offset_bottom = 124.0
+mouse_filter = 2
+texture = ExtResource("2_normal")
+expand_mode = 1
 
 [node name="Title" type="Label" parent="Box"]
 unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/outline_size = 14
-theme_override_font_sizes/font_size = 72
-text = "Уровень 2"
+layout_mode = 0
+offset_left = 60.0
+offset_top = 8.0
+offset_right = 560.0
+offset_bottom = 62.0
+theme_override_font_sizes/font_size = 40
+text = "Финальная волна!"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Subtitle" type="Label" parent="Box"]
 unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 34
-text = "Новый враг: Кубопаук"
+layout_mode = 0
+offset_left = 60.0
+offset_top = 62.0
+offset_right = 560.0
+offset_bottom = 92.0
+theme_type_variation = &"CreamLabel"
+theme_override_font_sizes/font_size = 24
+text = "Продержись до конца!"
 horizontal_alignment = 1
+vertical_alignment = 1
