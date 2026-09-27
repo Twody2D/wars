@@ -171,6 +171,7 @@ func _pressure(dt: float) -> void:
 		sim.spawn(BattleSim.BOT, level.bot_units[index])
 
 
-## Bosses keep their own stats; bot_power scales regular units only.
+## bot_power scales every bot unit; bosses get BalanceData.boss_power on top
+## (Twody: bosses were too easy when they kept their base stats).
 func _power_for(unit: UnitData) -> float:
-	return 1.0 if unit.is_boss else level.bot_power
+	return level.bot_power * (sim.balance.boss_power if unit.is_boss else 1.0)

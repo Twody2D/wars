@@ -28,18 +28,21 @@ MUSIC = ROOT / "audio" / "music" / "battle.ogg"
 MAX_SEC = 28.0
 
 # (anchor event, offset s, raw length s, speed, caption, caption y in 1080p).
-# "" — no caption. "meteor" means the first meteor cast; "end" is the end card.
+# Like the competitors' videos: no captions, only the game — "" everywhere;
+# the caption support stays for ad versions. "a|b" — anchor a, or b if a did
+# not happen; "end" is the end card. m_ — meadow battle, c_ — cave battle.
 SEGMENTS: list[tuple[str, float, float, float, str, int]] = [
-    ("start", 0.2, 1.8, 1.0, "", 0),
-    ("upgrades", 0.1, 2.2, 1.0, "Прокачивай армию", 900),
-    ("wave_1", -0.2, 5.0, 1.5, "Отбивай волны врагов", 700),
-    ("wave_2", 0.0, 4.0, 1.5, "Собери армию монстров", 700),
-    ("meteor", -0.1, 2.7, 1.0, "Бросай метеоры!", 700),
-    ("wave_3", -0.1, 3.5, 1.25, "Побеждай боссов!", 700),
-    ("wave_3", 8.0, 5.4, 1.5, "", 0),
-    ("over", -5.0, 4.9, 1.5, "Разрушь базу врага!", 700),
-    ("over", 0.6, 2.2, 1.0, "", 0),
-    ("end", 0.0, 2.4, 1.0, "Играй в Mine Rush!", 860),
+    ("start", 0.1, 1.5, 1.0, "", 0),
+    ("m_wave_1", 1.0, 4.5, 1.4, "", 0),
+    ("m_final", -0.2, 4.0, 1.25, "", 0),
+    ("m_final", 6.0, 3.5, 1.5, "", 0),
+    ("upgrades", 0.6, 2.4, 1.0, "", 0),
+    ("c_wave_1", -0.2, 4.0, 1.4, "", 0),
+    ("c_meteor|m_meteor", -0.1, 2.4, 1.0, "", 0),
+    ("c_final", -0.2, 3.5, 1.25, "", 0),
+    ("c_over", -3.5, 3.5, 1.4, "", 0),
+    ("c_over", 0.6, 1.8, 1.0, "", 0),
+    ("end", 0.0, 2.0, 1.0, "", 0),
 ]
 MUSIC_VOLUME = 0.55
 SFX_VOLUME = 1.0
@@ -52,9 +55,6 @@ def main() -> None:
         instancer.instantiateVariableFont(TTFont(FONT_SRC), {"wght": 800}).save(font)
     events: dict[str, float] = json.loads((STORE / "events.json").read_text(encoding="utf-8"))
     events["start"] = 0.0
-    meteors = [t for name, t in events.items() if name.startswith("meteor")]
-    if meteors:
-        events["meteor"] = min(meteors)
 
     parts_v: list[str] = []
     parts_a: list[str] = []
@@ -67,7 +67,10 @@ def main() -> None:
                  f"format=yuv420p,fade=t=in:d=0.25")
             a = f"[3:a]atrim=duration={length:.3f},asetpts=PTS-STARTPTS[a{i}]"
         else:
-            start = events[anchor] + offset
+            found = [events[name] for name in anchor.split("|") if name in events]
+            if not found:
+                raise SystemExit(f"no event {anchor} in events.json")
+            start = found[0] + offset
             v = (f"[0:v]trim=start={start:.3f}:duration={length:.3f},setpts=(PTS-STARTPTS)/{speed},"
                  f"scale=1920:1080:flags=lanczos,format=yuv420p")
             a = (f"[0:a]atrim=start={start:.3f}:duration={length:.3f},asetpts=PTS-STARTPTS,"

@@ -53,6 +53,8 @@ extends Resource
 @export var meteor_fall_time: float = 0.9
 
 @export_group("Bot")
+## Bosses: HP and damage multiplier on top of bot_power.
+@export var boss_power: float = 1.0
 ## Wave leader (last wave of a level): HP and damage multiplier on top of bot_power.
 @export var elite_power: float = 3.0
 ## Wave leader size on screen relative to a normal unit.

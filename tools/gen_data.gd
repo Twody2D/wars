@@ -12,7 +12,7 @@ const UNITS: Dictionary[String, Array] = {
 	"spider": [40, 6, 0.6, 18, 70, 4, 3000, 1, 0, "", false, 0.3, false],
 	"goblin_miner": [55, 12, 1.6, 120, 38, 6, 5000, 2, 0, "pickaxe", false, 0.3, false],
 	"barrel_bomber": [30, 60, 1.0, 20, 45, 8, 8000, 2, 60, "", true, 0.4, false],
-	"boss_zombie_king": [1200, 30, 1.5, 30, 20, 0, 0, 1, 0, "", false, 0.5, true],
+	"boss_zombie_king": [1200, 30, 1.5, 30, 20, 0, 0, 1, 40, "", false, 0.5, true],
 	"boss_stone_golem": [2000, 45, 2.0, 35, 18, 0, 0, 2, 50, "", false, 0.5, true],
 }
 
