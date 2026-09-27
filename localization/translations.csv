@@ -30,7 +30,7 @@ DESC_ARMY_POWER,+10% здоровья и урона всем бойцам,+10% h
 UPGRADE_FOOD_RATE,Производство еды,Food production
 UPGRADE_BASE_HP,Здоровье базы,Base health
 UPGRADE_START_FOOD,Еда на старте,Starting food
-UPGRADE_BATTLE_SPEED,Скорость боя ×1.5,Battle speed ×1.5
+UPGRADE_BATTLE_SPEED,Скорость боя,Battle speed
 UPGRADE_UNIT_LEVEL,Уровень бойца,Unit level
 DESC_FOOD_RATE,+0.05 еды в секунду,+0.05 food per second
 DESC_BASE_HP,+75 к здоровью базы,+75 base health
@@ -79,3 +79,9 @@ BANNER_BASE_OPEN,База врага беззащитна!,The enemy base is ope
 BANNER_BASE_OPEN_SUB,Добей её!,Finish it!
 BANNER_SHIELD,Базу врага защищает щит!,The enemy base is shielded!
 BANNER_SHIELD_SUB_FMT,Сначала победи: %s,Defeat first: %s
+EVOLVE_TITLE,Открыть пещеры,Open the caves
+EVOLVE_READY,"Новый мир, новые враги и бойцы!","A new world, new enemies and fighters!"
+UPGRADES_UNITS,Бойцы,Fighters
+UPGRADES_ARMY,Армия,Army
+MAP_SOON,Скоро,Soon
+MAP_SOON_BIOMES,Пустыня · Снега · Вулкан,Desert · Snow · Volcano

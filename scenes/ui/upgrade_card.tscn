@@ -1,0 +1,131 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/upgrade_card.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/card_upgrade.svg" id="2_card"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_well.svg" id="3_well"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/progress_bar_frame.svg" id="4_frame"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/progress_bar_fill.svg" id="5_fill"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_coin.svg" id="6_coin"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_army.svg" id="7_army"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_food.svg" id="8_food"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_base.svg" id="9_base"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_start_food.svg" id="10_start"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_speed.svg" id="11_speed"]
+
+[node name="UpgradeCard" type="Control"]
+custom_minimum_size = Vector2(402, 134)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 402.0
+offset_bottom = 134.0
+mouse_filter = 2
+script = ExtResource("1_script")
+icons = {
+&"army_power": ExtResource("7_army"),
+&"base_hp": ExtResource("9_base"),
+&"battle_speed": ExtResource("11_speed"),
+&"food_rate": ExtResource("8_food"),
+&"start_food": ExtResource("10_start")
+}
+
+[node name="Card" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 402.0
+offset_bottom = 134.0
+mouse_filter = 2
+texture = ExtResource("2_card")
+expand_mode = 1
+
+[node name="Well" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 16.0
+offset_right = 108.0
+offset_bottom = 112.0
+mouse_filter = 2
+texture = ExtResource("3_well")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 18.0
+offset_top = 22.0
+offset_right = 102.0
+offset_bottom = 106.0
+mouse_filter = 2
+texture = ExtResource("7_army")
+expand_mode = 1
+
+[node name="Name" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 118.0
+offset_top = 12.0
+offset_right = 390.0
+offset_bottom = 42.0
+theme_override_font_sizes/font_size = 24
+text = "UPGRADE_ARMY_POWER"
+vertical_alignment = 1
+
+[node name="Effect" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 118.0
+offset_top = 46.0
+offset_right = 250.0
+offset_bottom = 78.0
+theme_type_variation = &"GreenLabel"
+theme_override_font_sizes/font_size = 26
+text = "+10%"
+vertical_alignment = 1
+
+[node name="Bar" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_left = 118.0
+offset_top = 86.0
+offset_right = 242.0
+offset_bottom = 118.0
+mouse_filter = 2
+texture = ExtResource("4_frame")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="Fill" type="NinePatchRect" parent="Bar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 29.0
+offset_bottom = 29.0
+mouse_filter = 2
+texture = ExtResource("5_fill")
+patch_margin_left = 13
+patch_margin_top = 13
+patch_margin_right = 13
+patch_margin_bottom = 13
+
+[node name="Level" type="Label" parent="Bar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 124.0
+offset_bottom = 32.0
+theme_override_font_sizes/font_size = 24
+text = "ур. 3/10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BuyButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 252.0
+offset_top = 56.0
+offset_right = 388.0
+offset_bottom = 122.0
+theme_override_font_sizes/font_size = 26
+text = "200"
+icon = ExtResource("6_coin")
+alignment = 1
+expand_icon = true

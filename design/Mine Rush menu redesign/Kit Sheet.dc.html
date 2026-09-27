@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;700;800;900&display=swap" rel="stylesheet">
+<style>html,body{margin:0;background:#0F1238}a{color:#8FCBFF}a:hover{color:#fff}</style>
+</helmet>
+<div style="display:flex;flex-direction:column;gap:24px;font-family:'Rubik',sans-serif;color:#E8ECFF;background:#0F1238;">
+    <sc-if value="{{ kitLoaded }}" hint-placeholder-val="{{ false }}"><sc-for list="{{ groups }}" as="g" hint-placeholder-count="0">
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="font-size:26px;font-weight:800;color:#FFCC33;">{{ g.name }}</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;">
+          <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="0">
+            <div style="display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:14px;background:#1A1F55;border:1px solid #2C3480;">
+              <div style="height:150px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:#6D78A8;overflow:hidden;">
+                <img src="{{ it.src }}" style="max-width:260px;max-height:136px;">
+              </div>
+              <div style="font-size:18px;font-weight:800;color:#fff;">{{ it.file }}</div>
+              <div style="display:flex;gap:10px;font-size:15px;font-weight:700;color:#8FCBFF;"><span>{{ it.size }}</span><span style="color:#FFCC33;">9-slice: {{ it.slice }}</span></div>
+              <div style="font-size:15px;font-weight:500;color:#C5CCF2;line-height:1.35;text-wrap:pretty;">{{ it.use }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { man: [] };
+  componentDidMount() {
+    fetch('kit/manifest.json').then(r => r.json()).then(man => this.setState({ man })).catch(() => {});
+  }
+  renderVals() {
+    const order = ['Buttons', 'Tabs', 'Plates', 'Cards', 'Bars', 'Map', 'Icons', 'Backgrounds'];
+    const groups = order.map(name => ({
+      name,
+      items: this.state.man.filter(m => m.group === name).map(m => ({ file: m.file, src: 'kit/' + m.file, size: `${m.w}×${m.h}`, slice: m.slice, use: m.use }))
+    })).filter(g => g.items.length);
+    return { groups, kitLoaded: this.state.man.length > 0 };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+{
+ "size": [
+  2560,
+  720
+ ],
+ "nodes": [
+  {
+   "level": 1,
+   "x": 120,
+   "y": 440,
+   "boss": false
+  },
+  {
+   "level": 2,
+   "x": 226,
+   "y": 360,
+   "boss": false
+  },
+  {
+   "level": 3,
+   "x": 330,
+   "y": 290,
+   "boss": false
+  },
+  {
+   "level": 4,
+   "x": 430,
+   "y": 330,
+   "boss": false
+  },
+  {
+   "level": 5,
+   "x": 532,
+   "y": 430,
+   "boss": false
+  },
+  {
+   "level": 6,
+   "x": 636,
+   "y": 490,
+   "boss": false
+  },
+  {
+   "level": 7,
+   "x": 742,
+   "y": 420,
+   "boss": false
+  },
+  {
+   "level": 8,
+   "x": 850,
+   "y": 330,
+   "boss": false
+  },
+  {
+   "level": 9,
+   "x": 956,
+   "y": 270,
+   "boss": false
+  },
+  {
+   "level": 10,
+   "x": 1070,
+   "y": 350,
+   "boss": true
+  },
+  {
+   "level": 11,
+   "x": 1212,
+   "y": 450,
+   "boss": false
+  },
+  {
+   "level": 12,
+   "x": 1316,
+   "y": 510,
+   "boss": false
+  },
+  {
+   "level": 13,
+   "x": 1420,
+   "y": 430,
+   "boss": false
+  },
+  {
+   "level": 14,
+   "x": 1522,
+   "y": 330,
+   "boss": false
+  },
+  {
+   "level": 15,
+   "x": 1624,
+   "y": 270,
+   "boss": false
+  },
+  {
+   "level": 16,
+   "x": 1726,
+   "y": 330,
+   "boss": false
+  },
+  {
+   "level": 17,
+   "x": 1828,
+   "y": 430,
+   "boss": false
+  },
+  {
+   "level": 18,
+   "x": 1932,
+   "y": 490,
+   "boss": false
+  },
+  {
+   "level": 19,
+   "x": 2036,
+   "y": 410,
+   "boss": false
+  },
+  {
+   "level": 20,
+   "x": 2150,
+   "y": 330,
+   "boss": true
+  }
+ ]
+}

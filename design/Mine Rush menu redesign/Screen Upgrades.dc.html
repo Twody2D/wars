@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700;800;900&display=swap" rel="stylesheet">
+<style>html,body{margin:0;background:#141847}a{color:#8FCBFF}a:hover{color:#fff}</style>
+</helmet>
+<div data-screen-label="Upgrades" style="position:relative;width:100%;height:100%;min-height:720px;overflow:hidden;background:#1A1E55;font-family:'Rubik',sans-serif;font-weight:800;color:#fff;">
+  <img src="kit/bg_menu.svg" style="position:absolute;left:50%;top:0;width:1440px;height:720px;margin-left:-720px;">
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,26,78,.78) 0%,rgba(22,26,78,.7) 45%,rgba(16,19,60,.88) 100%);"></div>
+
+  <div style="position:absolute;left:0;right:0;top:108px;bottom:118px;overflow:hidden;">
+    <sc-if value="{{ atTop }}" hint-placeholder-val="{{ true }}">
+      <div style="position:absolute;left:50%;top:0;width:1232px;margin-left:-616px;">
+        <div style="position:absolute;left:0;right:0;top:0;height:34px;display:flex;align-items:center;gap:14px;">
+          <div style="font-size:28px;line-height:34px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">Бойцы</div>
+          <div style="flex:1;height:3px;border-radius:2px;background:rgba(160,175,255,.25);"></div>
+        </div>
+        <div style="position:absolute;left:0;right:0;top:40px;display:flex;justify-content:space-between;">
+          <sc-for list="{{ fighters }}" as="f" hint-placeholder-count="6">
+            <div style="position:relative;width:196px;height:262px;flex:none;">
+              <img src="{{ f.frame }}" style="position:absolute;left:0;top:0;width:196px;height:256px;">
+              <div style="position:absolute;left:17px;top:17px;width:162px;height:88px;display:flex;align-items:flex-end;justify-content:center;">
+                <sc-if value="{{ f.lit }}" hint-placeholder-val="{{ true }}"><img src="{{ f.img }}" height="{{ f.h }}" style="display:block;margin-bottom:6px;"></sc-if>
+                <sc-if value="{{ f.sil }}" hint-placeholder-val="{{ false }}"><img src="{{ f.img }}" height="{{ f.h }}" style="display:block;margin-bottom:6px;filter:brightness(0);opacity:.6;"></sc-if>
+              </div>
+              <sc-if value="{{ f.locked }}" hint-placeholder-val="{{ false }}"><img src="kit/icon_lock.svg" style="position:absolute;left:68px;top:30px;width:60px;height:60px;"></sc-if>
+              <div style="position:absolute;left:2px;right:2px;top:110px;text-align:center;font-size:24px;line-height:28px;white-space:nowrap;letter-spacing:-0.4px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">{{ f.name }}</div>
+              <div style="position:absolute;left:0;right:0;top:140px;display:flex;justify-content:center;align-items:center;gap:8px;font-size:24px;line-height:28px;letter-spacing:-1px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">
+                <div style="display:flex;align-items:center;gap:3px;"><img src="kit/icon_heart.svg" style="width:24px;height:24px;"><span>{{ f.hp }}</span><sc-if value="{{ f.next }}" hint-placeholder-val="{{ true }}"><span style="color:#B8C3FF;">›</span><span style="color:#7CFF5A;">{{ f.hp2 }}</span></sc-if></div>
+                <div style="display:flex;align-items:center;gap:3px;"><img src="kit/icon_sword.svg" style="width:24px;height:24px;"><span>{{ f.atk }}</span><sc-if value="{{ f.next }}" hint-placeholder-val="{{ true }}"><span style="color:#B8C3FF;">›</span><span style="color:#7CFF5A;">{{ f.atk2 }}</span></sc-if></div>
+              </div>
+              <div style="position:absolute;left:0;right:0;top:172px;display:flex;justify-content:center;gap:6px;">
+                <sc-for list="{{ f.pips }}" as="p" hint-placeholder-count="5"><img src="{{ p }}" style="width:22px;height:22px;"></sc-for>
+              </div>
+              <sc-if value="{{ f.priced }}" hint-placeholder-val="{{ true }}">
+                <img src="{{ f.btn }}" style="position:absolute;left:16px;top:196px;width:164px;height:66px;">
+                <div style="position:absolute;left:16px;top:199px;width:164px;height:44px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:28px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;"><img src="kit/icon_coin.svg" style="width:34px;height:34px;"><span>{{ f.price }}</span></div>
+              </sc-if>
+              <sc-if value="{{ f.max }}" hint-placeholder-val="{{ false }}">
+                <img src="kit/plate_max.svg" style="position:absolute;left:16px;top:196px;width:164px;height:66px;">
+                <div style="position:absolute;left:16px;top:199px;width:164px;height:44px;text-align:center;font-size:28px;line-height:44px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">МАКС</div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <div style="position:absolute;left:0;right:0;top:312px;height:34px;display:flex;align-items:center;gap:14px;">
+          <div style="font-size:28px;line-height:34px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">Армия</div>
+          <div style="flex:1;height:3px;border-radius:2px;background:rgba(160,175,255,.25);"></div>
+        </div>
+        <div style="position:absolute;left:0;right:0;top:348px;display:grid;grid-template-columns:repeat(3,402px);justify-content:space-between;row-gap:14px;">
+          <sc-for list="{{ tiles }}" as="t" hint-placeholder-count="6">
+            <div style="position:relative;width:402px;height:134px;">
+              <img src="kit/card_upgrade.svg" style="position:absolute;left:0;top:0;width:402px;height:134px;">
+              <img src="kit/icon_well.svg" style="position:absolute;left:12px;top:16px;width:96px;height:96px;">
+              <img src="{{ t.icon }}" style="position:absolute;left:18px;top:22px;width:84px;height:84px;">
+              <div style="position:absolute;left:118px;right:12px;top:12px;font-size:24px;line-height:30px;white-space:nowrap;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">{{ t.name }}</div>
+              <div style="position:absolute;left:118px;top:46px;font-size:26px;line-height:32px;color:#7CFF5A;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">{{ t.effect }}</div>
+              <img src="mockups/parts/progress_bar_frame_124x32.svg" style="position:absolute;left:118px;top:86px;width:124px;height:32px;">
+              <sc-if value="{{ t.hasFill }}" hint-placeholder-val="{{ true }}"><img src="{{ t.fill }}" style="position:absolute;left:121px;top:89px;height:26px;"></sc-if>
+              <div style="position:absolute;left:118px;top:86px;width:124px;height:32px;text-align:center;font-size:24px;line-height:32px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">{{ t.lvl }}</div>
+              <img src="{{ t.btn }}" style="position:absolute;right:14px;top:56px;width:136px;height:66px;">
+              <div style="position:absolute;right:14px;top:59px;width:136px;height:44px;display:flex;align-items:center;justify-content:center;gap:5px;font-size:26px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;"><img src="kit/icon_coin.svg" style="width:30px;height:30px;"><span>{{ t.price }}</span></div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ scrolled }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;left:50%;top:-286px;width:1232px;margin-left:-616px;">
+        <div style="position:absolute;left:0;right:0;top:40px;display:flex;justify-content:space-between;">
+          <sc-for list="{{ fighters }}" as="f" hint-placeholder-count="6">
+            <div style="position:relative;width:196px;height:262px;flex:none;">
+              <img src="{{ f.frame }}" style="position:absolute;left:0;top:0;width:196px;height:256px;">
+              <div style="position:absolute;left:0;right:0;top:172px;display:flex;justify-content:center;gap:6px;">
+                <sc-for list="{{ f.pips }}" as="p" hint-placeholder-count="5"><img src="{{ p }}" style="width:22px;height:22px;"></sc-for>
+              </div>
+              <sc-if value="{{ f.priced }}" hint-placeholder-val="{{ true }}">
+                <img src="{{ f.btn }}" style="position:absolute;left:16px;top:196px;width:164px;height:66px;">
+                <div style="position:absolute;left:16px;top:199px;width:164px;height:44px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:28px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;"><img src="kit/icon_coin.svg" style="width:34px;height:34px;"><span>{{ f.price }}</span></div>
+              </sc-if>
+              <sc-if value="{{ f.max }}" hint-placeholder-val="{{ false }}">
+                <img src="kit/plate_max.svg" style="position:absolute;left:16px;top:196px;width:164px;height:66px;">
+                <div style="position:absolute;left:16px;top:199px;width:164px;height:44px;text-align:center;font-size:28px;line-height:44px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">МАКС</div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <div style="position:absolute;left:0;right:0;top:312px;height:34px;display:flex;align-items:center;gap:14px;">
+          <div style="font-size:28px;line-height:34px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">Армия</div>
+          <div style="flex:1;height:3px;border-radius:2px;background:rgba(160,175,255,.25);"></div>
+        </div>
+        <div style="position:absolute;left:0;right:0;top:348px;display:grid;grid-template-columns:repeat(3,402px);justify-content:space-between;row-gap:14px;">
+          <sc-for list="{{ tiles }}" as="t" hint-placeholder-count="6">
+            <div style="position:relative;width:402px;height:134px;">
+              <img src="kit/card_upgrade.svg" style="position:absolute;left:0;top:0;width:402px;height:134px;">
+              <img src="kit/icon_well.svg" style="position:absolute;left:12px;top:16px;width:96px;height:96px;">
+              <img src="{{ t.icon }}" style="position:absolute;left:18px;top:22px;width:84px;height:84px;">
+              <div style="position:absolute;left:118px;right:12px;top:12px;font-size:24px;line-height:30px;white-space:nowrap;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">{{ t.name }}</div>
+              <div style="position:absolute;left:118px;top:46px;font-size:26px;line-height:32px;color:#7CFF5A;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">{{ t.effect }}</div>
+              <img src="mockups/parts/progress_bar_frame_124x32.svg" style="position:absolute;left:118px;top:86px;width:124px;height:32px;">
+              <sc-if value="{{ t.hasFill }}" hint-placeholder-val="{{ true }}"><img src="{{ t.fill }}" style="position:absolute;left:121px;top:89px;height:26px;"></sc-if>
+              <div style="position:absolute;left:118px;top:86px;width:124px;height:32px;text-align:center;font-size:24px;line-height:32px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">{{ t.lvl }}</div>
+              <img src="{{ t.btn }}" style="position:absolute;right:14px;top:56px;width:136px;height:66px;">
+              <div style="position:absolute;right:14px;top:59px;width:136px;height:44px;display:flex;align-items:center;justify-content:center;gap:5px;font-size:26px;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;"><img src="kit/icon_coin.svg" style="width:30px;height:30px;"><span>{{ t.price }}</span></div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="position:absolute;left:0;right:0;top:646px;height:116px;">
+          <img src="mockups/parts/btn_purple_disabled_1232x116.svg" style="position:absolute;left:0;top:0;width:1232px;height:116px;">
+          <img src="kit/icon_well.svg" style="position:absolute;left:18px;top:6px;width:88px;height:88px;">
+          <img src="kit/icon_cave.svg" style="position:absolute;left:22px;top:8px;width:80px;height:80px;">
+          <img src="kit/icon_lock.svg" style="position:absolute;left:76px;top:52px;width:42px;height:42px;">
+          <div style="position:absolute;left:132px;top:12px;font-size:32px;line-height:38px;text-shadow:0 -3px 0 #1E1B3A,0 3px 0 #1E1B3A,-3px 0 0 #1E1B3A,3px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 5px 0 #1E1B3A;">Открыть пещеры</div>
+          <div style="position:absolute;left:132px;top:54px;font-size:24px;line-height:30px;color:#F1E9FF;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">Пройди 10-й уровень, чтобы открыть пещеры</div>
+          <img src="kit/level_node_boss.svg" style="position:absolute;right:30px;top:2px;width:80px;height:90px;"><img src="assets/king_face.png" style="position:absolute;right:50px;top:22px;width:40px;">
+        </div>
+      </div>
+    </sc-if>
+    <div style="position:absolute;left:0;right:0;top:0;height:22px;background:linear-gradient(180deg,rgba(18,21,66,.9),rgba(18,21,66,0));"></div>
+    <div style="position:absolute;left:0;right:0;bottom:0;height:40px;background:linear-gradient(0deg,rgba(16,19,60,.95),rgba(16,19,60,0));"></div>
+  </div>
+
+  <div style="position:absolute;left:50%;top:4px;width:520px;height:104px;margin-left:-260px;">
+    <img src="kit/ribbon_title.svg" style="position:absolute;left:0;top:0;width:520px;height:104px;">
+    <div style="position:absolute;left:40px;right:40px;top:8px;height:66px;text-align:center;font-size:38px;line-height:66px;text-shadow:0 -3px 0 #1E1B3A,0 3px 0 #1E1B3A,-3px 0 0 #1E1B3A,3px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 5px 0 #1E1B3A;">Улучшения</div>
+  </div>
+  <div style="position:absolute;left:16px;top:10px;width:104px;height:110px;">
+    <img src="kit/btn_icon_normal.svg" style="position:absolute;left:0;top:0;width:104px;height:110px;">
+    <img src="kit/icon_settings.svg" style="position:absolute;left:22px;top:17px;width:60px;height:60px;">
+  </div>
+  <div style="position:absolute;right:16px;top:20px;width:290px;height:72px;">
+    <img src="kit/coin_counter.svg" style="position:absolute;left:0;top:0;width:260px;height:72px;">
+    <img src="kit/icon_coin.svg" style="position:absolute;left:1px;top:1px;width:64px;height:64px;">
+    <div style="position:absolute;left:70px;top:0;width:158px;height:66px;text-align:center;font-size:34px;line-height:66px;text-shadow:0 -3px 0 #1E1B3A,0 3px 0 #1E1B3A,-3px 0 0 #1E1B3A,3px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 5px 0 #1E1B3A;">16 450</div>
+    <img src="kit/icon_plus.svg" style="position:absolute;left:228px;top:2px;width:62px;height:62px;">
+  </div>
+
+  <div style="position:absolute;left:50%;bottom:0;width:800px;height:130px;margin-left:-400px;">
+    <img src="kit/tabbar_bg.svg" style="position:absolute;left:0;bottom:0;width:800px;height:100px;">
+    <div style="position:absolute;left:40px;top:26px;width:232px;height:102px;">
+      <img src="kit/tab_inactive.svg" style="position:absolute;left:0;top:0;width:232px;height:102px;">
+      <img src="kit/icon_sword.svg" style="position:absolute;left:92px;top:5px;width:48px;height:48px;">
+      <div style="position:absolute;left:0;right:0;top:52px;text-align:center;font-size:24px;line-height:30px;color:#DDE3FF;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">Бой</div>
+    </div>
+    <div style="position:absolute;left:276px;top:4px;width:248px;height:118px;">
+      <img src="kit/tab_active.svg" style="position:absolute;left:0;top:0;width:248px;height:118px;">
+      <img src="kit/icon_up.svg" style="position:absolute;left:94px;top:4px;width:60px;height:60px;">
+      <div style="position:absolute;left:0;right:0;top:62px;text-align:center;font-size:26px;line-height:32px;text-shadow:0 -3px 0 #1E1B3A,0 3px 0 #1E1B3A,-3px 0 0 #1E1B3A,3px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 5px 0 #1E1B3A;">Улучшения</div>
+      <img src="kit/badge_dot.svg" style="position:absolute;right:-8px;top:-10px;width:40px;height:40px;">
+    </div>
+    <div style="position:absolute;left:528px;top:26px;width:232px;height:102px;">
+      <img src="kit/tab_inactive.svg" style="position:absolute;left:0;top:0;width:232px;height:102px;">
+      <img src="kit/icon_map.svg" style="position:absolute;left:92px;top:5px;width:48px;height:48px;">
+      <div style="position:absolute;left:0;right:0;top:52px;text-align:center;font-size:24px;line-height:30px;color:#DDE3FF;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">Карта</div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:720},&quot;scrolled&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const ch = { zombie: 'assets/zombie_blue.png', archerBlue: 'assets/skeleton_blue.png', jelly: 'assets/slime_blue.png', spider: 'assets/spider_blue.png', goblin: 'assets/art_goblin.png', barrel: 'assets/art_barrel.png' };
+    const pips = n => [0,1,2,3,4].map(i => i < n ? 'kit/pip_full.svg' : 'kit/pip_empty.svg');
+    const F = (name, img, h, hp, hp2, atk, atk2, lvl, state, price) => ({
+      name, img, h, hp, hp2, atk, atk2, pips: pips(lvl), price,
+      frame: state === 'max' ? 'kit/card_unit_max.svg' : state.startsWith('locked') ? 'kit/card_unit_locked.svg' : 'kit/card_unit.svg',
+      locked: state.startsWith('locked'), lit: !!img && !state.startsWith('locked'), sil: !!img && state.startsWith('locked'),
+      next: state === 'buy' || state === 'poor', max: state === 'max', priced: state !== 'max',
+      btn: state === 'poor' || state === 'locked_poor' ? 'kit/btn_grey_normal.svg' : 'kit/btn_green_normal.svg'
+    });
+    const fighters = [
+      F('Кубозомби', ch.zombie, 80, 66, 72, 9, 10, 2, 'buy', '680'),
+      F('Лучник-кость', ch.archerBlue, 80, 70, '', 18, '', 5, 'max', ''),
+      F('Желе-куб', ch.jelly, 66, 150, 165, 5, 6, 1, 'buy', '1 200'),
+      F('Кубопаук', ch.spider, 50, 40, '', 6, '', 0, 'locked', '1 500'),
+      F('Шахтёр-гоблин', ch.goblin, 62, 90, '', 12, '', 0, 'locked', '8 000'),
+      F('Бочка-бомбер', ch.barrel, 78, 60, '', 40, '', 0, 'locked_poor', '20 000')
+    ];
+    const T = (name, icon, effect, lv, max, price, afford) => {
+      const inner = 118, w = lv > 0 ? Math.max(26, Math.round(inner * lv / max)) : 0;
+      return { name, icon: 'kit/' + icon + '.svg', effect, lvl: `ур. ${lv}/${max}`, hasFill: lv > 0, fill: `mockups/parts/progress_bar_fill_${w}.svg`, price, btn: afford ? 'mockups/parts/btn_green_136x66.svg' : 'mockups/parts/btn_grey_136x66.svg' };
+    };
+    const tiles = [
+      T('Сила армии', 'icon_army', '+10%', 3, 10, '200', true),
+      T('Производство еды', 'icon_food', '+0.05/с', 2, 10, '300', true),
+      T('Здоровье базы', 'icon_base', '+5', 4, 10, '250', true),
+      T('Еда на старте', 'icon_start_food', '+10', 1, 10, '400', true),
+      T('Уровень бойца', 'icon_unit_level', '+1', 0, 5, '900', true),
+      T('Скорость боя', 'icon_speed', '×1.5', 0, 1, '25 000', false)
+    ];
+    const scrolled = !!this.props.scrolled;
+    return { fighters, tiles, scrolled, atTop: !scrolled };
+  }
+}
+</script>
+</body>
+</html>

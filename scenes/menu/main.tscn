@@ -1,20 +1,71 @@
-[gd_scene load_steps=16 format=3]
+[gd_scene load_steps=43 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_menu"]
 [ext_resource type="PackedScene" path="res://scenes/ui/unit_tile.tscn" id="2_tile"]
-[ext_resource type="PackedScene" path="res://scenes/ui/upgrade_row.tscn" id="3_row"]
+[ext_resource type="PackedScene" path="res://scenes/ui/upgrade_card.tscn" id="3_card"]
 [ext_resource type="PackedScene" path="res://scenes/ui/level_button.tscn" id="4_level"]
 [ext_resource type="Texture2D" path="res://art/screens/logo_ru.svg" id="5_logo_ru"]
 [ext_resource type="Texture2D" path="res://art/screens/logo_en.svg" id="6_logo_en"]
-[ext_resource type="Texture2D" path="res://art/screens/bg_menu_v2.svg" id="7_bg"]
-[ext_resource type="Texture2D" path="res://art/screens/map_world.svg" id="8_map"]
-[ext_resource type="Texture2D" path="res://art/ui/icons/icon_coin.svg" id="9_coin"]
-[ext_resource type="Texture2D" path="res://art/ui/icons/icon_sword.svg" id="10_sword"]
-[ext_resource type="Texture2D" path="res://art/ui/icons/icon_settings.svg" id="11_gear"]
-[ext_resource type="PackedScene" path="res://scenes/ui/settings.tscn" id="12_settings"]
-[ext_resource type="Texture2D" path="res://art/ui/wood/tab_icon_upgrades.svg" id="13_tab_up"]
-[ext_resource type="Texture2D" path="res://art/ui/wood/tab_icon_map.svg" id="14_tab_map"]
-[ext_resource type="Texture2D" path="res://art/ui/icons/icon_star.svg" id="15_star"]
+[ext_resource type="Theme" path="res://scenes/ui/theme_v3.tres" id="7_theme"]
+[ext_resource type="Theme" path="res://scenes/ui/theme.tres" id="8_theme_v1"]
+[ext_resource type="PackedScene" path="res://scenes/ui/settings.tscn" id="9_settings"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/bg_menu.svg" id="10_bg"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/bg_map.svg" id="11_map"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/chars/zombie_blue.png" id="12_zombie"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/chars/zombie_red.png" id="13_zombie_red"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/chars/skeleton_blue.png" id="14_skel"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/chars/skeleton_red.png" id="15_skel_red"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shadow_dark.svg" id="16_shadow"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shadow_red.svg" id="17_shadow_red"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/plate_level.svg" id="18_plate"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/btn_play_glow.svg" id="19_glow"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_sword.svg" id="20_sword"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/star_full.svg" id="21_star"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/plate_boss.svg" id="22_boss_plate"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/ribbon_title.svg" id="23_ribbon"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_well.svg" id="24_well"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_cave.svg" id="25_cave"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_lock.svg" id="26_lock"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/level_node_boss.svg" id="27_boss_node"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/chars/king_face.png" id="28_king"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/coin_counter.svg" id="29_counter"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_coin.svg" id="30_coin"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_plus.svg" id="31_plus"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_settings.svg" id="32_gear"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/tabbar_bg.svg" id="33_tabbar"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_up.svg" id="34_up"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_map.svg" id="35_map_icon"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/badge_dot.svg" id="36_dot"]
+
+[sub_resource type="Gradient" id="dim_gradient"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(0.0862745, 0.101961, 0.305882, 0.78, 0.0862745, 0.101961, 0.305882, 0.7, 0.0627451, 0.0745098, 0.235294, 0.88)
+
+[sub_resource type="GradientTexture2D" id="dim"]
+gradient = SubResource("dim_gradient")
+width = 4
+height = 64
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="fade_gradient"]
+colors = PackedColorArray(0.0705882, 0.0823529, 0.258824, 0.9, 0.0705882, 0.0823529, 0.258824, 0)
+
+[sub_resource type="GradientTexture2D" id="fade_top"]
+gradient = SubResource("fade_gradient")
+width = 4
+height = 32
+fill_to = Vector2(0, 1)
+
+[sub_resource type="GradientTexture2D" id="fade_bottom"]
+gradient = SubResource("fade_gradient")
+width = 4
+height = 32
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="AtlasTexture" id="sky_row"]
+atlas = ExtResource("10_bg")
+region = Rect2(0, 0, 1440, 2)
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -23,41 +74,140 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("7_theme")
 script = ExtResource("1_menu")
 unit_tile_scene = ExtResource("2_tile")
-upgrade_row_scene = ExtResource("3_row")
+upgrade_card_scene = ExtResource("3_card")
 level_button_scene = ExtResource("4_level")
 logos = {
 "en": ExtResource("6_logo_en"),
 "ru": ExtResource("5_logo_ru")
 }
-map_slots = PackedVector2Array(64, 404, 125, 497, 185, 496, 246, 403, 307, 281, 367, 212, 428, 244, 488, 355, 549, 469, 610, 509, 670, 448, 731, 327, 792, 228, 852, 219, 913, 306, 973, 430, 1034, 506, 1095, 483, 1155, 376, 1216, 259)
+map_nodes = PackedVector2Array(120, 440, 226, 360, 330, 290, 430, 330, 532, 430, 636, 490, 742, 420, 850, 330, 956, 270, 1070, 350, 1212, 450, 1316, 510, 1420, 430, 1522, 330, 1624, 270, 1726, 330, 1828, 430, 1932, 490, 2036, 410, 2150, 330)
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Sky" type="TextureRect" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = -720.0
+offset_right = 720.0
 grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("7_bg")
+mouse_filter = 2
+texture = SubResource("sky_row")
 expand_mode = 1
-stretch_mode = 6
 
-[node name="BottomBand" type="PanelContainer" parent="."]
+[node name="Scenery" type="Control" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 12
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -4.0
-offset_top = -116.0
-offset_right = 4.0
-offset_bottom = 4.0
+offset_left = -720.0
+offset_top = -720.0
+offset_right = 720.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
-theme_type_variation = &"BandPanel"
+
+[node name="Background" type="TextureRect" parent="Scenery"]
+layout_mode = 0
+offset_right = 1440.0
+offset_bottom = 720.0
+mouse_filter = 2
+texture = ExtResource("10_bg")
+expand_mode = 1
+
+[node name="Characters" type="Control" parent="Scenery"]
+unique_name_in_owner = true
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="ShadowArcher" type="TextureRect" parent="Scenery/Characters"]
+layout_mode = 0
+offset_left = 146.0
+offset_top = 528.0
+offset_right = 242.0
+offset_bottom = 548.0
+mouse_filter = 2
+texture = ExtResource("16_shadow")
+expand_mode = 1
+
+[node name="Archer" type="TextureRect" parent="Scenery/Characters"]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 344.0
+offset_right = 233.0
+offset_bottom = 540.0
+mouse_filter = 2
+texture = ExtResource("14_skel")
+expand_mode = 1
+
+[node name="ShadowZombie" type="TextureRect" parent="Scenery/Characters"]
+layout_mode = 0
+offset_left = 210.0
+offset_top = 576.0
+offset_right = 360.0
+offset_bottom = 602.0
+mouse_filter = 2
+texture = ExtResource("16_shadow")
+expand_mode = 1
+
+[node name="Zombie" type="TextureRect" parent="Scenery/Characters"]
+layout_mode = 0
+offset_left = 222.0
+offset_top = 338.0
+offset_right = 346.0
+offset_bottom = 590.0
+mouse_filter = 2
+texture = ExtResource("12_zombie")
+expand_mode = 1
+
+[node name="ShadowEnemyZombie" type="TextureRect" parent="Scenery/Characters"]
+layout_mode = 0
+offset_left = 1140.0
+offset_top = 522.0
+offset_right = 1236.0
+offset_bottom = 538.0
+mouse_filter = 2
+texture = ExtResource("17_shadow_red")
+expand_mode = 1
+
+[node name="EnemyZombie" type="TextureRect" parent="Scenery/Characters"]
+layout_mode = 0
+offset_left = 1150.0
+offset_top = 382.0
+offset_right = 1223.0
+offset_bottom = 530.0
+mouse_filter = 2
+texture = ExtResource("13_zombie_red")
+expand_mode = 1
+flip_h = true
+
+[node name="ShadowEnemyArcher" type="TextureRect" parent="Scenery/Characters"]
+layout_mode = 0
+offset_left = 1226.0
+offset_top = 499.0
+offset_right = 1296.0
+offset_bottom = 513.0
+mouse_filter = 2
+texture = ExtResource("17_shadow_red")
+expand_mode = 1
+
+[node name="EnemyArcher" type="TextureRect" parent="Scenery/Characters"]
+layout_mode = 0
+offset_left = 1234.0
+offset_top = 380.0
+offset_right = 1287.0
+offset_bottom = 506.0
+mouse_filter = 2
+texture = ExtResource("15_skel_red")
+expand_mode = 1
+flip_h = true
 
 [node name="BattleTab" type="Control" parent="."]
 unique_name_in_owner = true
@@ -75,29 +225,55 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -300.0
-offset_top = 20.0
-offset_right = 300.0
-offset_bottom = 245.0
+offset_left = -228.0
+offset_top = 28.0
+offset_right = 228.0
+offset_bottom = 199.0
 grow_horizontal = 2
+mouse_filter = 2
 texture = ExtResource("5_logo_ru")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="LevelLabel" type="Label" parent="BattleTab"]
+[node name="LevelPlate" type="TextureRect" parent="BattleTab"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 222.0
+offset_right = 150.0
+offset_bottom = 294.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("18_plate")
+expand_mode = 1
+
+[node name="LevelLabel" type="Label" parent="BattleTab/LevelPlate"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 66.0
+theme_override_font_sizes/font_size = 34
+text = "LEVEL_FMT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Glow" type="TextureRect" parent="BattleTab"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -200.0
-offset_top = 262.0
-offset_right = 200.0
-offset_bottom = 306.0
+offset_left = -320.0
+offset_top = 222.0
+offset_right = 320.0
+offset_bottom = 522.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 36
-text = "LEVEL_FMT"
-horizontal_alignment = 1
+pivot_offset = Vector2(320, 150)
+mouse_filter = 2
+texture = ExtResource("19_glow")
+expand_mode = 1
 
 [node name="PlayButton" type="Button" parent="BattleTab"]
 unique_name_in_owner = true
@@ -106,13 +282,100 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -200.0
-offset_top = 318.0
+offset_top = 304.0
 offset_right = 200.0
-offset_bottom = 448.0
+offset_bottom = 440.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 56
+theme_type_variation = &"PlayButton"
+
+[node name="Icon" type="TextureRect" parent="BattleTab/PlayButton"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 20.0
+offset_right = 120.0
+offset_bottom = 100.0
+mouse_filter = 2
+texture = ExtResource("20_sword")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="BattleTab/PlayButton"]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 18.0
+offset_right = 366.0
+offset_bottom = 102.0
+theme_override_font_sizes/font_size = 62
 text = "BTN_PLAY"
-icon = ExtResource("10_sword")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Stars" type="Control" parent="BattleTab"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -110.0
+offset_top = 446.0
+offset_right = 110.0
+offset_bottom = 516.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="S1" type="TextureRect" parent="BattleTab/Stars"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 14.0
+offset_right = 72.0
+offset_bottom = 70.0
+mouse_filter = 2
+texture = ExtResource("21_star")
+expand_mode = 1
+
+[node name="S2" type="TextureRect" parent="BattleTab/Stars"]
+layout_mode = 0
+offset_left = 76.0
+offset_top = -4.0
+offset_right = 144.0
+offset_bottom = 64.0
+mouse_filter = 2
+texture = ExtResource("21_star")
+expand_mode = 1
+
+[node name="S3" type="TextureRect" parent="BattleTab/Stars"]
+layout_mode = 0
+offset_left = 148.0
+offset_top = 14.0
+offset_right = 204.0
+offset_bottom = 70.0
+mouse_filter = 2
+texture = ExtResource("21_star")
+expand_mode = 1
+
+[node name="BossPlate" type="TextureRect" parent="BattleTab"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -170.0
+offset_top = 524.0
+offset_right = 170.0
+offset_bottom = 584.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("22_boss_plate")
+expand_mode = 1
+
+[node name="BossLabel" type="Label" parent="BattleTab/BossPlate"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 340.0
+offset_bottom = 54.0
+theme_override_font_sizes/font_size = 26
+text = "BANNER_BOSS_FMT"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="UpgradesTab" type="Control" parent="."]
 unique_name_in_owner = true
@@ -125,65 +388,236 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Title" type="Label" parent="UpgradesTab"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -300.0
-offset_top = 22.0
-offset_right = 300.0
-offset_bottom = 92.0
-grow_horizontal = 2
-theme_type_variation = &"TitleLabel"
-text = "UPGRADES_TITLE"
-horizontal_alignment = 1
-
-[node name="Panel" type="PanelContainer" parent="UpgradesTab"]
+[node name="Dim" type="TextureRect" parent="UpgradesTab"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 20.0
-offset_top = 92.0
-offset_right = -20.0
-offset_bottom = -126.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = SubResource("dim")
+expand_mode = 1
 
-[node name="Box" type="VBoxContainer" parent="UpgradesTab/Panel"]
-layout_mode = 2
-theme_override_constants/separation = 12
-alignment = 1
-
-[node name="UnitTiles" type="HBoxContainer" parent="UpgradesTab/Panel/Box"]
+[node name="Scroll" type="ScrollContainer" parent="UpgradesTab"]
 unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/separation = 14
-alignment = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 108.0
+offset_bottom = -118.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
 
-[node name="Bottom" type="HBoxContainer" parent="UpgradesTab/Panel/Box"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 16
-
-[node name="UpgradeRows" type="VBoxContainer" parent="UpgradesTab/Panel/Box/Bottom"]
-unique_name_in_owner = true
+[node name="Center" type="CenterContainer" parent="UpgradesTab/Scroll"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 8
+
+[node name="Content" type="VBoxContainer" parent="UpgradesTab/Scroll/Center"]
+custom_minimum_size = Vector2(1232, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="UnitsHeader" type="HBoxContainer" parent="UpgradesTab/Scroll/Center/Content"]
+custom_minimum_size = Vector2(0, 34)
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Label" type="Label" parent="UpgradesTab/Scroll/Center/Content/UnitsHeader"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "UPGRADES_UNITS"
+
+[node name="Line" type="ColorRect" parent="UpgradesTab/Scroll/Center/Content/UnitsHeader"]
+custom_minimum_size = Vector2(0, 3)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 2
+color = Color(0.627451, 0.686275, 1, 0.25)
+
+[node name="Gap1" type="Control" parent="UpgradesTab/Scroll/Center/Content"]
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="UnitTiles" type="HBoxContainer" parent="UpgradesTab/Scroll/Center/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 11
 alignment = 1
 
-[node name="EvolveButton" type="Button" parent="UpgradesTab/Panel/Box/Bottom"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 0)
+[node name="Gap2" type="Control" parent="UpgradesTab/Scroll/Center/Content"]
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
-theme_type_variation = &"GoldButton"
-theme_override_font_sizes/font_size = 48
-text = "BTN_EVOLVE"
-icon = ExtResource("15_star")
-icon_alignment = 1
-vertical_icon_alignment = 0
+mouse_filter = 2
+
+[node name="ArmyHeader" type="HBoxContainer" parent="UpgradesTab/Scroll/Center/Content"]
+custom_minimum_size = Vector2(0, 34)
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Label" type="Label" parent="UpgradesTab/Scroll/Center/Content/ArmyHeader"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "UPGRADES_ARMY"
+
+[node name="Line" type="ColorRect" parent="UpgradesTab/Scroll/Center/Content/ArmyHeader"]
+custom_minimum_size = Vector2(0, 3)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 2
+color = Color(0.627451, 0.686275, 1, 0.25)
+
+[node name="Gap3" type="Control" parent="UpgradesTab/Scroll/Center/Content"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="UpgradeGrid" type="GridContainer" parent="UpgradesTab/Scroll/Center/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 13
+theme_override_constants/v_separation = 14
+columns = 3
+
+[node name="Gap4" type="Control" parent="UpgradesTab/Scroll/Center/Content"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="CaveButton" type="Button" parent="UpgradesTab/Scroll/Center/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1232, 116)
+layout_mode = 2
+theme_type_variation = &"PurpleButton"
+
+[node name="Well" type="TextureRect" parent="UpgradesTab/Scroll/Center/Content/CaveButton"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 6.0
+offset_right = 106.0
+offset_bottom = 94.0
+mouse_filter = 2
+texture = ExtResource("24_well")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="UpgradesTab/Scroll/Center/Content/CaveButton"]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 8.0
+offset_right = 102.0
+offset_bottom = 88.0
+mouse_filter = 2
+texture = ExtResource("25_cave")
+expand_mode = 1
+
+[node name="Lock" type="TextureRect" parent="UpgradesTab/Scroll/Center/Content/CaveButton"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 76.0
+offset_top = 52.0
+offset_right = 118.0
+offset_bottom = 94.0
+mouse_filter = 2
+texture = ExtResource("26_lock")
+expand_mode = 1
+
+[node name="Title" type="Label" parent="UpgradesTab/Scroll/Center/Content/CaveButton"]
+layout_mode = 0
+offset_left = 132.0
+offset_top = 12.0
+offset_right = 1000.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 32
+text = "EVOLVE_TITLE"
+vertical_alignment = 1
+
+[node name="Hint" type="Label" parent="UpgradesTab/Scroll/Center/Content/CaveButton"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 132.0
+offset_top = 54.0
+offset_right = 1080.0
+offset_bottom = 84.0
+theme_type_variation = &"LilacLabel"
+theme_override_font_sizes/font_size = 24
+text = "EVOLVE_HINT"
+vertical_alignment = 1
+
+[node name="BossNode" type="TextureRect" parent="UpgradesTab/Scroll/Center/Content/CaveButton"]
+layout_mode = 0
+offset_left = 1122.0
+offset_top = 2.0
+offset_right = 1202.0
+offset_bottom = 92.0
+mouse_filter = 2
+texture = ExtResource("27_boss_node")
+expand_mode = 1
+
+[node name="BossFace" type="TextureRect" parent="UpgradesTab/Scroll/Center/Content/CaveButton"]
+layout_mode = 0
+offset_left = 1142.0
+offset_top = 22.0
+offset_right = 1182.0
+offset_bottom = 60.0
+mouse_filter = 2
+texture = ExtResource("28_king")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="FadeTop" type="TextureRect" parent="UpgradesTab"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 108.0
+offset_bottom = 130.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = SubResource("fade_top")
+expand_mode = 1
+
+[node name="FadeBottom" type="TextureRect" parent="UpgradesTab"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -158.0
+offset_bottom = -118.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+texture = SubResource("fade_bottom")
+expand_mode = 1
+
+[node name="Ribbon" type="TextureRect" parent="UpgradesTab"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -260.0
+offset_top = 4.0
+offset_right = 260.0
+offset_bottom = 108.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("23_ribbon")
+expand_mode = 1
+
+[node name="Title" type="Label" parent="UpgradesTab/Ribbon"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 8.0
+offset_right = 480.0
+offset_bottom = 74.0
+theme_override_font_sizes/font_size = 38
+text = "UPGRADES_TITLE"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MapTab" type="Control" parent="."]
 unique_name_in_owner = true
@@ -196,116 +630,226 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="MapSlots" type="Control" parent="MapTab"]
+[node name="MapScroll" type="ScrollContainer" parent="MapTab"]
 unique_name_in_owner = true
 layout_mode = 1
-offset_right = 1280.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+
+[node name="MapContent" type="Control" parent="MapTab/MapScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MapCanvas" type="Control" parent="MapTab/MapScroll/MapContent"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_right = 2560.0
 offset_bottom = 720.0
 mouse_filter = 2
 
-[node name="MapBg" type="TextureRect" parent="MapTab/MapSlots"]
-texture_repeat = 3
+[node name="MapBg" type="TextureRect" parent="MapTab/MapScroll/MapContent/MapCanvas"]
 layout_mode = 0
-offset_top = -720.0
-offset_right = 1280.0
-offset_bottom = 1440.0
+offset_right = 2560.0
+offset_bottom = 720.0
 mouse_filter = 2
-texture = ExtResource("8_map")
+texture = ExtResource("11_map")
 expand_mode = 1
-stretch_mode = 1
 
-[node name="CoinPill" type="PanelContainer" parent="."]
+[node name="Nodes" type="Control" parent="MapTab/MapScroll/MapContent/MapCanvas"]
+unique_name_in_owner = true
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="Soon" type="VBoxContainer" parent="MapTab/MapScroll/MapContent/MapCanvas"]
+layout_mode = 0
+offset_left = 2290.0
+offset_top = 268.0
+offset_right = 2550.0
+offset_bottom = 368.0
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Title" type="Label" parent="MapTab/MapScroll/MapContent/MapCanvas/Soon"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "MAP_SOON"
+horizontal_alignment = 1
+
+[node name="Biomes" type="Label" parent="MapTab/MapScroll/MapContent/MapCanvas/Soon"]
+layout_mode = 2
+theme_type_variation = &"CreamLabel"
+theme_override_font_sizes/font_size = 24
+text = "MAP_SOON_BIOMES"
+horizontal_alignment = 1
+
+[node name="SettingsButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 16.0
+offset_top = 10.0
+offset_right = 120.0
+offset_bottom = 120.0
+theme_type_variation = &"IconButton"
+icon = ExtResource("32_gear")
+icon_alignment = 1
+expand_icon = true
+
+[node name="CoinCounter" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -250.0
-offset_top = 14.0
+offset_left = -306.0
+offset_top = 20.0
 offset_right = -16.0
-offset_bottom = 82.0
+offset_bottom = 92.0
 grow_horizontal = 0
 mouse_filter = 2
-theme_type_variation = &"PillPanel"
 
-[node name="TopBar" type="HBoxContainer" parent="CoinPill"]
-layout_mode = 2
+[node name="Plate" type="TextureRect" parent="CoinCounter"]
+layout_mode = 0
+offset_right = 260.0
+offset_bottom = 72.0
 mouse_filter = 2
-alignment = 1
-
-[node name="CoinIcon" type="TextureRect" parent="CoinPill/TopBar"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-texture = ExtResource("9_coin")
+texture = ExtResource("29_counter")
 expand_mode = 1
-stretch_mode = 5
 
-[node name="CoinsLabel" type="Label" parent="CoinPill/TopBar"]
+[node name="Coin" type="TextureRect" parent="CoinCounter"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 65.0
+offset_bottom = 65.0
+mouse_filter = 2
+texture = ExtResource("30_coin")
+expand_mode = 1
+
+[node name="CoinsLabel" type="Label" parent="CoinCounter"]
 unique_name_in_owner = true
-layout_mode = 2
+layout_mode = 0
+offset_left = 70.0
+offset_right = 228.0
+offset_bottom = 66.0
 theme_override_font_sizes/font_size = 34
 text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="SettingsButton" type="Button" parent="."]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(88, 88)
+[node name="Plus" type="TextureRect" parent="CoinCounter"]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 12.0
-offset_right = 104.0
-offset_bottom = 100.0
-theme_type_variation = &"IconButton"
-icon = ExtResource("11_gear")
-icon_alignment = 1
-expand_icon = true
+offset_left = 228.0
+offset_top = 2.0
+offset_right = 290.0
+offset_bottom = 64.0
+mouse_filter = 2
+texture = ExtResource("31_plus")
+expand_mode = 1
 
-[node name="TabBar" type="HBoxContainer" parent="."]
+[node name="TabBar" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -480.0
-offset_top = -104.0
-offset_right = 480.0
-offset_bottom = -8.0
+offset_left = -400.0
+offset_top = -130.0
+offset_right = 400.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_constants/separation = 16
+mouse_filter = 2
+
+[node name="Bg" type="TextureRect" parent="TabBar"]
+layout_mode = 0
+offset_top = 30.0
+offset_right = 800.0
+offset_bottom = 130.0
+mouse_filter = 2
+texture = ExtResource("33_tabbar")
+expand_mode = 1
 
 [node name="TabBattle" type="Button" parent="TabBar"]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"TabGreen"
+layout_mode = 0
+offset_left = 40.0
+offset_top = 26.0
+offset_right = 272.0
+offset_bottom = 128.0
+theme_type_variation = &"TabButton"
+
+[node name="Icon" type="TextureRect" parent="TabBar/TabBattle"]
+layout_mode = 0
+mouse_filter = 2
+texture = ExtResource("20_sword")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="TabBar/TabBattle"]
+layout_mode = 0
 text = "TAB_BATTLE"
-icon = ExtResource("10_sword")
-icon_alignment = 1
-vertical_icon_alignment = 0
-expand_icon = true
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="TabUpgrades" type="Button" parent="TabBar"]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
+layout_mode = 0
+offset_left = 284.0
+offset_top = 26.0
+offset_right = 516.0
+offset_bottom = 128.0
 theme_type_variation = &"TabButton"
+
+[node name="Icon" type="TextureRect" parent="TabBar/TabUpgrades"]
+layout_mode = 0
+mouse_filter = 2
+texture = ExtResource("34_up")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="TabBar/TabUpgrades"]
+layout_mode = 0
 text = "TAB_UPGRADES"
-icon = ExtResource("13_tab_up")
-icon_alignment = 1
-vertical_icon_alignment = 0
-expand_icon = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Badge" type="TextureRect" parent="TabBar/TabUpgrades"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 200.0
+offset_top = -10.0
+offset_right = 240.0
+offset_bottom = 30.0
+mouse_filter = 2
+texture = ExtResource("36_dot")
+expand_mode = 1
 
 [node name="TabMap" type="Button" parent="TabBar"]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
+layout_mode = 0
+offset_left = 528.0
+offset_top = 26.0
+offset_right = 760.0
+offset_bottom = 128.0
 theme_type_variation = &"TabButton"
-text = "TAB_MAP"
-icon = ExtResource("14_tab_map")
-icon_alignment = 1
-vertical_icon_alignment = 0
-expand_icon = true
 
-[node name="Settings" parent="." instance=ExtResource("12_settings")]
+[node name="Icon" type="TextureRect" parent="TabBar/TabMap"]
+layout_mode = 0
+mouse_filter = 2
+texture = ExtResource("35_map_icon")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="TabBar/TabMap"]
+layout_mode = 0
+text = "TAB_MAP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Settings" parent="." instance=ExtResource("9_settings")]
 unique_name_in_owner = true
 layout_mode = 1
+theme = ExtResource("8_theme_v1")

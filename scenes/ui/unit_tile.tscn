@@ -1,111 +1,231 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=24 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/unit_tile.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://scenes/ui/level_pips.tscn" id="2_pips"]
-[ext_resource type="Texture2D" path="res://art/ui/icons/icon_coin.svg" id="3_coin"]
-[ext_resource type="Texture2D" path="res://art/ui/icons/icon_heart.svg" id="4_heart"]
-[ext_resource type="Texture2D" path="res://art/ui/icons/icon_sword.svg" id="5_sword"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_coin.svg" id="3_coin"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_heart.svg" id="4_heart"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_sword.svg" id="5_sword"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/card_unit.svg" id="6_card"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/card_unit_locked.svg" id="7_locked"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/card_unit_max.svg" id="8_max"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_lock.svg" id="9_lock"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/plate_max.svg" id="10_plate_max"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/pip_full.svg" id="11_pip_full"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/pip_empty.svg" id="12_pip_empty"]
+[ext_resource type="FontVariation" path="res://art/fonts/rubik_tight.tres" id="13_tight"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/chars/zombie_blue.png" id="14_zombie"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/chars/skeleton_blue.png" id="15_skeleton"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/chars/slime_blue.png" id="16_slime"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/chars/spider_blue.png" id="17_spider"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/chars/art_goblin.png" id="18_goblin"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/chars/art_barrel.png" id="19_barrel"]
 
-[node name="UnitTile" type="PanelContainer"]
-custom_minimum_size = Vector2(172, 0)
-theme_type_variation = &"CardPanel"
+[node name="UnitTile" type="Control"]
+custom_minimum_size = Vector2(196, 262)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 196.0
+offset_bottom = 262.0
+mouse_filter = 2
 script = ExtResource("1_script")
-coin_icon = ExtResource("3_coin")
+frames = {
+"locked": ExtResource("7_locked"),
+"max": ExtResource("8_max"),
+"normal": ExtResource("6_card")
+}
+art = {
+&"barrel_bomber": ExtResource("19_barrel"),
+&"goblin_miner": ExtResource("18_goblin"),
+&"skeleton": ExtResource("15_skeleton"),
+&"slime": ExtResource("16_slime"),
+&"spider": ExtResource("17_spider"),
+&"zombie": ExtResource("14_zombie")
+}
+art_height = {
+&"barrel_bomber": 78.0,
+&"goblin_miner": 62.0,
+&"skeleton": 80.0,
+&"slime": 66.0,
+&"spider": 50.0,
+&"zombie": 80.0
+}
 
-[node name="Box" type="VBoxContainer" parent="."]
-layout_mode = 2
-theme_override_constants/separation = 6
-
-[node name="Window" type="PanelContainer" parent="Box"]
+[node name="Frame" type="TextureRect" parent="."]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 88)
-layout_mode = 2
-theme_type_variation = &"PortraitWindow"
+layout_mode = 0
+offset_right = 196.0
+offset_bottom = 256.0
+mouse_filter = 2
+texture = ExtResource("6_card")
+expand_mode = 1
 
-[node name="Portrait" type="TextureRect" parent="Box/Window"]
+[node name="Portrait" type="TextureRect" parent="."]
 unique_name_in_owner = true
-layout_mode = 2
+layout_mode = 0
+offset_left = 17.0
+offset_top = 17.0
+offset_right = 179.0
+offset_bottom = 99.0
+mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Name" type="Label" parent="Box/Window"]
+[node name="Lock" type="TextureRect" parent="."]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_constants/outline_size = 6
-theme_override_font_sizes/font_size = 18
+layout_mode = 0
+offset_left = 68.0
+offset_top = 30.0
+offset_right = 128.0
+offset_bottom = 90.0
+mouse_filter = 2
+texture = ExtResource("9_lock")
+expand_mode = 1
+
+[node name="Name" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 2.0
+offset_top = 108.0
+offset_right = 194.0
+offset_bottom = 138.0
+theme_override_fonts/font = ExtResource("13_tight")
+theme_override_font_sizes/font_size = 24
 text = "UNIT_ZOMBIE"
 horizontal_alignment = 1
-text_overrun_behavior = 3
+vertical_alignment = 1
 
-[node name="Stats" type="HBoxContainer" parent="Box"]
+[node name="Stats" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_top = 138.0
+offset_right = 196.0
+offset_bottom = 168.0
+mouse_filter = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="HpBox" type="HBoxContainer" parent="Stats"]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 3
-alignment = 1
 
-[node name="HeartIcon" type="TextureRect" parent="Box/Stats"]
-custom_minimum_size = Vector2(20, 20)
+[node name="HeartIcon" type="TextureRect" parent="Stats/HpBox"]
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("4_heart")
 expand_mode = 1
-stretch_mode = 5
 
-[node name="Hp" type="Label" parent="Box/Stats"]
+[node name="Hp" type="Label" parent="Stats/HpBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 18
+theme_override_fonts/font = ExtResource("13_tight")
+theme_override_font_sizes/font_size = 24
 text = "66"
 
-[node name="HpNext" type="Label" parent="Box/Stats"]
+[node name="HpNext" type="HBoxContainer" parent="Stats/HpBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_type_variation = &"AccentLabel"
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 18
-text = "›72"
+mouse_filter = 2
+theme_override_constants/separation = 0
 
-[node name="SwordIcon" type="TextureRect" parent="Box/Stats"]
-custom_minimum_size = Vector2(20, 20)
+[node name="Arrow" type="Label" parent="Stats/HpBox/HpNext"]
+layout_mode = 2
+theme_type_variation = &"ArrowLabel"
+theme_override_fonts/font = ExtResource("13_tight")
+theme_override_font_sizes/font_size = 24
+text = "›"
+
+[node name="Value" type="Label" parent="Stats/HpBox/HpNext"]
+layout_mode = 2
+theme_type_variation = &"GreenLabel"
+theme_override_fonts/font = ExtResource("13_tight")
+theme_override_font_sizes/font_size = 24
+text = "72"
+
+[node name="DamageBox" type="HBoxContainer" parent="Stats"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="SwordIcon" type="TextureRect" parent="Stats/DamageBox"]
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("5_sword")
 expand_mode = 1
-stretch_mode = 5
 
-[node name="Damage" type="Label" parent="Box/Stats"]
+[node name="Damage" type="Label" parent="Stats/DamageBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 18
-text = "66"
-
-[node name="DamageNext" type="Label" parent="Box/Stats"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_type_variation = &"AccentLabel"
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 18
-text = "›72"
-
-[node name="Plate" type="PanelContainer" parent="Box"]
-layout_mode = 2
-theme_type_variation = &"PlatePanel"
-
-[node name="Pips" parent="Box/Plate" instance=ExtResource("2_pips")]
-unique_name_in_owner = true
-layout_mode = 2
-alignment = 1
-
-[node name="BuyButton" type="Button" parent="Box"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 54)
-layout_mode = 2
+theme_override_fonts/font = ExtResource("13_tight")
 theme_override_font_sizes/font_size = 24
+text = "9"
+
+[node name="DamageNext" type="HBoxContainer" parent="Stats/DamageBox"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Arrow" type="Label" parent="Stats/DamageBox/DamageNext"]
+layout_mode = 2
+theme_type_variation = &"ArrowLabel"
+theme_override_fonts/font = ExtResource("13_tight")
+theme_override_font_sizes/font_size = 24
+text = "›"
+
+[node name="Value" type="Label" parent="Stats/DamageBox/DamageNext"]
+layout_mode = 2
+theme_type_variation = &"GreenLabel"
+theme_override_fonts/font = ExtResource("13_tight")
+theme_override_font_sizes/font_size = 24
+text = "10"
+
+[node name="Pips" parent="." instance=ExtResource("2_pips")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 172.0
+offset_right = 196.0
+offset_bottom = 194.0
+theme_override_constants/separation = 6
+alignment = 1
+full = ExtResource("11_pip_full")
+empty = ExtResource("12_pip_empty")
+pip_size = 22.0
+
+[node name="MaxPlate" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 16.0
+offset_top = 196.0
+offset_right = 180.0
+offset_bottom = 262.0
+mouse_filter = 2
+texture = ExtResource("10_plate_max")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MaxPlate"]
+layout_mode = 0
+offset_top = 3.0
+offset_right = 164.0
+offset_bottom = 47.0
+theme_override_font_sizes/font_size = 28
+text = "MAX"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="BuyButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 16.0
+offset_top = 196.0
+offset_right = 180.0
+offset_bottom = 262.0
 text = "500"
 icon = ExtResource("3_coin")
+alignment = 1
 expand_icon = true

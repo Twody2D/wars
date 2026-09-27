@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;700;800;900&display=swap" rel="stylesheet">
+<style>html,body{margin:0;background:#0F1238}a{color:#8FCBFF}a:hover{color:#fff}</style>
+</helmet>
+<div style="padding:64px;display:flex;flex-direction:column;gap:56px;font-family:'Rubik',sans-serif;color:#E8ECFF;background:#0F1238;min-width:6800px;">
+  <div style="display:flex;flex-direction:column;gap:8px;">
+    <div style="font-size:56px;font-weight:900;color:#fff;">Mine Rush — menu redesign</div>
+    <div style="font-size:24px;font-weight:500;color:#AEB6E8;">Mockups at 1280×720 and 1440×720 · SVG UI kit in kit/ · PNG exports in mockups/</div>
+  </div>
+
+  <section style="display:flex;flex-direction:column;gap:20px;">
+    <div style="font-size:32px;font-weight:800;color:#fff;">1280 × 720</div>
+    <div style="display:flex;gap:48px;align-items:flex-start;">
+      <div style="display:flex;flex-direction:column;gap:12px;"><div style="font-size:22px;font-weight:700;color:#AEB6E8;">mockup_main</div>
+        <div id="mockup_main_1280" data-screen-label="Main 1280" style="position:relative;width:1280px;height:720px;overflow:hidden;"><dc-import name="Screen Main" hint-size="1280px,720px" style="position:absolute;left:0;top:0;width:1280px;height:720px;"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:12px;"><div style="font-size:22px;font-weight:700;color:#AEB6E8;">mockup_main_boss</div>
+        <div id="mockup_main_boss_1280" data-screen-label="Main boss 1280" style="position:relative;width:1280px;height:720px;overflow:hidden;"><dc-import name="Screen Main" boss="{{ true }}" hint-size="1280px,720px" style="position:absolute;left:0;top:0;width:1280px;height:720px;"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:12px;"><div style="font-size:22px;font-weight:700;color:#AEB6E8;">mockup_upgrades (top)</div>
+        <div id="mockup_upgrades_1280" data-screen-label="Upgrades 1280" style="position:relative;width:1280px;height:720px;overflow:hidden;"><dc-import name="Screen Upgrades" hint-size="1280px,720px" style="position:absolute;left:0;top:0;width:1280px;height:720px;"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:12px;"><div style="font-size:22px;font-weight:700;color:#AEB6E8;">mockup_upgrades_bottom (scrolled)</div>
+        <div id="mockup_upgrades_bottom_1280" data-screen-label="Upgrades bottom 1280" style="position:relative;width:1280px;height:720px;overflow:hidden;"><dc-import name="Screen Upgrades" scrolled="{{ true }}" hint-size="1280px,720px" style="position:absolute;left:0;top:0;width:1280px;height:720px;"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:12px;"><div style="font-size:22px;font-weight:700;color:#AEB6E8;">mockup_map</div>
+        <div id="mockup_map_1280" data-screen-label="Map 1280" style="position:relative;width:1280px;height:720px;overflow:hidden;"><dc-import name="Screen Map" hint-size="1280px,720px" style="position:absolute;left:0;top:0;width:1280px;height:720px;"></dc-import></div></div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:20px;">
+    <div style="font-size:32px;font-weight:800;color:#fff;">1440 × 720 (wide phone)</div>
+    <div style="display:flex;gap:48px;align-items:flex-start;">
+      <div style="display:flex;flex-direction:column;gap:12px;"><div style="font-size:22px;font-weight:700;color:#AEB6E8;">mockup_main_1440</div>
+        <div id="mockup_main_1440" style="position:relative;width:1440px;height:720px;overflow:hidden;"><dc-import name="Screen Main" hint-size="1440px,720px" style="position:absolute;left:0;top:0;width:1440px;height:720px;"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:12px;"><div style="font-size:22px;font-weight:700;color:#AEB6E8;">mockup_main_boss_1440</div>
+        <div id="mockup_main_boss_1440" style="position:relative;width:1440px;height:720px;overflow:hidden;"><dc-import name="Screen Main" boss="{{ true }}" hint-size="1440px,720px" style="position:absolute;left:0;top:0;width:1440px;height:720px;"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:12px;"><div style="font-size:22px;font-weight:700;color:#AEB6E8;">mockup_upgrades_1440</div>
+        <div id="mockup_upgrades_1440" style="position:relative;width:1440px;height:720px;overflow:hidden;"><dc-import name="Screen Upgrades" hint-size="1440px,720px" style="position:absolute;left:0;top:0;width:1440px;height:720px;"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:12px;"><div style="font-size:22px;font-weight:700;color:#AEB6E8;">mockup_upgrades_bottom_1440</div>
+        <div id="mockup_upgrades_bottom_1440" style="position:relative;width:1440px;height:720px;overflow:hidden;"><dc-import name="Screen Upgrades" scrolled="{{ true }}" hint-size="1440px,720px" style="position:absolute;left:0;top:0;width:1440px;height:720px;"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:12px;"><div style="font-size:22px;font-weight:700;color:#AEB6E8;">mockup_map_1440</div>
+        <div id="mockup_map_1440" style="position:relative;width:1440px;height:720px;overflow:hidden;"><dc-import name="Screen Map" hint-size="1440px,720px" style="position:absolute;left:0;top:0;width:1440px;height:720px;"></dc-import></div></div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:20px;">
+    <div style="font-size:32px;font-weight:800;color:#fff;">Full world map · 2560 × 720 (scroll)</div>
+    <div id="mockup_map_full" style="position:relative;width:2560px;height:720px;overflow:hidden;"><dc-import name="Screen Map" full="{{ true }}" hint-size="2560px,720px" style="position:absolute;left:0;top:0;width:2560px;height:720px;"></dc-import></div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:24px;max-width:2600px;">
+    <div style="font-size:32px;font-weight:800;color:#fff;">UI kit · file table</div>
+    <div style="font-size:22px;font-weight:500;color:#AEB6E8;">9-slice corners are T / R / B / L in px of the source SVG. Stretched pieces in the mockups (tile buttons, level bars, cave button) are pre-sized copies in mockups/parts/.</div>
+    <dc-import name="Kit Sheet" hint-size="100%,2400px" style="width:100%;"></dc-import>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

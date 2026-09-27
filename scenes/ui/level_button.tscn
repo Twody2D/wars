@@ -1,70 +1,123 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/level_button.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://art/ui/icons/icon_star.svg" id="2_star"]
-[ext_resource type="Texture2D" path="res://art/ui/icons/icon_lock.svg" id="3_lock"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_btn_secondary_normal.svg" id="4_btn"]
-
-[sub_resource type="StyleBoxTexture" id="small"]
-content_margin_left = 4.0
-content_margin_top = 2.0
-content_margin_right = 4.0
-content_margin_bottom = 8.0
-texture = ExtResource("4_btn")
-texture_margin_left = 16.0
-texture_margin_top = 16.0
-texture_margin_right = 16.0
-texture_margin_bottom = 16.0
+[ext_resource type="Texture2D" path="res://art/ui/v3/level_node_passed.svg" id="2_passed"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/level_node_current.svg" id="3_current"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/level_node_locked.svg" id="4_locked"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/level_node_boss.svg" id="5_boss"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/star_full.svg" id="6_star"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/star_empty.svg" id="7_star_empty"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_lock.svg" id="8_lock"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/map_arrow.svg" id="9_arrow"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/chars/king_face.png" id="10_king"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/chars/golem_face.png" id="11_golem"]
 
 [node name="LevelButton" type="Button"]
-custom_minimum_size = Vector2(60, 60)
-offset_right = 60.0
-offset_bottom = 60.0
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("small")
-theme_override_styles/hover = SubResource("small")
-theme_override_styles/pressed = SubResource("small")
-theme_override_styles/disabled = SubResource("small")
-text = "1"
+offset_right = 104.0
+offset_bottom = 112.0
+pivot_offset = Vector2(52, 48)
+theme_type_variation = &"MapNode"
 script = ExtResource("1_script")
+node_textures = {
+"boss": ExtResource("5_boss"),
+"current": ExtResource("3_current"),
+"locked": ExtResource("4_locked"),
+"passed": ExtResource("2_passed")
+}
+star_full = ExtResource("6_star")
+star_empty = ExtResource("7_star_empty")
+boss_faces = {
+10: ExtResource("10_king"),
+20: ExtResource("11_golem")
+}
+
+[node name="Node" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_passed")
+expand_mode = 1
+
+[node name="Face" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 40.0
+offset_top = 36.0
+offset_right = 124.0
+offset_bottom = 116.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Number" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 28.0
+offset_right = 104.0
+offset_bottom = 68.0
+theme_override_font_sizes/font_size = 34
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Stars" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 0
-offset_left = -2.0
-offset_top = 56.0
-offset_right = 62.0
-offset_bottom = 76.0
+offset_left = 7.0
+offset_top = 90.0
+offset_right = 97.0
+offset_bottom = 116.0
 mouse_filter = 2
-theme_override_constants/separation = 1
+theme_override_constants/separation = 2
 alignment = 1
 
 [node name="S1" type="TextureRect" parent="Stars"]
-custom_minimum_size = Vector2(20, 20)
+custom_minimum_size = Vector2(26, 26)
 layout_mode = 2
 mouse_filter = 2
-texture = ExtResource("2_star")
+texture = ExtResource("6_star")
 expand_mode = 1
 
 [node name="S2" type="TextureRect" parent="Stars"]
-custom_minimum_size = Vector2(20, 20)
+custom_minimum_size = Vector2(26, 26)
 layout_mode = 2
 mouse_filter = 2
-texture = ExtResource("2_star")
+texture = ExtResource("6_star")
 expand_mode = 1
 
 [node name="S3" type="TextureRect" parent="Stars"]
-custom_minimum_size = Vector2(20, 20)
+custom_minimum_size = Vector2(26, 26)
 layout_mode = 2
 mouse_filter = 2
-texture = ExtResource("2_star")
+texture = ExtResource("6_star")
 expand_mode = 1
 
 [node name="Lock" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
 layout_mode = 0
-offset_left = 34.0
-offset_top = -10.0
-offset_right = 66.0
-offset_bottom = 22.0
+offset_left = 114.0
+offset_top = 104.0
+offset_right = 154.0
+offset_bottom = 144.0
 mouse_filter = 2
-texture = ExtResource("3_lock")
+texture = ExtResource("8_lock")
+expand_mode = 1
+
+[node name="Arrow" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 46.0
+offset_top = -80.0
+offset_right = 110.0
+offset_bottom = -4.0
+mouse_filter = 2
+texture = ExtResource("9_arrow")
 expand_mode = 1
