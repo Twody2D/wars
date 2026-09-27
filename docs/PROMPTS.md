@@ -638,3 +638,66 @@ C) MAP ("Карта" tab)
    icon_speed, icon_start_food, icon_unit_level, icon_cave.
 3. A table: file name, size, 9-slice corners (px), where it is used.
 ```
+
+## Бой v3: HUD и поле в стиле нового меню (27.09.2026)
+
+Отправлять в **тот же чат** Claude Design, где сделан редизайн меню (`design/Mine Rush menu redesign/`), — он уже знает стиль и kit. Приложить `build/store/shot_battle_0.png` и `shot_battle_1.png`.
+
+```
+NEXT TASK — same style as the menu kit you just made: redesign the BATTLE
+screen of Mine Rush — the in-game HUD and the battlefield. Attached: current
+battle screenshots. Characters stay as they are (our pixel sprites walk on
+the field); everything else can change.
+
+LAYOUT (1280×720 base, also check 1440×720; the game camera is fixed):
+- Units walk left→right on ONE road, feet at y≈390–420. Our base at x≈90,
+  enemy base at x≈1190 (each ~192×192, entrance facing the road).
+- Top HUD strip (y 0–80), bottom panel (y ≈ 560–720). The road and both
+  bases must stay fully visible and uncluttered between them.
+
+HUD (Russian text is drawn by the game, not in the SVG):
+1. Top-left: base health (heart + "5") and coins earned this battle (coin + "120").
+2. Top-center: level/wave plate "Ур. 7 · Волна 3/6" (stretches with text).
+3. Top-right: pause button (icon button).
+4. Bottom panel, left: food counter "25/30" with a big food icon and a thin
+   fill bar (food regenerates).
+5. Unit cards (up to 6 in a row, ~110×150): portrait window, food price
+   plate, level tag "ур.2", hotkey badge 1–6 in the corner (PC), a cooldown
+   overlay/bar, states: ready (bright, inviting), too expensive (dim),
+   cooling down.
+6. Right side: two ad boosters "×2" (speed) and "+15" (food), each with a
+   small "watch ad" badge, used/disabled state; the big METEOR ability
+   button (charges "1/2", radial or bar recharge, glowing when ready).
+7. Base HP bars above the bases (blue ours, red enemy) with the number;
+   ours has two star marks (thresholds for 3 and 2 stars).
+8. Unit HP bars over units: tiny, blue/red.
+9. Banner in the upper-middle: title + subtitle ("Финальная волна!" /
+   "Босс: Король зомби"), normal and danger (red) versions.
+10. Enemy base SHIELD: a translucent blue dome over the enemy base
+    (while the boss is alive) — style it to match.
+11. Pause window (Продолжить / Настройки / В меню) and Result window
+    (Победа! / Поражение, 3 stars, coins, buttons "×2 монеты за рекламу",
+    "Дальше", "В меню").
+
+BATTLEFIELD (two biomes, same composition):
+- MEADOW: sunny, painted, with depth: sky/hills far away, the road in the
+  middle, grass, trees, bushes, flowers in front and behind. Bases: a cozy
+  wooden hut with a flag (ours blue flag, enemy red flag), plus a damaged and
+  a destroyed state of each.
+- CAVE: dark cave with glowing blue crystals, rails, lanterns; mine-entrance
+  bases in the same 3 states.
+- ORE blocks: 2 tappable ore rocks near the road (below it) that give food —
+  shiny, clearly tappable, plus an "empty/recharging" state.
+- Keep the road readable: the units are small pixel sprites, so the ground
+  under them must be calm and contrasting.
+
+TECHNICAL: same rules as the menu kit — separate SVGs, gradients allowed, no
+filters/blur/masks/clip-paths/embedded images/<text>; 9-slice friendly panels
+with corner sizes; button states normal/hover/pressed/disabled. Backgrounds
+bg_battle_meadow and bg_battle_cave 1440×720 (safe area = middle 1280), bases
+~256×256 each state, ore 96×96 (+ recharging).
+
+DELIVERY: mockups battle_meadow.png and battle_cave.png (1280×720 and
+1440×720, with units, HUD and a banner), pause and result mockups, the SVG kit
+in kit_battle/, and add the new pieces to manifest.json.
+```
