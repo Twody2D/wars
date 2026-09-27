@@ -125,9 +125,8 @@ Esc pauses the game.
 
 ## Картинки
 
-- `build/store/icon_512.png` — иконка 512×512 (из `design/.../v2/brand/store_icon.svg`).
-- `build/store/cover_800x470.png` — обложка 800×470 (`store_cover.svg`, по высоте, середина).
-- `build/store/shot_*.png` — скриншоты 1920×1080: меню, улучшения, карта, бой. Снимаются `tools/shot.gd` с `--resolution 1920x1080`.
-- `build/store/trailer.mp4` — горизонтальное видео 1920×1080, ~27 с (Яндекс: MP4, 16:9, ≤ 28 с, ≤ 100 МБ). Пересобрать:
-  1. `"$GODOT" --path . --write-movie build/store/raw.avi --fixed-fps 30 -s res://tools/record_trailer.gd` — запись (окно ~1.5 мин, не трогать; прогресс только в памяти, сохранение не меняется);
-  2. `py -3.14 tools/make_trailer.py` — монтаж (куски, подписи, музыка — в `SEGMENTS`).
+- `build/store/new/store_icon_A|B|C.png` — иконка 512×512, `store_cover_A|B|C.png` — обложка 800×470 (Claude Design, `design/Art sections 1 and 2 complete/assets/store/`; `catalog_preview.png` — все рядом в размере каталога). Совет: обложка A, иконка A.
+- `build/store/shot_*.png` — скриншоты 1920×1080: `battle_meadow` (Король зомби у щита), `battle_cave` (Каменный голем), `menu`, `upgrades`, `map`. Пересоздать: `"$GODOT" --path . --resolution 1920x1080 -s res://tools/store_shots.gd` (прогресс только в памяти, сохранение не меняется). Для Яндекса (скриншоты ≥ 70% геймплея) первыми ставить бои.
+- `build/store/trailer.mp4` — горизонтальное видео 1920×1080, ~27 с (Яндекс: MP4, 16:9, ≤ 28 с, ≤ 100 МБ), в конце — обложка A. Пересобрать:
+  1. `"$GODOT" --path . --write-movie build/store/raw.avi --fixed-fps 30 -s res://tools/record_trailer.gd` — запись (окно ~2 мин, не трогать; прогресс только в памяти);
+  2. `py -3.14 tools/make_trailer.py` — монтаж (куски и музыка — в `SEGMENTS`, заставка — `COVER`).
