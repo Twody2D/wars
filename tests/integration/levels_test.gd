@@ -76,3 +76,30 @@ func test_bot_stops_after_final_leader_dies() -> void:
 	for i: int in 3000:
 		bot.step(sim.balance.sim_dt)
 	assert_int(sim.units.size()).is_equal(before)
+
+
+## Twody: bosses were skipped by rushing the base. While the last wave's
+## leader lives the bot base holds at its shield floor; then it can fall.
+func test_bot_base_shielded_until_leader_dies() -> void:
+	var level: LevelData = config.levels[9]
+	var s := BattleSetup.basic(config.balance, level, [config.player_units[0]] as Array[UnitData], 1)
+	var sim := BattleSim.new(s)
+	var bot := BattleBot.new(sim)
+	assert_bool(bot.is_shielded()).is_true()
+	var floor_hp: float = sim.base_max_hp[BattleSim.BOT] * sim.balance.bot_shield_floor
+	sim._damage_base(BattleSim.BOT, 100000.0)
+	assert_float(sim.base_hp[BattleSim.BOT]).is_equal_approx(floor_hp, 0.01)
+	assert_bool(sim.is_over()).is_false()
+	var guard := 0
+	while not bot.all_waves_done() and guard < 100000:
+		bot.step(sim.balance.sim_dt)
+		guard += 1
+	for u: SimUnit in sim.units:
+		if u.side == BattleSim.BOT:
+			u.hp = 0.0
+			u.state = SimUnit.State.DEAD
+	bot.step(sim.balance.sim_dt)
+	assert_bool(bot.is_shielded()).is_false()
+	sim._damage_base(BattleSim.BOT, 100000.0)
+	sim._check_winner()
+	assert_int(sim.winner).is_equal(BattleSim.PLAYER)

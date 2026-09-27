@@ -1,6 +1,7 @@
 class_name BattleBot
 extends RefCounted
-## Scripted bot (SPEC 5): waves from LevelData; on its own food it sends
+## Scripted bot (SPEC 5): waves from LevelData; the base is shielded until
+## the last wave's leader or boss dies; on its own food it sends
 ## defenders (counter picks) only while the player's army is on its half of
 ## the field, so waves stay clear packs; one random unit every few seconds
 ## after the last wave.
@@ -23,6 +24,21 @@ var _leader: SimUnit = null
 func _init(sim_: BattleSim) -> void:
 	sim = sim_
 	level = sim_.setup.level
+	_update_shield()
+
+
+## The last wave has a leader or a boss: the bot base keeps a shield until it dies.
+func has_shield() -> bool:
+	return wave_count() > 0 and wave_leader(wave_count() - 1) != null
+
+
+func is_shielded() -> bool:
+	return sim.base_floor[BattleSim.BOT] > 0.0
+
+
+func _update_shield() -> void:
+	var on: bool = has_shield() and not is_broken()
+	sim.base_floor[BattleSim.BOT] = sim.base_max_hp[BattleSim.BOT] * sim.balance.bot_shield_floor if on else 0.0
 
 
 func wave_count() -> int:
@@ -89,6 +105,7 @@ func step(dt: float) -> void:
 			_counter_pick()
 	if all_waves_done() and not is_broken():
 		_pressure(dt)
+	_update_shield()
 
 
 func _step_spawners(dt: float) -> void:

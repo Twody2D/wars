@@ -16,6 +16,8 @@ signal projectile_spawned(projectile: SimProjectile)
 signal projectile_finished(projectile: SimProjectile)
 signal explosion(x: float, radius: float, side: int)
 signal base_damaged(side: int, amount: float)
+## A hit stopped by the shield (the base is at base_floor).
+signal base_shielded(side: int)
 signal meteor_cast(at: Vector2)
 signal meteor_impact(at: Vector2)
 signal battle_over(winner: int)
@@ -38,6 +40,8 @@ var base_hp: Array[float] = [0.0, 0.0]
 ## Seconds left while the player's base ignores hits (BalanceData.player_base_hit_interval).
 var base_guard: float = 0.0
 var base_max_hp: Array[float] = [0.0, 0.0]
+## A base can't drop below this HP (the bot base while its leader lives; set by BattleBot).
+var base_floor: Array[float] = [0.0, 0.0]
 ## Enemies killed by each side (bomber self-destruction doesn't count).
 var kills: Array[int] = [0, 0]
 var winner: int = NONE
@@ -367,7 +371,11 @@ func _damage_base(side: int, amount: float) -> void:
 			return
 		amount = balance.player_base_hit
 		base_guard = balance.player_base_hit_interval
-	base_hp[side] = maxf(base_hp[side] - amount, 0.0)
+	if base_hp[side] <= base_floor[side]:
+		base_shielded.emit(side)
+		return
+	amount = minf(amount, base_hp[side] - base_floor[side])
+	base_hp[side] -= amount
 	base_damaged.emit(side, amount)
 
 

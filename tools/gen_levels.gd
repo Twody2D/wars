@@ -30,7 +30,7 @@ const BOT_FOOD: Array[float] = [
 ## "lose a couple of times, upgrade, win". Level 1: lost without upgrades.
 const BOT_POWER: Array[float] = [
 	1.23, 1.0, 1.05, 1.25, 1.1, 1.4, 1.5, 1.65, 1.7, 1.95,
-	2.3, 2.55, 2.6, 2.7, 2.75, 2.85, 2.95, 2.85, 3.1, 3.4,
+	2.3, 2.55, 2.6, 2.7, 2.75, 2.85, 2.95, 2.85, 3.1, 3.2,
 ]
 ## Boss levels get a smaller army: the boss is the threat.
 const BOSS_LEVEL_BUDGET := 0.75

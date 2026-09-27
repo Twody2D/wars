@@ -63,6 +63,9 @@ extends Resource
 @export var wave_stagger: float = 0.35
 ## The bot sends defenders once a player unit is past this share of the lane.
 @export var bot_defend_line: float = 0.5
+## While the last wave's leader or boss is alive, the bot base can't drop
+## below this share of its HP (Twody: the boss must be beaten, not skipped).
+@export var bot_shield_floor: float = 0.15
 ## After the last wave: one random unit every N seconds.
 @export var bot_pressure_interval: float = 6.0
 

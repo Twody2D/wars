@@ -19,12 +19,19 @@ var _star_marks: Dictionary[float, TextureRect] = {}
 @onready var _sprite: Sprite2D = $Sprite
 @onready var _bar: TextureProgressBar = $HpBar
 @onready var _hp_label: Label = $HpBar/Value
+## Optional dome over the bot base (see BattleBot.is_shielded).
+@onready var _shield: CanvasItem = get_node_or_null(^"Shield")
+var _shield_on: bool = false
+var _shield_tween: Tween
 
 
 func _ready() -> void:
 	if bar_fill != null:
 		_bar.texture_progress = bar_fill
 	_sprite.texture = intact
+	if _shield != null:
+		_shield.visible = false
+		_shield.modulate.a = 0.0
 
 
 func set_hp(hp: float, max_hp: float) -> void:
@@ -68,3 +75,32 @@ func hit() -> void:
 		var dx: float = shake_px if i % 2 == 0 else -shake_px
 		_tween.tween_property(_sprite, "offset:x", dx, 0.03)
 	_tween.tween_property(_sprite, "offset:x", 0.0, 0.03)
+
+
+## Fades the shield dome in or out.
+func set_shield(on: bool) -> void:
+	if _shield == null or on == _shield_on:
+		return
+	_shield_on = on
+	if _shield_tween != null and _shield_tween.is_valid():
+		_shield_tween.kill()
+	_shield.visible = true
+	_shield_tween = create_tween()
+	if on:
+		_shield_tween.tween_property(_shield, "modulate:a", 1.0, 0.4)
+	else:
+		# Breaks: a flash and a quick fade.
+		_shield_tween.tween_property(_shield, "scale", Vector2(1.25, 1.25), 0.25)
+		_shield_tween.parallel().tween_property(_shield, "modulate:a", 0.0, 0.25)
+		_shield_tween.tween_callback(_shield.hide)
+
+
+## A hit stopped by the shield: the dome flashes.
+func shield_hit() -> void:
+	if _shield == null or not _shield_on:
+		return
+	if _shield_tween != null and _shield_tween.is_valid():
+		return
+	_shield_tween = create_tween()
+	_shield_tween.tween_property(_shield, "modulate", Color(1.8, 1.8, 1.8, 1.0), 0.06)
+	_shield_tween.tween_property(_shield, "modulate", Color.WHITE, 0.2)

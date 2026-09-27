@@ -47,6 +47,7 @@ var _blast_this_frame: bool = false
 ## Waves already announced by the banner.
 var _announced_waves: int = 0
 var _announced_broken: bool = false
+var _announced_shield: bool = false
 
 @onready var _background: Sprite2D = $Background
 @onready var _units_layer: Node2D = $Units
@@ -124,6 +125,7 @@ func _process(delta: float) -> void:
 	if bot.current_wave() > _announced_waves and not sim.is_over():
 		_announced_waves = bot.current_wave()
 		_announce_wave(_announced_waves - 1)
+	_bot_base.set_shield(bot.is_shielded() and not sim.is_over())
 	if not _announced_broken and bot.is_broken() and not sim.is_over():
 		_announced_broken = true
 		_banner.announce(tr("BANNER_BASE_OPEN"), tr("BANNER_BASE_OPEN_SUB"))
@@ -231,6 +233,7 @@ func _connect_sim() -> void:
 		_effects.spawn(&"meteor", at, balance.meteor_radius / 40.0)
 		_effects.spawn(&"explosion", at, balance.meteor_radius / 45.0))
 	sim.base_damaged.connect(_on_base_damaged)
+	sim.base_shielded.connect(_on_base_shielded)
 	sim.battle_over.connect(_on_battle_over)
 
 
@@ -350,6 +353,21 @@ func _on_base_damaged(side: int, _amount: float) -> void:
 	if not _blast_this_frame:
 		Audio.play_sfx(&"base_hit")
 	_update_bases()
+
+
+## The bot base is at its shield floor: the dome flashes; the first time a
+## banner says who has to be beaten.
+func _on_base_shielded(side: int) -> void:
+	if side != BattleSim.BOT:
+		return
+	_bot_base.shield_hit()
+	if not _blast_this_frame:
+		Audio.play_sfx(&"hit")
+	if _announced_shield:
+		return
+	_announced_shield = true
+	var leader: WaveEntry = bot.wave_leader(bot.wave_count() - 1)
+	_banner.announce(tr("BANNER_SHIELD"), tr("BANNER_SHIELD_SUB_FMT") % tr(leader.unit.name_key), true)
 
 
 func _update_bases() -> void:
