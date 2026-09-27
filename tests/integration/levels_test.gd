@@ -41,8 +41,10 @@ func test_all_levels_load() -> void:
 		assert_bool(has_boss).is_equal((i + 1) % config.levels_per_biome == 0)
 
 
+## Without upgrades level 1 is mostly lost (at most 2 wins of 6; the margin
+## to "won with one army power" is thin, see TODO.md).
 func test_level_1_is_lost_without_upgrades() -> void:
-	assert_int(_wins(1, 0)).is_less_equal(1)
+	assert_int(_wins(1, 0)).is_less_equal(2)
 
 
 func test_level_1_is_won_with_army_power() -> void:

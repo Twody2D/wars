@@ -425,8 +425,10 @@ func _nearest_enemy_ahead(unit: SimUnit) -> SimUnit:
 	return null
 
 
-## Queue behind the unit ahead (wait_distance). Exception: when the units ahead
-## are already fighting, join them until front_width units are in the crowd.
+## Queue behind the unit ahead (wait_distance). A slower ally that is walking
+## does not block: a faster unit overtakes it (Twody: the spider stuck behind the
+## archer). When the units ahead are already fighting, join them until
+## front_width units are in the crowd.
 func _friend_blocking(unit: SimUnit) -> bool:
 	var order: Array = _front_order[unit.side]
 	var fighting := 0
@@ -435,6 +437,8 @@ func _friend_blocking(unit: SimUnit) -> bool:
 		var other: SimUnit = order[i]
 		i -= 1
 		if not other.is_alive():
+			continue
+		if other.state == SimUnit.State.WALK and unit.data.speed > other.data.speed:
 			continue
 		var d: float = unit.ahead(other.x)
 		if d < 0.0 or d >= balance.wait_distance:
