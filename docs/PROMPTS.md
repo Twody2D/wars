@@ -701,3 +701,101 @@ DELIVERY: mockups battle_meadow.png and battle_cave.png (1280×720 and
 1440×720, with units, HUD and a banner), pause and result mockups, the SVG kit
 in kit_battle/, and add the new pieces to manifest.json.
 ```
+
+## Магазин v3: инапы и монеты за рекламу (28.09.2026)
+
+Отправлять в **тот же чат** Claude Design, где сделаны меню v3 и бой v3 (`design/Mine Rush menu redesign/`), — он знает стиль и kit. Приложить `build/store/shot_menu.png` и `shot_upgrades.png` (текущий вид v3 в игре) и скриншот магазина конкурента, если есть.
+
+```
+NEXT TASK — same style as the menu kit and the battle kit you made: design the
+SHOP of Mine Rush (in-app purchases on Yandex Games + free coins for an ad).
+Attached: our current main and upgrades screens (v3 in the game).
+
+--------------------------------------------------------------------
+1. WHERE THE SHOP LIVES
+--------------------------------------------------------------------
+- A 4th tab in the bottom tab bar, FIRST from the left: "Магазин" (shop icon:
+  a striped shop awning or an open treasure chest) · "Бой" · "Улучшения" ·
+  "Карта". Redraw the tab bar for 4 tabs (same tab_active / tab_inactive
+  style; must fit 1280×720 and a 16:10 window 1152×720).
+- The coin counter (top-right) gets its "+" button back — it opens the shop.
+- A red dot on the shop tab when the free coins are ready.
+
+--------------------------------------------------------------------
+2. WHAT WE SELL (texts are drawn by the game; the numbers are examples)
+--------------------------------------------------------------------
+Prices are in "яны" (Yandex Games currency). The game draws the price text
+and puts the currency ICON it gets from the Yandex SDK at runtime — so every
+price button needs an empty square slot ~36×36 left of the number for that
+icon (do not draw the yan icon yourself).
+
+A) "Набор новичка" (starter pack) — ONE TIME, the hero offer.
+   Big featured card: Goblin Miner + a pile of coins + a "−60%" or "ВЫГОДНО"
+   burst sticker. Contents list with small icons: "Шахтёр-гоблин" (unlocks the
+   fighter), "5 000 монет". Price button "49 [yan]". Bought state: greyed
+   card with a green check "Куплено".
+B) "Без рекламы" — PERMANENT. Removes the ads between screens (the optional
+   "watch an ad" bonuses stay). Icon: a TV with an ad crossed out / a shield
+   over the TV. Price "149 [yan]". Bought state "Куплено" with a check.
+C) "Золотая кирка" — PERMANENT: ×2 coins from every battle forever. Icon: a
+   shiny golden pickaxe with sparkles. Price "199 [yan]". Bought state.
+D) Coin packs — CONSUMABLE, bought again and again; three cards growing in
+   size and richness:
+   - "Горсть монет" 2 000 — a small pile of coins — "29 [yan]";
+   - "Мешок монет" 8 000 — a bulging sack — "99 [yan]", ribbon "ХИТ";
+   - "Сундук монет" 25 000 — an open chest overflowing — "249 [yan]",
+     ribbon "ВЫГОДНО" / "+25%".
+E) "Монеты за рекламу" — FREE: +500 coins for watching an ad, once every
+   15 minutes. Icon: a TV with coins popping out. Button with the "watch ad"
+   badge (same as the battle boosters) and a cooldown state that shows a
+   timer "12:40" (drawn by the game) on a grey button.
+
+--------------------------------------------------------------------
+3. SCREEN LAYOUT (1280×720 base, also check 1440×720 and 1152×720)
+--------------------------------------------------------------------
+- Same frame as the upgrades screen: settings (top-left), title ribbon
+  "Магазин" (top-center), coin counter with "+" (top-right), tab bar at the
+  bottom, the menu scenery dimmed behind.
+- Everything fits on ONE screen without scrolling at 1280×720:
+  row 1 — the starter pack as a wide hero card (with a soft glow/rays behind)
+  + "Без рекламы" + "Золотая кирка";
+  row 2 — the three coin packs + "Монеты за рекламу".
+  Propose the best arrangement; the hero offer must be the first thing seen.
+- Cards of one family: colored frame by type (gold = hero/permanent,
+  blue = coins, green = free), big volumetric item art on a radial glow,
+  name, short effect line, price button at the bottom.
+
+--------------------------------------------------------------------
+4. POPUPS
+--------------------------------------------------------------------
+- "Покупка получена!" — reward window: the item art big in the middle, rays
+  behind, "+8 000" with coins, button "Отлично".
+- "Магазин недоступен" — small window when the SDK is offline: a sad closed
+  shop icon, text, button "Закрыть".
+- Starter-pack offer popup — shown once after level 3: the hero card as a
+  window with a close cross and the price button.
+
+--------------------------------------------------------------------
+5. TECHNICAL (same rules as before)
+--------------------------------------------------------------------
+- Separate SVGs, gradients allowed; NO filters, blur, masks, clip-paths,
+  patterns, embedded images, <text>, CSS. Fake glows with shapes/gradients.
+- Cards, buttons, windows 9-slice friendly — write the corner sizes.
+- Buttons: _normal, _hover, _pressed, _disabled. Item art 256×256
+  (transparent), icons 128×128.
+- Small files: the whole game must stay under 10 MB.
+
+--------------------------------------------------------------------
+6. DELIVERY (put it in kit_shop/ and add to manifest.json)
+--------------------------------------------------------------------
+1. Mockups: mockup_shop.png at 1280×720, 1440×720, 1152×720; the three
+   popups; the new 4-tab bar on the main screen.
+2. SVG kit: card_shop_hero, card_shop_gold, card_shop_coins, card_shop_free,
+   card_shop_bought, sticker_burst, ribbon_hit, ribbon_value,
+   btn_price_* (with the empty currency slot), btn_ad_*, tab_* for 4 tabs,
+   window_reward, rays_reward;
+   art: art_starter_pack, art_no_ads, art_gold_pickaxe, art_coins_small,
+   art_coins_bag, art_coins_chest, art_free_coins, art_shop_closed;
+   icons: icon_shop, icon_check, icon_plus.
+3. A table: file, size, 9-slice corners, where it is used.
+```
