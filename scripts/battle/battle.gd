@@ -302,7 +302,7 @@ func _on_unit_died(u: SimUnit, killed: bool) -> void:
 		Audio.play_sfx(&"death")
 	if killed and u.side == BattleSim.BOT and balance.coins_per_kill > 0:
 		var at: Vector2 = get_viewport().get_canvas_transform() * (v.position + Vector2(0.0, v.top_offset() * 0.6))
-		_hud.fly_coin(at, balance.coins_per_kill)
+		_hud.fly_coin(at, roundi(balance.coins_per_kill * GameState.coin_multiplier()))
 
 
 func _sync_units() -> void:
@@ -434,7 +434,7 @@ func _on_battle_over(winner: int) -> void:
 	Audio.stop_music()
 	Audio.play_sfx(&"win" if winner == BattleSim.PLAYER else &"lose", false)
 	_update_bases()
-	_result = Rewards.calculate(sim)
+	_result = Rewards.calculate(sim, GameState.coin_multiplier())
 	GameState.apply_result(_result)
 	Platform.gameplay_stop()
 	await get_tree().create_timer(result_delay).timeout

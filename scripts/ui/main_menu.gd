@@ -1,18 +1,26 @@
 class_name MainMenu
 extends Control
 ## Main menu (SPEC 7, menu v3 mockup "Mine Rush menu redesign"): bottom tab bar
-## — Battle, Upgrades, Map; settings, "How to play" (?) and the coin counter on top.
+## — Shop, Battle, Upgrades, Map; settings, "How to play" (?) and the coin
+## counter with "+" (opens the shop) on top. Shop windows: purchase received,
+## shop unavailable, the starter pack offer (T20).
 
 const BATTLE_SCENE := "res://scenes/battle/battle.tscn"
 const MAP_SIZE := Vector2(2560.0, 720.0)
-## Bottom tabs: centre x of each slot in the 800 px bar; the open tab is
-## bigger and raised (tab_active 248×118 at y 4, tab_inactive 232×102 at y 26).
-const TAB_CENTERS: Array[float] = [156.0, 400.0, 644.0]
-const TAB_ACTIVE := Rect2(0.0, 4.0, 248.0, 118.0)
-const TAB_IDLE := Rect2(0.0, 26.0, 232.0, 102.0)
+const TAB_SHOP := 0
+const TAB_BATTLE := 1
+const TAB_UPGRADES := 2
+const TAB_MAP := 3
+## Bottom tabs (Tab Bar mockup, 900 px bar): left to right from x 22 with an
+## 8 px gap; the open tab is bigger and raised (tab_active 220×118 at y 4,
+## tab_inactive 204×102 at y 26).
+const TAB_LEFT := 22.0
+const TAB_GAP := 8.0
+const TAB_ACTIVE := Rect2(0.0, 4.0, 220.0, 118.0)
+const TAB_IDLE := Rect2(0.0, 26.0, 204.0, 102.0)
 ## Icon (x, y, size) and label (y, height, font size) inside a tab.
-const TAB_ACTIVE_ICON := Vector3(94.0, 4.0, 60.0)
-const TAB_IDLE_ICON := Vector3(92.0, 5.0, 48.0)
+const TAB_ACTIVE_ICON := Vector3(80.0, 4.0, 60.0)
+const TAB_IDLE_ICON := Vector3(78.0, 5.0, 48.0)
 const TAB_ACTIVE_LABEL := Vector3(62.0, 32.0, 26.0)
 const TAB_IDLE_LABEL := Vector3(52.0, 30.0, 24.0)
 const GLOW_SCALE := Vector2(0.95, 1.08)
@@ -35,9 +43,16 @@ const MAP_WHEEL_STEP := 120.0
 @onready var _characters: Control = %Characters
 @onready var _coins: Label = %CoinsLabel
 @onready var _logo: TextureRect = %Logo
-@onready var _tabs: Array[Control] = [%BattleTab, %UpgradesTab, %MapTab]
-@onready var _tab_buttons: Array[Button] = [%TabBattle, %TabUpgrades, %TabMap]
+@onready var _tabs: Array[Control] = [%ShopTab, %BattleTab, %UpgradesTab, %MapTab]
+@onready var _tab_buttons: Array[Button] = [%TabShop, %TabBattle, %TabUpgrades, %TabMap]
 @onready var _badge: Control = %Badge
+@onready var _shop_badge: Control = $TabBar/TabShop/Badge
+@onready var _shop: ShopScreen = %ShopTab
+@onready var _plus: BaseButton = %PlusButton
+@onready var _offer: ShopOffer = %ShopOffer
+@onready var _reward: ShopReward = %ShopReward
+@onready var _offline: ShopOffline = %ShopOffline
+@onready var _clock: Timer = %Clock
 @onready var _play: Button = %PlayButton
 @onready var _glow: Control = %Glow
 @onready var _level_label: Label = %LevelLabel
@@ -60,7 +75,7 @@ const MAP_WHEEL_STEP := 120.0
 
 ## Tabs opened before the current one; Esc goes back through them.
 var _tab_history: Array[int] = []
-var _current_tab: int = 0
+var _current_tab: int = TAB_BATTLE
 var _star_full: Texture2D
 var _star_empty: Texture2D
 var _level_buttons: Array[LevelButton] = []
@@ -76,6 +91,11 @@ func _ready() -> void:
 	_cave.pressed.connect(func() -> void: GameState.evolve())
 	_settings_button.pressed.connect(_settings.open)
 	_help_button.pressed.connect(_how_to_play.open)
+	_plus.pressed.connect(_open_tab.bind(TAB_SHOP))
+	_shop.unavailable.connect(_offline.open)
+	_shop.free_coins_claimed.connect(_reward.open)
+	Platform.purchased.connect(_on_purchased)
+	_clock.timeout.connect(_tick)
 	for u: UnitData in GameState.config.player_units:
 		var tile: UnitTile = unit_tile_scene.instantiate()
 		_unit_tiles.add_child(tile)
@@ -93,8 +113,9 @@ func _ready() -> void:
 	_refresh()
 	_layout()
 	_start_animations()
-	_show_tab(0)
+	_show_tab(TAB_BATTLE)
 	Platform.gameplay_stop()
+	_offer_starter_pack()
 
 
 ## The scenery is drawn for 1440×720 and sits on the bottom edge (a taller
@@ -123,6 +144,7 @@ func _refresh() -> void:
 	_cave_lock.visible = _cave.disabled
 	_cave_hint.text = tr("EVOLVE_HINT") if _cave.disabled else tr("EVOLVE_READY")
 	_badge.visible = _can_buy_something()
+	_tick()
 	_build_map()
 
 
@@ -155,6 +177,28 @@ func _can_buy_something() -> bool:
 		if cost >= 0 and cost <= GameState.coins:
 			return true
 	return false
+
+
+## Once a second: the red dot on the Shop tab when free coins are ready, the timer.
+func _tick() -> void:
+	_shop_badge.visible = GameState.free_coins_left(int(Time.get_unix_time_from_system())) == 0
+	_shop.tick()
+
+
+## Starter pack offer: once, after a win on its level, if the catalog has it.
+func _offer_starter_pack() -> void:
+	if not GameState.starter_offer_due():
+		return
+	await Platform.get_catalog()
+	for p: ProductData in GameState.shop.products:
+		if p.kind == ProductData.Kind.STARTER and not _offer.visible and _offer.open(p):
+			GameState.mark_starter_offer_shown()
+
+
+## A purchase went through (or was restored): show what it gave.
+func _on_purchased(id: StringName) -> void:
+	_offer.close()
+	_reward.open(GameState.shop.product(id))
 
 
 func _build_map() -> void:
@@ -221,22 +265,26 @@ func _open_tab(index: int) -> void:
 
 func _show_tab(index: int) -> void:
 	_current_tab = index
-	# The meadow scenery is behind the Battle and Upgrades tabs; the map has its own.
-	_scenery.visible = index != 2
-	_sky.visible = index != 2
-	_characters.visible = index == 0
-	_help_button.visible = index == 0
+	# The meadow scenery is behind the Shop, Battle and Upgrades tabs; the map has its own.
+	_scenery.visible = index != TAB_MAP
+	_sky.visible = index != TAB_MAP
+	_characters.visible = index == TAB_BATTLE
+	_help_button.visible = index == TAB_BATTLE
+	var x: float = TAB_LEFT
 	for i: int in _tabs.size():
 		_tabs[i].visible = i == index
-		_style_tab(_tab_buttons[i], i, i == index)
-	if index == 2:
+		x = _style_tab(_tab_buttons[i], x, i == index) + TAB_GAP
+	if index == TAB_MAP:
 		_scroll_map_to_current.call_deferred()
+	if index == TAB_SHOP:
+		_shop.open()
 
 
-func _style_tab(button: Button, index: int, active: bool) -> void:
+## Places a tab at `x`; returns its right edge.
+func _style_tab(button: Button, x: float, active: bool) -> float:
 	var box: Rect2 = TAB_ACTIVE if active else TAB_IDLE
 	button.theme_type_variation = &"TabActive" if active else &"TabButton"
-	button.position = Vector2(TAB_CENTERS[index] - box.size.x / 2.0, box.position.y)
+	button.position = Vector2(x, box.position.y)
 	button.size = box.size
 	var icon_box: Vector3 = TAB_ACTIVE_ICON if active else TAB_IDLE_ICON
 	var icon: TextureRect = button.get_node(^"Icon")
@@ -251,6 +299,7 @@ func _style_tab(button: Button, index: int, active: bool) -> void:
 	var badge: Control = button.get_node_or_null(^"Badge")
 	if badge != null:
 		badge.position.x = box.size.x - badge.size.x + 8.0
+	return x + box.size.x
 
 
 func _start(level_number: int) -> void:

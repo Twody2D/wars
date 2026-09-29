@@ -9,6 +9,10 @@ signal paused
 signal resumed
 ## init() finished (successfully or not) — the game may start.
 signal initialized
+## In-app purchase went through: the game grants `id`, then consumes `token`.
+signal purchase_done(id: StringName, token: String)
+## Purchase cancelled, failed or the shop is unavailable.
+signal purchase_failed(id: StringName)
 
 
 func init() -> void:
@@ -51,3 +55,29 @@ func save_cloud(_data: Dictionary) -> void:
 
 func set_leaderboard_score(_stars_total: int) -> void:
 	pass
+
+
+## Products with prices (T20): [{id, price, priceValue, priceCurrencyCode,
+## currencyImage}]. [] — the shop is unavailable (offline, payments off).
+func get_catalog() -> Array[Dictionary]:
+	return []
+
+
+## Answers with purchase_done or purchase_failed.
+func purchase(id: StringName) -> void:
+	purchase_failed.emit.call_deferred(id)
+
+
+## Purchases the platform still holds (unconsumed and forever ones):
+## [{productID, purchaseToken}].
+func get_purchases() -> Array[Dictionary]:
+	return []
+
+
+func consume(_token: String) -> void:
+	pass
+
+
+## Currency icon of the portal from the catalog URL; null if unavailable.
+func load_image(_url: String) -> Texture2D:
+	return null

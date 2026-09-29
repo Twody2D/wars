@@ -77,6 +77,7 @@ func _setup() -> void:
 		"upgrades": {"army_power": 8, "food_rate": 8, "base_hp": 4, "battle_speed": 1},
 		"battle_speed_on": true,
 		"settings": {"sound": true},
+		"shop": {"starter_offer_shown": true},
 	})
 	TranslationServer.set_locale("ru")
 	_make_tap_layer()
@@ -183,7 +184,7 @@ func _upgrades() -> void:
 		return
 	match _step:
 		0:
-			current_scene.call(&"_open_tab", 1)
+			current_scene.call(&"_open_tab", 2)
 			_mark("upgrades")
 		1, 2:
 			_press_upgrade(&"army_power")

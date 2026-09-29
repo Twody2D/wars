@@ -1,8 +1,10 @@
 """Copies the menu redesign v3 from Claude Design into the game.
 
 design/Mine Rush menu redesign/kit/*.svg  -> art/ui/v3/*.svg and
-kit_battle/*.svg -> art/ui/v3/battle/*.svg (C2PA metadata stripped: ~6 KB per
-file that Godot does not need);
+kit_battle/*.svg -> art/ui/v3/battle/*.svg, kit_shop/*.svg -> art/ui/v3/shop/*.svg
+(C2PA metadata stripped: ~6 KB per file that Godot does not need; the shop
+mockup parts in mockups/parts/shop are the same SVGs stretched — the game
+nine-slices the kit instead);
 design/.../assets/*.png (characters for the menu)  -> art/ui/v3/chars/;
 kit/map_nodes.json  -> the map node centres, printed for scenes/menu/main.tscn.
 Also writes two soft ground shadows (radial gradients) for the menu characters.
@@ -32,8 +34,9 @@ def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "chars").mkdir(exist_ok=True)
     (OUT / "battle").mkdir(exist_ok=True)
+    (OUT / "shop").mkdir(exist_ok=True)
     total = 0
-    for kit, out in (("kit", OUT), ("kit_battle", OUT / "battle")):
+    for kit, out in (("kit", OUT), ("kit_battle", OUT / "battle"), ("kit_shop", OUT / "shop")):
         for svg in sorted((SRC / kit).glob("*.svg")):
             text = svg.read_text(encoding="utf-8")
             text = re.sub(r"<metadata>.*?</metadata>", "", text, flags=re.S)

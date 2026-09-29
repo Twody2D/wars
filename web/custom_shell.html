@@ -89,9 +89,13 @@ html, body {
 window.YG = (function () {
 	const INIT_TIMEOUT_MS = 6000;
 	const DATA_TIMEOUT_MS = 5000;
+	// The payment dialog waits for the player; a purchase that completes after
+	// this is picked up by getPurchases() when the shop opens or at the next launch.
+	const PURCHASE_TIMEOUT_MS = 180000;
 	const LOCAL_HOST = /^(localhost|127\.|192\.168\.|10\.)/;
 	let sdk = null;
 	let playerPromise = null;
+	let paymentsPromise = null;
 	let onEvent = null;
 
 	// /sdk.js exists only on Yandex hosting: skip it locally (no 404 in the console).
@@ -130,6 +134,14 @@ window.YG = (function () {
 			playerPromise = sdk.getPlayer({ scopes: false });
 		}
 		return playerPromise;
+	}
+
+	// ysdk.payments (SDK v2); older SDKs — ysdk.getPayments().
+	function payments() {
+		if (paymentsPromise === null) {
+			paymentsPromise = sdk.payments ? Promise.resolve(sdk.payments) : sdk.getPayments({ signed: false });
+		}
+		return paymentsPromise;
 	}
 
 	return {
@@ -210,6 +222,84 @@ window.YG = (function () {
 				return;
 			}
 			player().then((p) => p.setData({ save: json }, false)).catch((err) => console.warn('YG save', err));
+		},
+		// cb(json) — [{id, price, priceValue, priceCurrencyCode, currencyImage}], '' on error.
+		getCatalog(cb) {
+			const reply = once(cb, DATA_TIMEOUT_MS, ['']);
+			if (!sdk) {
+				reply('');
+				return;
+			}
+			payments().then((p) => p.getCatalog()).then((list) => {
+				reply(JSON.stringify(list.map((x) => ({
+					id: x.id,
+					price: x.price,
+					priceValue: x.priceValue,
+					priceCurrencyCode: x.priceCurrencyCode,
+					currencyImage: typeof x.getPriceCurrencyImage === 'function' ? x.getPriceCurrencyImage('medium') : '',
+				}))));
+			}).catch((err) => {
+				console.warn('YG catalog', err);
+				reply('');
+			});
+		},
+		// cb('ok', purchaseToken) or cb('fail', '') — cancelled, error, timeout.
+		purchase(id, cb) {
+			const reply = once(cb, PURCHASE_TIMEOUT_MS, ['fail', '']);
+			if (!sdk) {
+				reply('fail', '');
+				return;
+			}
+			payments().then((p) => p.purchase({ id })).then((purchase) => {
+				reply('ok', (purchase && purchase.purchaseToken) || '');
+			}).catch((err) => {
+				console.warn('YG purchase', err);
+				reply('fail', '');
+			});
+		},
+		// cb(json) — [{productID, purchaseToken}], '' on error.
+		getPurchases(cb) {
+			const reply = once(cb, DATA_TIMEOUT_MS, ['']);
+			if (!sdk) {
+				reply('');
+				return;
+			}
+			payments().then((p) => p.getPurchases()).then((list) => {
+				reply(JSON.stringify(Array.from(list || []).map((x) => ({
+					productID: x.productID,
+					purchaseToken: x.purchaseToken,
+				}))));
+			}).catch((err) => {
+				console.warn('YG purchases', err);
+				reply('');
+			});
+		},
+		consume(token) {
+			if (!sdk) {
+				return;
+			}
+			payments().then((p) => p.consumePurchase(token)).catch((err) => console.warn('YG consume', err));
+		},
+		// cb(base64 PNG) — the image at `url` redrawn as PNG ('' on error): the
+		// engine template decodes only PNG and has no HTTP client.
+		loadImage(url, cb) {
+			const reply = once(cb, DATA_TIMEOUT_MS, ['']);
+			const img = new Image();
+			img.crossOrigin = 'anonymous';
+			img.onload = () => {
+				try {
+					const c = document.createElement('canvas');
+					c.width = img.naturalWidth || 64;
+					c.height = img.naturalHeight || 64;
+					c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+					reply(c.toDataURL('image/png').split(',')[1] || '');
+				} catch (err) {
+					console.warn('YG image', err);
+					reply('');
+				}
+			};
+			img.onerror = () => reply('');
+			img.src = url.startsWith('//') ? 'https:' + url : url;
 		},
 		setScore(board, score) {
 			if (!sdk || !sdk.leaderboards) {

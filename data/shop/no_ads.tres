@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ProductData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/product_data.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/art_no_ads.svg" id="2_art"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"no_ads"
+kind = 1
+name_key = "SHOP_NO_ADS"
+effect_key = "SHOP_FOREVER"
+coins = 0
+unit_id = &""
+art = ExtResource("2_art")
+ribbon_key = ""
+sticker_key = ""
+mock_price = 149

@@ -54,9 +54,10 @@ func setup(unit_: UnitData) -> void:
 func refresh() -> void:
 	if unit == null:
 		return
-	# Only the biomes the player has reached: later units appear after the caves open.
-	visible = unit.unlock_biome <= GameState.biome_unlocked
 	var unlocked: bool = GameState.is_unit_unlocked(unit.id)
+	# Only the biomes the player has reached: later units appear after the caves
+	# open (or once owned — the starter pack gives the goblin).
+	visible = unlocked or unit.unlock_biome <= GameState.biome_unlocked
 	var max_level: int = GameState.balance().unit_max_level
 	var level: int = maxi(GameState.unit_level(unit.id), 1)
 	var maxed: bool = unlocked and level >= max_level

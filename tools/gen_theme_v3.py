@@ -9,8 +9,10 @@ Defines: Label (white, dark outline and a drop shadow like the mockup's
 text-shadow), Button = green buy button, GreyButton (can't afford), PlayButton,
 IconButton (settings), PurpleButton (open the caves, ×2 coins), BlueButton,
 PauseButton, BoosterButton (battle), TabButton / TabActive
-(bottom tabs), MapNode (flat, the level node draws itself), SoftLabel (light
-lilac, inactive tabs), GreenLabel (next value / effect), ArrowLabel ("›").
+(bottom tabs, kit_shop: 4 tabs), PriceButton / PriceBigButton / AdButton /
+CloseButton (shop, kit_shop; the text and the currency icon are child nodes), MapNode (flat, the level node draws itself), SoftLabel (light
+lilac, inactive tabs), GreenLabel (next value / effect), MutedLabel (effect of a bought item),
+GoldLabel ("Only once!"), ArrowLabel ("›").
 Nine-slice margins come from kit/manifest.json ("top / right / bottom / left").
 
 Run: py -3.14 tools/gen_theme_v3.py
@@ -70,6 +72,10 @@ def main() -> None:
     t.set("CreamLabel/colors/font_color", color("#FFF3D6"))
     t.set("LilacLabel/base_type", '&"Label"')
     t.set("LilacLabel/colors/font_color", color("#F1E9FF"))
+    t.set("MutedLabel/base_type", '&"Label"')
+    t.set("MutedLabel/colors/font_color", color("#C9CFDB"))
+    t.set("GoldLabel/base_type", '&"Label"')
+    t.set("GoldLabel/colors/font_color", color("#FFE27A"))
 
     for state in ("font_color", "font_hover_color", "font_pressed_color", "font_hover_pressed_color",
                   "font_focus_color", "font_disabled_color"):
@@ -99,13 +105,25 @@ def main() -> None:
     button(t, "PauseButton", "pause", slice_(28, 30, 38, 30), (0.0, 0.0, 0.0, 0.0), folder=battle)
     button(t, "BoosterButton", "booster", slice_(28, 30, 62, 30), (0.0, 0.0, 0.0, 0.0), folder=battle)
 
-    # Bottom tabs: one texture for every state (the active tab is raised by the scene).
-    for type_, tex, tm in (("TabButton", "tab_inactive", slice_(32, 34, 42, 34)),
-                           ("TabActive", "tab_active", slice_(34, 36, 44, 36))):
-        sid = t.tex_box(type_.lower(), f"{V3}{tex}.svg", tm, (0.0, 0.0, 0.0, 0.0))
-        t.set(f"{type_}/base_type", '&"Button"')
-        for state in ("normal", "hover", "pressed", "hover_pressed", "disabled"):
-            t.set(f"{type_}/styles/{state}", f'SubResource("{sid}")')
+    # Shop (kit_shop): price buttons with a slot for the currency icon on the
+    # left (kept out of the stretch), the rewarded-ad button, the red close button.
+    shop = V3 + "shop/"
+    button(t, "PriceButton", "price", slice_(26, 26, 30, 56), (0.0, 0.0, 0.0, 0.0), folder=shop)
+    button(t, "PriceBigButton", "price_big", slice_(30, 30, 36, 66), (0.0, 0.0, 0.0, 0.0), folder=shop)
+    button(t, "AdButton", "ad", slice_(26, 26, 30, 26), (0.0, 0.0, 0.0, 0.0), folder=shop)
+    button(t, "CloseButton", "close", slice_(30, 30, 40, 30), (0.0, 0.0, 0.0, 0.0), folder=shop)
+
+    # Bottom tabs (kit_shop, 4 tabs): the active tab is bigger and raised by the scene.
+    tab_slice = slice_(32, 34, 42, 34)
+    for state, tex in (("normal", "tab_inactive"), ("hover", "tab_hover"), ("pressed", "tab_pressed"),
+                       ("hover_pressed", "tab_pressed"), ("disabled", "tab_inactive")):
+        sid = t.tex_box(f"tabbutton_{state}", f"{shop}{tex}.svg", tab_slice, (0.0, 0.0, 0.0, 0.0))
+        t.set(f"TabButton/styles/{state}", f'SubResource("{sid}")')
+    t.set("TabButton/base_type", '&"Button"')
+    sid = t.tex_box("tabactive", f"{shop}tab_active.svg", slice_(34, 36, 44, 36), (0.0, 0.0, 0.0, 0.0))
+    t.set("TabActive/base_type", '&"Button"')
+    for state in ("normal", "hover", "pressed", "hover_pressed", "disabled"):
+        t.set(f"TabActive/styles/{state}", f'SubResource("{sid}")')
 
     t.set("MapNode/base_type", '&"Button"')
     for state in ("normal", "hover", "pressed", "hover_pressed", "disabled"):

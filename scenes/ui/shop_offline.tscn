@@ -1,0 +1,113 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/shop_offline.gd" id="1_shop_offline"]
+[ext_resource type="Theme" path="res://scenes/ui/theme_v3.tres" id="2_theme_v3"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/window_panel.svg" id="3_window_panel"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/ribbon_title.svg" id="4_ribbon_title"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/art_shop_closed.svg" id="5_art_shop_clo"]
+
+[node name="ShopOffline" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme_v3")
+script = ExtResource("1_shop_offline")
+
+[node name="Dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0392157, 0.0470588, 0.156863, 0.66)
+
+[node name="Window" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -184.0
+offset_right = 240.0
+offset_bottom = 216.0
+grow_horizontal = 2
+grow_vertical = 2
+unique_name_in_owner = true
+pivot_offset = Vector2(240, 200)
+mouse_filter = 2
+
+[node name="Panel" type="NinePatchRect" parent="Window"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 480.0
+offset_bottom = 400.0
+mouse_filter = 2
+texture = ExtResource("3_window_panel")
+patch_margin_left = 44
+patch_margin_top = 44
+patch_margin_right = 44
+patch_margin_bottom = 52
+
+[node name="Ribbon" type="TextureRect" parent="Window"]
+layout_mode = 0
+offset_left = -20.0
+offset_top = -52.0
+offset_right = 500.0
+offset_bottom = 52.0
+mouse_filter = 2
+texture = ExtResource("4_ribbon_title")
+expand_mode = 1
+
+[node name="Title" type="Label" parent="Window"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = -44.0
+offset_right = 460.0
+offset_bottom = 22.0
+unique_name_in_owner = true
+theme_override_font_sizes/font_size = 32
+text = "SHOP_OFFLINE_TITLE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Art" type="TextureRect" parent="Window"]
+layout_mode = 0
+offset_left = 155.0
+offset_top = 40.0
+offset_right = 325.0
+offset_bottom = 210.0
+mouse_filter = 2
+texture = ExtResource("5_art_shop_clo")
+expand_mode = 1
+
+[node name="Text" type="Label" parent="Window"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 214.0
+offset_right = 450.0
+offset_bottom = 278.0
+theme_override_font_sizes/font_size = 26
+text = "SHOP_OFFLINE_TEXT"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_type_variation = &"SoftLabel"
+theme_override_constants/line_spacing = -4
+
+[node name="CloseButton" type="Button" parent="Window"]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 286.0
+offset_right = 360.0
+offset_bottom = 366.0
+unique_name_in_owner = true
+theme_type_variation = &"BlueButton"
+theme_override_font_sizes/font_size = 30
+text = "BTN_CLOSE"

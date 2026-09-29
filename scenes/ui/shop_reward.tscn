@@ -1,0 +1,170 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/shop_reward.gd" id="1_shop_reward"]
+[ext_resource type="Theme" path="res://scenes/ui/theme_v3.tres" id="2_theme_v3"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/rays_reward.svg" id="3_rays_reward"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/window_reward.svg" id="4_window_rewar"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/ribbon_win.svg" id="5_ribbon_win"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/glow_gold.svg" id="6_glow_gold"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/art_coins_bag.svg" id="7_art_coins_ba"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_coin.svg" id="8_icon_coin"]
+
+[node name="ShopReward" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme_v3")
+script = ExtResource("1_shop_reward")
+
+[node name="Dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0392157, 0.0470588, 0.156863, 0.66)
+
+[node name="Rays" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -320.0
+offset_right = 360.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+unique_name_in_owner = true
+pivot_offset = Vector2(360, 360)
+mouse_filter = 2
+texture = ExtResource("3_rays_reward")
+expand_mode = 1
+
+[node name="Window" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -190.0
+offset_right = 280.0
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 2
+unique_name_in_owner = true
+pivot_offset = Vector2(280, 230)
+mouse_filter = 2
+
+[node name="Panel" type="TextureRect" parent="Window"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 560.0
+offset_bottom = 460.0
+mouse_filter = 2
+texture = ExtResource("4_window_rewar")
+expand_mode = 1
+
+[node name="Ribbon" type="TextureRect" parent="Window"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = -52.0
+offset_right = 540.0
+offset_bottom = 52.0
+mouse_filter = 2
+texture = ExtResource("5_ribbon_win")
+expand_mode = 1
+
+[node name="Title" type="Label" parent="Window"]
+layout_mode = 0
+offset_left = 60.0
+offset_top = -44.0
+offset_right = 500.0
+offset_bottom = 26.0
+unique_name_in_owner = true
+theme_override_font_sizes/font_size = 34
+text = "SHOP_RECEIVED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Glow" type="TextureRect" parent="Window"]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 24.0
+offset_right = 440.0
+offset_bottom = 344.0
+mouse_filter = 2
+texture = ExtResource("6_glow_gold")
+expand_mode = 1
+
+[node name="Art" type="TextureRect" parent="Window"]
+layout_mode = 0
+offset_left = 165.0
+offset_top = 50.0
+offset_right = 395.0
+offset_bottom = 280.0
+unique_name_in_owner = true
+mouse_filter = 2
+texture = ExtResource("7_art_coins_ba")
+expand_mode = 1
+
+[node name="Amount" type="HBoxContainer" parent="Window"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 282.0
+offset_right = 560.0
+offset_bottom = 338.0
+unique_name_in_owner = true
+mouse_filter = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Coin" type="TextureRect" parent="Window/Amount"]
+custom_minimum_size = Vector2(54.0, 54.0)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("8_icon_coin")
+expand_mode = 1
+
+[node name="AmountLabel" type="Label" parent="Window/Amount"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 46
+text = "+8 000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Effect" type="Label" parent="Window"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 282.0
+offset_right = 540.0
+offset_bottom = 338.0
+unique_name_in_owner = true
+visible = false
+theme_override_font_sizes/font_size = 36
+text = "SHOP_FOREVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_type_variation = &"GreenLabel"
+
+[node name="OkButton" type="Button" parent="Window"]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 350.0
+offset_right = 410.0
+offset_bottom = 430.0
+unique_name_in_owner = true
+theme_override_font_sizes/font_size = 32
+text = "SHOP_GREAT"

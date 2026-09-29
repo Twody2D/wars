@@ -92,3 +92,25 @@ HOWTO_ORE,"Нажимай на руду на поле — получишь ед�
 HOWTO_METEOR,"Бросай метеор в толпу врагов (клавиша Q)","Drop the meteor on a crowd of enemies (Q key)"
 HOWTO_GOAL,"Разрушь базу врага и сохрани свою — получишь звёзды и монеты!","Destroy the enemy base and keep yours to earn stars and coins!"
 BTN_OK,Понятно,Got it
+TAB_SHOP,Магазин,Shop
+SHOP_TITLE,Магазин,Shop
+SHOP_STARTER,Набор новичка,Starter Pack
+SHOP_NO_ADS,Без рекламы,No Ads
+SHOP_GOLD_PICKAXE,Золотая кирка,Golden Pickaxe
+SHOP_COINS_SMALL,Горсть монет,Handful of Coins
+SHOP_COINS_BAG,Мешок монет,Bag of Coins
+SHOP_COINS_CHEST,Сундук монет,Chest of Coins
+SHOP_FREE_COINS,Монеты за рекламу,Coins for an Ad
+SHOP_FOREVER,Навсегда,Forever
+SHOP_COINS_X2_FOREVER,×2 монеты навсегда,×2 coins forever
+SHOP_COINS_FMT,%s монет,%s coins
+SHOP_OWNED,Куплено,Owned
+SHOP_FREE,Бесплатно,Free
+SHOP_RIBBON_HIT,ХИТ,HIT
+SHOP_RIBBON_VALUE,+25%,+25%
+SHOP_STICKER_STARTER,−60%,−60%
+SHOP_ONCE,Только один раз!,Only once!
+SHOP_RECEIVED,Покупка получена!,Purchase received!
+SHOP_GREAT,Отлично,Great
+SHOP_OFFLINE_TITLE,Магазин недоступен,Shop unavailable
+SHOP_OFFLINE_TEXT,Нет связи с магазином.\nПопробуй позже.,No connection to the shop.\nTry again later.

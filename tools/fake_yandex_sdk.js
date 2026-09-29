@@ -19,6 +19,19 @@ window.YaGames = {
 				getData() { return Promise.resolve(store); },
 				setData(d) { store = d; return Promise.resolve(); },
 			}); },
+			payments: (() => {
+				const catalog = [['starter_pack', 49], ['no_ads', 149], ['gold_pickaxe', 199],
+					['coins_small', 29], ['coins_bag', 99], ['coins_chest', 249]];
+				let held = JSON.parse(localStorage.getItem('fake_purchases') || '[]');
+				let n = held.length;
+				const keep = () => localStorage.setItem('fake_purchases', JSON.stringify(held));
+				return {
+					getCatalog() { return Promise.resolve(catalog.map(([id, v]) => ({ id, price: v + ' YAN', priceValue: String(v), priceCurrencyCode: 'YAN', getPriceCurrencyImage() { return '/index.icon.png'; } }))); },
+					purchase({ id }) { console.log('FAKE purchase', id); if (id === 'coins_small') return Promise.reject(new Error('FAKE cancelled')); const p = { productID: id, purchaseToken: 'fake-' + (++n) }; held.push(p); keep(); return Promise.resolve(p); },
+					getPurchases() { return Promise.resolve(held.slice()); },
+					consumePurchase(token) { console.log('FAKE consume', token); held = held.filter((p) => p.purchaseToken !== token); keep(); return Promise.resolve(); },
+				};
+			})(),
 			leaderboards: { setScore(b, s) { console.log('FAKE setScore', b, s); return Promise.resolve(); } },
 		};
 		window.FAKE_SDK = sdk;
