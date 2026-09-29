@@ -11,9 +11,10 @@ const OUT := "res://build/store/"
 ## [name, scene, tab or level, seconds to wait]. Battles are the real levels
 ## cut to the first and the last wave (the boss comes early, see _demo_level).
 const SHOTS: Array[Array] = [
-	["menu", "menu", 0, 1.2],
-	["upgrades", "menu", 1, 1.2],
-	["map", "menu", 2, 1.2],
+	["menu", "menu", 1, 1.2],
+	["upgrades", "menu", 2, 1.2],
+	["map", "menu", 3, 1.2],
+	["shop", "menu", 0, 1.5],
 	["battle_meadow", "battle", 10, 17.0],
 	["battle_cave", "battle", 20, 17.0],
 ]
@@ -45,6 +46,7 @@ func _process(delta: float) -> bool:
 			},
 			"upgrades": {"army_power": 8, "food_rate": 7, "base_hp": 6, "start_food": 2},
 			"settings": {"sound": false},
+			"shop": {"starter_offer_shown": true},
 		})
 		TranslationServer.set_locale("ru")
 		_start(0)

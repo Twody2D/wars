@@ -26,7 +26,7 @@ window.YaGames = {
 				let n = held.length;
 				const keep = () => localStorage.setItem('fake_purchases', JSON.stringify(held));
 				return {
-					getCatalog() { return Promise.resolve(catalog.map(([id, v]) => ({ id, price: v + ' YAN', priceValue: String(v), priceCurrencyCode: 'YAN', getPriceCurrencyImage() { return '/icon.png'; } }))); },
+					getCatalog() { return Promise.resolve(catalog.map(([id, v]) => ({ id, price: v + ' YAN', priceValue: String(v), priceCurrencyCode: 'YAN', getPriceCurrencyImage() { return '/index.icon.png'; } }))); },
 					purchase({ id }) { console.log('FAKE purchase', id); if (id === 'coins_small') return Promise.reject(new Error('FAKE cancelled')); const p = { productID: id, purchaseToken: 'fake-' + (++n) }; held.push(p); keep(); return Promise.resolve(p); },
 					getPurchases() { return Promise.resolve(held.slice()); },
 					consumePurchase(token) { console.log('FAKE consume', token); held = held.filter((p) => p.purchaseToken !== token); keep(); return Promise.resolve(); },
