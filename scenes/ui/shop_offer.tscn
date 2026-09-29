@@ -1,0 +1,306 @@
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/shop_offer.gd" id="1_shop_offer"]
+[ext_resource type="Theme" path="res://scenes/ui/theme_v3.tres" id="2_theme_v3"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/rays_reward.svg" id="3_rays_reward"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/card_shop_hero.svg" id="4_card_shop_he"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/rays_hero.svg" id="5_rays_hero"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/glow_gold.svg" id="6_glow_gold"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/art_starter_pack.svg" id="7_art_starter_"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/chars/art_goblin.png" id="8_art_goblin"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/sticker_burst.svg" id="9_sticker_burs"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/plate_item.svg" id="10_plate_item"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_coin.svg" id="11_icon_coin"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/battle/ribbon_win.svg" id="12_ribbon_win"]
+
+[node name="ShopOffer" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme_v3")
+script = ExtResource("1_shop_offer")
+
+[node name="Dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0392157, 0.0470588, 0.156863, 0.66)
+
+[node name="Rays" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -320.0
+offset_right = 360.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+unique_name_in_owner = true
+pivot_offset = Vector2(360, 360)
+mouse_filter = 2
+texture = ExtResource("3_rays_reward")
+expand_mode = 1
+
+[node name="Window" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -164.0
+offset_right = 400.0
+offset_bottom = 242.0
+grow_horizontal = 2
+grow_vertical = 2
+unique_name_in_owner = true
+pivot_offset = Vector2(400, 203)
+mouse_filter = 2
+
+[node name="Frame" type="NinePatchRect" parent="Window"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 800.0
+offset_bottom = 406.0
+mouse_filter = 2
+texture = ExtResource("4_card_shop_he")
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 36
+
+[node name="RaysHero" type="TextureRect" parent="Window"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 48.0
+offset_right = 400.0
+offset_bottom = 336.0
+mouse_filter = 2
+texture = ExtResource("5_rays_hero")
+expand_mode = 1
+
+[node name="Glow" type="TextureRect" parent="Window"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 52.0
+offset_right = 350.0
+offset_bottom = 352.0
+mouse_filter = 2
+texture = ExtResource("6_glow_gold")
+expand_mode = 1
+
+[node name="Art" type="TextureRect" parent="Window"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 40.0
+offset_right = 396.0
+offset_bottom = 340.0
+mouse_filter = 2
+texture = ExtResource("7_art_starter_")
+expand_mode = 1
+
+[node name="Goblin" type="TextureRect" parent="Window"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 120.0
+offset_right = 250.7782
+offset_bottom = 340.0
+mouse_filter = 2
+texture = ExtResource("8_art_goblin")
+expand_mode = 1
+
+[node name="Sticker" type="Control" parent="Window"]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 40.0
+offset_right = 430.0
+offset_bottom = 170.0
+unique_name_in_owner = true
+rotation = -0.1396
+pivot_offset = Vector2(65.0, 65.0)
+mouse_filter = 2
+
+[node name="Burst" type="TextureRect" parent="Window/Sticker"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 130.0
+offset_bottom = 130.0
+mouse_filter = 2
+texture = ExtResource("9_sticker_burs")
+expand_mode = 1
+
+[node name="StickerLabel" type="Label" parent="Window/Sticker"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 130.0
+offset_bottom = 128.0
+unique_name_in_owner = true
+theme_override_font_sizes/font_size = 28
+text = "SHOP_STICKER_STARTER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Once" type="Label" parent="Window"]
+layout_mode = 0
+offset_left = 414.0
+offset_top = 74.0
+offset_right = 774.0
+offset_bottom = 114.0
+theme_override_font_sizes/font_size = 30
+text = "SHOP_ONCE"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_type_variation = &"GoldLabel"
+
+[node name="UnitPlate" type="NinePatchRect" parent="Window"]
+layout_mode = 0
+offset_left = 414.0
+offset_top = 132.0
+offset_right = 774.0
+offset_bottom = 188.0
+mouse_filter = 2
+texture = ExtResource("10_plate_item")
+patch_margin_left = 22
+patch_margin_top = 20
+patch_margin_right = 22
+patch_margin_bottom = 20
+
+[node name="Icon" type="TextureRect" parent="Window/UnitPlate"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 5.0
+offset_right = 60.0
+offset_bottom = 51.0
+mouse_filter = 2
+texture = ExtResource("8_art_goblin")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Window/UnitPlate"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 70.0
+offset_top = 0.0
+offset_right = -8.0
+offset_bottom = 56.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 28
+text = "UNIT_GOBLIN_MINER"
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="CoinsPlate" type="NinePatchRect" parent="Window"]
+layout_mode = 0
+offset_left = 414.0
+offset_top = 200.0
+offset_right = 774.0
+offset_bottom = 256.0
+mouse_filter = 2
+texture = ExtResource("10_plate_item")
+patch_margin_left = 22
+patch_margin_top = 20
+patch_margin_right = 22
+patch_margin_bottom = 20
+
+[node name="Icon" type="TextureRect" parent="Window/CoinsPlate"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 4.0
+offset_right = 58.0
+offset_bottom = 52.0
+mouse_filter = 2
+texture = ExtResource("11_icon_coin")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CoinsLabel" type="Label" parent="Window/CoinsPlate"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 70.0
+offset_top = 0.0
+offset_right = -8.0
+offset_bottom = 56.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 28
+text = "SHOP_COINS_FMT"
+horizontal_alignment = 0
+vertical_alignment = 1
+unique_name_in_owner = true
+
+[node name="BuyButton" type="Button" parent="Window"]
+layout_mode = 0
+offset_left = 444.0
+offset_top = 278.0
+offset_right = 744.0
+offset_bottom = 362.0
+unique_name_in_owner = true
+theme_type_variation = &"PriceBigButton"
+
+[node name="Currency" type="TextureRect" parent="Window/BuyButton"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 17.0
+offset_right = 57.0
+offset_bottom = 51.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Price" type="Label" parent="Window/BuyButton"]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 3.0
+offset_right = 284.0
+offset_bottom = 66.0
+theme_override_font_sizes/font_size = 38
+text = "49"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Ribbon" type="TextureRect" parent="Window"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = -58.0
+offset_right = 660.0
+offset_bottom = 46.0
+mouse_filter = 2
+texture = ExtResource("12_ribbon_win")
+expand_mode = 1
+
+[node name="Title" type="Label" parent="Window"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = -50.0
+offset_right = 620.0
+offset_bottom = 20.0
+unique_name_in_owner = true
+theme_override_font_sizes/font_size = 36
+text = "SHOP_STARTER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CloseButton" type="Button" parent="Window"]
+layout_mode = 0
+offset_left = 738.0
+offset_top = -28.0
+offset_right = 822.0
+offset_bottom = 62.0
+unique_name_in_owner = true
+theme_type_variation = &"CloseButton"

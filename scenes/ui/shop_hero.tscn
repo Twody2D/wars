@@ -1,0 +1,329 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/shop_hero.gd" id="1_shop_hero"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/card_shop_hero.svg" id="2_card_shop_he"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/card_shop_bought.svg" id="3_card_shop_bo"]
+[ext_resource type="Material" path="res://scenes/ui/gray_material.tres" id="4_gray_materia"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/rays_hero.svg" id="5_rays_hero"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/glow_gold.svg" id="6_glow_gold"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/art_starter_pack.svg" id="7_art_starter_"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/chars/art_goblin.png" id="8_art_goblin"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/plate_item.svg" id="9_plate_item"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/icon_coin.svg" id="10_icon_coin"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/plate_bought.svg" id="11_plate_bought"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/icon_check.svg" id="12_icon_check"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/sticker_burst.svg" id="13_sticker_burs"]
+
+[node name="ShopHero" type="Control"]
+custom_minimum_size = Vector2(608, 222)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 608.0
+offset_bottom = 222.0
+mouse_filter = 2
+script = ExtResource("1_shop_hero")
+frame_live = ExtResource("2_card_shop_he")
+frame_bought = ExtResource("3_card_shop_bo")
+gray = ExtResource("4_gray_materia")
+
+[node name="Frame" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 222.0
+grow_horizontal = 2
+unique_name_in_owner = true
+mouse_filter = 2
+texture = ExtResource("2_card_shop_he")
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 36
+
+[node name="Left" type="Control" parent="."]
+layout_mode = 1
+anchor_right = 0.493
+offset_bottom = 216.0
+mouse_filter = 2
+
+[node name="Rays" type="TextureRect" parent="Left"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 0.0
+offset_right = 150.0
+offset_bottom = 216.0
+grow_horizontal = 2
+unique_name_in_owner = true
+mouse_filter = 2
+texture = ExtResource("5_rays_hero")
+expand_mode = 1
+
+[node name="Glow" type="TextureRect" parent="Left"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 14.0
+offset_right = 110.0
+offset_bottom = 224.0
+grow_horizontal = 2
+unique_name_in_owner = true
+mouse_filter = 2
+texture = ExtResource("6_glow_gold")
+expand_mode = 1
+
+[node name="Art" type="TextureRect" parent="Left"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -84.0
+offset_top = 4.0
+offset_right = 120.0
+offset_bottom = 208.0
+grow_horizontal = 2
+unique_name_in_owner = true
+mouse_filter = 2
+texture = ExtResource("7_art_starter_")
+expand_mode = 1
+
+[node name="Goblin" type="TextureRect" parent="Left"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -128.0
+offset_top = 50.0
+offset_right = 19.8033
+offset_bottom = 200.0
+grow_horizontal = 2
+unique_name_in_owner = true
+mouse_filter = 2
+texture = ExtResource("8_art_goblin")
+expand_mode = 1
+
+[node name="Right" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.493
+anchor_right = 1.0
+offset_right = -14.0
+offset_bottom = 216.0
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="Right"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 0.0
+offset_top = 14.0
+offset_right = 0.0
+offset_bottom = 54.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "SHOP_STARTER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UnitPlate" type="NinePatchRect" parent="Right"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 0.0
+offset_top = 62.0
+offset_right = 0.0
+offset_bottom = 106.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("9_plate_item")
+patch_margin_left = 22
+patch_margin_top = 20
+patch_margin_right = 22
+patch_margin_bottom = 20
+
+[node name="Icon" type="TextureRect" parent="Right/UnitPlate"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 4.0
+offset_right = 46.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("8_art_goblin")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="UnitLabel" type="Label" parent="Right/UnitPlate"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 54.0
+offset_top = 0.0
+offset_right = -8.0
+offset_bottom = 44.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 24
+text = "UNIT_GOBLIN_MINER"
+horizontal_alignment = 0
+vertical_alignment = 1
+unique_name_in_owner = true
+
+[node name="CoinsPlate" type="NinePatchRect" parent="Right"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 0.0
+offset_top = 114.0
+offset_right = 0.0
+offset_bottom = 158.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("9_plate_item")
+patch_margin_left = 22
+patch_margin_top = 20
+patch_margin_right = 22
+patch_margin_bottom = 20
+
+[node name="Icon" type="TextureRect" parent="Right/CoinsPlate"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 3.0
+offset_right = 46.0
+offset_bottom = 41.0
+mouse_filter = 2
+texture = ExtResource("10_icon_coin")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CoinsLabel" type="Label" parent="Right/CoinsPlate"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 54.0
+offset_top = 0.0
+offset_right = -8.0
+offset_bottom = 44.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 24
+text = "SHOP_COINS_FMT"
+horizontal_alignment = 0
+vertical_alignment = 1
+unique_name_in_owner = true
+
+[node name="PriceButton" type="Button" parent="Right"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.0
+offset_top = 162.0
+offset_right = 120.0
+offset_bottom = 226.0
+grow_horizontal = 2
+unique_name_in_owner = true
+theme_type_variation = &"PriceButton"
+
+[node name="Currency" type="TextureRect" parent="Right/PriceButton"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 10.0
+offset_right = 49.0
+offset_bottom = 40.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Price" type="Label" parent="Right/PriceButton"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 3.0
+offset_right = 226.0
+offset_bottom = 46.0
+theme_override_font_sizes/font_size = 30
+text = "49"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Bought" type="NinePatchRect" parent="Right"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.0
+offset_top = 162.0
+offset_right = 120.0
+offset_bottom = 226.0
+grow_horizontal = 2
+unique_name_in_owner = true
+visible = false
+mouse_filter = 2
+texture = ExtResource("11_plate_bought")
+patch_margin_left = 26
+patch_margin_top = 26
+patch_margin_right = 26
+patch_margin_bottom = 26
+
+[node name="Row" type="HBoxContainer" parent="Right/Bought"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 2.0
+offset_right = 240.0
+offset_bottom = 58.0
+mouse_filter = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Check" type="TextureRect" parent="Right/Bought/Row"]
+custom_minimum_size = Vector2(36.0, 36.0)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("12_icon_check")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Right/Bought/Row"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "SHOP_OWNED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sticker" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.493
+anchor_right = 0.493
+offset_left = -118.0
+offset_top = -18.0
+offset_right = 6.0
+offset_bottom = 106.0
+unique_name_in_owner = true
+rotation = -0.1396
+pivot_offset = Vector2(62.0, 62.0)
+mouse_filter = 2
+
+[node name="Burst" type="TextureRect" parent="Sticker"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 124.0
+offset_bottom = 124.0
+mouse_filter = 2
+texture = ExtResource("13_sticker_burs")
+expand_mode = 1
+
+[node name="StickerLabel" type="Label" parent="Sticker"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 124.0
+offset_bottom = 122.0
+unique_name_in_owner = true
+theme_override_font_sizes/font_size = 26
+text = "SHOP_STICKER_STARTER"
+horizontal_alignment = 1
+vertical_alignment = 1

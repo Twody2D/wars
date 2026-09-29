@@ -1,0 +1,84 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/shop_screen.gd" id="1_shop_screen"]
+[ext_resource type="PackedScene" path="res://scenes/ui/shop_card.tscn" id="2_shop_card"]
+[ext_resource type="PackedScene" path="res://scenes/ui/shop_hero.tscn" id="3_shop_hero"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/ribbon_title.svg" id="4_ribbon_title"]
+
+[sub_resource type="Gradient" id="dim_gradient"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(0.0862745, 0.101961, 0.305882, 0.8, 0.0862745, 0.101961, 0.305882, 0.72, 0.0627451, 0.0745098, 0.235294, 0.9)
+
+[sub_resource type="GradientTexture2D" id="dim"]
+gradient = SubResource("dim_gradient")
+width = 4
+height = 64
+fill_to = Vector2(0, 1)
+
+[node name="ShopScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_shop_screen")
+card_scene = ExtResource("2_shop_card")
+
+[node name="Dim" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("dim")
+expand_mode = 1
+
+[node name="Grid" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 24.0
+offset_top = 118.0
+offset_right = 1256.0
+offset_bottom = 572.0
+mouse_filter = 2
+
+[node name="Hero" parent="Grid" instance=ExtResource("3_shop_hero")]
+unique_name_in_owner = true
+layout_mode = 0
+
+[node name="RibbonBox" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -260.0
+offset_top = 4.0
+offset_right = 260.0
+offset_bottom = 108.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="Ribbon" type="TextureRect" parent="RibbonBox"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 520.0
+offset_bottom = 104.0
+mouse_filter = 2
+texture = ExtResource("4_ribbon_title")
+expand_mode = 1
+
+[node name="Title" type="Label" parent="RibbonBox"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 8.0
+offset_right = 480.0
+offset_bottom = 74.0
+unique_name_in_owner = true
+theme_override_font_sizes/font_size = 38
+text = "SHOP_TITLE"
+horizontal_alignment = 1
+vertical_alignment = 1

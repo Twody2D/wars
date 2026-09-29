@@ -235,7 +235,10 @@ func _on_image(args: Array) -> void:
 ## JSON array of objects → typed list; anything else → [].
 static func _parse_list(json: String) -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
-	var parsed: Variant = JSON.parse_string(json) if json != "" else null
+	var parser := JSON.new()
+	if json == "" or parser.parse(json) != OK:
+		return result
+	var parsed: Variant = parser.data
 	if parsed is Array:
 		var items: Array = parsed
 		for item: Variant in items:

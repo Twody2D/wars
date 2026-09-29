@@ -11,7 +11,8 @@ IconButton (settings), PurpleButton (open the caves, ×2 coins), BlueButton,
 PauseButton, BoosterButton (battle), TabButton / TabActive
 (bottom tabs, kit_shop: 4 tabs), PriceButton / PriceBigButton / AdButton /
 CloseButton (shop, kit_shop; the text and the currency icon are child nodes), MapNode (flat, the level node draws itself), SoftLabel (light
-lilac, inactive tabs), GreenLabel (next value / effect), ArrowLabel ("›").
+lilac, inactive tabs), GreenLabel (next value / effect), MutedLabel (effect of a bought item),
+GoldLabel ("Only once!"), ArrowLabel ("›").
 Nine-slice margins come from kit/manifest.json ("top / right / bottom / left").
 
 Run: py -3.14 tools/gen_theme_v3.py
@@ -71,6 +72,10 @@ def main() -> None:
     t.set("CreamLabel/colors/font_color", color("#FFF3D6"))
     t.set("LilacLabel/base_type", '&"Label"')
     t.set("LilacLabel/colors/font_color", color("#F1E9FF"))
+    t.set("MutedLabel/base_type", '&"Label"')
+    t.set("MutedLabel/colors/font_color", color("#C9CFDB"))
+    t.set("GoldLabel/base_type", '&"Label"')
+    t.set("GoldLabel/colors/font_color", color("#FFE27A"))
 
     for state in ("font_color", "font_hover_color", "font_pressed_color", "font_hover_pressed_color",
                   "font_focus_color", "font_disabled_color"):
