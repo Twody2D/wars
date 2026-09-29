@@ -1,6 +1,8 @@
 # Mine Rush UI kit — file table
 
-9-slice corners: T / R / B / L in px of the source SVG. "—" = not stretched.
+9-slice corners: T / R / B / L in px of the source SVG. "—" = not stretched. "3-slice" = stretch width only.
+
+## Menu kit — kit/
 
 | File | Size (px) | 9-slice corners | Where it is used |
 |---|---|---|---|
@@ -67,6 +69,11 @@
 | kit/map_arrow.svg | 64×76 | — | Bouncing pointer above the current node (bob 10px, 0.8s) |
 | kit/bg_menu.svg | 1440×720 | — | Main-screen background. 1440×720 so wide phones (20:9) are covered; center 1280×720 is the safe area (crop 80px each side at 16:9) |
 | kit/bg_map.svg | 2560×720 | — | World map, scrolls horizontally. Meadow x 0–1150 (levels 1–10), crystal cave x 1150–2230 (11–20), mist “Скоро” x 2230–2560. Node centers in map_nodes.json |
+
+## Battle kit — kit_battle/
+
+| File | Size (px) | 9-slice corners | Where it is used |
+|---|---|---|---|
 | kit_battle/hud_counter.svg | 160×58 | 26 / 30 / 32 / 54 | Top-left counters: base health (icon_heart 48) and coins this battle (icon_coin 48); value 30px |
 | kit_battle/wave_plate.svg | 340×60 | 26 / 30 / 32 / 56 | Top-center “Ур. 7 · Волна 3/6”; icon_wave_flag 40 in the left socket; text 28px; stretches with text |
 | kit_battle/icon_wave_flag.svg | 128×128 | — | Wave plate icon (40px) |
@@ -141,5 +148,61 @@
 | kit_battle/base_cave_red_destroyed.svg | 256×256 | — | Enemy mine-entrance base (destroyed) |
 | kit_battle/bg_battle_meadow.svg | 1440×720 | — | Meadow battlefield. Road y 372–446 (feet 390–420); safe area x 80–1360; bases/ore/units on top |
 | kit_battle/bg_battle_cave.svg | 1440×720 | — | Cave battlefield: crystals, mine timbers, lanterns, rails behind the road. Road y 372–446; safe area x 80–1360 |
+
+## Shop kit — kit_shop/
+
+| File | Size (px) | 9-slice corners | Where it is used |
+|---|---|---|---|
+| kit_shop/card_shop_hero.svg | 608×222 | 44 / 40 / 44 / 40 | Starter pack hero card, row 1 spanning 2 columns. Left 49% = art zone (rays_hero + glow_gold + art_starter_pack + Goblin Miner sprite 150px); right: title 32px @ y14, 2× plate_item @ y62/114, btn_price 240 @ y162. Also the body of the offer popup (800×406) |
+| kit_shop/card_shop_gold.svg | 296×222 | 56 / 30 / 36 / 30 | Permanent items (Без рекламы, Золотая кирка): name 26px @ y12, glow_gold + art 124px @ y32, effect 24px green @ y132, btn_price @ y162 (overhangs the bottom edge 4px) |
+| kit_shop/card_shop_coins.svg | 296×222 | 56 / 30 / 36 / 30 | Coin packs: name 26px, glow_blue + art 124px, amount = icon_coin 32 + number 30px @ y130, ribbon on the left edge @ (−13, 40), btn_price @ y162 |
+| kit_shop/card_shop_free.svg | 296×222 | 56 / 30 / 36 / 30 | Монеты за рекламу: name 24px, glow_green + art_free_coins, “+500” @ y130, btn_ad @ y162 |
+| kit_shop/card_shop_bought.svg | 296×222 | 56 / 30 / 36 / 30 | Bought state of hero / permanent cards (stretch to 608 for the hero): art modulate grey @ 50%, plate_bought instead of the price |
+| kit_shop/btn_price_normal.svg | 200×64 | 0 / 30 / 0 / 60 (3-slice, keep height) | Price in яны on shop cards. EMPTY 36×36 slot at x16 (y 6.5 normal, 12.5 pressed) for the currency icon from the SDK; number 28–30px centered in x 56–186 |
+| kit_shop/btn_price_hover.svg | 200×64 | 0 / 30 / 0 / 60 (3-slice, keep height) | Price in яны on shop cards. EMPTY 36×36 slot at x16 (y 6.5 normal, 12.5 pressed) for the currency icon from the SDK; number 28–30px centered in x 56–186 |
+| kit_shop/btn_price_pressed.svg | 200×64 | 0 / 30 / 0 / 60 (3-slice, keep height) | Price in яны on shop cards. EMPTY 36×36 slot at x16 (y 6.5 normal, 12.5 pressed) for the currency icon from the SDK; number 28–30px centered in x 56–186 |
+| kit_shop/btn_price_disabled.svg | 200×64 | 0 / 30 / 0 / 60 (3-slice, keep height) | Price in яны on shop cards. EMPTY 36×36 slot at x16 (y 6.5 normal, 12.5 pressed) for the currency icon from the SDK; number 28–30px centered in x 56–186 |
+| kit_shop/btn_price_big_normal.svg | 300×84 | 0 / 34 / 0 / 72 (3-slice, keep height) | Big price button (offer popup): EMPTY 40×40 slot at x20 for the SDK currency icon, number 36px |
+| kit_shop/btn_price_big_hover.svg | 300×84 | 0 / 34 / 0 / 72 (3-slice, keep height) | Big price button (offer popup): EMPTY 40×40 slot at x20 for the SDK currency icon, number 36px |
+| kit_shop/btn_price_big_pressed.svg | 300×84 | 0 / 34 / 0 / 72 (3-slice, keep height) | Big price button (offer popup): EMPTY 40×40 slot at x20 for the SDK currency icon, number 36px |
+| kit_shop/btn_price_big_disabled.svg | 300×84 | 0 / 34 / 0 / 72 (3-slice, keep height) | Big price button (offer popup): EMPTY 40×40 slot at x20 for the SDK currency icon, number 36px |
+| kit_shop/btn_ad_normal.svg | 220×64 | 28 / 30 / 38 / 30 | Free coins: “Бесплатно” 26px + kit_battle/badge_ad on the top-right corner. _disabled = grey cooldown: icon_timer 32 + timer “12:40” 28px |
+| kit_shop/btn_ad_hover.svg | 220×64 | 28 / 30 / 38 / 30 | Free coins: “Бесплатно” 26px + kit_battle/badge_ad on the top-right corner. _disabled = grey cooldown: icon_timer 32 + timer “12:40” 28px |
+| kit_shop/btn_ad_pressed.svg | 220×64 | 28 / 30 / 38 / 30 | Free coins: “Бесплатно” 26px + kit_battle/badge_ad on the top-right corner. _disabled = grey cooldown: icon_timer 32 + timer “12:40” 28px |
+| kit_shop/btn_ad_disabled.svg | 220×64 | 28 / 30 / 38 / 30 | Free coins: “Бесплатно” 26px + kit_battle/badge_ad on the top-right corner. _disabled = grey cooldown: icon_timer 32 + timer “12:40” 28px |
+| kit_shop/btn_close_normal.svg | 84×90 | — | Close cross on the offer popup and windows (hit area 96×96) |
+| kit_shop/btn_close_hover.svg | 84×90 | — | Close cross on the offer popup and windows (hit area 96×96) |
+| kit_shop/btn_close_pressed.svg | 84×90 | — | Close cross on the offer popup and windows (hit area 96×96) |
+| kit_shop/btn_close_disabled.svg | 84×90 | — | Close cross on the offer popup and windows (hit area 96×96) |
+| kit_shop/plate_bought.svg | 200×64 | 0 / 28 / 0 / 28 (3-slice) | “Куплено” (not a button): icon_check 36 + text 26px; replaces the price button on bought cards |
+| kit_shop/plate_item.svg | 280×44 | 22 / 22 / 22 / 22 | Contents line of the starter pack: icon 38px + text 24px (“Шахтёр-гоблин”, “5 000 монет”) |
+| kit_shop/tab_active.svg | 220×118 | 34 / 36 / 44 / 36 | Selected tab of the 4-tab bar (raised): icon 60px @ (80,4) + label 26px @ y62 |
+| kit_shop/tab_inactive.svg | 204×102 | 32 / 34 / 42 / 34 | Unselected tab: icon 48px @ (78,5) + label 24px #DDE3FF @ y52 |
+| kit_shop/tab_hover.svg | 204×102 | 32 / 34 / 42 / 34 | Unselected tab, hover (PC) |
+| kit_shop/tab_pressed.svg | 204×102 | 32 / 34 / 42 / 34 | Unselected tab, pressed (content moves down 6px) |
+| kit_shop/tabbar_bg.svg | 900×100 | 44 / 44 / 0 / 44 | Plate behind the 4 tabs Магазин · Бой · Улучшения · Карта, bottom-center; tabs start at x22, gap 8 (3×204 + 220). Fits 1152 wide |
+| kit_shop/sticker_burst.svg | 150×150 | — | “−60%” (or “ВЫГОДНО”) on the hero card and the offer popup: text 26px on the red center, node rotated −8° |
+| kit_shop/ribbon_hit.svg | 120×50 | 0 / 22 / 0 / 16 (3-slice) | “ХИТ” on Мешок монет: placed at card (−13, 40) so the fold wraps the left edge; text 24px in x 10–100 |
+| kit_shop/ribbon_value.svg | 120×50 | 0 / 22 / 0 / 16 (3-slice) | “+25%” / “ВЫГОДНО” on Сундук монет (stretch for the longer word) |
+| kit_shop/glow_gold.svg | 200×200 | — | Radial glow behind item art on gold cards / reward window |
+| kit_shop/glow_blue.svg | 200×200 | — | Radial glow behind coin pack art |
+| kit_shop/glow_green.svg | 200×200 | — | Radial glow behind the free coins art |
+| kit_shop/rays_hero.svg | 300×216 | — | Soft rays inside the hero card art zone (rotate slowly); fades out before its edges |
+| kit_shop/rays_reward.svg | 720×720 | — | Rays behind the reward and starter-offer popups (rotate 0.1 turn/s) |
+| kit_shop/window_reward.svg | 560×460 | 48 / 48 / 56 / 48 | “Покупка получена!”: title on kit_battle/ribbon_win, rays_reward behind, glow_gold + item art 220, amount 46px, btn_green “Отлично” |
+| kit_shop/art_starter_pack.svg | 256×256 | — | Набор новичка: coin heap with gems; the game draws the Goblin Miner sprite in front on the left (x≈0–150) |
+| kit_shop/art_no_ads.svg | 256×256 | — | Без рекламы: TV with the ad crossed out + shield |
+| kit_shop/art_gold_pickaxe.svg | 256×256 | — | Золотая кирка: golden pickaxe, ×2 coins forever |
+| kit_shop/art_coins_small.svg | 256×256 | — | Горсть монет: small pile |
+| kit_shop/art_coins_bag.svg | 256×256 | — | Мешок монет: bulging sack |
+| kit_shop/art_coins_chest.svg | 256×256 | — | Сундук монет: open chest overflowing with coins and gems |
+| kit_shop/art_free_coins.svg | 256×256 | — | Монеты за рекламу: TV with coins popping out |
+| kit_shop/art_shop_closed.svg | 256×256 | — | “Магазин недоступен”: sad closed shop |
+| kit_shop/icon_shop.svg | 128×128 | — | “Магазин” tab icon (60 active / 48 inactive) |
+| kit_shop/icon_check.svg | 128×128 | — | Green check for “Куплено” (36px on plate_bought) |
+| kit_shop/icon_plus.svg | 128×128 | — | “+” at the end of the coin counter (60px) — opens the shop |
+| kit_shop/icon_plus_hover.svg | 128×128 | — | “+” hover |
+| kit_shop/icon_plus_pressed.svg | 128×128 | — | “+” pressed |
+| kit_shop/icon_timer.svg | 128×128 | — | Cooldown of the free coins: on grey btn_ad_disabled before the timer “12:40” (32px) |
 
 Extras: kit/map_nodes.json (level node centers on bg_map), kit/manifest.json (same data as this table).

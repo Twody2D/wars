@@ -69,6 +69,7 @@
     <img src="kit/icon_plus.svg" style="position:absolute;left:228px;top:2px;width:62px;height:62px;">
   </div>
 
+  <sc-if value="{{ tabs3 }}" hint-placeholder-val="{{ true }}">
   <div style="position:absolute;left:50%;bottom:0;width:800px;height:130px;margin-left:-400px;">
     <img src="kit/tabbar_bg.svg" style="position:absolute;left:0;bottom:0;width:800px;height:100px;">
     <div style="position:absolute;left:32px;top:4px;width:248px;height:118px;">
@@ -88,14 +89,20 @@
       <div style="position:absolute;left:0;right:0;top:52px;text-align:center;font-size:24px;line-height:30px;color:#DDE3FF;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">Карта</div>
     </div>
   </div>
+  </sc-if>
+  <sc-if value="{{ tabs4 }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;left:50%;bottom:0;width:900px;height:130px;margin-left:-450px;">
+      <dc-import name="Tab Bar" active="battle" shop-dot="{{ true }}" up-dot="{{ true }}" hint-size="900px,130px" style="position:absolute;left:0;top:0;width:900px;height:130px;"></dc-import>
+    </div>
+  </sc-if>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:720},&quot;boss&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:720},&quot;boss&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;tabs4&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
 class Component extends DCLogic {
   renderVals() {
-    const boss = !!this.props.boss;
+    const boss = !!this.props.boss, tabs4 = !!this.props.tabs4;
     return {
-      boss, normal: !boss,
+      boss, normal: !boss, tabs4, tabs3: !tabs4,
       ch: {
         zombie: 'assets/zombie_blue.png', zombieRed: 'assets/zombie_red.png',
         archer: 'assets/skeleton_red.png', archerBlue: 'assets/skeleton_blue.png',

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700;800;900&display=swap" rel="stylesheet">
+<style>html,body{margin:0}a{color:#8FCBFF}a:hover{color:#fff}</style>
+</helmet>
+<div style="position:relative;width:900px;height:130px;font-family:'Rubik',sans-serif;font-weight:800;color:#fff;">
+  <img src="kit_shop/tabbar_bg.svg" style="position:absolute;left:0;bottom:0;width:900px;height:100px;">
+  <div style="position:absolute;left:22px;bottom:2px;display:flex;align-items:flex-end;gap:8px;">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+      <div style="display:flex;align-items:flex-end;flex:none;">
+        <sc-if value="{{ t.on }}" hint-placeholder-val="{{ false }}">
+          <div style="position:relative;width:220px;height:118px;margin-bottom:6px;">
+            <img src="kit_shop/tab_active.svg" style="position:absolute;left:0;top:0;width:220px;height:118px;">
+            <img src="{{ t.icon }}" style="position:absolute;left:80px;top:4px;width:60px;height:60px;">
+            <div style="position:absolute;left:0;right:0;top:62px;text-align:center;font-size:26px;line-height:32px;white-space:nowrap;text-shadow:0 -3px 0 #1E1B3A,0 3px 0 #1E1B3A,-3px 0 0 #1E1B3A,3px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 5px 0 #1E1B3A;">{{ t.label }}</div>
+            <sc-if value="{{ t.dot }}" hint-placeholder-val="{{ false }}"><img src="kit/badge_dot.svg" style="position:absolute;right:-8px;top:-10px;width:40px;height:40px;"></sc-if>
+          </div>
+        </sc-if>
+        <sc-if value="{{ t.off }}" hint-placeholder-val="{{ true }}">
+          <div style="position:relative;width:204px;height:102px;">
+            <img src="kit_shop/tab_inactive.svg" style="position:absolute;left:0;top:0;width:204px;height:102px;">
+            <img src="{{ t.icon }}" style="position:absolute;left:78px;top:5px;width:48px;height:48px;">
+            <div style="position:absolute;left:0;right:0;top:52px;text-align:center;font-size:24px;line-height:30px;white-space:nowrap;color:#DDE3FF;text-shadow:0 -2px 0 #1E1B3A,0 2px 0 #1E1B3A,-2px 0 0 #1E1B3A,2px 0 0 #1E1B3A,-2px -2px 0 #1E1B3A,2px -2px 0 #1E1B3A,-2px 2px 0 #1E1B3A,2px 2px 0 #1E1B3A,0 4px 0 #1E1B3A;">{{ t.label }}</div>
+            <sc-if value="{{ t.dot }}" hint-placeholder-val="{{ false }}"><img src="kit/badge_dot.svg" style="position:absolute;right:-8px;top:-10px;width:40px;height:40px;"></sc-if>
+          </div>
+        </sc-if>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:900,&quot;height&quot;:130},&quot;active&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;shop&quot;,&quot;battle&quot;,&quot;upgrades&quot;,&quot;map&quot;],&quot;default&quot;:&quot;battle&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;shopDot&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;upDot&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const active = this.props.active || 'battle';
+    const dots = { shop: !!this.props.shopDot, upgrades: !!this.props.upDot };
+    const tabs = [
+      { key: 'shop', icon: 'kit_shop/icon_shop.svg', label: 'Магазин' },
+      { key: 'battle', icon: 'kit/icon_sword.svg', label: 'Бой' },
+      { key: 'upgrades', icon: 'kit/icon_up.svg', label: 'Улучшения' },
+      { key: 'map', icon: 'kit/icon_map.svg', label: 'Карта' }
+    ].map(t => ({ ...t, on: t.key === active, off: t.key !== active, dot: !!dots[t.key] }));
+    return { tabs };
+  }
+}
+</script>
+</body>
+</html>

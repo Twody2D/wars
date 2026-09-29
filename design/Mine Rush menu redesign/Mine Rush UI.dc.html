@@ -16,8 +16,38 @@
 <div style="padding:64px;display:flex;flex-direction:column;gap:56px;font-family:'Rubik',sans-serif;color:#E8ECFF;background:#0F1238;min-width:6800px;">
   <div style="display:flex;flex-direction:column;gap:8px;">
     <div style="font-size:56px;font-weight:900;color:#fff;">Mine Rush — menu redesign</div>
-    <div style="font-size:24px;font-weight:500;color:#AEB6E8;">Menu + battle mockups at 1280×720 and 1440×720 · SVG kits in kit/ and kit_battle/ · PNG exports in mockups/</div>
+    <div style="font-size:24px;font-weight:500;color:#AEB6E8;">Menu, battle and shop mockups at 1280, 1440 and 1152 × 720 · SVG kits in kit/, kit_battle/, kit_shop/ · PNG exports in mockups/</div>
   </div>
+
+  <section style="display:flex;flex-direction:column;gap:20px;">
+    <div style="font-size:40px;font-weight:900;color:#FFCC33;">Shop</div>
+    <div style="font-size:32px;font-weight:800;color:#fff;">Shop · 1280 × 720</div>
+    <div style="display:flex;gap:48px;align-items:flex-start;">
+      <div style="display:flex;flex-direction:column;gap:12px;"><div style="font-size:22px;font-weight:700;color:#AEB6E8;">mockup_shop</div>
+        <div id="mockup_shop_1280" data-screen-label="mockup_shop" style="position:relative;width:1280px;height:720px;overflow:hidden;"><dc-import name="Screen Shop"  hint-size="1280px,720px" style="position:absolute;left:0;top:0;width:1280px;height:720px;"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:12px;"><div style="font-size:22px;font-weight:700;color:#AEB6E8;">mockup_shop_bought (bought + cooldown)</div>
+        <div id="mockup_shop_bought_1280" data-screen-label="mockup_shop_bought (bought + cooldown)" style="position:relative;width:1280px;height:720px;overflow:hidden;"><dc-import name="Screen Shop" state="owned" hint-size="1280px,720px" style="position:absolute;left:0;top:0;width:1280px;height:720px;"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:12px;"><div style="font-size:22px;font-weight:700;color:#AEB6E8;">popup_reward</div>
+        <div id="popup_reward_1280" data-screen-label="popup_reward" style="position:relative;width:1280px;height:720px;overflow:hidden;"><dc-import name="Screen Shop" overlay="reward" hint-size="1280px,720px" style="position:absolute;left:0;top:0;width:1280px;height:720px;"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:12px;"><div style="font-size:22px;font-weight:700;color:#AEB6E8;">popup_shop_offline</div>
+        <div id="popup_offline_1280" data-screen-label="popup_shop_offline" style="position:relative;width:1280px;height:720px;overflow:hidden;"><dc-import name="Screen Shop" overlay="offline" hint-size="1280px,720px" style="position:absolute;left:0;top:0;width:1280px;height:720px;"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:12px;"><div style="font-size:22px;font-weight:700;color:#AEB6E8;">popup_starter_offer</div>
+        <div id="popup_offer_1280" data-screen-label="popup_starter_offer" style="position:relative;width:1280px;height:720px;overflow:hidden;"><dc-import name="Screen Shop" overlay="offer" hint-size="1280px,720px" style="position:absolute;left:0;top:0;width:1280px;height:720px;"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:12px;"><div style="font-size:22px;font-weight:700;color:#AEB6E8;">mockup_main_tabs4</div>
+        <div id="main_tabs4_1280" data-screen-label="mockup_main_tabs4" style="position:relative;width:1280px;height:720px;overflow:hidden;"><dc-import name="Screen Main" tabs4="{{ true }}" hint-size="1280px,720px" style="position:absolute;left:0;top:0;width:1280px;height:720px;"></dc-import></div></div>
+    </div>
+  </section>
+  <section style="display:flex;flex-direction:column;gap:20px;">
+    <div style="font-size:32px;font-weight:800;color:#fff;">Shop · 1440 × 720 and 1152 × 720 (16:10)</div>
+    <div style="display:flex;gap:48px;align-items:flex-start;">
+      <div style="display:flex;flex-direction:column;gap:12px;"><div style="font-size:22px;font-weight:700;color:#AEB6E8;">mockup_shop_1440</div>
+        <div id="mockup_shop_1440" data-screen-label="mockup_shop_1440" style="position:relative;width:1440px;height:720px;overflow:hidden;"><dc-import name="Screen Shop" vw="1440" hint-size="1440px,720px" style="position:absolute;left:0;top:0;width:1440px;height:720px;"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:12px;"><div style="font-size:22px;font-weight:700;color:#AEB6E8;">mockup_shop_1152</div>
+        <div id="mockup_shop_1152" data-screen-label="mockup_shop_1152" style="position:relative;width:1152px;height:720px;overflow:hidden;"><dc-import name="Screen Shop" vw="1152" hint-size="1152px,720px" style="position:absolute;left:0;top:0;width:1152px;height:720px;"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:12px;"><div style="font-size:22px;font-weight:700;color:#AEB6E8;">mockup_main_tabs4_1152</div>
+        <div id="main_tabs4_1152" data-screen-label="mockup_main_tabs4_1152" style="position:relative;width:1152px;height:720px;overflow:hidden;"><dc-import name="Screen Main" tabs4="{{ true }}" hint-size="1152px,720px" style="position:absolute;left:0;top:0;width:1152px;height:720px;"></dc-import></div></div>
+    </div>
+  </section>
 
   <section style="display:flex;flex-direction:column;gap:20px;">
     <div style="font-size:40px;font-weight:900;color:#FFCC33;">Battle screen</div>
