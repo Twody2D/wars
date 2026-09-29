@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ProductData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/product_data.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/art_coins_bag.svg" id="2_art"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/ribbon_hit.svg" id="3_ribbon"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"coins_bag"
+kind = 0
+name_key = "SHOP_COINS_BAG"
+effect_key = ""
+coins = 8000
+unit_id = &""
+art = ExtResource("2_art")
+ribbon = ExtResource("3_ribbon")
+ribbon_key = "SHOP_RIBBON_HIT"
+sticker_key = ""
+mock_price = 99

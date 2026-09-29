@@ -10,6 +10,9 @@ const LEADERBOARD := "stars"
 const RU_LANGS: Array[String] = ["ru", "be", "kk", "uk", "uz"]
 
 signal _cloud_loaded(json: String)
+signal _catalog_loaded(json: String)
+signal _purchases_loaded(json: String)
+signal _image_loaded(base64_png: String)
 
 ## True when the SDK came up; false — offline (local run, blocked SDK).
 var sdk_ok: bool = false
@@ -19,12 +22,18 @@ var _lang: String = ""
 var _reward_tag: StringName = &""
 var _reward_earned: bool = false
 var _reward_open: bool = false
+var _purchase_id: StringName = &""
+var _purchase_open: bool = false
 # JavaScriptBridge callbacks must stay referenced while JS may call them.
 var _cb_init: JavaScriptObject
 var _cb_event: JavaScriptObject
 var _cb_fullscreen: JavaScriptObject
 var _cb_rewarded: JavaScriptObject
 var _cb_load: JavaScriptObject
+var _cb_catalog: JavaScriptObject
+var _cb_purchase: JavaScriptObject
+var _cb_purchases: JavaScriptObject
+var _cb_image: JavaScriptObject
 
 
 func init() -> void:
@@ -37,6 +46,10 @@ func init() -> void:
 	_cb_fullscreen = JavaScriptBridge.create_callback(_on_fullscreen)
 	_cb_rewarded = JavaScriptBridge.create_callback(_on_rewarded)
 	_cb_load = JavaScriptBridge.create_callback(_on_load)
+	_cb_catalog = JavaScriptBridge.create_callback(_on_catalog)
+	_cb_purchase = JavaScriptBridge.create_callback(_on_purchase)
+	_cb_purchases = JavaScriptBridge.create_callback(_on_purchases)
+	_cb_image = JavaScriptBridge.create_callback(_on_image)
 	_yg.call("init", _cb_init)
 
 
@@ -97,6 +110,55 @@ func set_leaderboard_score(stars_total: int) -> void:
 		_yg.call("setScore", LEADERBOARD, stars_total)
 
 
+func get_catalog() -> Array[Dictionary]:
+	if not sdk_ok:
+		return []
+	_yg.call("getCatalog", _cb_catalog)
+	var json: String = await _catalog_loaded
+	return _parse_list(json)
+
+
+func purchase(id: StringName) -> void:
+	if not sdk_ok or _purchase_open:
+		purchase_failed.emit.call_deferred(id)
+		return
+	_purchase_id = id
+	_purchase_open = true
+	_yg.call("purchase", String(id), _cb_purchase)
+
+
+func get_purchases() -> Array[Dictionary]:
+	if not sdk_ok:
+		return []
+	_yg.call("getPurchases", _cb_purchases)
+	var json: String = await _purchases_loaded
+	return _parse_list(json)
+
+
+func consume(token: String) -> void:
+	if sdk_ok and token != "":
+		_yg.call("consume", token)
+
+
+## The browser loads the picture (any format, CORS) and hands it over as PNG:
+## the web template has no HTTPRequest, SVG or JPG (custom.build).
+func load_image(url: String) -> Texture2D:
+	if not sdk_ok or url == "":
+		return null
+	_yg.call("loadImage", url, _cb_image)
+	var data: String = await _image_loaded
+	return image_from_base64_png(data)
+
+
+static func image_from_base64_png(data: String) -> Texture2D:
+	if data == "":
+		return null
+	var image := Image.new()
+	if image.load_png_from_buffer(Marshalls.base64_to_raw(data)) != OK:
+		return null
+	return ImageTexture.create_from_image(image)
+
+
 # --- JS callbacks (args arrive as an Array) --------------------------------
 
 func _on_init(args: Array) -> void:
@@ -144,6 +206,42 @@ func _on_rewarded(args: Array) -> void:
 
 func _on_load(args: Array) -> void:
 	_cloud_loaded.emit(_arg(args, 0))
+
+
+func _on_catalog(args: Array) -> void:
+	_catalog_loaded.emit(_arg(args, 0))
+
+
+## Purchase dialog closed: cb('ok', token) or cb('fail', '').
+func _on_purchase(args: Array) -> void:
+	if not _purchase_open:
+		return
+	_purchase_open = false
+	var token: String = _arg(args, 1)
+	if _arg(args, 0) == "ok" and token != "":
+		purchase_done.emit(_purchase_id, token)
+	else:
+		purchase_failed.emit(_purchase_id)
+
+
+func _on_purchases(args: Array) -> void:
+	_purchases_loaded.emit(_arg(args, 0))
+
+
+func _on_image(args: Array) -> void:
+	_image_loaded.emit(_arg(args, 0))
+
+
+## JSON array of objects → typed list; anything else → [].
+static func _parse_list(json: String) -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	var parsed: Variant = JSON.parse_string(json) if json != "" else null
+	if parsed is Array:
+		var items: Array = parsed
+		for item: Variant in items:
+			if item is Dictionary:
+				result.append(item)
+	return result
 
 
 static func _arg(args: Array, index: int) -> String:

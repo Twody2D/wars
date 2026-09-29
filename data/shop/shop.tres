@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ShopData" load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/shop_data.gd" id="1_script"]
+[ext_resource type="Script" path="res://scripts/data/product_data.gd" id="9_product"]
+[ext_resource type="Resource" path="res://data/shop/starter_pack.tres" id="2_starter"]
+[ext_resource type="Resource" path="res://data/shop/no_ads.tres" id="3_no_ads"]
+[ext_resource type="Resource" path="res://data/shop/gold_pickaxe.tres" id="4_pickaxe"]
+[ext_resource type="Resource" path="res://data/shop/coins_small.tres" id="5_small"]
+[ext_resource type="Resource" path="res://data/shop/coins_bag.tres" id="6_bag"]
+[ext_resource type="Resource" path="res://data/shop/coins_chest.tres" id="7_chest"]
+[ext_resource type="Resource" path="res://data/shop/free_coins.tres" id="8_free"]
+
+[resource]
+script = ExtResource("1_script")
+products = Array[ExtResource("9_product")]([ExtResource("2_starter"), ExtResource("3_no_ads"), ExtResource("4_pickaxe"), ExtResource("5_small"), ExtResource("6_bag"), ExtResource("7_chest"), ExtResource("8_free")])

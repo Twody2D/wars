@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ProductData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/product_data.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/shop/art_free_coins.svg" id="2_art"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"free_coins"
+kind = 3
+name_key = "SHOP_FREE_COINS"
+effect_key = ""
+coins = 500
+unit_id = &""
+art = ExtResource("2_art")
+ribbon_key = ""
+sticker_key = ""
+mock_price = 0
