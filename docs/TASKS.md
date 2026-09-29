@@ -139,3 +139,26 @@
 ### T19. Релиз
 - Экспорт, `tools/check_build.py` (≤ 10 МБ), чек-лист SPEC 16, ручная проверка на ПК и телефоне, загрузка zip в черновик.
 - Коммит: `chore(release): v1.0.0` + тег `v1.0.0`.
+
+## После релиза
+
+### T20. Магазин и инап-покупки
+Дизайн: `design/Mine Rush menu redesign/` — `Screen Shop.dc.html`, `Tab Bar.dc.html`, `kit_shop/` (SVG), `mockups/mockup_shop*.png`, `mockup_main_tabs4*.png`. Перенести **точно как в макете** (как меню и бой v3: копия в `art/ui/v3/shop/` скриптом `tools/import_menu_v3.py`, тема `theme_v3.tres`, сцены `.tscn`). Правила Яндекса — скилл `yandex-games` (раздел «Инап-покупки», `requirements.md` 1.13).
+- **Вкладки:** 4-я вкладка «Магазин» первой слева (`Магазин · Бой · Улучшения · Карта`), новый tab bar под 4 вкладки; «+» у счётчика монет открывает магазин; красная точка на вкладке, когда готовы бесплатные монеты.
+- **Товары** (ID = ID в консоли Яндекса, данные — ресурс в `data/shop/`, не магические числа):
+  | ID | Тип | Выдаёт |
+  | --- | --- | --- |
+  | `starter_pack` | разовый (consume, флаг в сохранении) | открыть `goblin_miner` + 5 000 монет |
+  | `no_ads` | постоянный (не consume) | не показывать interstitial; rewarded остаются |
+  | `gold_pickaxe` | постоянный (не consume) | ×2 монеты за бой (в `Rewards`) |
+  | `coins_small` / `coins_bag` / `coins_chest` | расходуемые | 2 000 / 8 000 / 25 000 монет |
+  | `free_coins` | rewarded-реклама, не инап | +500 монет, раз в 15 мин (время в сохранении, `Time.get_unix_time_from_system`) |
+- **Мост** (`web/custom_shell.html`, `window.YG`): `getCatalog(cb)` → JSON товаров (`id`, `price`, `priceValue`, `priceCurrencyCode`, URL картинки валюты `getPriceCurrencyImage('medium')`), `purchase(id, cb)` → `'ok', token` / `'fail'`, `getPurchases(cb)` → JSON `[{productID, purchaseToken}]`, `consume(token)`. Каждый вызов отвечает callback'ом и по таймауту.
+- **Platform:** `get_catalog()`, `purchase(id)` + сигналы `purchased(id)` / `purchase_failed(id)`, `get_purchases()`; `PlatformMock` — всё покупается сразу (для редактора и тестов).
+- **Выдача:** одна функция `GameState.grant_product(id)`; для расходуемых — выдать, сохранить (в том числе в облако), потом `consume`. **При каждом запуске** (boot, после облака): `get_purchases()` → необработанные расходуемые выдать и потребить, постоянные (`no_ads`, `gold_pickaxe`, `starter_pack`) — восстановить флаги. Без этого модерация не пройдёт.
+- **Цена:** «<цена> <валюта>» из каталога + иконка валюты из SDK (загрузить картинку по URL в `TextureRect` через `HTTPRequest`; при ошибке — только текст с кодом валюты). Свою иконку яна не рисовать.
+- **Окна:** «Покупка получена!» (арт товара, лучи, «+8 000»), «Магазин недоступен» (SDK офлайн / каталог пуст), предложение «Набор новичка» один раз после победы на 3-м уровне.
+- **Тексты:** все ключи в `translations.csv` (ru/en), названия товаров совпадают с консолью.
+- **Тесты:** выдача каждого товара, повторный запуск не выдаёт постоянные дважды, `no_ads` отключает interstitial, `gold_pickaxe` удваивает награду, таймер `free_coins`.
+- Коммиты: `feat(meta): shop screen`, `feat(platform): in-app purchases`.
+- **Только на ПК Twody** (в облаке нельзя): проверить экран глазами (скриншоты `tools/store_shots.gd`), экспорт + `tools/check_build.py`, тестовые покупки в черновике. Twody: запрос на подключение покупок в консоли, товары с этими ID, названиями и ценами.

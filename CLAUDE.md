@@ -37,6 +37,7 @@
 - Windows, Git Bash. Godot 4.x stable (точная версия — в `README.md`, путь к бинарнику — переменная окружения `GODOT`).
 - Python 3 — только для `tools/`. Сторонние пакеты можно (Twody, 26.09.2026), ставить `py -3.14 -m pip install --user`; сейчас — `imageio-ffmpeg` (звук, видео) и `fonttools` (жирный шрифт для подписей видео).
 - Ни Docker, ни VPS, ни WSL.
+- **Облачная сессия** (claude.ai/code, Linux): Godot ставит `tools/cloud_setup.sh` (скрипт окружения), бинарник — `godot` в PATH. Там можно писать код и гонять тесты (`godot --headless --path . -s addons/gdUnit4/bin/GdUnitCmdTool.gd -a tests --ignoreHeadlessMode`). Нельзя: рендер кадров/скриншотов и web-экспорт (свой шаблон движка есть только на ПК Twody) — это в конце задачи перечислить для проверки на ПК. Скиллы проекта — `.claude/skills/`.
 
 ## Технические правила
 
