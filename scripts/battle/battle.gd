@@ -58,6 +58,7 @@ var _blast_this_frame: bool = false
 ## Waves already announced by the banner.
 var _announced_waves: int = 0
 var _announced_broken: bool = false
+var _announced_defenders: bool = false
 var _announced_shield: bool = false
 
 @onready var _background: Sprite2D = $Background
@@ -139,6 +140,9 @@ func _process(delta: float) -> void:
 		_announced_waves = bot.current_wave()
 		_announce_wave(_announced_waves - 1)
 	_bot_base.set_shield(bot.is_shielded() and not sim.is_over())
+	if not _announced_defenders and bot.defenders_out and not sim.is_over():
+		_announced_defenders = true
+		_banner.announce(tr("BANNER_DEFENDERS"), tr("BANNER_DEFENDERS_SUB"))
 	if not _announced_broken and bot.is_broken() and not sim.is_over():
 		_announced_broken = true
 		_banner.announce(tr("BANNER_BASE_OPEN"), tr("BANNER_BASE_OPEN_SUB"))

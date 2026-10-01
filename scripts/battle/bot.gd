@@ -1,10 +1,11 @@
 class_name BattleBot
 extends RefCounted
-## Scripted bot (SPEC 5): waves from LevelData; the base is shielded until
-## the last wave's leader or boss dies; on its own food it sends
-## defenders (counter picks) only while the player's army is on its half of
-## the field, so waves stay clear packs; one random unit every few seconds
-## after the last wave.
+## Scripted bot (SPEC 5): waves from LevelData; the first hit on its base lets
+## out a few defenders; at half HP the base calls the last wave at once, and
+## while that wave's leader or boss lives the base can't fall (a shield);
+## on its own food it sends defenders (counter picks) only while the player's
+## army is on its half of the field, so waves stay clear packs; one random
+## unit every few seconds after the last wave.
 ## Pure logic — drives BattleSim, no nodes.
 
 var sim: BattleSim
@@ -19,6 +20,10 @@ var _pressure_timer: float = 0.0
 var _pick_counter: int = 0
 ## Leader or boss of the last wave once it is on the field.
 var _leader: SimUnit = null
+## The defenders came out after the first hit on the base.
+var defenders_out: bool = false
+## The last wave was called early (the base fell to half HP).
+var rallied: bool = false
 
 
 func _init(sim_: BattleSim) -> void:
@@ -27,9 +32,15 @@ func _init(sim_: BattleSim) -> void:
 	_update_shield()
 
 
-## The last wave has a leader or a boss: the bot base keeps a shield until it dies.
+## The last wave has a leader or a boss: once it is out, the bot base keeps a
+## shield until it dies.
 func has_shield() -> bool:
 	return wave_count() > 0 and wave_leader(wave_count() - 1) != null
+
+
+## Bot HP/damage multiplier on this level.
+func power() -> float:
+	return level.bot_power * (1.0 + sim.balance.bot_power_per_level * (level.number - 1))
 
 
 func is_shielded() -> bool:
@@ -37,7 +48,7 @@ func is_shielded() -> bool:
 
 
 func _update_shield() -> void:
-	var on: bool = has_shield() and not is_broken()
+	var on: bool = has_shield() and waves_started >= wave_count() and not is_broken()
 	sim.base_floor[BattleSim.BOT] = sim.base_max_hp[BattleSim.BOT] * sim.balance.bot_shield_floor if on else 0.0
 
 
@@ -92,11 +103,8 @@ func step(dt: float) -> void:
 		return
 	_time += dt
 	while waves_started < wave_count() and level.waves[waves_started].start_sec <= _time:
-		var entries: Array[WaveEntry] = level.waves[waves_started].entries
-		for i: int in entries.size():
-			# Entries run in parallel; a small offset keeps them from stacking.
-			_spawners.append([entries[i], entries[i].count, i * sim.balance.wave_stagger])
-		waves_started += 1
+		_start_wave(waves_started)
+	_defend_base()
 	_step_spawners(dt)
 	# Defenders only between waves and only under threat; after the last wave — pressure only.
 	if level.counter_pick and not all_waves_done():
@@ -106,6 +114,28 @@ func step(dt: float) -> void:
 	if all_waves_done() and not is_broken():
 		_pressure(dt)
 	_update_shield()
+
+
+func _start_wave(index: int) -> void:
+	var entries: Array[WaveEntry] = level.waves[index].entries
+	for i: int in entries.size():
+		# Entries run in parallel; a small offset keeps them from stacking.
+		_spawners.append([entries[i], entries[i].count, i * sim.balance.wave_stagger])
+	waves_started = index + 1
+
+
+## The first hit lets out defenders; half HP calls the last wave at once (the
+## waves in between are skipped — the leader or boss comes now).
+func _defend_base() -> void:
+	var hp: float = sim.base_hp[BattleSim.BOT]
+	var max_hp: float = sim.base_max_hp[BattleSim.BOT]
+	if not defenders_out and hp < max_hp and not level.bot_units.is_empty():
+		defenders_out = true
+		for i: int in sim.balance.bot_defenders:
+			sim.spawn(BattleSim.BOT, level.bot_units[i % level.bot_units.size()], 1, power())
+	if not rallied and waves_started < wave_count() and hp <= max_hp * sim.balance.bot_rally_ratio:
+		rallied = true
+		_start_wave(wave_count() - 1)
 
 
 func _step_spawners(dt: float) -> void:
@@ -148,7 +178,7 @@ func _counter_pick() -> void:
 	var pick: UnitData = _choose_counter()
 	if pick == null or food < pick.cost:
 		return
-	if sim.spawn(BattleSim.BOT, pick, 1, level.bot_power) != null:
+	if sim.spawn(BattleSim.BOT, pick, 1, power()) != null:
 		food -= pick.cost
 		_pick_counter += 1
 
@@ -191,4 +221,4 @@ func _pressure(dt: float) -> void:
 ## bot_power scales every bot unit; bosses get BalanceData.boss_power on top
 ## (Twody: bosses were too easy when they kept their base stats).
 func _power_for(unit: UnitData) -> float:
-	return level.bot_power * (sim.balance.boss_power if unit.is_boss else 1.0)
+	return power() * (sim.balance.boss_power if unit.is_boss else 1.0)

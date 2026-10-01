@@ -78,27 +78,39 @@ func test_bot_stops_after_final_leader_dies() -> void:
 	assert_int(sim.units.size()).is_equal(before)
 
 
-## Twody: bosses were skipped by rushing the base. While the last wave's
-## leader lives the bot base holds at its shield floor; then it can fall.
-func test_bot_base_shielded_until_leader_dies() -> void:
+## Twody 01.10: no shield before the boss. The first hit on the bot base lets
+## out defenders; at half HP the last wave (its leader or boss) comes at once,
+## and while it lives the base holds at its shield floor; then it can fall.
+func test_bot_base_defends_then_calls_the_boss() -> void:
 	var level: LevelData = config.levels[9]
 	var s := BattleSetup.basic(config.balance, level, [config.player_units[0]] as Array[UnitData], 1)
 	var sim := BattleSim.new(s)
 	var bot := BattleBot.new(sim)
+	var b: BalanceData = sim.balance
+	var max_hp: float = sim.base_max_hp[BattleSim.BOT]
+	assert_bool(bot.is_shielded()).is_false()
+	sim._damage_base(BattleSim.BOT, 1.0)
+	bot.step(b.sim_dt)
+	assert_bool(bot.defenders_out).is_true()
+	assert_int(sim.alive_count(BattleSim.BOT)).is_equal(b.bot_defenders)
+	assert_int(bot.current_wave()).is_less(bot.wave_count())
+	sim._damage_base(BattleSim.BOT, max_hp * (1.0 - b.bot_rally_ratio))
+	bot.step(b.sim_dt)
+	assert_bool(bot.rallied).is_true()
+	assert_int(bot.current_wave()).is_equal(bot.wave_count())
 	assert_bool(bot.is_shielded()).is_true()
-	var floor_hp: float = sim.base_max_hp[BattleSim.BOT] * sim.balance.bot_shield_floor
 	sim._damage_base(BattleSim.BOT, 100000.0)
-	assert_float(sim.base_hp[BattleSim.BOT]).is_equal_approx(floor_hp, 0.01)
+	assert_float(sim.base_hp[BattleSim.BOT]).is_equal_approx(max_hp * b.bot_shield_floor, 0.01)
 	assert_bool(sim.is_over()).is_false()
 	var guard := 0
 	while not bot.all_waves_done() and guard < 100000:
-		bot.step(sim.balance.sim_dt)
+		bot.step(b.sim_dt)
 		guard += 1
 	for u: SimUnit in sim.units:
 		if u.side == BattleSim.BOT:
 			u.hp = 0.0
 			u.state = SimUnit.State.DEAD
-	bot.step(sim.balance.sim_dt)
+	bot.step(b.sim_dt)
 	assert_bool(bot.is_shielded()).is_false()
 	sim._damage_base(BattleSim.BOT, 100000.0)
 	sim._check_winner()

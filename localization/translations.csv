@@ -79,6 +79,8 @@ BANNER_BOSS_FMT,Босс: %s,Boss: %s
 BANNER_LEADER_FMT,Вожак: %s,Leader: %s
 BANNER_BASE_OPEN,База врага беззащитна!,The enemy base is open!
 BANNER_BASE_OPEN_SUB,Добей её!,Finish it!
+BANNER_DEFENDERS,Защитники вышли!,Defenders are out!
+BANNER_DEFENDERS_SUB,Враг защищает базу,The enemy guards its base
 BANNER_SHIELD,Базу врага защищает щит!,The enemy base is shielded!
 BANNER_SHIELD_SUB_FMT,Сначала победи: %s,Defeat first: %s
 EVOLVE_TITLE,Открыть пещеры,Open the caves

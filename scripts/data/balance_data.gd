@@ -66,6 +66,14 @@ extends Resource
 ## While the last wave's leader or boss is alive, the bot base can't drop
 ## below this share of its HP (Twody: the boss must be beaten, not skipped).
 @export var bot_shield_floor: float = 0.15
+## The first hit on the bot base lets out this many defenders at once.
+@export var bot_defenders: int = 3
+## The bot base at this share of its HP calls the last wave (with its leader
+## or boss) at once, whatever the wave timer says.
+@export var bot_rally_ratio: float = 0.5
+## Bot power grows by this share per level on top of LevelData.bot_power
+## (Twody 01.10: an upgraded army won on the 2nd wave).
+@export var bot_power_per_level: float = 0.0
 ## After the last wave: one random unit every N seconds.
 @export var bot_pressure_interval: float = 6.0
 
