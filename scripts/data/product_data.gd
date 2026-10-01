@@ -9,7 +9,8 @@ enum Kind {
 	COINS,
 	## Forever (not consumed): restored from getPurchases() at every launch.
 	PERMANENT,
-	## One-time pack: consumed like coins, a flag in the save stops a second buy.
+	## One-time pack (the hero card): not consumed, like PERMANENT — getPurchases()
+	## brings it back on a new device or after the save is lost, so it is never sold twice.
 	STARTER,
 	## Rewarded ad, not an in-app purchase: coins on a cooldown.
 	FREE,
@@ -36,7 +37,7 @@ enum Kind {
 
 
 func is_consumable() -> bool:
-	return kind == Kind.COINS or kind == Kind.STARTER
+	return kind == Kind.COINS
 
 
 ## Owned for good once bought: the buy button turns into "Owned".

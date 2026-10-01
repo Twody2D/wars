@@ -71,7 +71,8 @@ func test_starter_pack_gives_goblin_and_coins_once() -> void:
 	assert_bool(gs.call(&"is_unit_unlocked", &"goblin_miner")).is_true()
 	assert_bool(gs.call(&"owns", &"starter_pack")).is_true()
 	assert_int(_coins()).is_equal(5000)
-	assert_array(server.purchases).is_empty()
+	# Not consumed: the platform keeps it, so it comes back on a new device.
+	assert_int(server.purchases.size()).is_equal(1)
 	# A second grant (another token) gives nothing: the flag is in the save.
 	assert_bool(gs.call(&"grant_product", &"starter_pack", "other")).is_false()
 	assert_int(_coins()).is_equal(5000)
@@ -120,6 +121,19 @@ func test_new_device_restores_forever_products() -> void:
 	var given: Array[StringName] = await Purchases.restore(other, server)
 	assert_array(given).contains_exactly_in_any_order([&"no_ads", &"gold_pickaxe"])
 	assert_bool(other.call(&"owns", &"gold_pickaxe")).is_true()
+	other.free()
+
+
+func test_new_device_restores_starter_pack() -> void:
+	_buy(&"starter_pack")
+	var other: Node = _fresh()
+	var given: Array[StringName] = await Purchases.restore(other, server)
+	assert_array(given).is_equal([&"starter_pack"])
+	assert_bool(other.call(&"owns", &"starter_pack")).is_true()
+	assert_bool(other.call(&"is_unit_unlocked", &"goblin_miner")).is_true()
+	# The next launch on that device gives nothing again.
+	given = await Purchases.restore(other, server)
+	assert_array(given).is_empty()
 	other.free()
 
 

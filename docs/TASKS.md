@@ -148,7 +148,7 @@
 - **Товары** (ID = ID в консоли Яндекса, данные — ресурс в `data/shop/`, не магические числа):
   | ID | Тип | Выдаёт |
   | --- | --- | --- |
-  | `starter_pack` | разовый (consume, флаг в сохранении) | открыть `goblin_miner` + 5 000 монет |
+  | `starter_pack` | разовый, постоянный (не consume) | открыть `goblin_miner` + 5 000 монет |
   | `no_ads` | постоянный (не consume) | не показывать interstitial; rewarded остаются |
   | `gold_pickaxe` | постоянный (не consume) | ×2 монеты за бой (в `Rewards`) |
   | `coins_small` / `coins_bag` / `coins_chest` | расходуемые | 2 000 / 8 000 / 25 000 монет |
