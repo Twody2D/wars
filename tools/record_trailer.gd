@@ -18,6 +18,8 @@ extends SceneTree
 ##   py -3.14 tools/make_trailer.py
 ## Music is muted here (the editor lays one continuous track over the cuts);
 ## event times (s of the recording) go to build/store/events.json.
+## English: add `-- en` and record to build/store/en/raw.avi (events go to
+## build/store/en/), then `py -3.14 tools/make_trailer.py en`.
 
 const FPS := 30.0
 const UPGRADES_SEC := 6.35
@@ -79,7 +81,7 @@ func _setup() -> void:
 		"settings": {"sound": true},
 		"shop": {"starter_offer_shown": true},
 	})
-	TranslationServer.set_locale("ru")
+	TranslationServer.set_locale(_lang())
 	_make_tap_layer()
 	_start_battle(MEADOW, "m_")
 
@@ -126,7 +128,9 @@ func _mark(event: String) -> void:
 
 
 func _finish() -> bool:
-	var f := FileAccess.open("res://build/store/events.json", FileAccess.WRITE)
+	var dir: String = "res://build/store/" if _lang() == "ru" else "res://build/store/%s/" % _lang()
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(dir))
+	var f := FileAccess.open(dir + "events.json", FileAccess.WRITE)
 	f.store_string(JSON.stringify(_events, "\t"))
 	f.close()
 	return true
@@ -395,3 +399,9 @@ func _front(sim: BattleSim, side: int) -> SimUnit:
 			if best == null or unit.x * unit.dir > best.x * best.dir:
 				best = unit
 	return best
+
+
+## Video language: "ru" by default, the first user argument otherwise.
+func _lang() -> String:
+	var args := OS.get_cmdline_user_args()
+	return args[0] if not args.is_empty() else "ru"

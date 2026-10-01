@@ -160,4 +160,5 @@ Esc pauses the game.
 - `screenshots/01–07` — для Яндекса по порядку (5 боёв, улучшения, магазин), `08_menu`, `09_map` — запасные; `screenshots_vertical/` — повёрнутые копии, не для Яндекса;
 - `screenshots_en/`, `screenshots_vertical_en/` — те же кадры на английском (для английской версии карточки); пересоздать: `store_shots.gd -- en` → `build/store/en/`;
 - `trailer.mp4` — 1920×1080, 27.8 с, новые цены;
+- `trailer_en.mp4` — то же видео на английском (запись `record_trailer.gd -- en` в `build/store/en/raw.avi`, монтаж `make_trailer.py en`);
 - `products/` — CSV и картинки товаров для «Инап-покупок».

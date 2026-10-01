@@ -7,11 +7,13 @@ Output: build/store/trailer.mp4 — 1920×1080 H.264 + AAC: gameplay from the
 first frame, the whole screen (no zoom), smooth transitions between the
 parts (xfade), the store cover as an end card, one continuous music track.
 
-Needs imageio-ffmpeg. Run: py -3.14 tools/make_trailer.py
+Needs imageio-ffmpeg. Run: py -3.14 tools/make_trailer.py [en]
+(en — the English recording in build/store/en/, output build/store/en/trailer.mp4).
 """
 
 import json
 import subprocess
+import sys
 from pathlib import Path
 
 import imageio_ffmpeg
@@ -46,7 +48,9 @@ FADE_OUT = 0.6
 
 
 def main() -> None:
-    events: dict[str, float] = json.loads((STORE / "events.json").read_text(encoding="utf-8"))
+    lang = sys.argv[1] if len(sys.argv) > 1 else "ru"
+    src = STORE if lang == "ru" else STORE / lang
+    events: dict[str, float] = json.loads((src / "events.json").read_text(encoding="utf-8"))
     parts: list[str] = []
     for i, (anchor, offset, length, _) in enumerate(SEGMENTS):
         if anchor == "end":
@@ -85,9 +89,9 @@ def main() -> None:
                  f"afade=t=out:st={total - FADE_OUT - 0.6:.3f}:d={FADE_OUT + 0.6}[m]")
     parts.append(f"{a_prev}[m]amix=inputs=2:normalize=0[aout]")
 
-    out = STORE / "trailer.mp4"
+    out = src / "trailer.mp4"
     cmd = [imageio_ffmpeg.get_ffmpeg_exe(), "-v", "error", "-y",
-           "-i", str(STORE / "raw.avi"), "-i", str(MUSIC),
+           "-i", str(src / "raw.avi"), "-i", str(MUSIC),
            "-loop", "1", "-framerate", "30", "-i", str(COVER if COVER.exists() else STORE / "end_card.png"),
            "-f", "lavfi", "-i", "anullsrc=r=48000:cl=stereo",
            "-filter_complex", ";".join(parts), "-map", "[vout]", "-map", "[aout]",
