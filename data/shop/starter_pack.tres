@@ -14,4 +14,4 @@ unit_id = &"goblin_miner"
 art = ExtResource("2_art")
 ribbon_key = ""
 sticker_key = "SHOP_STICKER_STARTER"
-mock_price = 49
+mock_price = 19

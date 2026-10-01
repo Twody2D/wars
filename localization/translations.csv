@@ -107,7 +107,7 @@ SHOP_COINS_FMT,%s монет,%s coins
 SHOP_OWNED,Куплено,Owned
 SHOP_FREE,Бесплатно,Free
 SHOP_RIBBON_HIT,ХИТ,HIT
-SHOP_RIBBON_VALUE,+25%,+25%
+SHOP_RIBBON_VALUE,+20%,+20%
 SHOP_STICKER_STARTER,−60%,−60%
 SHOP_ONCE,Только один раз!,Only once!
 SHOP_RECEIVED,Покупка получена!,Purchase received!

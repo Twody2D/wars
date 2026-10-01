@@ -60,6 +60,6 @@ func test_shop_grid_matches_the_mockup() -> void:
 	var bag: ShopCard = cards[3]
 	assert_str(String(bag.product.id)).is_equal("coins_bag")
 	var price: Label = bag.get_node(^"%PriceButton/Price")
-	assert_str(price.text).is_equal("99 YAN")
+	assert_str(price.text).is_equal("39 YAN")
 	var free: ShopCard = cards[5]
 	assert_bool((free.get_node(^"%AdButton") as Control).visible).is_true()

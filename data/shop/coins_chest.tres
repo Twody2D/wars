@@ -16,4 +16,4 @@ art = ExtResource("2_art")
 ribbon = ExtResource("3_ribbon")
 ribbon_key = "SHOP_RIBBON_VALUE"
 sticker_key = ""
-mock_price = 249
+mock_price = 99

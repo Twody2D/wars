@@ -27,7 +27,7 @@ enum Kind {
 ## Unit opened by the product (starter pack).
 @export var unit_id: StringName
 @export var art: Texture2D
-## Corner ribbon ("HIT", "+25%"): texture and text; none if the texture is empty.
+## Corner ribbon ("HIT", "+20%"): texture and text; none if the texture is empty.
 @export var ribbon: Texture2D
 @export var ribbon_key: String
 ## Starburst sticker text on the starter pack ("−60%").
