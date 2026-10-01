@@ -12,6 +12,8 @@ BTN_RESTART,Заново,Restart
 PAUSE_TITLE,Пауза,Pause
 SOUND_ON,Звук: вкл,Sound: on
 SOUND_OFF,Звук: выкл,Sound: off
+MUSIC_ON,Музыка: вкл,Music: on
+MUSIC_OFF,Музыка: выкл,Music: off
 HINT_UPGRADE,Купи улучшения в меню и попробуй снова!,Buy upgrades in the menu and try again!
 HINT_METEOR_TARGET,Выбери место для метеора (ПКМ или Esc — отмена),Pick a spot for the meteor (RMB or Esc to cancel)
 TUTORIAL_CARD,Нажми на карточку — выйдет боец,Tap a card to send a fighter

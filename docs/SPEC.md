@@ -175,7 +175,7 @@ OGG моно. SFX (3–10 КБ каждый): удар, выстрел, взры
 
 ## 13. Сохранения
 
-`SaveData` (JSON): `schema_version`, `coins`, `levels: {id: stars}`, `current_level`, `biome_unlocked`, `units: {id: {unlocked, level}}`, `upgrades: {food_rate, base_hp, start_food, battle_speed}`, `settings: {sound, lang}`.
+`SaveData` (JSON): `schema_version`, `coins`, `levels: {id: stars}`, `current_level`, `biome_unlocked`, `units: {id: {unlocked, level}}`, `upgrades: {food_rate, base_hp, start_food, battle_speed}`, `settings: {sound, music}` (звук и музыка — отдельные переключатели в настройках).
 - Сохранять сразу после боя и после каждой покупки (1.9).
 - Локально (`user://save.json`) + облако SDK (`player.setData`). При загрузке — больший прогресс (сумма звёзд, затем монеты).
 - Валидация: типы, диапазоны, `clamp`, неизвестные ключи отбросить; битый JSON → резервная копия `save.bak.json`.

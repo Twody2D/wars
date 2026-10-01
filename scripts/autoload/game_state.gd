@@ -23,7 +23,9 @@ var unit_levels: Dictionary[StringName, int] = {}
 ## upgrade id → level
 var upgrades: Dictionary[StringName, int] = {}
 var battle_speed_on: bool = false
+## Settings: sound effects and music, switched separately.
 var sound_on: bool = true
+var music_on: bool = true
 ## Level chosen for the next battle.
 var selected_level: int = 1
 ## Off in tests so they never touch the real save file.
@@ -213,6 +215,11 @@ func set_sound(on: bool) -> void:
 	_commit()
 
 
+func set_music(on: bool) -> void:
+	music_on = on
+	_commit()
+
+
 func apply_result(result: BattleResult) -> void:
 	coins += result.coins
 	if result.won:
@@ -325,7 +332,7 @@ func to_dict() -> Dictionary:
 		"units": units,
 		"upgrades": ups,
 		"battle_speed_on": battle_speed_on,
-		"settings": {"sound": sound_on},
+		"settings": {"sound": sound_on, "music": music_on},
 		"saved_at": saved_at,
 		"shop": {
 			"owned": owned_list,
@@ -365,6 +372,8 @@ func from_dict(data: Dictionary) -> void:
 	battle_speed_on = data.get("battle_speed_on", false) == true and upgrade_level(&"battle_speed") > 0
 	var settings: Dictionary = _dict(data, "settings")
 	sound_on = settings.get("sound", true) != false
+	# Old saves had one switch for both.
+	music_on = settings.get("music", sound_on) != false
 	_read_shop(_dict(data, "shop"))
 
 

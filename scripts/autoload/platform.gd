@@ -58,10 +58,12 @@ func _notification(what: int) -> void:
 		update_mute()
 
 
-## Master bus is silent when sound is off, the window has no focus, or the
-## platform paused the game (an ad is on screen).
+## Master bus is silent when the window has no focus or the platform paused
+## the game (an ad is on screen); the Music and SFX buses follow the settings.
 func update_mute() -> void:
-	AudioServer.set_bus_mute(0, not GameState.sound_on or _unfocused or _sdk_paused)
+	AudioServer.set_bus_mute(0, _unfocused or _sdk_paused)
+	AudioServer.set_bus_mute(AudioServer.get_bus_index(&"Music"), not GameState.music_on)
+	AudioServer.set_bus_mute(AudioServer.get_bus_index(&"SFX"), not GameState.sound_on)
 
 
 ## Ask the current scene to pause (e.g. the rotate overlay); same path as the SDK pause.

@@ -45,6 +45,19 @@ func test_round_trip() -> void:
 	other.free()
 
 
+func test_music_and_sound_saved_separately() -> void:
+	gs.call(&"set_music", false)
+	var saved: Dictionary = gs.call(&"to_dict")
+	var other: Node = _fresh()
+	other.call(&"from_dict", saved)
+	assert_bool(other.get(&"music_on")).is_false()
+	assert_bool(other.get(&"sound_on")).is_true()
+	# An old save with one switch: "sound off" silenced the music too.
+	other.call(&"from_dict", {"settings": {"sound": false}})
+	assert_bool(other.get(&"music_on")).is_false()
+	other.free()
+
+
 func test_bad_save_is_sanitised() -> void:
 	gs.call(&"from_dict", {
 		"coins": -50,

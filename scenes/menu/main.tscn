@@ -738,20 +738,21 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -306.0
+offset_left = -316.0
 offset_top = 20.0
 offset_right = -16.0
 offset_bottom = 92.0
 grow_horizontal = 0
 mouse_filter = 2
 
-[node name="Plate" type="TextureRect" parent="CoinCounter"]
+[node name="Plate" type="NinePatchRect" parent="CoinCounter"]
 layout_mode = 0
-offset_right = 260.0
+offset_right = 300.0
 offset_bottom = 72.0
 mouse_filter = 2
 texture = ExtResource("29_counter")
-expand_mode = 1
+patch_margin_left = 40
+patch_margin_right = 40
 
 [node name="Coin" type="TextureRect" parent="CoinCounter"]
 layout_mode = 0
@@ -766,8 +767,8 @@ expand_mode = 1
 [node name="CoinsLabel" type="Label" parent="CoinCounter"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 70.0
-offset_right = 246.0
+offset_left = 66.0
+offset_right = 240.0
 offset_bottom = 66.0
 theme_override_font_sizes/font_size = 34
 text = "0"
@@ -777,10 +778,10 @@ vertical_alignment = 1
 [node name="PlusButton" type="TextureButton" parent="CoinCounter"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 228.0
-offset_top = 2.0
-offset_right = 290.0
-offset_bottom = 64.0
+offset_left = 241.0
+offset_top = 7.0
+offset_right = 293.0
+offset_bottom = 59.0
 texture_normal = ExtResource("43_plus")
 texture_pressed = ExtResource("45_plus_pressed")
 texture_hover = ExtResource("44_plus_hover")
