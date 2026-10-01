@@ -27,7 +27,6 @@ const GLOW_SCALE := Vector2(0.95, 1.08)
 const GLOW_ALPHA := Vector2(0.6, 1.0)
 const GLOW_SEC := 0.9
 const BADGE_BOB := 2.0
-const MAP_WHEEL_STEP := 120.0
 
 @export var unit_tile_scene: PackedScene
 @export var upgrade_card_scene: PackedScene
@@ -107,7 +106,6 @@ func _ready() -> void:
 		var card: UpgradeCard = upgrade_card_scene.instantiate()
 		_upgrade_grid.add_child(card)
 		card.setup(up)
-	_map_scroll.gui_input.connect(_on_map_input)
 	resized.connect(_layout)
 	GameState.changed.connect(_refresh)
 	_refresh()
@@ -219,21 +217,6 @@ func _scroll_map_to_current() -> void:
 	var i: int = clampi(GameState.max_playable_level(), 1, map_nodes.size()) - 1
 	var x: float = map_nodes[i].x * _map_canvas.scale.x - _map_scroll.size.x / 2.0
 	_map_scroll.scroll_horizontal = maxi(0, roundi(x))
-
-
-## The mouse wheel scrolls the map sideways.
-func _on_map_input(event: InputEvent) -> void:
-	var wheel: InputEventMouseButton = event as InputEventMouseButton
-	if wheel == null or not wheel.pressed:
-		return
-	var step: float = 0.0
-	if wheel.button_index == MOUSE_BUTTON_WHEEL_DOWN or wheel.button_index == MOUSE_BUTTON_WHEEL_RIGHT:
-		step = MAP_WHEEL_STEP
-	elif wheel.button_index == MOUSE_BUTTON_WHEEL_UP or wheel.button_index == MOUSE_BUTTON_WHEEL_LEFT:
-		step = -MAP_WHEEL_STEP
-	if step != 0.0:
-		_map_scroll.scroll_horizontal += roundi(step)
-		_map_scroll.accept_event()
 
 
 func _start_animations() -> void:

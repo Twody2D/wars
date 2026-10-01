@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3]
+[gd_scene load_steps=52 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_menu"]
 [ext_resource type="PackedScene" path="res://scenes/ui/unit_tile.tscn" id="2_tile"]
@@ -42,6 +42,8 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/shop_offline.tscn" id="41_offline"]
 [ext_resource type="Texture2D" path="res://art/ui/v3/shop/icon_shop.svg" id="42_shop_icon"]
 [ext_resource type="Texture2D" path="res://art/ui/v3/shop/icon_plus.svg" id="43_plus"]
+[ext_resource type="Script" path="res://scripts/ui/drag_scroll.gd" id="60_drag"]
+[ext_resource type="Texture2D" path="res://art/ui/v3/map_arrow.svg" id="61_more"]
 [ext_resource type="Texture2D" path="res://art/ui/v3/shop/icon_plus_hover.svg" id="44_plus_hover"]
 [ext_resource type="Texture2D" path="res://art/ui/v3/shop/icon_plus_pressed.svg" id="45_plus_pressed"]
 
@@ -408,6 +410,9 @@ expand_mode = 1
 
 [node name="Scroll" type="ScrollContainer" parent="UpgradesTab"]
 unique_name_in_owner = true
+script = ExtResource("60_drag")
+wheel_step = 60.0
+more_hint = NodePath("../MoreHint")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -581,8 +586,8 @@ stretch_mode = 5
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 108.0
-offset_bottom = 130.0
+offset_top = 126.0
+offset_bottom = 148.0
 grow_horizontal = 2
 mouse_filter = 2
 texture = SubResource("fade_top")
@@ -601,6 +606,24 @@ grow_vertical = 0
 mouse_filter = 2
 texture = SubResource("fade_bottom")
 expand_mode = 1
+
+[node name="MoreHint" type="TextureRect" parent="UpgradesTab"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -128.0
+offset_top = -108.0
+offset_right = -72.0
+offset_bottom = -52.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("61_more")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Ribbon" type="TextureRect" parent="UpgradesTab"]
 layout_mode = 1
@@ -640,6 +663,8 @@ mouse_filter = 2
 
 [node name="MapScroll" type="ScrollContainer" parent="MapTab"]
 unique_name_in_owner = true
+script = ExtResource("60_drag")
+wheel_step = 80.0
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
