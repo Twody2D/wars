@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" path="res://art/ui/v3/shop/plate_bought.svg" id="11_plate_bought"]
 [ext_resource type="Texture2D" path="res://art/ui/v3/shop/icon_check.svg" id="12_icon_check"]
 [ext_resource type="Texture2D" path="res://art/ui/v3/shop/sticker_burst.svg" id="13_sticker_burs"]
+[ext_resource type="Texture2D" uid="uid://c0qtaxun7mjpc" path="res://art/ui/v3/shop/price_slot.svg" id="90_slot"]
 
 [node name="ShopHero" type="Control"]
 custom_minimum_size = Vector2(608, 222)
@@ -227,6 +228,17 @@ offset_bottom = 226.0
 grow_horizontal = 2
 unique_name_in_owner = true
 theme_type_variation = &"PriceButton"
+
+[node name="Slot" type="TextureRect" parent="Right/PriceButton"]
+visible = false
+layout_mode = 0
+offset_left = 16
+offset_top = 6.5
+offset_right = 52
+offset_bottom = 42.5
+mouse_filter = 2
+texture = ExtResource("90_slot")
+expand_mode = 1
 
 [node name="Currency" type="TextureRect" parent="Right/PriceButton"]
 layout_mode = 0

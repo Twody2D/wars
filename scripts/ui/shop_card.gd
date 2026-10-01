@@ -103,13 +103,22 @@ func refresh(busy: bool, now: int) -> void:
 ## Price from the SDK catalog (Yandex 1.13.4): the number next to the portal
 ## currency icon; without the icon — "<price> <currency code>" as text.
 ## False — the product is not in the catalog (no price, the button is off).
+## The icon sits in a socket ("Slot" next to it), shown only with the icon;
+## without the icon the text is centred on the whole button.
 static func show_price(id: StringName, label: Label, icon: TextureRect) -> bool:
 	var info: Dictionary = Platform.product_info(id)
+	icon.texture = Platform.currency_icon if not info.is_empty() else null
+	icon.visible = icon.texture != null
+	var slot: CanvasItem = icon.get_parent().get_node_or_null(^"Slot")
+	if slot != null:
+		slot.visible = icon.visible
+	if not label.has_meta(&"left"):
+		label.set_meta(&"left", label.offset_left)
+	var left: float = label.get_meta(&"left")
+	var button: Control = label.get_parent()
+	label.offset_left = left if icon.visible else button.size.x - label.offset_right
 	if info.is_empty():
 		label.text = ""
-		icon.visible = false
 		return false
-	icon.texture = Platform.currency_icon
-	icon.visible = icon.texture != null
 	label.text = str(info.get("priceValue", "")) if icon.visible else str(info.get("price", ""))
 	return true

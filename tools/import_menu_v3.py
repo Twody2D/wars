@@ -29,6 +29,16 @@ SHADOW = """<svg xmlns="http://www.w3.org/2000/svg" width="160" height="32" view
 </radialGradient></defs><ellipse cx="80" cy="16" rx="80" ry="16" fill="url(#g)"/></svg>
 """
 
+# The currency socket of the price buttons, cut out of btn_price*.svg: the game
+# shows it only next to the SDK currency icon (without the icon it was an
+# empty square). Same shapes as in the kit, moved to the origin.
+SLOT = """<svg xmlns="http://www.w3.org/2000/svg" width="{s}" height="{s}" viewBox="0 0 {s} {s}">
+<rect x="0" y="0" width="{s}" height="{s}" rx="{rx}" fill="#0A5A20" fill-opacity="0.34"/>
+<rect x="3" y="2" width="{w}" height="5" rx="2.5" fill="#000" fill-opacity="0.16"/>
+<rect x="6" y="{hy}" width="{hw}" height="2.5" rx="1.3" fill="#fff" fill-opacity="0.38"/></svg>
+"""
+SOCKET = re.compile(r'<rect x="(?:16|20)" y="[\d.]+" width="(?:36|40)".*</svg>', re.S)
+
 
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
@@ -41,11 +51,16 @@ def main() -> None:
             text = svg.read_text(encoding="utf-8")
             text = re.sub(r"<metadata>.*?</metadata>", "", text, flags=re.S)
             text = text.replace(' xmlns:c2pa="http://c2pa.org/manifest"', "")
+            if kit == "kit_shop" and svg.name.startswith("btn_price"):
+                text = SOCKET.sub("</svg>", text)
             (out / svg.name).write_text(text, encoding="utf-8", newline="\n")
             total += len(text.encode("utf-8"))
     for name in CHARS:
         shutil.copyfile(SRC / "assets" / f"{name}.png", OUT / "chars" / f"{name}.png")
         total += (OUT / "chars" / f"{name}.png").stat().st_size
+    for name, size, rx in (("price_slot", 36, 10.1), ("price_slot_big", 40, 11.2)):
+        slot = SLOT.format(s=size, rx=rx, w=size - 6, hy=size - 4.5, hw=size - 12)
+        (OUT / "shop" / f"{name}.svg").write_text(slot, encoding="utf-8", newline="\n")
     (OUT / "shadow_dark.svg").write_text(SHADOW.format(c="#0A1E14", a="0.4"), encoding="utf-8", newline="\n")
     (OUT / "shadow_red.svg").write_text(SHADOW.format(c="#C81E28", a="0.45"), encoding="utf-8", newline="\n")
     print(f"art/ui/v3: {total / 1024:.0f} KB")
