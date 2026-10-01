@@ -36,6 +36,10 @@ var bot: BattleBot
 var level: LevelData
 var balance: BalanceData
 var targeting_meteor: bool = false
+## The meteor button is still held (it reacts on press): releasing over the
+## field drops the meteor there — on a phone, press and drag onto the field.
+## Released over the button itself: targeting stays on, tap the field next.
+var _meteor_drag: bool = false
 
 var _views: Dictionary[int, UnitVisual] = {}
 var _pool: Dictionary[StringName, Array] = {}
@@ -156,6 +160,16 @@ func _step(delta: float) -> void:
 
 # --- player input ----------------------------------------------------------
 
+func _input(event: InputEvent) -> void:
+	var mb := event as InputEventMouseButton
+	if not _meteor_drag or mb == null or mb.button_index != MOUSE_BUTTON_LEFT or mb.pressed:
+		return
+	_meteor_drag = false
+	var at: Vector2 = get_canvas_transform().affine_inverse() * mb.position
+	if targeting_meteor and not sim.is_over() and _on_field(at):
+		_cast_meteor(at)
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if sim.is_over():
 		return
@@ -202,6 +216,7 @@ func _mine(index: int) -> void:
 
 func _toggle_meteor_targeting() -> void:
 	_set_targeting(not targeting_meteor and sim.meteor_charges > 0)
+	_meteor_drag = targeting_meteor and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 
 
 func _set_targeting(on: bool) -> void:
@@ -211,12 +226,16 @@ func _set_targeting(on: bool) -> void:
 
 
 func _cast_meteor(at: Vector2) -> void:
-	# Only the field counts: not the HUD strips at the top and bottom.
-	if at.y < 60.0 or at.y > 560.0:
+	if not _on_field(at):
 		return
 	if sim.cast_meteor(at):
 		_tutorial.notify(&"meteor")
 	_set_targeting(false)
+
+
+## Only the field counts: not the HUD strips at the top and bottom.
+func _on_field(at: Vector2) -> bool:
+	return at.y >= 60.0 and at.y <= 560.0
 
 
 # --- sim → views -----------------------------------------------------------
