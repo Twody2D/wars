@@ -21,7 +21,7 @@
 custom_minimum_size = Vector2(110, 156)
 offset_right = 110.0
 offset_bottom = 156.0
-texture_normal = ExtResource("2_ready")
+texture_normal = ExtResource("3_dim")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("1_script")
@@ -44,6 +44,17 @@ art_height = {
 &"zombie": 76.0
 }
 
+[node name="ReadyLayer" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_ready")
+expand_mode = 1
+
 [node name="Portrait" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 12.0
@@ -54,19 +65,36 @@ mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Cooldown" type="NinePatchRect" parent="."]
+[node name="CooldownClip" type="Control" parent="."]
 visible = false
+clip_contents = true
 layout_mode = 0
 offset_left = 8.0
 offset_top = 10.0
 offset_right = 102.0
 offset_bottom = 100.0
 mouse_filter = 2
+
+[node name="Cooldown" type="NinePatchRect" parent="CooldownClip"]
+layout_mode = 0
+offset_right = 94.0
+offset_bottom = 90.0
+mouse_filter = 2
 texture = ExtResource("4_cd")
 patch_margin_left = 10
 patch_margin_top = 10
 patch_margin_right = 10
 patch_margin_bottom = 10
+
+[node name="Edge" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 10.0
+offset_top = 98.0
+offset_right = 100.0
+offset_bottom = 101.0
+mouse_filter = 2
+color = Color(0.72, 0.9, 1, 0.85)
 
 [node name="CooldownBar" type="NinePatchRect" parent="."]
 visible = false
