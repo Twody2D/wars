@@ -29,7 +29,16 @@ static func restore(state: Node, backend: PlatformBase) -> Array[StringName]:
 	return given
 
 
-## "No ads" bought: no fullscreen ads (rewarded ones stay, the player asks for them).
+## "No ads" bought: no fullscreen ads and no sticky banner (rewarded ones
+## stay, the player asks for them).
 static func ads_allowed(state: Node) -> bool:
 	var no_ads: bool = state.call(&"owns", GameState.NO_ADS)
 	return not no_ads
+
+
+## The sticky banner: shown to everyone but the "No ads" owners.
+static func update_banner(state: Node, backend: PlatformBase) -> void:
+	if ads_allowed(state):
+		backend.show_banner()
+	else:
+		backend.hide_banner()

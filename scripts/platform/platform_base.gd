@@ -36,6 +36,15 @@ func show_interstitial() -> void:
 	pass
 
 
+## Sticky banner on / off (shown to everyone but the "No ads" owners).
+func show_banner() -> void:
+	pass
+
+
+func hide_banner() -> void:
+	pass
+
+
 ## No ads here: the reward is refused (the game must not hang waiting).
 func show_rewarded(tag: StringName) -> void:
 	rewarded_failed.emit.call_deferred(tag)

@@ -23,7 +23,7 @@ const STARTER_LAYERS := {
 ## What the product really gives (requirement 1.13.5), ≤ 200 characters.
 const DESCRIPTIONS := {
 	&"starter_pack": ["Шахтёр-гоблин и 5 000 монет. Один раз", "Goblin Miner and 5,000 coins. Once"],
-	&"no_ads": ["Навсегда убирает рекламу между экранами. Реклама за награду остаётся по желанию", "Removes ads between screens forever. Reward ads stay optional"],
+	&"no_ads": ["Навсегда убирает рекламу: между экранами и баннер. Реклама за награду остаётся по желанию", "Removes ads forever: between screens and the banner. Reward ads stay optional"],
 	&"gold_pickaxe": ["×2 монеты за каждый бой навсегда", "×2 coins for every battle forever"],
 	&"coins_small": ["2 000 монет", "2,000 coins"],
 	&"coins_bag": ["8 000 монет", "8,000 coins"],

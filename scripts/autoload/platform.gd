@@ -91,6 +91,13 @@ func show_rewarded(tag: StringName) -> void:
 	backend.show_rewarded(tag)
 
 
+## Sticky banner: the game shows it itself (console: "Использовать API для
+## показа sticky-баннера" on), to everyone but the "No ads" owners. At launch
+## after the purchases are restored, and right after a purchase.
+func update_banner() -> void:
+	Purchases.update_banner(GameState, backend)
+
+
 func get_lang() -> String:
 	return backend.get_lang()
 
@@ -141,10 +148,12 @@ func restore_purchases() -> void:
 	_restoring = false
 	for id: StringName in given:
 		purchased.emit(id)
+	update_banner()
 
 
 func _on_purchase_done(id: StringName, token: String) -> void:
 	Purchases.deliver(GameState, backend, id, token)
+	update_banner()
 	purchased.emit(id)
 
 

@@ -73,6 +73,16 @@ func show_interstitial() -> void:
 		_yg.call("showFullscreen", _cb_fullscreen)
 
 
+func show_banner() -> void:
+	if sdk_ok:
+		_yg.call("showBanner")
+
+
+func hide_banner() -> void:
+	if sdk_ok:
+		_yg.call("hideBanner")
+
+
 func show_rewarded(tag: StringName) -> void:
 	if not sdk_ok or _reward_open:
 		rewarded_failed.emit.call_deferred(tag)

@@ -301,6 +301,20 @@ window.YG = (function () {
 			img.onerror = () => reply('');
 			img.src = url.startsWith('//') ? 'https:' + url : url;
 		},
+		// Sticky banner (console: "Использовать API для показа sticky-баннера"
+		// is on): the game shows it to everyone but the "No ads" owners.
+		showBanner() {
+			if (!sdk || !sdk.adv) {
+				return;
+			}
+			Promise.resolve().then(() => sdk.adv.showBannerAdv()).catch((err) => console.warn('YG banner', err));
+		},
+		hideBanner() {
+			if (!sdk || !sdk.adv) {
+				return;
+			}
+			Promise.resolve().then(() => sdk.adv.hideBannerAdv()).catch((err) => console.warn('YG banner', err));
+		},
 		setScore(board, score) {
 			if (!sdk || !sdk.leaderboards) {
 				return;

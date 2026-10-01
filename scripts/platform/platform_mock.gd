@@ -7,6 +7,8 @@ const SHOP_PATH := "res://data/shop/shop.tres"
 
 ## The mock "server": purchases not consumed yet.
 var purchases: Array[Dictionary] = []
+## The sticky banner as the game asked for it (tests).
+var banner_shown: bool = false
 var _last_token: int = 0
 
 
@@ -15,6 +17,14 @@ func show_rewarded(tag: StringName) -> void:
 	await get_tree().create_timer(0.3, true, false, true).timeout
 	resumed.emit()
 	rewarded.emit(tag)
+
+
+func show_banner() -> void:
+	banner_shown = true
+
+
+func hide_banner() -> void:
+	banner_shown = false
 
 
 func get_lang() -> String:

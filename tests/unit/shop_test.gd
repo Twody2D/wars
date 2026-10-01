@@ -143,6 +143,14 @@ func test_no_ads_stops_fullscreen_ads() -> void:
 	assert_bool(Purchases.ads_allowed(gs)).is_false()
 
 
+func test_no_ads_hides_the_banner() -> void:
+	Purchases.update_banner(gs, server)
+	assert_bool(server.banner_shown).is_true()
+	_buy(&"no_ads")
+	Purchases.update_banner(gs, server)
+	assert_bool(server.banner_shown).is_false()
+
+
 func test_gold_pickaxe_doubles_battle_coins() -> void:
 	var balance: BalanceData = gs.call(&"balance")
 	var level: LevelData = gs.call(&"level", 1)

@@ -13,6 +13,8 @@ window.YaGames = {
 			},
 			adv: {
 				showFullscreenAdv({ callbacks }) { console.log('FAKE fullscreen'); callbacks.onOpen(); setTimeout(() => callbacks.onClose(true), 500); },
+				showBannerAdv() { console.log('FAKE banner show'); return Promise.resolve({ stickyAdvIsShowing: true }); },
+				hideBannerAdv() { console.log('FAKE banner hide'); return Promise.resolve({ stickyAdvIsShowing: false }); },
 				showRewardedVideo({ callbacks }) { console.log('FAKE rewarded'); callbacks.onOpen(); handlers.game_api_pause && handlers.game_api_pause(); setTimeout(() => { callbacks.onRewarded(); callbacks.onClose(); handlers.game_api_resume && handlers.game_api_resume(); }, 1500); },
 			},
 			getPlayer() { return Promise.resolve({
