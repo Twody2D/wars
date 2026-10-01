@@ -158,5 +158,6 @@ Esc pauses the game.
 - `game.zip` — архив игры (8.64 МБ);
 - `icon_512.png`, `cover_800x470.png` — вариант **A** (`build/store/new/store_icon_A.png`, `store_cover_A.png`); если выбран B или C — взять оттуда;
 - `screenshots/01–07` — для Яндекса по порядку (5 боёв, улучшения, магазин), `08_menu`, `09_map` — запасные; `screenshots_vertical/` — повёрнутые копии, не для Яндекса;
+- `screenshots_en/`, `screenshots_vertical_en/` — те же кадры на английском (для английской версии карточки); пересоздать: `store_shots.gd -- en` → `build/store/en/`;
 - `trailer.mp4` — 1920×1080, 27.8 с, новые цены;
 - `products/` — CSV и картинки товаров для «Инап-покупок».

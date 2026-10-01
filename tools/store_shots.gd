@@ -4,8 +4,8 @@ extends SceneTree
 ## scripted player keeps buying units so the battles are busy.
 ##
 ## Run (a window opens for ~1 min):
-##   "$GODOT" --path . --resolution 1920x1080 -s res://tools/store_shots.gd
-## Output: build/store/shot_*.png
+##   "$GODOT" --path . --resolution 1920x1080 -s res://tools/store_shots.gd [-- en]
+## Output: build/store/shot_*.png (Russian), with "en" — build/store/en/shot_*.png
 
 const OUT := "res://build/store/"
 ## [name, scene, tab or level, seconds to wait, "meteor" — drop it on the
@@ -57,7 +57,7 @@ func _process(delta: float) -> bool:
 			"settings": {"sound": false},
 			"shop": {"starter_offer_shown": true},
 		})
-		TranslationServer.set_locale("ru")
+		TranslationServer.set_locale(_lang())
 		_start(0)
 		return false
 	_t += delta
@@ -73,7 +73,9 @@ func _process(delta: float) -> bool:
 			_meteor_done = true
 			_drop_meteor()
 	if _t >= shot[3]:
-		root.get_texture().get_image().save_png(OUT + "shot_%s.png" % shot[0])
+		var out: String = OUT if _lang() == "ru" else OUT + _lang() + "/"
+		DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(out))
+		root.get_texture().get_image().save_png(out + "shot_%s.png" % shot[0])
 		print("saved shot_", shot[0])
 		if _index + 1 >= SHOTS.size():
 			return true
@@ -154,3 +156,9 @@ func _drop_meteor() -> void:
 	var balance: BalanceData = sim.get(&"balance")
 	sim.set(&"meteor_charges", 1)
 	current_scene.call(&"_cast_meteor", Vector2(front + 30.0, balance.lane_y))
+
+
+## Screenshot language: "ru" by default, the first user argument otherwise.
+func _lang() -> String:
+	var args := OS.get_cmdline_user_args()
+	return args[0] if not args.is_empty() else "ru"
