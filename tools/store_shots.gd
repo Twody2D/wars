@@ -8,8 +8,11 @@ extends SceneTree
 ## Output: build/store/shot_*.png
 
 const OUT := "res://build/store/"
-## [name, scene, tab or level, seconds to wait]. Battles are the real levels
-## cut to the first and the last wave (the boss comes early, see _demo_level).
+## [name, scene, tab or level, seconds to wait, "meteor" — drop it on the
+## enemy front just before the shot]. Battles are the real levels cut to the
+## first and the last wave (the boss comes early, see _demo_level). Yandex
+## wants at least 70% of the screenshots to be gameplay: upload the battles
+## first, plus at most two menu screens.
 const SHOTS: Array[Array] = [
 	["menu", "menu", 1, 1.2],
 	["upgrades", "menu", 2, 1.2],
@@ -17,7 +20,12 @@ const SHOTS: Array[Array] = [
 	["shop", "menu", 0, 1.5],
 	["battle_meadow", "battle", 10, 17.0],
 	["battle_cave", "battle", 20, 17.0],
+	["battle_slimes", "battle", 6, 15.0, "meteor"],
+	["battle_spiders", "battle", 8, 13.0],
+	["battle_goblins", "battle", 14, 15.0, "meteor"],
 ]
+## The shot is taken this long after the meteor hits (the blast is on screen).
+const METEOR_BLAST_SEC := 0.45
 ## Seconds (battle time) when the last wave starts in a shot battle.
 const BOSS_WAVE_SEC := 5.0
 ## Stop buying this long before the shot so the cards are bright again.
@@ -30,6 +38,7 @@ var _index: int = -1
 var _t: float = 0.0
 var _think: float = 0.0
 var _next: int = 0
+var _meteor_done: bool = false
 
 
 func _process(delta: float) -> bool:
@@ -60,6 +69,9 @@ func _process(delta: float) -> bool:
 		if paused and current_scene != null and current_scene.has_method(&"_close_pause"):
 			current_scene.call(&"_close_pause")
 		_play(delta)
+		if shot.size() > 4 and not _meteor_done and _t >= shot[3] - _meteor_lead():
+			_meteor_done = true
+			_drop_meteor()
 	if _t >= shot[3]:
 		root.get_texture().get_image().save_png(OUT + "shot_%s.png" % shot[0])
 		print("saved shot_", shot[0])
@@ -73,6 +85,7 @@ func _start(index: int) -> void:
 	_index = index
 	_t = 0.0
 	_next = 0
+	_meteor_done = false
 	var shot: Array = SHOTS[index]
 	if shot[1] == "menu":
 		change_scene_to_file.call_deferred("res://scenes/menu/main.tscn")
@@ -115,3 +128,29 @@ func _play(delta: float) -> void:
 	_next += 1
 	if _t > 8.0 and _t < 9.0:
 		current_scene.call(&"_mine", 0)
+
+
+## Seconds before the shot to drop the meteor: its fall plus the blast.
+func _meteor_lead() -> float:
+	var sim: Object = current_scene.get(&"sim") if current_scene != null else null
+	if sim == null:
+		return 0.0
+	var balance: BalanceData = sim.get(&"balance")
+	return balance.meteor_fall_time / balance.battle_pace + METEOR_BLAST_SEC
+
+
+## The meteor onto the enemy fighter closest to our base.
+func _drop_meteor() -> void:
+	var sim: Object = current_scene.get(&"sim")
+	var units: Array = sim.get(&"units")
+	var front: float = INF
+	for u: Object in units:
+		var x: float = u.get(&"x")
+		var side: int = u.get(&"side")
+		if side == BattleSim.BOT and x < front:
+			front = x
+	if front == INF:
+		return
+	var balance: BalanceData = sim.get(&"balance")
+	sim.set(&"meteor_charges", 1)
+	current_scene.call(&"_cast_meteor", Vector2(front + 30.0, balance.lane_y))
