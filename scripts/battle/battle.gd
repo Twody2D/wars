@@ -19,6 +19,9 @@ const BOOSTERS: Array[StringName] = [&"boost_speed", &"boost_food"]
 ## Per biome: [intact, damaged, destroyed] of our base (blue) and the bot's (red).
 @export var biome_bases: Dictionary[StringName, Array] = {}
 @export var biome_bot_bases: Dictionary[StringName, Array] = {}
+## Per biome: raise both bases by this many px so the door sill meets the
+## units' feet (the mine entrance is drawn lower than the hut door).
+@export var biome_base_lift: Dictionary[StringName, float] = {}
 ## Per biome: [ready, mined-out] ore.
 @export var biome_ores: Dictionary[StringName, Array] = {}
 @export var result_delay: float = 1.2
@@ -539,7 +542,9 @@ func _apply_biome() -> void:
 		_player_base: biome_bases.get(level.biome, []),
 		_bot_base: biome_bot_bases.get(level.biome, []),
 	}
+	var lift: float = biome_base_lift.get(level.biome, 0.0)
 	for view: BaseView in sides:
+		view.position.y -= lift
 		var bases: Array = sides[view]
 		if bases.size() == 3:
 			view.intact = bases[0]

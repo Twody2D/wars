@@ -56,6 +56,9 @@ func _process(delta: float) -> bool:
 	if shot[1] == "menu" and _t > 0.3 and current_scene != null and current_scene.has_method(&"_open_tab"):
 		current_scene.call(&"_open_tab", shot[2])
 	if shot[1] == "battle":
+		# The window may lose focus: that opens the pause menu — not wanted in a shot.
+		if paused and current_scene != null and current_scene.has_method(&"_close_pause"):
+			current_scene.call(&"_close_pause")
 		_play(delta)
 	if _t >= shot[3]:
 		root.get_texture().get_image().save_png(OUT + "shot_%s.png" % shot[0])

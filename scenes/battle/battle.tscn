@@ -91,6 +91,9 @@ biome_bot_bases = {
 &"cave": [ExtResource("63_rc_i"), ExtResource("64_rc_d"), ExtResource("65_rc_x")],
 &"meadow": [ExtResource("60_rm_i"), ExtResource("61_rm_d"), ExtResource("62_rm_x")]
 }
+biome_base_lift = {
+&"cave": 27.0
+}
 biome_ores = {
 &"cave": [ExtResource("67_ore_cave"), ExtResource("68_ore_cave_empty")],
 &"meadow": [ExtResource("14_ore"), ExtResource("66_ore_empty")]
