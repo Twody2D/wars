@@ -17,5 +17,6 @@ meteor_damage = 50.0
 meteor_radius = 70.0
 meteor_fall_time = 1.2
 coins_per_kill = 10
-boss_power = 1.0
+boss_power = 1.3
+bot_power_per_level = 0.02
 upgrade_cost_round = 10

@@ -16,7 +16,7 @@ func _init() -> void:
 	var b: BalanceData = config.balance
 	var coins := 0
 	# Only what the upgrades screen offers (main_menu.gd shown_upgrades).
-	var ups: Dictionary[StringName, int] = {&"army_power": 0, &"food_rate": 0, &"base_hp": 0}
+	var ups: Dictionary[StringName, int] = {&"army_power": 0, &"food_rate": 0, &"base_hp": 0, &"start_food": 0}
 	var unit_lvls: Dictionary[StringName, int] = {&"zombie": 1, &"skeleton": 1}
 	var attempt_seed := seed_ * 1000
 	for n: int in range(1, to + 1):
@@ -35,6 +35,7 @@ func _init() -> void:
 			s.food_rate += config.upgrade(&"food_rate").per_level * ups[&"food_rate"]
 			s.food_max += floorf(ups[&"food_rate"] / 2.0) * b.food_max_per_2_levels
 			s.player_base_hp += config.upgrade(&"base_hp").per_level * ups[&"base_hp"]
+			s.start_food += config.upgrade(&"start_food").per_level * ups[&"start_food"]
 			s.unit_levels = unit_lvls.duplicate()
 			s.player_power = 1.0 + config.upgrade(&"army_power").per_level * ups[&"army_power"]
 			var sim := BattleSim.new(s)
