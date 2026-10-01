@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/shop_offer.gd" id="1_shop_offer"]
 [ext_resource type="Theme" path="res://scenes/ui/theme_v3.tres" id="2_theme_v3"]
@@ -12,7 +12,6 @@
 [ext_resource type="Texture2D" path="res://art/ui/v3/shop/plate_item.svg" id="10_plate_item"]
 [ext_resource type="Texture2D" path="res://art/ui/v3/icon_coin.svg" id="11_icon_coin"]
 [ext_resource type="Texture2D" path="res://art/ui/v3/battle/ribbon_win.svg" id="12_ribbon_win"]
-[ext_resource type="Texture2D" uid="uid://cg7wli8vusijd" path="res://art/ui/v3/shop/price_slot_big.svg" id="90_slot"]
 
 [node name="ShopOffer" type="Control"]
 visible = false
@@ -254,23 +253,12 @@ offset_bottom = 362.0
 unique_name_in_owner = true
 theme_type_variation = &"PriceBigButton"
 
-[node name="Slot" type="TextureRect" parent="Window/BuyButton"]
-visible = false
-layout_mode = 0
-offset_left = 20
-offset_top = 14.5
-offset_right = 60
-offset_bottom = 54.5
-mouse_filter = 2
-texture = ExtResource("90_slot")
-expand_mode = 1
-
 [node name="Currency" type="TextureRect" parent="Window/BuyButton"]
 layout_mode = 0
-offset_left = 23.0
-offset_top = 17.0
-offset_right = 57.0
-offset_bottom = 51.0
+offset_left = 20.0
+offset_top = 14.5
+offset_right = 60.0
+offset_bottom = 54.5
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5

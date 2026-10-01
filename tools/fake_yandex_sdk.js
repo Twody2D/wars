@@ -1,4 +1,6 @@
 // FAKE Yandex SDK for local bridge testing — never ship.
+// A round gold coin like the portal currency icon (test mode shows ₽).
+const COIN = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><circle cx="32" cy="32" r="30" fill="#F5B400" stroke="#C77F00" stroke-width="4"/><text x="32" y="44" font-size="34" font-weight="bold" text-anchor="middle" fill="#8A5200">₽</text></svg>');
 window.YaGames = {
 	init() {
 		const handlers = {};
@@ -22,13 +24,13 @@ window.YaGames = {
 				setData(d) { store = d; return Promise.resolve(); },
 			}); },
 			payments: (() => {
-				const catalog = [['starter_pack', 49], ['no_ads', 149], ['gold_pickaxe', 199],
-					['coins_small', 29], ['coins_bag', 99], ['coins_chest', 249]];
+				const catalog = [['starter_pack', 19], ['no_ads', 79], ['gold_pickaxe', 99],
+					['coins_small', 12], ['coins_bag', 39], ['coins_chest', 99]];
 				let held = JSON.parse(localStorage.getItem('fake_purchases') || '[]');
 				let n = held.length;
 				const keep = () => localStorage.setItem('fake_purchases', JSON.stringify(held));
 				return {
-					getCatalog() { return Promise.resolve(catalog.map(([id, v]) => ({ id, price: v + ' YAN', priceValue: String(v), priceCurrencyCode: 'YAN', getPriceCurrencyImage() { return '/index.icon.png'; } }))); },
+					getCatalog() { return Promise.resolve(catalog.map(([id, v]) => ({ id, price: v + ' YAN', priceValue: String(v), priceCurrencyCode: 'YAN', getPriceCurrencyImage() { return COIN; } }))); },
 					purchase({ id }) { console.log('FAKE purchase', id); if (id === 'coins_small') return Promise.reject(new Error('FAKE cancelled')); const p = { productID: id, purchaseToken: 'fake-' + (++n) }; held.push(p); keep(); return Promise.resolve(p); },
 					getPurchases() { return Promise.resolve(held.slice()); },
 					consumePurchase(token) { console.log('FAKE consume', token); held = held.filter((p) => p.purchaseToken !== token); keep(); return Promise.resolve(); },

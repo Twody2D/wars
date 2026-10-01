@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3]
+[gd_scene load_steps=16 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/shop_card.gd" id="1_shop_card"]
 [ext_resource type="Texture2D" path="res://art/ui/v3/shop/card_shop_bought.svg" id="2_card_shop_bo"]
@@ -16,7 +16,6 @@
 [ext_resource type="Texture2D" path="res://art/ui/v3/shop/icon_check.svg" id="14_icon_check"]
 [ext_resource type="Texture2D" path="res://art/ui/v3/shop/icon_timer.svg" id="15_icon_timer"]
 [ext_resource type="Texture2D" path="res://art/ui/v3/battle/badge_ad.svg" id="16_badge_ad"]
-[ext_resource type="Texture2D" uid="uid://c0qtaxun7mjpc" path="res://art/ui/v3/shop/price_slot.svg" id="90_slot"]
 
 [node name="ShopCard" type="Control"]
 custom_minimum_size = Vector2(296, 222)
@@ -183,23 +182,12 @@ grow_horizontal = 2
 unique_name_in_owner = true
 theme_type_variation = &"PriceButton"
 
-[node name="Slot" type="TextureRect" parent="PriceButton"]
-visible = false
-layout_mode = 0
-offset_left = 16
-offset_top = 6.5
-offset_right = 52
-offset_bottom = 42.5
-mouse_filter = 2
-texture = ExtResource("90_slot")
-expand_mode = 1
-
 [node name="Currency" type="TextureRect" parent="PriceButton"]
 layout_mode = 0
-offset_left = 19.0
-offset_top = 10.0
-offset_right = 49.0
-offset_bottom = 40.0
+offset_left = 16.0
+offset_top = 6.5
+offset_right = 52.0
+offset_bottom = 42.5
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
