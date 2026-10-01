@@ -116,3 +116,7 @@ SHOP_RECEIVED,Покупка получена!,Purchase received!
 SHOP_GREAT,Отлично,Great
 SHOP_OFFLINE_TITLE,Магазин недоступен,Shop unavailable
 SHOP_OFFLINE_TEXT,Нет связи с магазином.\nПопробуй позже.,No connection to the shop.\nTry again later.
+TOUR_UNITS,Прокачивай бойцов: больше здоровья и урона,Level up fighters: more health and damage
+TOUR_ARMY,Армия: улучшения для всех бойцов и базы,Army: boosts for every fighter and the base
+TOUR_BATTLE,Монеты дают за победы. Жми «Бой»!,Wins give coins. Tap Battle!
+TOUR_TAP,"Нажми, чтобы продолжить",Tap to continue

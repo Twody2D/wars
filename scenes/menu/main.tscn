@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3]
+[gd_scene load_steps=53 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_menu"]
 [ext_resource type="PackedScene" path="res://scenes/ui/unit_tile.tscn" id="2_tile"]
@@ -36,6 +36,7 @@
 [ext_resource type="Texture2D" path="res://art/ui/v3/badge_dot.svg" id="36_dot"]
 
 [ext_resource type="PackedScene" path="res://scenes/ui/how_to_play.tscn" id="37_howto"]
+[ext_resource type="PackedScene" path="res://scenes/ui/upgrades_tour.tscn" id="62_tour"]
 [ext_resource type="PackedScene" path="res://scenes/ui/shop_screen.tscn" id="38_shop"]
 [ext_resource type="PackedScene" path="res://scenes/ui/shop_offer.tscn" id="39_offer"]
 [ext_resource type="PackedScene" path="res://scenes/ui/shop_reward.tscn" id="40_reward"]
@@ -964,5 +965,9 @@ unique_name_in_owner = true
 layout_mode = 1
 
 [node name="HowToPlay" parent="." instance=ExtResource("37_howto")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="UpgradesTour" parent="." instance=ExtResource("62_tour")]
 unique_name_in_owner = true
 layout_mode = 1

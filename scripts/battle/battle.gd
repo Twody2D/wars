@@ -457,15 +457,30 @@ func _on_battle_over(winner: int) -> void:
 	Audio.play_sfx(&"win" if winner == BattleSim.PLAYER else &"lose", false)
 	_update_bases()
 	_result = Rewards.calculate(sim, GameState.coin_multiplier())
+	var stars_before: int = GameState.level_stars.get(_result.level_number, 0)
+	var open_before: int = GameState.max_playable_level()
 	GameState.apply_result(_result)
+	GameState.after_battle = {}
+	if _result.won:
+		var open_now: int = GameState.max_playable_level()
+		GameState.after_battle = {
+			"level": _result.level_number,
+			"stars_before": stars_before,
+			"opened": open_now if open_now > open_before else 0,
+			"tour": _result.level_number == 1 and stars_before == 0,
+		}
 	Platform.gameplay_stop()
 	await get_tree().create_timer(result_delay).timeout
 	_result_panel.show_result(_result)
 
 
+## "Next" after a win: the map with the new stars and the opened level (the
+## first win: the upgrades tour instead). After a loss: the same level again.
 func _next_level() -> void:
 	if _result != null and _result.won:
-		GameState.selected_level = mini(_result.level_number + 1, GameState.level_count())
+		GameState.after_battle["map"] = true
+		_leave(MENU_SCENE)
+		return
 	_leave(BATTLE_SCENE)
 
 

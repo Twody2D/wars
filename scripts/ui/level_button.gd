@@ -84,3 +84,44 @@ func setup(number_: int) -> void:
 ## Places the node so its face centre is at `center` (map coordinates).
 func place(center: Vector2) -> void:
 	position = center - face_center
+
+
+## After a win (the map opened by "Next"): the stars earned now pop in one by
+## one after `delay` seconds; returns when the last one has landed.
+func celebrate_stars(stars_before: int, delay: float) -> float:
+	var stars: int = GameState.level_stars.get(number, 0)
+	if stars <= stars_before:
+		return delay
+	_stars_box.visible = true
+	var t: float = delay
+	for i: int in range(stars_before, stars):
+		var star: TextureRect = _stars[i]
+		star.texture = star_empty
+		star.pivot_offset = star.size / 2.0
+		var tween: Tween = create_tween()
+		tween.tween_interval(t)
+		tween.tween_callback(func() -> void:
+			star.texture = star_full
+			star.scale = Vector2(2.2, 2.2)
+			Audio.play_sfx(&"coin", false))
+		tween.tween_property(star, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		t += 0.35
+	return t
+
+
+## The level just opened: it grows out of a locked node after `delay` seconds.
+func pop_open(delay: float) -> void:
+	var open_texture: Texture2D = _node.texture
+	_node.texture = node_textures["locked"]
+	_arrow.visible = false
+	scale = Vector2(0.75, 0.75)
+	var tween: Tween = create_tween()
+	tween.tween_interval(delay)
+	tween.tween_callback(func() -> void:
+		_node.texture = open_texture
+		_arrow.visible = true
+		Audio.play_sfx(&"unlock", false))
+	tween.tween_property(self, "modulate", Color(1.6, 1.6, 1.6), 0.15)
+	tween.parallel().tween_property(self, "scale", Vector2(1.2, 1.2), 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "modulate", Color.WHITE, 0.25)
+	tween.parallel().tween_property(self, "scale", Vector2.ONE, 0.25)

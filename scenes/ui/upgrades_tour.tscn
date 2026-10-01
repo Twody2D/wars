@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/upgrades_tour.gd" id="1_script"]
+[ext_resource type="Theme" path="res://scenes/ui/theme_v3.tres" id="2_theme"]
+[ext_resource type="Texture2D" path="res://art/ui/icons/icon_hand_tap.svg" id="3_hand"]
+[ext_resource type="Shader" path="res://scenes/ui/spotlight.gdshader" id="4_spot"]
+
+[sub_resource type="ShaderMaterial" id="spot"]
+shader = ExtResource("4_spot")
+
+[node name="UpgradesTour" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="Shade" type="ColorRect" parent="."]
+material = SubResource("spot")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Hand" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 72.0
+offset_bottom = 72.0
+mouse_filter = 2
+texture = ExtResource("3_hand")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Text" type="Label" parent="."]
+layout_mode = 0
+offset_right = 360.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 30
+theme_override_colors/font_outline_color = Color(0.0784314, 0.0666667, 0.2, 1)
+theme_override_constants/outline_size = 10
+text = "TOUR_UNITS"
+horizontal_alignment = 1
+
+[node name="Tap" type="Label" parent="."]
+layout_mode = 0
+offset_right = 360.0
+offset_bottom = 32.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_outline_color = Color(0.0784314, 0.0666667, 0.2, 1)
+theme_override_constants/outline_size = 10
+text = "TOUR_TAP"
+horizontal_alignment = 1

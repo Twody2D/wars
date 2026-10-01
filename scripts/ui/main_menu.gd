@@ -27,6 +27,8 @@ const GLOW_SCALE := Vector2(0.95, 1.08)
 const GLOW_ALPHA := Vector2(0.6, 1.0)
 const GLOW_SEC := 0.9
 const BADGE_BOB := 2.0
+## Seconds before the stars pop in on the map after a win.
+const MAP_CELEBRATE_DELAY := 0.5
 
 @export var unit_tile_scene: PackedScene
 @export var upgrade_card_scene: PackedScene
@@ -71,6 +73,7 @@ const BADGE_BOB := 2.0
 @onready var _settings_button: Button = %SettingsButton
 @onready var _how_to_play: HowToPlay = %HowToPlay
 @onready var _help_button: Button = %HelpButton
+@onready var _tour: UpgradesTour = %UpgradesTour
 
 ## Tabs opened before the current one; Esc goes back through them.
 var _tab_history: Array[int] = []
@@ -113,7 +116,39 @@ func _ready() -> void:
 	_start_animations()
 	_show_tab(TAB_BATTLE)
 	Platform.gameplay_stop()
+	var busy_sec: float = await _after_battle()
+	if busy_sec > 0.0:
+		await get_tree().create_timer(busy_sec).timeout
 	_offer_starter_pack()
+
+
+## Back from a won battle: the first win shows the upgrades tour; "Next"
+## opens the map where the new stars pop in and the next level opens.
+## Returns how long it is busy (the starter pack offer waits for it).
+func _after_battle() -> float:
+	var after: Dictionary = GameState.after_battle
+	GameState.after_battle = {}
+	if after.get("tour", false):
+		_show_tab(TAB_UPGRADES)
+		var targets: Array[Control] = [_unit_tiles.get_child(0), _upgrade_grid, _tab_buttons[TAB_BATTLE]]
+		_tour.start(targets)
+		await _tour.finished
+		return 0.01
+	if not after.get("map", false):
+		return 0.0
+	_show_tab(TAB_MAP)
+	var level: int = after.get("level", 0)
+	var opened: int = after.get("opened", 0)
+	var stars_before: int = after.get("stars_before", 0)
+	var t: float = MAP_CELEBRATE_DELAY
+	for b: LevelButton in _level_buttons:
+		if b.number == level:
+			t = b.celebrate_stars(stars_before, t)
+	for b: LevelButton in _level_buttons:
+		if b.number == opened:
+			b.pop_open(t + 0.15)
+			t += 0.8
+	return t + 0.3
 
 
 ## The scenery is drawn for 1440×720 and sits on the bottom edge (a taller

@@ -28,6 +28,10 @@ var sound_on: bool = true
 var music_on: bool = true
 ## Level chosen for the next battle.
 var selected_level: int = 1
+## What the menu shows after a won battle (not saved): "level", "stars_before",
+## "opened" (the level just opened, 0 — none), "map" ("Next" was pressed: the
+## map with the new stars), "tour" (the first win: the upgrades tour).
+var after_battle: Dictionary = {}
 ## Off in tests so they never touch the real save file.
 var autosave: bool = true
 ## Unix time of the last save (diagnostics; the cloud merge compares progress).
