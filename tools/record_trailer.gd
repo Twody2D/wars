@@ -3,7 +3,7 @@ extends SceneTree
 ## The game as the player sees it: the whole field and the HUD, no camera
 ## zoom, a tap ring on every press so it is clear how it is played. The story:
 ## a busy meadow battle from the first frame → meteor → the Zombie King →
-## victory → new fighters on the upgrades screen → cave battle with goblins,
+## victory → the shop (starter pack bought) → upgrades → cave battle with goblins,
 ## bombers and the Stone Golem → victory. A scripted "director" plays at the
 ## bought ×1.5 battle speed. Progress lives in memory only: autosave is off,
 ## the real save is never touched.
@@ -20,7 +20,7 @@ extends SceneTree
 ## event times (s of the recording) go to build/store/events.json.
 
 const FPS := 30.0
-const UPGRADES_SEC := 4.6
+const UPGRADES_SEC := 6.35
 const RESULT_HOLD_SEC := 3.0
 const MAX_TOTAL_SEC := 150.0
 ## The director presses a card this often (s of battle time).
@@ -175,29 +175,46 @@ func _tap_control(c: Control) -> void:
 
 # --- upgrades ----------------------------------------------------------------
 
-## Upgrades tab: raise the army power twice, open the goblin and the bomber.
+## Menu between the battles: the shop (buy the starter pack — the goblin and
+## coins, the "purchase received" window), then the upgrades (army power twice,
+## open the bomber), then the cave battle.
 func _upgrades() -> void:
 	if current_scene == null or not current_scene.has_method(&"_open_tab"):
 		return
-	var at: Array[float] = [0.05, 0.9, 1.45, 2.3, 3.2, UPGRADES_SEC]
+	var at: Array[float] = [0.05, 1.5, 2.95, 3.4, 4.1, 4.6, 5.35, UPGRADES_SEC]
 	if _step >= at.size() or _t < at[_step]:
 		return
 	match _step:
 		0:
+			current_scene.call(&"_open_tab", 0)
+			_mark("shop")
+		1:
+			_press_in(&"ShopHero", &"_price_button")
+			_mark("buy_pack")
+		2:
+			_press_in(&"ShopReward", &"_ok")
+		3:
 			current_scene.call(&"_open_tab", 2)
 			_mark("upgrades")
-		1, 2:
+		4, 5:
 			_press_upgrade(&"army_power")
-		3:
-			_press_tile(&"goblin_miner")
-			_mark("buy_1")
-		4:
+		6:
 			_press_tile(&"barrel_bomber")
-		5:
+			_mark("buy_1")
+		7:
 			_start_battle(CAVE, "c_")
 			_next_phase(Phase.CAVE_BATTLE)
 			return
 	_step += 1
+
+
+## Taps the button `field` of the first node of class `type` in the menu.
+func _press_in(type: StringName, field: StringName) -> void:
+	for node: Node in current_scene.find_children("*", type, true, false):
+		var button: Button = node.get(field)
+		_tap_control(button)
+		button.pressed.emit()
+		return
 
 
 func _press_upgrade(id: StringName) -> void:

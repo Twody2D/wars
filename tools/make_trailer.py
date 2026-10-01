@@ -28,15 +28,15 @@ MAX_SEC = 28.0
 # "a|b" — anchor a, or b if a did not happen; "end" is the end card.
 # m_ — meadow battle, c_ — cave battle. Transitions are ffmpeg xfade names.
 SEGMENTS: list[tuple[str, float, float, str]] = [
-    ("m_battle", 0.2, 4.2, "fade"),          # armies already on the field, cards pressed
+    ("m_battle", 0.2, 4.4, "fade"),          # armies already on the field, cards pressed
     ("m_final", -0.3, 3.2, "fade"),          # "final wave", the Zombie King
-    ("m_meteor", -0.3, 2.4, "fade"),         # meteor into the crowd
     ("m_broken", -1.0, 2.6, "fade"),         # the boss falls, the shield is gone
     ("m_over", -1.4, 3.6, "smoothleft"),     # the base falls, victory, stars
-    ("upgrades", 0.1, 3.4, "smoothleft"),    # upgrades, new goblin and bomber
-    ("c_battle", 0.3, 3.6, "fade"),          # cave: goblins and bombers
-    ("c_final", -0.2, 2.8, "fade"),          # the Stone Golem
-    ("c_over", -1.6, 3.8, "fade"),           # victory
+    ("shop", 0.1, 3.0, "fade"),              # shop: starter pack bought, "purchase received"
+    ("upgrades", 0.3, 2.6, "smoothleft"),    # upgrades, the bomber opened
+    ("c_battle", 0.3, 3.2, "fade"),          # cave: goblins and bombers
+    ("c_final", -0.2, 3.2, "fade"),          # the Stone Golem
+    ("c_over", -1.6, 4.0, "fade"),           # victory
     ("end", 0.0, 2.0, ""),
 ]
 XFADE = 0.45
