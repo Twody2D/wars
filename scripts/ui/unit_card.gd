@@ -64,5 +64,9 @@ func refresh(reason: StringName, affordable: bool, cooldown_ratio: float) -> voi
 	_cooldown.visible = cooling
 	_cd_bar.visible = cooling
 	if cooling:
-		_cooldown.size.y = maxf(COOLDOWN_MIN, _cooldown_full * cooldown_ratio)
+		# The shade cannot be thinner than its nine-patch: below that it fades
+		# out, so it ends together with the bar instead of waiting as a strip.
+		var shade: float = _cooldown_full * cooldown_ratio
+		_cooldown.size.y = maxf(COOLDOWN_MIN, shade)
+		_cooldown.modulate.a = minf(1.0, shade / COOLDOWN_MIN)
 		_cd_fill.size.x = maxf(FILL_MIN, _cd_fill_width * (1.0 - cooldown_ratio))
