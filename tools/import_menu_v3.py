@@ -32,7 +32,38 @@ SHADOW = """<svg xmlns="http://www.w3.org/2000/svg" width="160" height="32" view
 # The currency socket of the price buttons is cut out of btn_price*.svg: a
 # dark square around the round SDK currency icon looked odd (and empty
 # without the icon).
+# A map tree: its shadow, trunk and nine crown circles (bg_map.svg). Some stand
+# on top of each other (Twody, 01.10): of two overlapping trees the smaller goes,
+# and so does a tree peeking from under a level node.
+TREE = re.compile(r'<path d="M[^"]*" fill="#000" fill-opacity="0.16"></path><rect [^>]*fill="#8A5A2B"[^>]*></rect>'
+                  r'<circle cx="([\d.]+)" cy="([\d.]+)" r="([\d.]+)"[^>]*></circle>(?:<circle [^>]*></circle>){8}')
+TREE_GAP = 1.1
+NODE_CLEAR = 95.0
+
+
+def declutter_trees(text: str, nodes: list[tuple[float, float]]) -> tuple[str, int]:
+    trees = [(m, float(m.group(1)), float(m.group(2)), float(m.group(3))) for m in TREE.finditer(text)]
+    width = {id(m): r * 2.6 for m, _, _, r in trees}
+    drop: set[int] = {id(m) for m, x, y, r in trees
+                      if any(((x - nx) ** 2 + (y - ny) ** 2) ** 0.5 < NODE_CLEAR + r for nx, ny in nodes)}
+    for i, (a, ax, ay, ar) in enumerate(trees):
+        for b, bx, by, br in trees[i + 1:]:
+            if id(a) in drop or id(b) in drop:
+                continue
+            if ((ax - bx) ** 2 + (ay - by) ** 2) ** 0.5 < (width[id(a)] + width[id(b)]) / 2 * TREE_GAP:
+                drop.add(id(b) if br <= ar else id(a))
+    for m, _, _, _ in reversed(trees):
+        if id(m) in drop:
+            text = text[:m.start()] + text[m.end():]
+    return text, len(drop)
+
+
 SOCKET = re.compile(r'<rect x="(?:16|20)" y="[\d.]+" width="(?:36|40)".*</svg>', re.S)
+
+
+def map_nodes() -> list[tuple[float, float]]:
+    nodes = json.loads((SRC / "kit" / "map_nodes.json").read_text(encoding="utf-8"))["nodes"]
+    return [(float(n["x"]), float(n["y"])) for n in nodes]
 
 
 def main() -> None:
@@ -48,6 +79,9 @@ def main() -> None:
             text = text.replace(' xmlns:c2pa="http://c2pa.org/manifest"', "")
             if kit == "kit_shop" and svg.name.startswith("btn_price"):
                 text = SOCKET.sub("</svg>", text)
+            if svg.name == "bg_map.svg":
+                text, dropped = declutter_trees(text, map_nodes())
+                print(f"bg_map.svg: {dropped} overlapping trees removed")
             (out / svg.name).write_text(text, encoding="utf-8", newline="\n")
             total += len(text.encode("utf-8"))
     for name in CHARS:
